@@ -1,2 +1,6 @@
-package fitnus;public class Food {
+package fitnus;
+
+public class Food {
+    String name;
+    Integer calories;
 }

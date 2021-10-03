@@ -1,2 +1,5 @@
-package fitnus;public class Storage {
+package fitnus;
+
+public class Storage {
+
 }

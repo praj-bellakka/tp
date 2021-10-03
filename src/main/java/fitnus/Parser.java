@@ -1,2 +1,4 @@
-package fitnus;public class Parser {
+package fitnus;
+
+public class Parser {
 }
