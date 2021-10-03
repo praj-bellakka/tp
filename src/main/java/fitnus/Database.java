@@ -3,5 +3,5 @@ package fitnus;
 import java.util.ArrayList;
 
 public class Database {
-    ArrayList<Food> databaseFoods;
+    public static ArrayList<Food> databaseFoods;
 }

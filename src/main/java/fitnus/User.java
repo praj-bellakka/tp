@@ -3,8 +3,8 @@ package fitnus;
 import java.util.ArrayList;
 
 public class User {
-    ArrayList<TrackerEntry> trackerEntries;
-    Integer calorieGoal;
-    Integer caloriesRemaining;
-    String gender;
+    public ArrayList<TrackerEntry> trackerEntries;
+    public Integer calorieGoal;
+    public Integer caloriesRemaining;
+    public String gender;
 }
