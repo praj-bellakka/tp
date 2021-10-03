@@ -7,10 +7,10 @@ public class Food {
     /**
      * Constructor.
      *
-     * @param name Name of food.
+     * @param name     Name of food.
      * @param calories Calorie value of food.
      */
-    public Food (String name, Integer calories) {
+    public Food(String name, Integer calories) {
         this.name = name;
         this.calories = calories;
     }
@@ -23,6 +23,6 @@ public class Food {
      */
     @Override
     public String toString() {
-        return this.name + this.calories.toString();
+        return this.name + " " + this.calories.toString();
     }
 }
