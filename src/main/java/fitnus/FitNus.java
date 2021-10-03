@@ -1,6 +1,6 @@
 package fitnus;
 
-public class FitNUS {
+public class FitNus {
     public static void main(String[] args) {
 
     }
