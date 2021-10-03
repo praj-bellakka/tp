@@ -1,5 +1,5 @@
-package fitnus;
+package fitnus.parser;
 
 public class Parser {
-    
+
 }
