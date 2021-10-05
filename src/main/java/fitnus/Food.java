@@ -11,6 +11,7 @@ public class Food {
      * @param calories Calorie value of food.
      */
     public Food(String name, Integer calories) {
+
         this.name = name;
         this.calories = calories;
     }
