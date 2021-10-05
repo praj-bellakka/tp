@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class EntryDatabase {
     private ArrayList<Entry> entries;
 
-    public EntryDatabase () {
+    public EntryDatabase() {
         this.entries = new ArrayList<>();
     }
 
