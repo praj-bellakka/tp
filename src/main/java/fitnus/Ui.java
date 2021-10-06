@@ -19,7 +19,7 @@ public class Ui {
                                             + "[X] Set calorie goal: calorie set GOAL\n" 
                                             + "[X] View remaining calories for the day: calorie remain\n" 
                                             + "[X] Exit FitNUS: exit\n" 
-                                            "------------------ \n";
+                                            + "------------------ \n";
     
     public void printWelcomeMessage() {
         println(WELCOME_MESSAGE);
