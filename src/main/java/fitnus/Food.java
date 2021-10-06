@@ -15,6 +15,14 @@ public class Food {
         this.calories = calories;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public Integer getCalories() {
+        return this.calories;
+    }
+
     /**
      * Returns a String representation of the food object
      * including its name and calorie value.
@@ -24,9 +32,5 @@ public class Food {
     @Override
     public String toString() {
         return this.name + " " + this.calories;
-    }
-
-    public int getCalories() {
-        return calories;
     }
 }
