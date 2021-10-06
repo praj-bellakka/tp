@@ -3,8 +3,8 @@ package fitnus;
 import java.util.Date;
 
 public class TrackerEntry {
-    Food food;
-    Date date;
+    private Food food;
+    private Date date;
 
     public TrackerEntry(Food food, Date date) {
         this.food = food;
@@ -22,5 +22,9 @@ public class TrackerEntry {
     @Override
     public String toString() {
         return this.food + " " + this.date;
+    }
+
+    public Food getFood() {
+        return food;
     }
 }
