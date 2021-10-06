@@ -1,6 +1,8 @@
 package fitnus;
 
+
 import java.io.IOException;
+import fitnus.parser.Parser;
 import java.util.ArrayList;
 
 public class EntryDatabase {
@@ -40,6 +42,23 @@ public class EntryDatabase {
             addEntry(food);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("There is no such default food at this index!");
+        }
+    }
+
+    public void addFromString(FoodDatabase fd, String input) {
+        Parser p = new Parser();
+        if (input.contains("/def")) {
+            int index = p.parseIntegers(input);
+            addDefaultEntry(fd, index);
+        } else if (input.contains("/cal")) {
+            //TODO replace code with addCustomEntry @Siyuan
+            String foodName = p.parseFoodName(input);
+            int calories = p.parseIntegers(input);
+            Food customFood = new Food(foodName, calories);
+            addEntry(customFood);
+        } else {
+            //TODO include exception throw here instead of print
+            System.out.println("Wrong add format used!");
         }
     }
 }
