@@ -1,7 +1,7 @@
 package fitnus.parser;
 
 /**
- * Handles the extraction of user inputs into relevant components
+ * Handles the extraction of user inputs into relevant components.
  */
 public class Parser {
 
