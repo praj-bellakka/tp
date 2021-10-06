@@ -6,13 +6,20 @@ import java.util.Scanner;
 
 public class FitNus {
     public static void main(String[] args) {
+        User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
         FoodDatabase database = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
         Parser parser = new Parser();
+        Ui ui = new Ui();
         String userInput;
         Scanner in = new Scanner(System.in);
         boolean canExit = false;
         try {
+            // Welcome Message
+            ui.printWelcomeMessage();
+            ui.printHelpMessage();
+
+            // Load From Storage
             Storage.createDirectoryAndFiles();
             Storage.initialiseDatabase(database);
             database.listFoods();
