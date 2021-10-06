@@ -30,7 +30,7 @@ public class FitNus {
                 userInput = in.nextLine().trim();
                 String inputType = parser.parseInputType(userInput);
                 switch (inputType) {
-                    //TODO: Refactor strings to enum
+                //TODO: Refactor strings to enum
                 case "exit":
                     canExit = true;
                     break;
