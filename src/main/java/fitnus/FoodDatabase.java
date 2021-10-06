@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Database {
+public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";
 
