@@ -22,7 +22,7 @@ public class EntryDatabase {
 //        Storage.save("entry database", this.convertDatabaseToString());
 //    }
 
-    public String convertDatabaseToString() {
+    String convertDatabaseToString () {
         String content = "";
         for (Entry e : entries) {
             content += (e.convertToStringForStorage() + "\n");
