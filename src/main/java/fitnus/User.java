@@ -23,7 +23,7 @@ public class User {
         ArrayList<Entry> entries = entryDB.getEntries();
 
         int caloriesConsumed = 0;
-        for(Entry entry : entries) {
+        for (Entry entry : entries) {
             caloriesConsumed += entry.getFood().getCalories();
         }
         int caloriesRemaining = this.calorieGoal - caloriesConsumed;
