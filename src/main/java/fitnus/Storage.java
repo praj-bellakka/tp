@@ -33,12 +33,15 @@ public class Storage {
     }
 
     public static void saveDatabase(FoodDatabase database) throws IOException {
-        File file = new File(FILE_PATH_FOOD_DATA.toString());
+        String currentFoods = database.convertDatabaseToString();
+        saveData(FILE_PATH_FOOD_DATA.toString(), currentFoods);
+    }
+
+    public static void saveData(String filePath, String content) throws IOException {
+        File file = new File(filePath);
         FileWriter fw;
-        String currentFoods;
-        currentFoods = database.convertDatabaseToString();
         fw = new FileWriter(file);
-        fw.write(currentFoods);
+        fw.write(content);
         fw.close();
     }
 
