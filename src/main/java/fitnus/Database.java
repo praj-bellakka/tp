@@ -22,8 +22,7 @@ public class Database {
 
     public String convertDatabaseToString() {
         StringBuilder lines = new StringBuilder();
-        for (int i = 0; i < databaseFoods.size(); i++) {
-            Food food = databaseFoods.get(i);
+        for (Food food : databaseFoods) {
             String name = food.getName();
             Integer calories = food.getCalories();
             lines.append(name).append(DELIMITER).append(calories)
