@@ -17,5 +17,17 @@ public class EntryDatabase {
     public void deleteEntry(int index) {
         this.entries.remove(index);
     }
+
+//    public void store() {
+//        Storage.save("entry database", this.convertDatabaseToString());
+//    }
+
+    public String convertDatabaseToString() {
+        String content = "";
+        for (Entry e : entries) {
+            content += (e.convertToStringForStorage() + "\n");
+        }
+        return content;
+    }
 }
 

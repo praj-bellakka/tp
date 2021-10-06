@@ -26,4 +26,8 @@ public class Food {
     public String toString() {
         return this.name + " " + this.calories.toString();
     }
+
+    public String convertToStringForStorage() {
+        return String.format("%s | %s", this.name, this.calories);
+    }
 }
