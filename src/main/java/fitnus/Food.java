@@ -31,6 +31,6 @@ public class Food {
      */
     @Override
     public String toString() {
-        return this.name + " " + this.calories.toString();
+        return this.name + " (" + this.calories.toString() + " Kcal)";
     }
 }
