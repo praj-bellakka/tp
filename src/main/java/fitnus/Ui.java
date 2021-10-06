@@ -8,10 +8,10 @@ public class Ui {
                                                 + "Welcome to FitNUS Tracker!";
     public static final String HELP_MESSAGE = "------------------ \n" 
                                             + "Here are some commands that you can use!\n" 
-                                            + "------------------ \n" +
+                                            + "------------------ \n"
                                             + "[X] List out available commands: help\n" 
                                             + "[X] List foods in database: list food\n" 
-                                            + "[X] Add food entry from database: add /def INDEX_OF_FOOD" 
+                                            + "[X] Add food entry from database: add /def INDEX_OF_FOOD\n" 
                                             + "[X] Add custom food entry: add FOOD_NAME /cal CALORIES\n" 
                                             + "[X] Delete food entry: remove food INDEX_OF_FOOD\n" 
                                             + "[X] Set Gender: gender M/F (Select one)\n" 
