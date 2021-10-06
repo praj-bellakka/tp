@@ -1,6 +1,5 @@
 package fitnus;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EntryDatabase {
