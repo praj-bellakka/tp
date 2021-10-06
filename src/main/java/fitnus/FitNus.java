@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class FitNus {
     public static void main(String[] args) {
         User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
-        FoodDatabase database = new FoodDatabase();
+        FoodDatabase db = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
         Parser parser = new Parser();
         Ui ui = new Ui();
@@ -21,9 +21,9 @@ public class FitNus {
 
             // Load From Storage
             Storage.createDirectoryAndFiles();
-            Storage.initialiseDatabase(database);
-            database.listFoods();
-            Storage.saveDatabase(database);
+            Storage.initialiseDatabase(db);
+            db.listFoods();
+            Storage.saveDatabase(db);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -42,6 +42,7 @@ public class FitNus {
                     canExit = true;
                     break;
                 case "add":
+                    ed.addFromString(db, userInput);
                     break;
                 case "remove":
                     //TODO: add remove function
