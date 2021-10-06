@@ -2,7 +2,7 @@ package fitnus;
 
 public class FitNus {
     public static void main(String[] args) {
-        Database database = new Database();
+        FoodDatabase database = new FoodDatabase();
         try {
             Storage.createDirectoryAndFiles();
             Storage.initialiseDatabase(database);
