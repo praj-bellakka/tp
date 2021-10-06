@@ -17,6 +17,10 @@ public class EntryDatabase {
         this.entries.remove(index);
     }
 
+    public ArrayList<Entry> getEntries() {
+        return entries;
+    }
+
     public void addDefaultEntry(FoodDatabase fd, int index) {
         try {
             Food food = fd.getFoodAtIndex(index);
@@ -25,6 +29,5 @@ public class EntryDatabase {
             System.out.println("There is no such default food at this index!");
         }
     }
-
 }
 
