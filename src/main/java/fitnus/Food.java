@@ -2,7 +2,7 @@ package fitnus;
 
 public class Food {
     private final String name;
-    private final int calories;
+    private final Integer calories;
 
     /**
      * Constructor.
@@ -31,6 +31,6 @@ public class Food {
      */
     @Override
     public String toString() {
-        return this.name + " " + this.calories;
+        return this.name + " (" + this.calories.toString() + " Kcal)";
     }
 }

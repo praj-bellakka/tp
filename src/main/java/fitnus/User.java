@@ -14,6 +14,10 @@ public class User {
         this.gender = (gender == 0) ? MALE : FEMALE;
     }
 
+    public void setCalorieGoal(int newGoal) {
+        this.calorieGoal = newGoal;
+    }
+
     public void showCaloriesRemaining(EntryDatabase entryDB, int index) {
         Ui ui = new Ui();
         ArrayList<Entry> entries = entryDB.getEntries();

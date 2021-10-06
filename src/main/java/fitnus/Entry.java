@@ -1,6 +1,7 @@
 package fitnus;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Entry {
     Food food;
@@ -17,5 +18,12 @@ public class Entry {
 
     LocalDate getDate() {
         return this.date;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String date = this.date.format(formatter);
+        return "[" + date + "] " + food.toString();
     }
 }
