@@ -14,6 +14,10 @@ public class FoodDatabase {
         databaseFoods.add(food);
     }
 
+    public void addFood(Food food) {
+        databaseFoods.add(food);
+    }
+
     // Index here starts from 1
     public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
         return databaseFoods.get(index - 1);
