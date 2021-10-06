@@ -18,7 +18,7 @@ public class User {
         this.calorieGoal = newGoal;
     }
 
-    public void showCaloriesRemaining(EntryDatabase entryDB, int index) {
+    public void showCaloriesRemaining(EntryDatabase entryDB) {
         Ui ui = new Ui();
         ArrayList<Entry> entries = entryDB.getEntries();
 
