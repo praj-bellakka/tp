@@ -10,7 +10,7 @@ public class User {
 
     public User(int gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
-        this.gender = (gender == 0)? MALE: FEMALE;
+        this.gender = (gender == 0) ? MALE : FEMALE;
     }
 
 
