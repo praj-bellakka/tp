@@ -1,5 +1,6 @@
 package fitnus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EntryDatabase {
@@ -17,11 +18,11 @@ public class EntryDatabase {
         this.entries.remove(index);
     }
 
-//    public void store() {
-//        Storage.save("entry database", this.convertDatabaseToString());
-//    }
+    public void store() throws IOException {
+        Storage.saveData("entry database.txt", this.convertDatabaseToString());
+    }
 
-    String convertDatabaseToString () {
+    String convertDatabaseToString() {
         String content = "";
         for (Entry e : entries) {
             content += (e.convertToStringForStorage() + "\n");
