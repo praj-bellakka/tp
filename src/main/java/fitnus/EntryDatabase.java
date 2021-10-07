@@ -24,6 +24,15 @@ public class EntryDatabase {
         Storage.saveData("entry database.txt", this.convertDatabaseToString());
     }
 
+    public int getTotalCalorie() {
+        int caloriesConsumed = 0;
+        for (Entry e : entries) {
+            caloriesConsumed += e.getFood().getCalories();
+        }
+        return caloriesConsumed;
+    }
+
+
     String convertDatabaseToString() {
         String content = "";
         for (Entry e : entries) {
