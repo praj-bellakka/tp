@@ -1,7 +1,8 @@
 package fitnus;
 
-import fitnus.parser.Parser;
 
+import java.io.IOException;
+import fitnus.parser.Parser;
 import java.util.ArrayList;
 
 public class EntryDatabase {
@@ -19,6 +20,18 @@ public class EntryDatabase {
         this.entries.remove(index);
     }
 
+    public void store() throws IOException {
+        Storage.saveData("entry database.txt", this.convertDatabaseToString());
+    }
+
+    String convertDatabaseToString() {
+        String content = "";
+        for (Entry e : entries) {
+            content += (e.convertToStringForStorage() + "\n");
+        }
+        return content;
+    }
+    
     public ArrayList<Entry> getEntries() {
         return entries;
     }
@@ -38,11 +51,11 @@ public class EntryDatabase {
             int index = p.parseIntegers(input);
             addDefaultEntry(fd, index);
         } else if (input.contains("/cal")) {
-            //TODO replace code with addCustomEntry @Siyuan
             String foodName = p.parseFoodName(input);
             int calories = p.parseIntegers(input);
             Food customFood = new Food(foodName, calories);
             addEntry(customFood);
+            fd.addFood(customFood);
         } else {
             //TODO include exception throw here instead of print
             System.out.println("Wrong add format used!");
