@@ -14,15 +14,21 @@ public class FoodDatabase {
         databaseFoods.add(food);
     }
 
+    public void addFood(Food food) {
+        databaseFoods.add(food);
+    }
+
     // Index here starts from 1
     public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
         return databaseFoods.get(index - 1);
     }
 
-    public void listFoods() {
+    public String listFoods() {
+        String result = "";
         for (int i = 1; i <= databaseFoods.size(); i++) {
-            System.out.println(" " + i + "." + databaseFoods.get(i - 1));
+            result += String.format(" %d.%s", i, databaseFoods.get(i - 1));
         }
+        return result;
     }
 
     public String convertDatabaseToString() {

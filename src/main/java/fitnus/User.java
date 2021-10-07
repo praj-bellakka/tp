@@ -18,15 +18,8 @@ public class User {
         this.calorieGoal = newGoal;
     }
 
-    public void showCaloriesRemaining(EntryDatabase entryDB) {
-        Ui ui = new Ui();
-        ArrayList<Entry> entries = entryDB.getEntries();
-
-        int caloriesConsumed = 0;
-        for (Entry entry : entries) {
-            caloriesConsumed += entry.getFood().getCalories();
-        }
-        int caloriesRemaining = this.calorieGoal - caloriesConsumed;
-        ui.println("Calories remaining: " + caloriesRemaining);
+    public int showCaloriesRemaining(EntryDatabase entryDB) {
+        int caloriesConsumed = entryDB.getTotalCalorie();
+        return this.calorieGoal - caloriesConsumed;
     }
 }
