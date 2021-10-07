@@ -2,10 +2,11 @@ package fitnus.command;
 
 import fitnus.FoodDatabase;
 
-public class ListFoodDatabaseCommand extends Command{
+public class ListFoodDatabaseCommand extends Command {
 
     private FoodDatabase foodDatabase;
-    public ListFoodDatabaseCommand (FoodDatabase foodDatabase) {
+
+    public ListFoodDatabaseCommand(FoodDatabase foodDatabase) {
         this.foodDatabase = foodDatabase;
     }
 

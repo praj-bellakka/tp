@@ -2,7 +2,7 @@ package fitnus.command;
 
 import fitnus.User;
 
-public class SetCalorieGoalCommand extends Command{
+public class SetCalorieGoalCommand extends Command {
     private int calorieGoal;
     private User user;
 

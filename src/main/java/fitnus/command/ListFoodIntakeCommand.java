@@ -1,6 +1,6 @@
 package fitnus.command;
 
-public class ListFoodIntakeCommand extends Command{
+public class ListFoodIntakeCommand extends Command {
 
 
     @Override

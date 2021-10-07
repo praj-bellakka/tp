@@ -3,7 +3,7 @@ package fitnus.command;
 import fitnus.EntryDatabase;
 import fitnus.User;
 
-public class ViewRemainingCalorieCommand extends Command{
+public class ViewRemainingCalorieCommand extends Command {
     private User user;
     private EntryDatabase edb;
 

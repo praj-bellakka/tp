@@ -1,6 +1,6 @@
 package fitnus.command;
 
-public class AddCustomFoodEntryCommand extends Command{
+public class AddCustomFoodEntryCommand extends Command {
 
     @Override
     public String execute() {
