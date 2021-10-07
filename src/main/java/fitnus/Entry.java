@@ -25,8 +25,6 @@ public class Entry {
         return String.format("%s | %s", this.food.convertToStringForStorage(), this.date.toString());
     }
 
-
-
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
