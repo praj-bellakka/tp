@@ -11,6 +11,7 @@ public class AddDefaultFoodEntryCommand extends Command {
     public AddDefaultFoodEntryCommand(int index) {
         this.index = index - 1;
     }
+
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         ed.addDefaultEntry(fd, index);
