@@ -45,7 +45,6 @@ public class FitNus {
                     ui.println(new ExitCommand().execute());
                     break;
                 case "add":
-                    ed.addFromString(db, userInput);
                     break;
                 case "remove":
                     //TODO: add remove function
