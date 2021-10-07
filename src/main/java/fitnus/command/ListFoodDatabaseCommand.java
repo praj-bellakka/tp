@@ -1,6 +1,8 @@
 package fitnus.command;
 
+import fitnus.EntryDatabase;
 import fitnus.FoodDatabase;
+import fitnus.User;
 
 public class ListFoodDatabaseCommand extends Command {
 
@@ -11,7 +13,7 @@ public class ListFoodDatabaseCommand extends Command {
     }
 
     @Override
-    public String execute() {
+    public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         return foodDatabase.listFoods();
     }
 }
