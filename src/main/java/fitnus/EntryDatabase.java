@@ -32,8 +32,7 @@ public class EntryDatabase {
         return caloriesConsumed;
     }
 
-
-    String convertDatabaseToString() {
+    public String convertDatabaseToString() {
         String content = "";
         for (Entry e : entries) {
             content += (e.convertToStringForStorage() + "\n");
