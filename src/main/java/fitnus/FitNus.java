@@ -1,5 +1,7 @@
 package fitnus;
 
+import fitnus.command.ExitCommand;
+import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.parser.Parser;
 
 import java.util.Scanner;
@@ -40,6 +42,7 @@ public class FitNus {
                 //TODO: Refactor strings to enum
                 case "exit":
                     canExit = true;
+                    ui.println(new ExitCommand().execute());
                     break;
                 case "add":
                     ed.addFromString(db, userInput);
@@ -48,7 +51,7 @@ public class FitNus {
                     //TODO: add remove function
                     break;
                 case "list":
-                    //TODO: add list function
+                    ui.println(new ListFoodDatabaseCommand(db).execute());
                     break;
                 case "calorie":
                     //TODO: add calorie function
