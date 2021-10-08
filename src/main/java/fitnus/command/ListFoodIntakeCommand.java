@@ -16,9 +16,10 @@ public class ListFoodIntakeCommand extends Command {
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         Ui ui = new Ui();
 
-        if(timeSpan.equals("/day")) {
+        if (timeSpan.equals("/day")) {
             String entries = ed.convertDatabaseToString();
             ui.println(entries);
+            return entries;
         }
         return null;
     }

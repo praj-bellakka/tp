@@ -42,7 +42,7 @@ public class FitNus {
                 //TODO: Refactor strings to enum
                 case "exit":
                     canExit = true;
-                    ui.println(new ExitCommand().execute());
+                    ui.println(new ExitCommand().execute(ed, db, user));
                     break;
                 case "add":
                     ed.addFromString(db, userInput);
@@ -51,7 +51,7 @@ public class FitNus {
                     //TODO: add remove function
                     break;
                 case "list":
-                    ui.println(new ListFoodDatabaseCommand(db).execute());
+                    ui.println(new ListFoodDatabaseCommand(db).execute(ed, db, user));
                     break;
                 case "calorie":
                     //TODO: add calorie function
