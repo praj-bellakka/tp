@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class FitNus {
     public static void main(String[] args) {
         User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
-        FoodDatabase db = new FoodDatabase();
+        FoodDatabase fd = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
         Parser parser = new Parser();
         Ui ui = new Ui();
@@ -23,9 +23,9 @@ public class FitNus {
 
             // Load From Storage
             Storage.createDirectoryAndFiles();
-            Storage.initialiseDatabase(db);
-            db.listFoods();
-            Storage.saveDatabase(db);
+            Storage.initialiseDatabase(fd);
+            fd.listFoods();
+            Storage.saveDatabase(fd);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -42,16 +42,15 @@ public class FitNus {
                 //TODO: Refactor strings to enum
                 case "exit":
                     canExit = true;
-                    ui.println(new ExitCommand().execute(ed, db, user));
+                    ui.println(new ExitCommand().execute(ed, fd, user));
                     break;
                 case "add":
-                    ed.addFromString(db, userInput);
                     break;
                 case "remove":
                     //TODO: add remove function
                     break;
                 case "list":
-                    ui.println(new ListFoodDatabaseCommand(db).execute(ed, db, user));
+                    ui.println(new ListFoodDatabaseCommand(fd).execute(ed, fd, user));
                     break;
                 case "calorie":
                     //TODO: add calorie function
