@@ -46,7 +46,7 @@ public class Parser {
             int cal = parseIntegers(input);
             return new AddCustomFoodEntryCommand(foodName, cal);
         case "listdatabase":
-            return new ListFoodDatabaseCommand(null);
+            return new ListFoodDatabaseCommand();
         case "listintake":
             String timeSpan = parseTimeSpan(input);
             return new ListFoodIntakeCommand(timeSpan);
@@ -66,7 +66,8 @@ public class Parser {
         }
     }
 
-    /** Returns a string of the input type.
+    /**
+     * Returns a string of the input type.
      * Parser will assume the first word of the input is the type, and uses space as the end character.
      *
      * @param input user input.

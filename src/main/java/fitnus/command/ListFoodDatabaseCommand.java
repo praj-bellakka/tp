@@ -5,15 +5,11 @@ import fitnus.FoodDatabase;
 import fitnus.User;
 
 public class ListFoodDatabaseCommand extends Command {
-
-    private FoodDatabase foodDatabase;
-
-    public ListFoodDatabaseCommand(FoodDatabase foodDatabase) {
-        this.foodDatabase = foodDatabase;
+    public ListFoodDatabaseCommand() {
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
-        return foodDatabase.listFoods();
+        return fd.listFoods();
     }
 }
