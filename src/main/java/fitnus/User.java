@@ -23,6 +23,10 @@ public class User {
         this.calorieGoal = newGoal;
     }
 
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
     public int showCaloriesRemaining(EntryDatabase entryDB) {
         int caloriesConsumed = entryDB.getTotalCalorie();
         return this.calorieGoal - caloriesConsumed;

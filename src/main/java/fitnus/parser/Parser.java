@@ -34,8 +34,8 @@ public class Parser {
     public static final String COMMAND_REMOVE = "remove";
     public static final String COMMAND_GENDER = "gender";
 
-    public Command parseCommandType(String input) throws FitNusException {
 
+    public Command parseCommandType(String input) throws FitNusException {
         String commandType = parseInputType(input);
         switch (commandType) {
         case "adddefault":
@@ -50,7 +50,8 @@ public class Parser {
         case "listintake":
             return new ListFoodIntakeCommand(null);
         case "genderset":
-            return new SetGenderCommand();
+            String genderSymbol = parseGenderSymbol(input);
+            return new SetGenderCommand(genderSymbol);
         case "remove":
             int index = parseIntegers(input);
             return new DeleteFoodEntryCommand(index);
@@ -110,6 +111,22 @@ public class Parser {
             String foodName = input.substring(input.indexOf(DESCRIPTOR_CUSTOM) + DESCRIPTOR_CUSTOM.length(),
                     input.indexOf(PIPE_CHARACTER)).strip();
             return foodName;
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Returns a string containing the gender symbol.
+     *
+     * @param input Input containing the gender symbol.
+     * @return String of gender symbol (M or F).
+     */
+    public String parseGenderSymbol(String input) {
+        try {
+            String genderSymbol = input.substring(input.indexOf(DESCRIPTOR_SET) + DESCRIPTOR_SET.length()).strip();
+            return genderSymbol;
         } catch (StringIndexOutOfBoundsException e) {
             e.printStackTrace();
         }

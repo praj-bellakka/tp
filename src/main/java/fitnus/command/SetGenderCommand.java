@@ -5,10 +5,15 @@ import fitnus.FoodDatabase;
 import fitnus.User;
 
 public class SetGenderCommand extends Command {
+    String genderSymbol;
 
-    @Override
+    public SetGenderCommand(String genderSymbol) {
+        this.genderSymbol = genderSymbol;
+    }
+
+    @Override 
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
-        //TODO: to be implemented here later
-        return null;
+        us.setGender(genderSymbol.equals("M") ? 0 : 1);
+        return "You have set your gender to " + (genderSymbol.equals("M") ? "Male" : "Female");
     }
 }
