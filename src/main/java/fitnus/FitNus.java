@@ -39,6 +39,8 @@ public class FitNus {
             try {
                 userInput = in.nextLine().trim();
                 Command inputType = parser.parseCommandType(userInput);
+                String message = inputType.execute(ed, fd, user);
+                ui.println(message);
             } catch (NullPointerException e) {
                 System.out.println("Wrong format");
                 e.printStackTrace();

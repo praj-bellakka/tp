@@ -34,7 +34,6 @@ public class Parser {
     public static final String COMMAND_GENDER = "gender";
 
     public Command parseCommandType(String input) {
-
         String commandType = parseInputType(input);
         switch (commandType) {
         case "adddefault":
