@@ -47,7 +47,7 @@ public class Parser {
         case "listdatabase":
             return new ListFoodDatabaseCommand(null);
         case "listintake":
-            return new ListFoodIntakeCommand();
+            return new ListFoodIntakeCommand(null);
         case "genderset":
             return new SetGenderCommand();
         case "remove":
