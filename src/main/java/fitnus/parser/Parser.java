@@ -1,5 +1,9 @@
 package fitnus.parser;
 
+import fitnus.command.AddCustomFoodEntryCommand;
+import fitnus.command.AddDefaultFoodEntryCommand;
+import fitnus.command.Command;
+
 /**
  * Handles the extraction of user inputs into relevant components.
  */
@@ -10,7 +14,27 @@ public class Parser {
     public static final String CALORIE_KEYWORD = "/cal";
     public static final String DEFAULT_KEYWORD = "/def";
     public static final String DAY_KEYWORD = "/day";
+    public static final String ADD_KEYWORD = "add";
+    public static final String LIST_KEYWORD = "list";
+    public static final String INTAKE_KEYWORD = "intake";
+//    public static final String DAY_KEYWORD = "/day";
 
+    public Command parseCommandType(String input) {
+
+        String commandType = parseInputType(input);
+        switch (commandType) {
+        case "adddefault":
+            int index = parseIntegers(input);
+            return new AddDefaultFoodEntryCommand(index);
+        case "addcustom":
+            String foodName = parseFoodName(input);
+            int cal = parseIntegers(input);
+            return new AddCustomFoodEntryCommand(foodName, cal);
+        }
+
+        return null;
+
+    }
 
     /** Returns a string of the input type.
      * Parser will assume the first word of the input is the type, and uses space as the end character.
@@ -23,6 +47,17 @@ public class Parser {
         try {
             String cleanedString = input.toLowerCase().trim(); //removes whitespace and converts to lower case
             inputType = cleanedString.substring(0, input.indexOf(SPACE_CHARACTER));
+
+            //checks for special command within same input type
+            if (inputType.equals(ADD_KEYWORD) && input.contains(CALORIE_KEYWORD)) { //add custom food
+                return inputType.concat("custom");
+            } else if (inputType.equals(ADD_KEYWORD) && input.contains(DEFAULT_KEYWORD)) { //add default food
+                return inputType.concat("default");
+            } else if (inputType.equals(LIST_KEYWORD) && input.contains(DAY_KEYWORD)) { //list food database
+                return inputType.concat("database");
+            } else if (inputType.equals(LIST_KEYWORD) && input.contains(INTAKE_KEYWORD)) { //list food intake
+                return inputType.concat("intake");
+            }
             return inputType;
         } catch (StringIndexOutOfBoundsException e) {
             e.printStackTrace();
