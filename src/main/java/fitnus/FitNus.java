@@ -39,33 +39,6 @@ public class FitNus {
             try {
                 userInput = in.nextLine().trim();
                 Command inputType = parser.parseCommandType(userInput);
-//                switch (inputType) {
-//                //TODO: Refactor strings to enum
-//                case "exit":
-//                    canExit = true;
-//                    ui.println(new ExitCommand().execute(ed, fd, user));
-//                    break;
-//                case "add":
-//                    break;
-//                case "remove":
-//                    //TODO: add remove function
-//                    break;
-//                case "list":
-//                    ui.println(new ListFoodDatabaseCommand(fd).execute(ed, fd, user));
-//                    break;
-//                case "calorie":
-//                    //TODO: add calorie function
-//                    break;
-//                case "gender":
-//                    //TODO: add gender function
-//                    break;
-//                case "help":
-//                    //TODO: add help function
-//                    break;
-//                default:
-//                    System.out.println("couldnt find function");
-//                    break;
-//                }
             } catch (NullPointerException e) {
                 System.out.println("Wrong format");
                 e.printStackTrace();
