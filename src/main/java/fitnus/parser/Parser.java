@@ -58,9 +58,9 @@ public class Parser {
             return new DeleteFoodEntryCommand(index);
         case "calorieset":
             int calories = parseIntegers(input);
-            return new SetCalorieGoalCommand(calories, null);
+            return new SetCalorieGoalCommand(calories);
         case "calorieremain":
-            return new ViewRemainingCalorieCommand(null, null);
+            return new ViewRemainingCalorieCommand();
         default:
             throw new FitNusException("No such command found! Please try again!");
         }
