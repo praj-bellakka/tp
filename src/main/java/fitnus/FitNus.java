@@ -28,7 +28,7 @@ public class FitNus {
             fd.listFoods();
             Storage.saveDatabase(fd);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            ui.println(e.getMessage());
         }
 
 
@@ -44,6 +44,8 @@ public class FitNus {
             } catch (NullPointerException e) {
                 System.out.println("Wrong format");
                 e.printStackTrace();
+            } catch (FitNusException e) {
+                ui.println(e.getMessage());
             }
         }
     }
