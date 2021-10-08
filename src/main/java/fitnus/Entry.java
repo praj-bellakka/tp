@@ -7,17 +7,22 @@ public class Entry {
     Food food;
     LocalDate date;
 
-    Entry(Food food) {
+    public Entry(Food food) {
         this.food = food;
         this.date = LocalDate.now();
     }
 
-    Food getFood() {
+    public Food getFood() {
         return this.food;
     }
 
-    LocalDate getDate() {
+    public LocalDate getDate() {
         return this.date;
+    }
+
+
+    public String convertToStringForStorage() {
+        return String.format("%s | %s", this.food.convertToStringForStorage(), this.date.toString());
     }
 
     @Override
@@ -26,4 +31,5 @@ public class Entry {
         String date = this.date.format(formatter);
         return "[" + date + "] " + food.toString();
     }
+
 }

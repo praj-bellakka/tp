@@ -8,9 +8,13 @@ public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";
 
-
+    // TODO Add exception for if name/calories blank?
     public void addFood(String name, Integer calories) {
         Food food = new Food(name, calories);
+        databaseFoods.add(food);
+    }
+
+    public void addFood(Food food) {
         databaseFoods.add(food);
     }
 
@@ -19,10 +23,13 @@ public class FoodDatabase {
         return databaseFoods.get(index - 1);
     }
 
-    public void listFoods() {
+    public String listFoods() {
+        String result = "";
         for (int i = 1; i <= databaseFoods.size(); i++) {
-            System.out.println(" " + i + "." + databaseFoods.get(i - 1));
+            result += String.format(" %d.%s", i, databaseFoods.get(i - 1)
+            + System.lineSeparator());
         }
+        return result;
     }
 
     public String convertDatabaseToString() {
