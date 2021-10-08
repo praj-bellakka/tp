@@ -1,6 +1,7 @@
 package fitnus.command;
 
 import fitnus.EntryDatabase;
+import fitnus.FitNusException;
 import fitnus.FoodDatabase;
 import fitnus.User;
 
