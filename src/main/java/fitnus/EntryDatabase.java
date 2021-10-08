@@ -16,7 +16,7 @@ public class EntryDatabase {
         this.entries.add(new Entry(food));
     }
 
-    public void deleteEntry(int index) throws FitNusException{
+    public void deleteEntry(int index) throws FitNusException {
         try {
             this.entries.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
@@ -48,7 +48,7 @@ public class EntryDatabase {
         return entries;
     }
 
-    public void addDefaultEntry(FoodDatabase fd, int index) throws FitNusException{
+    public void addDefaultEntry(FoodDatabase fd, int index) throws FitNusException {
         try {
             Food food = fd.getFoodAtIndex(index);
             addEntry(food);
@@ -57,7 +57,7 @@ public class EntryDatabase {
         }
     }
 
-    public Entry getEntryAtIndex(int index) throws IndexOutOfBoundsException{
+    public Entry getEntryAtIndex(int index) throws IndexOutOfBoundsException {
         return entries.get(index - 1);
     }
 }
