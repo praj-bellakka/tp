@@ -1,5 +1,6 @@
 package fitnus.parser;
 
+import fitnus.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
@@ -33,7 +34,7 @@ public class Parser {
     public static final String COMMAND_REMOVE = "remove";
     public static final String COMMAND_GENDER = "gender";
 
-    public Command parseCommandType(String input) {
+    public Command parseCommandType(String input) throws FitNusException {
 
         String commandType = parseInputType(input);
         switch (commandType) {
@@ -59,10 +60,8 @@ public class Parser {
         case "calorieremain":
             return new ViewRemainingCalorieCommand(null, null);
         default:
-            System.out.println("wrong input");
+            throw new FitNusException("No such command found! Please try again!");
         }
-        return null;
-
     }
 
     /** Returns a string of the input type.
