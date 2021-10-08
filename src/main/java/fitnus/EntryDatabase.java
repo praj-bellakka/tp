@@ -16,8 +16,12 @@ public class EntryDatabase {
         this.entries.add(new Entry(food));
     }
 
-    public void deleteEntry(int index) {
-        this.entries.remove(index);
+    public void deleteEntry(int index) throws FitNusException{
+        try {
+            this.entries.remove(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
     }
 
     public void store() throws IOException {
@@ -44,17 +48,17 @@ public class EntryDatabase {
         return entries;
     }
 
-    public void addDefaultEntry(FoodDatabase fd, int index) {
+    public void addDefaultEntry(FoodDatabase fd, int index) throws FitNusException{
         try {
             Food food = fd.getFoodAtIndex(index);
             addEntry(food);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("There is no such default food at this index!");
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
         }
     }
 
-    public Entry getEntryAtIndex(int index) {
-        return entries.get(index);
+    public Entry getEntryAtIndex(int index) throws IndexOutOfBoundsException{
+        return entries.get(index - 1);
     }
 }
 
