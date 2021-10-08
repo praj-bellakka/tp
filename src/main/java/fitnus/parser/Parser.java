@@ -48,7 +48,8 @@ public class Parser {
         case "listdatabase":
             return new ListFoodDatabaseCommand(null);
         case "listintake":
-            return new ListFoodIntakeCommand(null);
+            String timeSpan = parseTimeSpan(input);
+            return new ListFoodIntakeCommand(timeSpan);
         case "genderset":
             String genderSymbol = parseGenderSymbol(input);
             return new SetGenderCommand(genderSymbol);
@@ -134,6 +135,22 @@ public class Parser {
     }
 
     /**
+     * Returns a string containing the time span descriptor.
+     *
+     * @param input Input containing the time span descriptor.
+     * @return String of time span descriptor.
+     */
+    public String parseTimeSpan(String input) {
+        try {
+            String timeSpan = input.substring(input.indexOf(DESCRIPTOR_INTAKE) + DESCRIPTOR_INTAKE.length()).strip();
+            return timeSpan;
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * Returns an integer value based on keyword specified in input.
      * Function works for the keywords "/cal", "/def" and "/day".
      * Throws NumberFormatException if an integer cannot be detected after the keyword.
@@ -158,5 +175,6 @@ public class Parser {
         }
         return -1;
     }
+
 
 }
