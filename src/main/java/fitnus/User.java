@@ -14,6 +14,10 @@ public class User {
         this.gender = (gender == 0) ? MALE : FEMALE;
     }
 
+    public int getCalorieGoal() {
+        return calorieGoal;
+    }
+
     public void setCalorieGoal(int newGoal) throws FitNusException {
         if (newGoal < 0) {
             throw new FitNusException("Calorie Goal cannot be negative! Please try again!");
@@ -23,8 +27,14 @@ public class User {
         this.calorieGoal = newGoal;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
     public void setGender(int gender) {
-        this.gender = gender;
+        if (gender == MALE || gender == FEMALE) {
+            this.gender = gender;
+        }
     }
 
     public int showCaloriesRemaining(EntryDatabase entryDB) {
