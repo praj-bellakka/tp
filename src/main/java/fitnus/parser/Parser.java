@@ -85,8 +85,9 @@ public class Parser {
             return new ListFoodIntakeCommand(splitInput[2]);
         case DESCRIPTOR_FOOD:
             return new ListFoodDatabaseCommand();
+        default:
+            return new InvalidCommand();
         }
-        return new InvalidCommand();
     }
 
     private Command parseAddTypeCommand(String input) {
@@ -103,13 +104,15 @@ public class Parser {
     }
 
     private Command parseCalorieTypeCommand(String[] splitInput) {
-        switch(splitInput[1]) {
+        switch (splitInput[1]) {
         case DESCRIPTOR_SET:
             return new SetCalorieGoalCommand(Integer.parseInt(splitInput[2]));
         case DESCRIPTOR_REMAIN:
             return new ViewRemainingCalorieCommand();
+        default:
+            return new InvalidCommand();
         }
-        return new InvalidCommand();
+
     }
 
     private Command parseGenderTypeCommand(String[] splitInput) {

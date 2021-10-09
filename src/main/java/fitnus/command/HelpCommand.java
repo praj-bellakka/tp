@@ -5,13 +5,13 @@ import fitnus.FitNusException;
 import fitnus.FoodDatabase;
 import fitnus.User;
 
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
     public HelpCommand() {
         super();
     }
 
     @Override
-    public String execute (EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         return "------------------ \n"
                 + "Here are some commands that you can use!\n"
                 + "------------------ \n"

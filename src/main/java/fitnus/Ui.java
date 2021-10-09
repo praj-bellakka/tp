@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Ui {
     private Scanner sc = new Scanner(System.in);
-    public Ui() {
-    }
 
     public static final String WELCOME_MESSAGE = "------------------ \n"
             + "Welcome to FitNUS Tracker!";
