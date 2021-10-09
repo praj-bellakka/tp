@@ -2,8 +2,10 @@ package fitnus;
 
 import fitnus.command.Command;
 import fitnus.parser.Parser;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
+import org.opentest4j.MultipleFailuresError;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,34 +16,32 @@ public class ParserTest {
 
     @Test
     void parseInputType_correctInput_parsedCorrectly() {
-        String addCustomInputType = parser.parseInputType("add /cust food1 | 21");
-        String addDefaultInputType = parser.parseInputType("add /def 10");
-        String listFoodInputType = parser.parseInputType("list /food");
-        String listFoodIntakeInputType = parser.parseInputType("list /intake /DAY");
-        String setGenderInputType = parser.parseInputType("gender /set M/F");
-        String deleteFoodInputType = parser.parseInputType("remove /food 2");
-        String setCalorieInputType = parser.parseInputType("calorie /set GOAL");
-        String remainingCalorieInputType = parser.parseInputType("calorie /remain");
+        assertEquals("addcustom", parser.parseInputType("add /cust food1 | 21"));
+        assertEquals("adddefault", parser.parseInputType("add /def 10"));
+        assertEquals("listdatabase", parser.parseInputType("list /food"));
+        assertEquals("listintake", parser.parseInputType("list /intake /DAY"));
+        assertEquals("genderset", parser.parseInputType("gender /set M/F"));
+        assertEquals("remove", parser.parseInputType("remove /food 2"));
+        assertEquals("calorieset", parser.parseInputType("calorie /set GOAL"));
+        assertEquals("calorieremain", parser.parseInputType("calorie /remain"));
 
-        assertEquals("addcustom", addCustomInputType);
-        assertEquals("adddefault", addDefaultInputType);
-        assertEquals("listdatabase", listFoodInputType);
-        assertEquals("listintake", listFoodIntakeInputType);
-        assertEquals("genderset", setGenderInputType);
-        assertEquals("remove", deleteFoodInputType);
-        assertEquals("calorieset", setCalorieInputType);
-        assertEquals("calorieremain", remainingCalorieInputType);
-
-
-        //parser.parseInputType()
     }
 
     @Test
     void parseInputType_wrongInput_ExceptionThrown() {
         try {
-            assertEquals("addcustom", parser.parseInputType("add food1 | 21"));
-        } catch (AssertionFailedError e) {
-            System.out.println("/cust not detected");
+            Assertions.assertAll(
+                () -> assertEquals("addcustom", parser.parseInputType("add food1 | 21")),
+                () -> assertEquals("adddefault", parser.parseInputType("add food1 | 21")),
+                () -> assertEquals("listdatabase", parser.parseInputType("list /intake /DAY")),
+                () -> assertEquals("listintake", parser.parseInputType("list /food")),
+                () -> assertEquals("genderset", parser.parseInputType("genderr /set M/F")),
+                () -> assertEquals("remove", parser.parseInputType("remove/food 2")),
+                () -> assertEquals("calorieset", parser.parseInputType("calorie/set GOAL")),
+                () -> assertEquals("calorieremain", parser.parseInputType("calories /remain"))
+            );
+        } catch (MultipleFailuresError e) {
+            System.out.println("Input does not match format");
             e.printStackTrace();
         }
     }
