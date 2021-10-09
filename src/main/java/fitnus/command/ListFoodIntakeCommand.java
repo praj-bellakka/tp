@@ -6,7 +6,7 @@ import fitnus.Ui;
 import fitnus.User;
 
 public class ListFoodIntakeCommand extends Command {
-    private String timeSpan;
+    private final String timeSpan;
 
     public static final String DESCRIPTOR_DAY = "/day";
 
