@@ -32,6 +32,14 @@ public class Storage {
         reader.close();
     }
 
+    public static void initialiseEntryDatabase(EntryDatabase database) throws IOException {
+        FileInputStream stream;
+        stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        database.preLoadDatabase(reader);
+        reader.close();
+    }
+
     public static void saveFoodDatabase(FoodDatabase database) throws IOException {
         String currentFoods = database.convertDatabaseToString();
         saveData(FILE_PATH_FOOD_DATA.toString(), currentFoods);

@@ -23,8 +23,13 @@ public class FitNus {
             // Load From Storage
             Storage.createDirectoryAndFiles();
             Storage.initialiseFoodDatabase(fd);
-            fd.listFoods();
+            Storage.initialiseEntryDatabase(ed);
+            ui.println("Food database:" + System.lineSeparator()
+                    + fd.listFoods());
+            ui.println("Entry database:" + System.lineSeparator()
+                    + ed.listEntries());
             Storage.saveFoodDatabase(fd);
+            Storage.saveEntryDatabase(ed);
         } catch (Exception e) {
             ui.println(e.getMessage());
         }
