@@ -11,7 +11,7 @@ public class SetGenderCommand extends Command {
         this.genderSymbol = genderSymbol;
     }
 
-    @Override 
+    @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         us.setGender(genderSymbol.equals("M") ? 0 : 1);
         return "You have set your gender to " + (genderSymbol.equals("M") ? "Male" : "Female");

@@ -3,13 +3,14 @@ package fitnus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
 import fitnus.parser.Parser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class EntryDatabase {
-    private ArrayList<Entry> entries;
+    private final ArrayList<Entry> entries;
 
     public EntryDatabase() {
         this.entries = new ArrayList<>();
@@ -67,7 +68,7 @@ public class EntryDatabase {
         }
         System.out.println("Successfully preloaded " + preloadEntryCount + " entries");
     }
-    
+
     public ArrayList<Entry> getEntries() {
         return entries;
     }

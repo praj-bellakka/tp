@@ -6,7 +6,7 @@ import fitnus.FoodDatabase;
 import fitnus.User;
 
 public class SetCalorieGoalCommand extends Command {
-    private int calorieGoal;
+    private final int calorieGoal;
 
     public SetCalorieGoalCommand(int calorieGoal) {
         this.calorieGoal = calorieGoal;

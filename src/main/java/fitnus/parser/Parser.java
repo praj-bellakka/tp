@@ -187,6 +187,7 @@ public class Parser {
         try {
             date = LocalDate.parse(description);
         } catch (DateTimeParseException ignore) {
+            return null;
         }
         return date;
     }
@@ -196,6 +197,7 @@ public class Parser {
         try {
             time = LocalTime.parse(description);
         } catch (DateTimeParseException ignore) {
+            return null;
         }
         return time;
     }

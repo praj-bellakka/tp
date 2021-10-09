@@ -27,7 +27,7 @@ public class FoodDatabase {
         String result = "";
         for (int i = 1; i <= databaseFoods.size(); i++) {
             result += String.format(" %d.%s", i, databaseFoods.get(i - 1)
-            + System.lineSeparator());
+                    + System.lineSeparator());
         }
         return result;
     }
