@@ -40,9 +40,4 @@ class UserTest {
         user.setGender(3);
         assertEquals(1, user.getGender());
     }
-
-    @Test
-    void showCaloriesRemaining() {
-        //need?
-    }
 }
