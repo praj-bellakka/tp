@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import fitnus.parser.Parser;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EntryDatabase {
@@ -60,8 +60,8 @@ public class EntryDatabase {
             String name = description[0];
             Integer calories = Integer.parseInt(description[1]);
             Food food = new Food(name, calories);
-            LocalDateTime dateTime = Parser.parseDateAndTime(line);
-            Entry entry = new Entry(food, dateTime);
+            LocalDate date = Parser.getDate(line);
+            Entry entry = new Entry(food, date);
             this.addEntry(entry);
             System.out.println(entry);
             preloadEntryCount++;

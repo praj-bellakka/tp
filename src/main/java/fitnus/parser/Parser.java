@@ -13,8 +13,6 @@ import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -183,60 +181,30 @@ public class Parser {
     }
 
     private static LocalDate parseDate(String description) {
-        LocalDate date = null;
+        LocalDate date;
         try {
             date = LocalDate.parse(description);
-        } catch (DateTimeParseException ignore) {
+        } catch (DateTimeParseException e) {
             return null;
         }
         return date;
     }
 
-    private static LocalTime parseTime(String description) {
-        LocalTime time = null;
-        try {
-            time = LocalTime.parse(description);
-        } catch (DateTimeParseException ignore) {
-            return null;
-        }
-        return time;
-    }
-
-    private static LocalTime getTime(String[] description) {
-        LocalTime time;
-        for (String s : description) {
-            time = parseTime(s);
-            if (time != null) {
-                return time;
-            }
-        }
-        return null;
-    }
-
-    private static LocalDate getDate(String[] description) {
+    /**
+     * Attempts to parse a given String and returns a
+     * LocalDate object if successful.
+     *
+     * @param line Description String to be parsed.
+     * @return A LocalDate object if successful, returns null otherwise.
+     */
+    public static LocalDate getDate(String line) {
+        String[] description = line.split(" ");
         LocalDate date;
         for (String s : description) {
             date = parseDate(s);
             if (date != null) {
                 return date;
             }
-        }
-        return null;
-    }
-
-    /**
-     * Attempts to parse a given String and returns a
-     * LocalDateTime object if successful.
-     *
-     * @param line Description String to be parsed.
-     * @return A LocalDateTime object if successful, returns null otherwise.
-     */
-    public static LocalDateTime parseDateAndTime(String line) {
-        String[] description = line.split(" ");
-        LocalDate date = getDate(description);
-        LocalTime time = getTime(description);
-        if (date != null && time != null) {
-            return LocalDateTime.of(date, time);
         }
         return null;
     }
