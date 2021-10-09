@@ -1,5 +1,6 @@
 package fitnus.parser;
 
+import fitnus.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
@@ -10,6 +11,11 @@ import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Handles the extraction of user inputs into relevant components.
@@ -33,8 +39,8 @@ public class Parser {
     public static final String COMMAND_REMOVE = "remove";
     public static final String COMMAND_GENDER = "gender";
 
-    public Command parseCommandType(String input) {
 
+    public Command parseCommandType(String input) throws FitNusException {
         String commandType = parseInputType(input);
         switch (commandType) {
         case "adddefault":
@@ -45,27 +51,28 @@ public class Parser {
             int cal = parseIntegers(input);
             return new AddCustomFoodEntryCommand(foodName, cal);
         case "listdatabase":
-            return new ListFoodDatabaseCommand(null);
+            return new ListFoodDatabaseCommand();
         case "listintake":
-            return new ListFoodIntakeCommand();
+            String timeSpan = parseTimeSpan(input);
+            return new ListFoodIntakeCommand(timeSpan);
         case "genderset":
-            return new SetGenderCommand();
+            String genderSymbol = parseGenderSymbol(input);
+            return new SetGenderCommand(genderSymbol);
         case "remove":
             int index = parseIntegers(input);
             return new DeleteFoodEntryCommand(index);
         case "calorieset":
             int calories = parseIntegers(input);
-            return new SetCalorieGoalCommand(calories, null);
+            return new SetCalorieGoalCommand(calories);
         case "calorieremain":
-            return new ViewRemainingCalorieCommand(null, null);
+            return new ViewRemainingCalorieCommand();
         default:
-            System.out.println("wrong input");
+            throw new FitNusException("No such command found! Please try again!");
         }
-        return null;
-
     }
 
-    /** Returns a string of the input type.
+    /**
+     * Returns a string of the input type.
      * Parser will assume the first word of the input is the type, and uses space as the end character.
      *
      * @param input user input.
@@ -118,6 +125,38 @@ public class Parser {
     }
 
     /**
+     * Returns a string containing the gender symbol.
+     *
+     * @param input Input containing the gender symbol.
+     * @return String of gender symbol (M or F).
+     */
+    public String parseGenderSymbol(String input) {
+        try {
+            String genderSymbol = input.substring(input.indexOf(DESCRIPTOR_SET) + DESCRIPTOR_SET.length()).strip();
+            return genderSymbol;
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Returns a string containing the time span descriptor.
+     *
+     * @param input Input containing the time span descriptor.
+     * @return String of time span descriptor.
+     */
+    public String parseTimeSpan(String input) {
+        try {
+            String timeSpan = input.substring(input.indexOf(DESCRIPTOR_INTAKE) + DESCRIPTOR_INTAKE.length()).strip();
+            return timeSpan;
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * Returns an integer value based on keyword specified in input.
      * Function works for the keywords "/cal", "/def" and "/day".
      * Throws NumberFormatException if an integer cannot be detected after the keyword.
@@ -141,6 +180,65 @@ public class Parser {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    private static LocalDate parseDate(String description) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(description);
+        } catch (DateTimeParseException ignore) {
+            return null;
+        }
+        return date;
+    }
+
+    private static LocalTime parseTime(String description) {
+        LocalTime time = null;
+        try {
+            time = LocalTime.parse(description);
+        } catch (DateTimeParseException ignore) {
+            return null;
+        }
+        return time;
+    }
+
+    private static LocalTime getTime(String[] description) {
+        LocalTime time;
+        for (String s : description) {
+            time = parseTime(s);
+            if (time != null) {
+                return time;
+            }
+        }
+        return null;
+    }
+
+    private static LocalDate getDate(String[] description) {
+        LocalDate date;
+        for (String s : description) {
+            date = parseDate(s);
+            if (date != null) {
+                return date;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Attempts to parse a given String and returns a
+     * LocalDateTime object if successful.
+     *
+     * @param line Description String to be parsed.
+     * @return A LocalDateTime object if successful, returns null otherwise.
+     */
+    public static LocalDateTime parseDateAndTime(String line) {
+        String[] description = line.split(" ");
+        LocalDate date = getDate(description);
+        LocalTime time = getTime(description);
+        if (date != null && time != null) {
+            return LocalDateTime.of(date, time);
+        }
+        return null;
     }
 
 }

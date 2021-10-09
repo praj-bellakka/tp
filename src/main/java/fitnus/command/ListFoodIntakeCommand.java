@@ -6,7 +6,9 @@ import fitnus.Ui;
 import fitnus.User;
 
 public class ListFoodIntakeCommand extends Command {
-    private String timeSpan;
+    private final String timeSpan;
+
+    public static final String DESCRIPTOR_DAY = "/day";
 
     public ListFoodIntakeCommand(String timeSpan) {
         this.timeSpan = timeSpan;
@@ -14,9 +16,7 @@ public class ListFoodIntakeCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
-        Ui ui = new Ui();
-
-        if (timeSpan.equals("/day")) {
+        if (timeSpan.equals(DESCRIPTOR_DAY)) {
             String entries = ed.convertDatabaseToString();
             return entries;
         }
