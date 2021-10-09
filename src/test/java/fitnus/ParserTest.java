@@ -1,6 +1,6 @@
 package fitnus;
 
-import fitnus.command.Command;
+import fitnus.command.*;
 import fitnus.parser.Parser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,34 +16,28 @@ public class ParserTest {
 
     @Test
     void parseInputType_correctInput_parsedCorrectly() {
-        assertEquals("addcustom", parser.parseInputType("add /cust food1 | 21"));
-        assertEquals("adddefault", parser.parseInputType("add /def 10"));
-        assertEquals("listdatabase", parser.parseInputType("list /food"));
-        assertEquals("listintake", parser.parseInputType("list /intake /DAY"));
-        assertEquals("genderset", parser.parseInputType("gender /set M/F"));
-        assertEquals("remove", parser.parseInputType("remove /food 2"));
-        assertEquals("calorieset", parser.parseInputType("calorie /set GOAL"));
-        assertEquals("calorieremain", parser.parseInputType("calorie /remain"));
+        assertTrue(parser.parseCommandType("add /cust food1 | 21") instanceof AddCustomFoodEntryCommand);
+        assertTrue(parser.parseCommandType("add /def 10") instanceof AddDefaultFoodEntryCommand);
+        assertTrue(parser.parseCommandType("list /food") instanceof ListFoodDatabaseCommand);
+        assertTrue(parser.parseCommandType("list /intake /DAY") instanceof ListFoodIntakeCommand);
+        assertTrue(parser.parseCommandType("gender /set M/F") instanceof SetGenderCommand);
+        assertTrue(parser.parseCommandType("remove /food 2") instanceof DeleteFoodEntryCommand);
+        assertTrue(parser.parseCommandType("calorie /set 300") instanceof SetCalorieGoalCommand);
+        assertTrue(parser.parseCommandType("calorie /remain") instanceof ViewRemainingCalorieCommand);
 
     }
 
     @Test
-    void parseInputType_wrongInput_ExceptionThrown() {
-        try {
-            Assertions.assertAll(
-                () -> assertEquals("addcustom", parser.parseInputType("add food1 | 21")),
-                () -> assertEquals("adddefault", parser.parseInputType("add food1 | 21")),
-                () -> assertEquals("listdatabase", parser.parseInputType("list /intake /DAY")),
-                () -> assertEquals("listintake", parser.parseInputType("list /food")),
-                () -> assertEquals("genderset", parser.parseInputType("genderr /set M/F")),
-                () -> assertEquals("remove", parser.parseInputType("remove/food 2")),
-                () -> assertEquals("calorieset", parser.parseInputType("calorie/set GOAL")),
-                () -> assertEquals("calorieremain", parser.parseInputType("calories /remain"))
-            );
-        } catch (MultipleFailuresError e) {
-            System.out.println("Input does not match format");
-            e.printStackTrace();
-        }
+    void parseInputType_wrongInput_InvalidCommand() {
+        assertTrue(parser.parseCommandType("add food1 | 21") instanceof InvalidCommand);
+        assertTrue(parser.parseCommandType("add food1 | 21") instanceof InvalidCommand);
+        //assertTrue(parser.parseCommandType("list /intake /DAY") instanceof InvalidCommand)
+        //assertTrue(parser.parseCommandType("list /food") instanceof InvalidCommand);
+        assertTrue(parser.parseCommandType("genderr /set M/F") instanceof InvalidCommand);
+        assertTrue(parser.parseCommandType("remove/food 2") instanceof InvalidCommand);
+        assertTrue(parser.parseCommandType("calorie/set GOAL") instanceof InvalidCommand);
+        assertTrue(parser.parseCommandType("calories /remain") instanceof InvalidCommand);
+
     }
 
 

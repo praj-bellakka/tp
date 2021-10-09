@@ -93,7 +93,8 @@ public class Parser {
     private Command parseAddTypeCommand(String input) {
         if (input.contains(DESCRIPTOR_CUSTOM)) {
             String[] foodDescription = input.substring(6).split("\\|");
-            return new AddCustomFoodEntryCommand(foodDescription[0], Integer.parseInt(foodDescription[1]));
+            return new AddCustomFoodEntryCommand(foodDescription[0].trim(),
+                    Integer.parseInt(foodDescription[1].trim()));
         }
 
         if (input.contains(DESCRIPTOR_DEFAULT)) {
