@@ -1,12 +1,12 @@
 package fitnus.parser;
 
-import fitnus.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
-import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.DeleteFoodEntryCommand;
 import fitnus.command.ExitCommand;
+import fitnus.command.InvalidCommand;
+import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
@@ -20,164 +20,103 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
-    public static final String SPACE_CHARACTER = " ";
-    public static final String BACKSLASH_CHARACTER = "/";
-    public static final String PIPE_CHARACTER = "|";
+    private static final String SPACE_CHARACTER = " ";
+    private static final String BACKSLASH_CHARACTER = "/";
+    private static final String PIPE_CHARACTER = "|";
 
-    public static final String DESCRIPTOR_CUSTOM = "/cust";
-    public static final String DESCRIPTOR_DEFAULT = "/def";
-    public static final String DESCRIPTOR_INTAKE = "/intake";
-    public static final String DESCRIPTOR_FOOD = "/food";
-    public static final String DESCRIPTOR_SET = "/set";
-    public static final String DESCRIPTOR_REMAIN = "/remain";
+    private static final String DESCRIPTOR_CUSTOM = "/cust";
+    private static final String DESCRIPTOR_DEFAULT = "/def";
+    private static final String DESCRIPTOR_INTAKE = "/intake";
+    private static final String DESCRIPTOR_FOOD = "/food";
+    private static final String DESCRIPTOR_SET = "/set";
+    private static final String DESCRIPTOR_REMAIN = "/remain";
 
-    public static final String COMMAND_ADD = "add";
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_CALORIE = "calorie";
-    public static final String COMMAND_REMOVE = "remove";
-    public static final String COMMAND_GENDER = "gender";
+    private static final String COMMAND_ADD = "add";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_CALORIE = "calorie";
+    private static final String COMMAND_REMOVE = "remove";
+    private static final String COMMAND_GENDER = "gender";
 
 
-    public Command parseCommandType(String input) throws FitNusException {
-        String commandType = parseInputType(input);
-        switch (commandType) {
-        case "adddefault":
-            int idx = parseIntegers(input);
-            return new AddDefaultFoodEntryCommand(idx);
-        case "addcustom":
-            String foodName = parseFoodName(input);
-            int cal = parseIntegers(input);
-            return new AddCustomFoodEntryCommand(foodName, cal);
-        case "listdatabase":
+    public Command parseCommandType(String input) {
+        String[] split = input.split(" ");
+        try {
+            int spaceIndex = input.indexOf(SPACE_CHARACTER);
+
+            if (spaceIndex == -1) {
+                return new ExitCommand();
+            }
+
+            String inputType = input.substring(0, spaceIndex);
+            if (inputType.equals(COMMAND_ADD)) { //add custom food
+                return parseAddTypeCommand(input.substring(spaceIndex + 1));
+            }
+
+            if (inputType.equals(COMMAND_LIST)) { //list type command
+                return parseListTypeCommand(split);
+            }
+
+            if (inputType.equals(COMMAND_CALORIE)) { //calorie type command
+                return parseCalorieTypeCommand(split);
+            }
+
+            if (inputType.equals(COMMAND_GENDER)) { //gender type command
+                return parseGenderTypeCommand(split);
+            }
+
+            if (inputType.equals(COMMAND_REMOVE)) {
+                return parseRemoveTypeCommand(split);
+            }
+
+        } catch (Exception e) {
+            return new InvalidCommand();
+        }
+        return new InvalidCommand();
+    }
+
+
+    private Command parseRemoveTypeCommand(String[] splitInput) {
+        return new DeleteFoodEntryCommand(Integer.parseInt(splitInput[2]));
+    }
+
+    private Command parseListTypeCommand(String[] splitInput) {
+        switch (splitInput[1]) {
+        case DESCRIPTOR_INTAKE:
+            return new ListFoodIntakeCommand(splitInput[2]);
+        case DESCRIPTOR_FOOD:
             return new ListFoodDatabaseCommand();
-        case "listintake":
-            String timeSpan = parseTimeSpan(input);
-            return new ListFoodIntakeCommand(timeSpan);
-        case "genderset":
-            String genderSymbol = parseGenderSymbol(input);
-            return new SetGenderCommand(genderSymbol);
-        case "remove":
-            int index = parseIntegers(input);
-            return new DeleteFoodEntryCommand(index);
-        case "calorieset":
-            int calories = parseIntegers(input);
-            return new SetCalorieGoalCommand(calories);
-        case "calorieremain":
+        }
+        return new InvalidCommand();
+    }
+
+    private Command parseAddTypeCommand(String input) {
+        if (input.contains(DESCRIPTOR_CUSTOM)) {
+            String[] foodDescription = input.substring(6).split("\\|");
+            return new AddCustomFoodEntryCommand(foodDescription[0], Integer.parseInt(foodDescription[1]));
+        }
+
+        if (input.contains(DESCRIPTOR_DEFAULT)) {
+            return new AddDefaultFoodEntryCommand(Integer.parseInt(input.substring(5)));
+        }
+
+        return new InvalidCommand();
+    }
+
+    private Command parseCalorieTypeCommand(String[] splitInput) {
+        switch(splitInput[1]) {
+        case DESCRIPTOR_SET:
+            return new SetCalorieGoalCommand(Integer.parseInt(splitInput[2]));
+        case DESCRIPTOR_REMAIN:
             return new ViewRemainingCalorieCommand();
-        default:
-            throw new FitNusException("No such command found! Please try again!");
         }
+        return new InvalidCommand();
     }
 
-    /**
-     * Returns a string of the input type.
-     * Parser will assume the first word of the input is the type, and uses space as the end character.
-     *
-     * @param input user input.
-     * @return String containing the type.
-     */
-    public String parseInputType(String input) {
-        String inputType;
-        try {
-            String cleanedString = input.toLowerCase().trim(); //removes whitespace and converts to lower case
-            inputType = cleanedString.substring(0, input.indexOf(SPACE_CHARACTER));
-
-            //checks for special command within same input type
-            if (inputType.equals(COMMAND_ADD) && input.contains(DESCRIPTOR_CUSTOM)) { //add custom food
-                return inputType.concat("custom");
-            } else if (inputType.equals(COMMAND_ADD) && input.contains(DESCRIPTOR_DEFAULT)) { //add default food
-                return inputType.concat("default");
-            } else if (inputType.equals(COMMAND_LIST) && input.contains(DESCRIPTOR_FOOD)) { //list food database
-                return inputType.concat("database");
-            } else if (inputType.equals(COMMAND_LIST) && input.contains(DESCRIPTOR_INTAKE)) { //list food intake
-                return inputType.concat("intake");
-            } else if (inputType.equals(COMMAND_CALORIE) && input.contains(DESCRIPTOR_SET)) { //set calorie
-                return inputType.concat("set");
-            } else if (inputType.equals(COMMAND_CALORIE) && input.contains(DESCRIPTOR_REMAIN)) { //view remaining cal
-                return inputType.concat("remain");
-            } else if (inputType.equals(COMMAND_GENDER) && input.contains(DESCRIPTOR_SET)) { //set gender
-                return inputType.concat("set");
-            }
-            return inputType;
-        } catch (StringIndexOutOfBoundsException e) {
-            e.printStackTrace();
+    private Command parseGenderTypeCommand(String[] splitInput) {
+        if (splitInput[1].equals(DESCRIPTOR_SET)) {
+            return new SetGenderCommand(splitInput[2]);
         }
-        return null;
-    }
-
-    /**
-     * Returns a string containing the food name.
-     *
-     * @param input Input containing the food name.
-     * @return String of food name.
-     */
-    public String parseFoodName(String input) {
-        try {
-            String foodName = input.substring(input.indexOf(DESCRIPTOR_CUSTOM) + DESCRIPTOR_CUSTOM.length(),
-                    input.indexOf(PIPE_CHARACTER)).strip();
-            return foodName;
-        } catch (StringIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * Returns a string containing the gender symbol.
-     *
-     * @param input Input containing the gender symbol.
-     * @return String of gender symbol (M or F).
-     */
-    public String parseGenderSymbol(String input) {
-        try {
-            String genderSymbol = input.substring(input.indexOf(DESCRIPTOR_SET) + DESCRIPTOR_SET.length()).strip();
-            return genderSymbol;
-        } catch (StringIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * Returns a string containing the time span descriptor.
-     *
-     * @param input Input containing the time span descriptor.
-     * @return String of time span descriptor.
-     */
-    public String parseTimeSpan(String input) {
-        try {
-            String timeSpan = input.substring(input.indexOf(DESCRIPTOR_INTAKE) + DESCRIPTOR_INTAKE.length()).strip();
-            return timeSpan;
-        } catch (StringIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * Returns an integer value based on keyword specified in input.
-     * Function works for the keywords "/cal", "/def" and "/day".
-     * Throws NumberFormatException if an integer cannot be detected after the keyword.
-     *
-     * @param input Input containing a keyword and an integer.
-     * @return Integer specified in the string. Returns -1 if no integer is detected.
-     */
-    public int parseIntegers(String input) {
-        int integerVal = 0;
-        String cleanedString = input.toLowerCase().trim();
-        try {
-            if (cleanedString.contains(DESCRIPTOR_CUSTOM)) {
-                integerVal = Integer.parseInt(cleanedString
-                        .substring(cleanedString.indexOf(PIPE_CHARACTER) + PIPE_CHARACTER.length())
-                        .strip());
-            } else if (cleanedString.contains(BACKSLASH_CHARACTER)) {
-                integerVal = Integer.parseInt(cleanedString.replaceAll("[^0-9]", ""));
-            }
-            return integerVal;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return -1;
+        return new InvalidCommand();
     }
 
     private static LocalDate parseDate(String description) {
