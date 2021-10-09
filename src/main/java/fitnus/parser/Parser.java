@@ -229,8 +229,7 @@ public class Parser {
      * LocalDateTime object if successful.
      *
      * @param line Description String to be parsed.
-     * @return A LocalDateTime object if successful, returns
-     * null otherwise.
+     * @return A LocalDateTime object if successful, returns null otherwise.
      */
     public static LocalDateTime parseDateAndTime(String line) {
         String[] description = line.split(" ");
