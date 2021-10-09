@@ -40,6 +40,16 @@ public class Parser {
     public static final String COMMAND_GENDER = "gender";
 
 
+    /**
+     * Takes in an input string and detects the type of command using parseInputType.
+     * Based on the command type, the corresponding Command Object is returned.
+     * Command object has information added using parseIntegers and parseFoodName if relevant.
+     * If no command is found, a FitNusException is thrown.
+     *
+     * @param input Input string containing the command.
+     * @return Command object corresponding to the input.
+     * @throws FitNusException Thrown when no command is found.
+     */
     public Command parseCommandType(String input) throws FitNusException {
         String commandType = parseInputType(input);
         switch (commandType) {
@@ -74,8 +84,10 @@ public class Parser {
     /**
      * Returns a string of the input type.
      * Parser will assume the first word of the input is the type, and uses space as the end character.
+     * Input type gets concated with its corresponding describer and returned.
+     * Null is returned if parser cannot detect a type.
      *
-     * @param input user input.
+     * @param input String input entered bu the user.
      * @return String containing the type.
      */
     public String parseInputType(String input) {
@@ -109,6 +121,7 @@ public class Parser {
 
     /**
      * Returns a string containing the food name.
+     * Null is returned if no foodname is detected.
      *
      * @param input Input containing the food name.
      * @return String of food name.
@@ -158,8 +171,9 @@ public class Parser {
 
     /**
      * Returns an integer value based on keyword specified in input.
-     * Function works for the keywords "/cal", "/def" and "/day".
-     * Throws NumberFormatException if an integer cannot be detected after the keyword.
+     * If "/cust" is present, integer is extracted using a substring operation.
+     * Else, a Regex operation is used if the input contains a backslash character.
+     * Catches NumberFormatException if an integer cannot be detected after the keyword.
      *
      * @param input Input containing a keyword and an integer.
      * @return Integer specified in the string. Returns -1 if no integer is detected.
