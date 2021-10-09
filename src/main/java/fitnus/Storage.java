@@ -24,7 +24,7 @@ public class Storage {
         createFile(FILE_PATH_ENTRY_DATA.toString());
     }
 
-    public static void initialiseDatabase(FoodDatabase database) throws IOException {
+    public static void initialiseFoodDatabase(FoodDatabase database) throws IOException {
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_FOOD_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -32,9 +32,14 @@ public class Storage {
         reader.close();
     }
 
-    public static void saveDatabase(FoodDatabase database) throws IOException {
+    public static void saveFoodDatabase(FoodDatabase database) throws IOException {
         String currentFoods = database.convertDatabaseToString();
         saveData(FILE_PATH_FOOD_DATA.toString(), currentFoods);
+    }
+
+    public static void saveEntryDatabase(EntryDatabase database) throws IOException {
+        String currentFoods = database.convertDatabaseToString();
+        saveData(FILE_PATH_ENTRY_DATA.toString(), currentFoods);
     }
 
     public static void saveData(String filePath, String content) throws IOException {

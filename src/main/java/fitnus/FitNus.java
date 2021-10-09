@@ -1,8 +1,6 @@
 package fitnus;
 
 import fitnus.command.Command;
-import fitnus.command.ExitCommand;
-import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.parser.Parser;
 
 import java.util.Scanner;
@@ -24,9 +22,9 @@ public class FitNus {
 
             // Load From Storage
             Storage.createDirectoryAndFiles();
-            Storage.initialiseDatabase(fd);
+            Storage.initialiseFoodDatabase(fd);
             fd.listFoods();
-            Storage.saveDatabase(fd);
+            Storage.saveFoodDatabase(fd);
         } catch (Exception e) {
             ui.println(e.getMessage());
         }
