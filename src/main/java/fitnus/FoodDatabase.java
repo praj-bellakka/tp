@@ -51,10 +51,14 @@ public class FoodDatabase {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
-            String name = description[0];
-            Integer calories = Integer.parseInt(description[1]);
-            this.addFood(name, calories);
-            preloadFoodCount++;
+            try {
+                String name = description[0];
+                Integer calories = Integer.parseInt(description[1]);
+                this.addFood(name, calories);
+                preloadFoodCount++;
+            } catch (IndexOutOfBoundsException e) {
+                Ui.printPreloadDatabaseError();
+            }
         }
         System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
     }

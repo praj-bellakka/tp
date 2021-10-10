@@ -1,5 +1,6 @@
 package fitnus.parser;
 
+import fitnus.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
@@ -161,8 +162,9 @@ public class Parser {
      *
      * @param line Description String to be parsed.
      * @return A LocalDate object if successful, returns null otherwise.
+     * @throws FitNusException If unable to parse the input String.
      */
-    public static LocalDate getDate(String line) {
+    public static LocalDate getDate(String line) throws FitNusException {
         assert !line.equals("") : "String line should not be empty";
         String[] description = line.split(" ");
         LocalDate date;
@@ -172,7 +174,7 @@ public class Parser {
                 return date;
             }
         }
-        return null;
+        throw new FitNusException("Error parsing date!!");
     }
 
 }

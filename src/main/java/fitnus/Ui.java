@@ -13,7 +13,7 @@ public class Ui {
         println(WELCOME_MESSAGE);
     }
 
-    public void println(String message) {
+    public static void println(String message) {
         System.out.println(message);
     }
 
@@ -21,12 +21,17 @@ public class Ui {
         System.out.print(message);
     }
 
+    public static void printPreloadDatabaseError() {
+        System.out.println("Error encountered while preloading database :("
+                + " some data may have been lost");
+    }
+
     public String readInput() {
         String userInput = "";
         do {
             userInput = sc.nextLine().toLowerCase().trim();
             if (userInput.equals("")) {
-                this.println("Input cannot be empty! Please try again");
+                println("Input cannot be empty! Please try again");
             }
         } while (userInput.equals(""));
         return userInput;
