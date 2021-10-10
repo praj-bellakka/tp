@@ -77,7 +77,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void addDefaultEntry_validIndex_entryAddedSuccessfully() throws FitNusException{
+    void addDefaultEntry_validIndex_entryAddedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         FoodDatabase fdb = new FoodDatabase();
@@ -102,7 +102,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void addDefaultEntry_invalidIndex_exceptionThrown(){
+    void addDefaultEntry_invalidIndex_exceptionThrown() {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         FoodDatabase fdb = new FoodDatabase();
@@ -126,7 +126,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void deleteEntry_validIndex_entryDeletedSuccessfully() throws FitNusException{
+    void deleteEntry_validIndex_entryDeletedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         Food prata = new Food("Prata", 100);
