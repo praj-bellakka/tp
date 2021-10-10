@@ -8,7 +8,10 @@ public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";
 
-    public void addFood(String name, Integer calories) {
+    public void addFood(String name, Integer calories) throws FitNusException {
+        if (calories <= 0) {
+            throw new FitNusException("Food must have more than 0 calories!");
+        }
         Food food = new Food(name, calories);
         databaseFoods.add(food);
     }
