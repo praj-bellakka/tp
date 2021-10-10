@@ -102,7 +102,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void addDefaultEntry_invalidIndex_exceptionThrown() {
+    void addDefaultEntry_invalidIndex_exceptionThrown() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         FoodDatabase fdb = new FoodDatabase();
