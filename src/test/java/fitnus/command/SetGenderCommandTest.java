@@ -6,7 +6,7 @@ import fitnus.FoodDatabase;
 import fitnus.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SetGenderCommandTest {
 
