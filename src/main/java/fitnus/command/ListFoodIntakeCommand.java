@@ -17,8 +17,7 @@ public class ListFoodIntakeCommand extends Command {
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         if (timeSpan.equals(DESCRIPTOR_DAY)) {
-            String entries = ed.convertDatabaseToString();
-            return entries;
+            return ed.listEntries();
         }
         return null;
     }
