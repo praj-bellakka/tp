@@ -1,21 +1,20 @@
 package fitnus;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Entry {
     Food food;
-    LocalDateTime dateTime;
+    LocalDate date;
 
     public Entry(Food food) {
         this.food = food;
-        this.dateTime = LocalDateTime.now();
+        this.date = LocalDate.now();
     }
 
-    public Entry(Food food, LocalDateTime dateTime) {
+    public Entry(Food food, LocalDate date) {
         this.food = food;
-        this.dateTime = dateTime;
+        this.date = date;
     }
 
     public Food getFood() {
@@ -23,24 +22,24 @@ public class Entry {
     }
 
     /**
-     * Gets the dateTime and converts it to the specified format. Then,
-     * returns the formatted dateTime as a String.
+     * Gets the date and converts it to the specified format. Then,
+     * returns the formatted date as a String.
      *
-     * @return Formatted dateTime as a String, representing the date and time.
+     * @return Formatted date as a String.
      */
-    protected String getDateAndTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
-        return dateTime.format(formatter);
+    protected String getDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(formatter);
     }
 
     public String convertToStringForStorage() {
-        return String.format("%s | %s", this.food.convertToStringForStorage(), this.getDateAndTime());
+        return String.format("%s | %s", this.food.convertToStringForStorage(), this.getDate());
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
-        String date = this.dateTime.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = this.date.format(formatter);
         return "[" + date + "] " + food.toString();
     }
 

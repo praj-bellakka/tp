@@ -1,6 +1,9 @@
 package fitnus;
 
 import fitnus.command.Command;
+import fitnus.command.ExitCommand;
+import fitnus.command.HelpCommand;
+import fitnus.command.InvalidCommand;
 import fitnus.parser.Parser;
 
 import java.util.Scanner;
@@ -12,13 +15,12 @@ public class FitNus {
         EntryDatabase ed = new EntryDatabase();
         Parser parser = new Parser();
         Ui ui = new Ui();
-        String userInput;
-        Scanner in = new Scanner(System.in);
-        boolean canExit = false;
+
+
         try {
             // Welcome Message
             ui.printWelcomeMessage();
-            ui.printHelpMessage();
+            ui.println(new HelpCommand().execute(ed, fd, user));
 
             // Load From Storage
             Storage.createDirectoryAndFiles();
@@ -35,20 +37,20 @@ public class FitNus {
         }
 
 
-        /* Command handler
-        TODO: refactor handler to separate classes.
-         */
-        while (!canExit) {
+        while (true) {
+            String userInput;
+            Command inputType;
             try {
-                userInput = in.nextLine().trim();
-                Command inputType = parser.parseCommandType(userInput);
-                String message = inputType.execute(ed, fd, user);
-                ui.println(message);
-            } catch (NullPointerException e) {
-                System.out.println("Wrong format");
-                e.printStackTrace();
-            } catch (FitNusException e) {
+                userInput = ui.readInput();
+                inputType = parser.parseCommandType(userInput);
+                ui.println(inputType.execute(ed, fd, user));
+
+                if (inputType instanceof ExitCommand) {
+                    break;
+                }
+            } catch (Exception e) {
                 ui.println(e.getMessage());
+                //ui.println(new InvalidCommand().execute(ed, fd, user));
             }
         }
     }
