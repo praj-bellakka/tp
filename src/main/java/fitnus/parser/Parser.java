@@ -149,6 +149,7 @@ public class Parser {
      * @return A LocalDate object if successful, returns null otherwise.
      */
     public static LocalDate getDate(String line) {
+        assert !line.equals("") : "String line should not be empty";
         String[] description = line.split(" ");
         LocalDate date;
         for (String s : description) {
