@@ -8,13 +8,15 @@ public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";
 
-    // TODO Add exception for if name/calories blank?
     public void addFood(String name, Integer calories) {
         Food food = new Food(name, calories);
         databaseFoods.add(food);
     }
 
-    public void addFood(Food food) {
+    public void addFood(Food food) throws FitNusException {
+        if (food.getCalories() <= 0) {
+            throw new FitNusException("Food must have more than 0 calories!");
+        }
         databaseFoods.add(food);
     }
 
@@ -43,7 +45,7 @@ public class FoodDatabase {
         return lines.toString();
     }
 
-    public void preLoadDatabase(BufferedReader reader) throws IOException {
+    public void preLoadDatabase(BufferedReader reader) throws IOException, FitNusException {
         int preloadFoodCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {

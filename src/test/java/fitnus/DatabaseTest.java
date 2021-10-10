@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DatabaseTest {
 
     @Test
-    void convertDatabaseToString_defaultFoodData_dataAsString() {
+    void convertDatabaseToString_defaultFoodData_dataAsString() throws FitNusException {
         FoodDatabase database = new FoodDatabase();
         database.addFood("Nasi Lemak", 500);
         database.addFood("Chicken Rice", 450);
