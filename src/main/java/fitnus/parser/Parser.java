@@ -5,6 +5,7 @@ import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
 import fitnus.command.DeleteFoodEntryCommand;
 import fitnus.command.ExitCommand;
+import fitnus.command.HelpCommand;
 import fitnus.command.InvalidCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodIntakeCommand;
@@ -44,7 +45,14 @@ public class Parser {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
 
             if (spaceIndex == -1) {
-                return new ExitCommand();
+                switch (input) {
+                case "help":
+                    return new HelpCommand();
+                case "exit":
+                    return new ExitCommand();
+                default:
+                    return new InvalidCommand();
+                }
             }
 
             String inputType = input.substring(0, spaceIndex);
