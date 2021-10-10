@@ -24,7 +24,7 @@ public class Storage {
         createFile(FILE_PATH_ENTRY_DATA.toString());
     }
 
-    public static void initialiseFoodDatabase(FoodDatabase database) throws IOException {
+    public static void initialiseFoodDatabase(FoodDatabase database) throws IOException, FitNusException {
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_FOOD_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
