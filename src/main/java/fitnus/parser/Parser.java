@@ -1,16 +1,6 @@
 package fitnus.parser;
 
-import fitnus.command.AddCustomFoodEntryCommand;
-import fitnus.command.AddDefaultFoodEntryCommand;
-import fitnus.command.Command;
-import fitnus.command.DeleteFoodEntryCommand;
-import fitnus.command.ExitCommand;
-import fitnus.command.InvalidCommand;
-import fitnus.command.ListFoodDatabaseCommand;
-import fitnus.command.ListFoodIntakeCommand;
-import fitnus.command.SetCalorieGoalCommand;
-import fitnus.command.SetGenderCommand;
-import fitnus.command.ViewRemainingCalorieCommand;
+import fitnus.command.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -44,7 +34,14 @@ public class Parser {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
 
             if (spaceIndex == -1) {
-                return new ExitCommand();
+                switch (input) {
+                case "help":
+                    return new HelpCommand();
+                case "exit":
+                    return new ExitCommand();
+                default:
+                    return new InvalidCommand();
+                }
             }
 
             String inputType = input.substring(0, spaceIndex);
