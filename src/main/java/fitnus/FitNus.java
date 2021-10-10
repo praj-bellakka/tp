@@ -49,7 +49,8 @@ public class FitNus {
                     break;
                 }
             } catch (Exception e) {
-                ui.println(new InvalidCommand().execute(ed, fd, user));
+                ui.println(e.getMessage());
+                //ui.println(new InvalidCommand().execute(ed, fd, user));
             }
         }
     }
