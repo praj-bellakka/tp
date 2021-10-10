@@ -79,7 +79,6 @@ class EntryDatabaseTest {
     @Test
     void addDefaultEntry_validIndex_entryAddedSuccessfully() throws FitNusException {
         // Instantiate objects
-        EntryDatabase edb = new EntryDatabase();
         FoodDatabase fdb = new FoodDatabase();
         Food prata = new Food("Prata", 100);
         Food chickenRice = new Food("Chicken Rice", 325);
@@ -91,6 +90,7 @@ class EntryDatabaseTest {
         fdb.addFood(pizza);
 
         // Add Entries
+        EntryDatabase edb = new EntryDatabase();
         edb.addDefaultEntry(fdb, 1);
         edb.addDefaultEntry(fdb, 2);
         edb.addDefaultEntry(fdb, 3);
