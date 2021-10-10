@@ -84,9 +84,14 @@ public class Parser {
                 return parseRemoveTypeCommand(splitString);
             }
 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Input format is not correct. Follow the one stated!");
+        } catch (NumberFormatException e) {
+            System.out.println("Input value is not an integer!");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Did you forget to write the full command? :)");
         } catch (Exception e) {
             e.printStackTrace();
-            return new InvalidCommand();
         }
         return new InvalidCommand();
     }
