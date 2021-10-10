@@ -25,26 +25,33 @@ public class Parser {
     private static final String BACKSLASH_CHARACTER = "/";
     private static final String PIPE_CHARACTER = "|";
 
-    private static final String DESCRIPTOR_CUSTOM = "/cust";
-    private static final String DESCRIPTOR_DEFAULT = "/def";
-    private static final String DESCRIPTOR_INTAKE = "/intake";
-    private static final String DESCRIPTOR_FOOD = "/food";
-    private static final String DESCRIPTOR_SET = "/set";
-    private static final String DESCRIPTOR_REMAIN = "/remain";
-
+    //main command types
     private static final String COMMAND_ADD = "add";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_CALORIE = "calorie";
     private static final String COMMAND_REMOVE = "remove";
     private static final String COMMAND_GENDER = "gender";
 
+    //specific descriptors of the main command types
+    private static final String DESCRIPTOR_CUSTOM = "/cust";
+    private static final String DESCRIPTOR_FOOD = "/food";
+    private static final String DESCRIPTOR_INTAKE = "/intake";
+    private static final String DESCRIPTOR_DEFAULT = "/def";
+    private static final String DESCRIPTOR_REMAIN = "/remain";
+    private static final String DESCRIPTOR_SET = "/set";
+    public static final int INVALID_INPUT = -1;
+
 
     public Command parseCommandType(String input) {
-        String[] split = input.split(" ");
+        String[] splitString = input.strip().split(" ");
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
 
-            if (spaceIndex == -1) {
+            /**
+             * If no space is detected, the input does not contain any tracker related actions.
+             * Help, Exit or Invalid command will be returned based on the input.
+             */
+            if (spaceIndex == INVALID_INPUT) {
                 switch (input) {
                 case "help":
                     return new HelpCommand();
@@ -55,29 +62,36 @@ public class Parser {
                 }
             }
 
-            String inputType = input.substring(0, spaceIndex);
-            if (inputType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand(input.substring(spaceIndex + 1));
+            String inputCommandType = input.substring(0, spaceIndex);
+            if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
+                String subString = input.substring(spaceIndex + 1);
+                return parseAddTypeCommand(subString);
             }
 
-            if (inputType.equals(COMMAND_LIST)) { //list type command
-                return parseListTypeCommand(split);
+            if (inputCommandType.equals(COMMAND_LIST)) { //list type command
+                return parseListTypeCommand(splitString);
             }
 
-            if (inputType.equals(COMMAND_CALORIE)) { //calorie type command
-                return parseCalorieTypeCommand(split);
+            if (inputCommandType.equals(COMMAND_CALORIE)) { //calorie type command
+                return parseCalorieTypeCommand(splitString);
             }
 
-            if (inputType.equals(COMMAND_GENDER)) { //gender type command
-                return parseGenderTypeCommand(split);
+            if (inputCommandType.equals(COMMAND_GENDER)) { //gender type command
+                return parseGenderTypeCommand(splitString);
             }
 
-            if (inputType.equals(COMMAND_REMOVE)) {
-                return parseRemoveTypeCommand(split);
+            if (inputCommandType.equals(COMMAND_REMOVE)) {
+                return parseRemoveTypeCommand(splitString);
             }
 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Input format is not correct. Follow the one stated!");
+        } catch (NumberFormatException e) {
+            System.out.println("Input value is not an integer!");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Did you forget to write the full command? :)");
         } catch (Exception e) {
-            return new InvalidCommand();
+            e.printStackTrace();
         }
         return new InvalidCommand();
     }
