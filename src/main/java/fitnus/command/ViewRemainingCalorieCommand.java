@@ -13,5 +13,4 @@ public class ViewRemainingCalorieCommand extends Command {
         return String.format("The remaining calories before reaching the daily goal is %d",
                 us.showCaloriesRemaining(ed));
     }
-
 }
