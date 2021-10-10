@@ -47,6 +47,7 @@ public class EntryDatabase {
     public String convertDatabaseToString() {
         String content = "";
         for (Entry e : entries) {
+            assert e != null : "e should not be null";
             content += (e.convertToStringForStorage() + "\n");
         }
         return content;

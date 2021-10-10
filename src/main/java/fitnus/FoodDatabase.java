@@ -14,6 +14,7 @@ public class FoodDatabase {
     }
 
     public void addFood(Food food) throws FitNusException {
+        assert food != null : "food should not be null";
         if (food.getCalories() <= 0) {
             throw new FitNusException("Food must have more than 0 calories!");
         }
