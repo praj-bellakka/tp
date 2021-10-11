@@ -60,5 +60,4 @@ public class FoodDatabase {
         }
         System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
     }
-
 }
