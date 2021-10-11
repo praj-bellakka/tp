@@ -1,5 +1,10 @@
 package fitnus;
 
+import fitnus.parser.Parser;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,6 +13,7 @@ public class User {
     private static final int FEMALE = 1;
     private int calorieGoal;
     private int gender;
+    private static final String DELIMITER = " | ";
 
     public User(int gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
@@ -40,5 +46,29 @@ public class User {
     public int showCaloriesRemaining(EntryDatabase entryDB) {
         int caloriesConsumed = entryDB.getTotalCalorie();
         return this.calorieGoal - caloriesConsumed;
+    }
+
+    public void preloadUserData(BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] description = line.trim().split("\\s*[|]\\s*");
+            try {
+                this.calorieGoal = Integer.parseInt(description[0]);
+                gender = Integer.parseInt(description[1]);
+                System.out.println("Successfully preloaded user data");
+            } catch (IndexOutOfBoundsException e) {
+                Ui.printPreloadDatabaseError();
+            } catch (NumberFormatException e) {
+                Ui.printPreloadUserError();
+            }
+        }
+    }
+
+    public String listUserData() {
+        return this.calorieGoal + " " + this.gender;
+    }
+
+    public String convertUserDataToString() {
+        return this.calorieGoal + DELIMITER + this.gender;
     }
 }

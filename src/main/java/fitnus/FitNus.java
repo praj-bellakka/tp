@@ -3,10 +3,7 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
-import fitnus.command.InvalidCommand;
 import fitnus.parser.Parser;
-
-import java.util.Scanner;
 
 public class FitNus {
     public static void main(String[] args) {
@@ -19,21 +16,24 @@ public class FitNus {
 
         try {
             // Welcome Message
-            ui.printWelcomeMessage();
-            ui.println(new HelpCommand().execute(ed, fd, user));
+            Ui.printWelcomeMessage();
+            Ui.println(new HelpCommand().execute(ed, fd, user));
 
             // Load From Storage
             Storage.createDirectoryAndFiles();
             Storage.initialiseFoodDatabase(fd);
             Storage.initialiseEntryDatabase(ed);
-            ui.println("Food database:" + System.lineSeparator()
+            Storage.initialiseUser(user);
+            Ui.println("Food database:" + System.lineSeparator()
                     + fd.listFoods());
-            ui.println("Entry database:" + System.lineSeparator()
+            Ui.println("Entry database:" + System.lineSeparator()
                     + ed.listEntries());
+            Ui.println(user.listUserData());
             Storage.saveFoodDatabase(fd);
             Storage.saveEntryDatabase(ed);
+            Storage.saveUserData(user);
         } catch (Exception e) {
-            ui.println(e.getMessage());
+            Ui.println(e.getMessage());
         }
 
 
@@ -43,13 +43,13 @@ public class FitNus {
             try {
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput);
-                ui.println(inputType.execute(ed, fd, user));
+                Ui.println(inputType.execute(ed, fd, user));
 
                 if (inputType instanceof ExitCommand) {
                     break;
                 }
             } catch (Exception e) {
-                ui.println(e.getMessage());
+                Ui.println(e.getMessage());
                 //ui.println(new InvalidCommand().execute(ed, fd, user));
             }
         }
