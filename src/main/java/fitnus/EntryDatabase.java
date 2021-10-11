@@ -47,6 +47,7 @@ public class EntryDatabase {
     public String convertDatabaseToString() {
         String content = "";
         for (Entry e : entries) {
+            assert e != null : "e should not be null";
             content += (e.convertToStringForStorage() + "\n");
         }
         return content;
@@ -57,14 +58,20 @@ public class EntryDatabase {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
-            String name = description[0];
-            Integer calories = Integer.parseInt(description[1]);
-            Food food = new Food(name, calories);
-            LocalDate date = Parser.getDate(line);
-            Entry entry = new Entry(food, date);
-            this.addEntry(entry);
-            System.out.println(entry);
-            preloadEntryCount++;
+            try {
+                String name = description[0];
+                Integer calories = Integer.parseInt(description[1]);
+                Food food = new Food(name, calories);
+                LocalDate date = Parser.getDate(line);
+                Entry entry = new Entry(food, date);
+                this.addEntry(entry);
+                preloadEntryCount++;
+            } catch (FitNusException e) {
+                Ui.println(e.getMessage());
+                Ui.printPreloadDatabaseError();
+            } catch (IndexOutOfBoundsException e) {
+                Ui.printPreloadDatabaseError();
+            }
         }
         System.out.println("Successfully preloaded " + preloadEntryCount + " entries");
     }
