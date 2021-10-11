@@ -17,6 +17,7 @@ public class FoodDatabase {
     }
 
     public void addFood(Food food) throws FitNusException {
+        assert food != null : "food should not be null";
         if (food.getCalories() <= 0) {
             throw new FitNusException("Food must have more than 0 calories!");
         }
@@ -53,10 +54,14 @@ public class FoodDatabase {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
-            String name = description[0];
-            Integer calories = Integer.parseInt(description[1]);
-            this.addFood(name, calories);
-            preloadFoodCount++;
+            try {
+                String name = description[0];
+                Integer calories = Integer.parseInt(description[1]);
+                this.addFood(name, calories);
+                preloadFoodCount++;
+            } catch (IndexOutOfBoundsException e) {
+                Ui.printPreloadDatabaseError();
+            }
         }
         System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
     }

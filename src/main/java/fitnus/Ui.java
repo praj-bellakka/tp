@@ -9,16 +9,25 @@ public class Ui {
     public static final String WELCOME_MESSAGE = "------------------ \n"
             + "Welcome to FitNUS Tracker!";
 
-    public void printWelcomeMessage() {
+    public static void printWelcomeMessage() {
         println(WELCOME_MESSAGE);
     }
 
-    public void println(String message) {
+    public static void println(String message) {
         System.out.println(message);
     }
 
-    public void print(String message) {
+    public static void print(String message) {
         System.out.print(message);
+    }
+
+    public static void printPreloadDatabaseError() {
+        System.out.println("Error encountered while preloading database :("
+                + " some data may have been lost");
+    }
+
+    public static void printPreloadUserError() {
+        System.out.println("Error encountered while preloading user data :(");
     }
 
     public String readInput() {
@@ -26,7 +35,7 @@ public class Ui {
         do {
             userInput = sc.nextLine().toLowerCase().trim();
             if (userInput.equals("")) {
-                this.println("Input cannot be empty! Please try again");
+                println("Input cannot be empty! Please try again");
             }
         } while (userInput.equals(""));
         return userInput;

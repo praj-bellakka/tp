@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EntryDatabaseTest {
@@ -19,7 +20,12 @@ class EntryDatabaseTest {
     @Test
     public void convertDatabaseToStringTest_list_stringRepresentation() {
         EntryDatabase edb = new EntryDatabase();
-        LocalDate date = Parser.getDate("2021-10-11");
+        LocalDate date = null;
+        try {
+            date = Parser.getDate("2021-10-11");
+        } catch (FitNusException e) {
+            fail("Parser getDate error");
+        }
         Entry entry1 = new Entry(new Food("chicken rice", 200), date);
         Entry entry2 = new Entry(new Food("steak", 900), date);
         Entry entry3 = new Entry(new Food("laksa", 400), date);
