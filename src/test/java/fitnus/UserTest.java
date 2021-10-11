@@ -11,21 +11,21 @@ class UserTest {
     void setCalorieGoal_validGoal_goalSetSuccessfully() throws FitNusException {
         User user = new User(1, 1000);
         user.setCalorieGoal(2000);
-        assertEquals(user.getCalorieGoal(), 2000);
+        assertEquals(2000, user.getCalorieGoal());
     }
 
     @Test
     void setCalorieGoal_negativeIntegerGoal_exceptionThrown() {
         User user = new User(1, 1000);
         Exception exception = assertThrows(FitNusException.class, () -> user.setCalorieGoal(-1000));
-        assertEquals(exception.getMessage(), "Calorie Goal cannot be negative! Please try again!");
+        assertEquals("Calorie Goal cannot be negative! Please try again!", exception.getMessage());
     }
 
     @Test
     void setCalorieGoal_sameGoal_exceptionThrown() {
         User user = new User(1, 1000);
         Exception exception = assertThrows(FitNusException.class, () -> user.setCalorieGoal(1000));
-        assertEquals(exception.getMessage(), "Calorie Goal cannot be the same as before! Please try again!");
+        assertEquals("Calorie Goal cannot be the same as before! Please try again!", exception.getMessage());
     }
 
     @Test
