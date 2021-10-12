@@ -17,10 +17,16 @@ import fitnus.command.ViewRemainingCalorieCommand;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Handles the extraction of user inputs into relevant components.
  */
 public class Parser {
+
+    //Logger object
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
     private static final String SPACE_CHARACTER = " ";
     private static final String BACKSLASH_CHARACTER = "/";
@@ -174,6 +180,7 @@ public class Parser {
                 return date;
             }
         }
+        logger.log(Level.INFO, "Could not parse date");
         throw new FitNusException("Error parsing date!!");
     }
 
