@@ -1,6 +1,5 @@
-package fitnus;
+package fitnus.utility;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {

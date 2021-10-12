@@ -1,4 +1,8 @@
-package fitnus;
+package fitnus.database;
+
+import fitnus.tracker.Food;
+import fitnus.utility.Ui;
+import fitnus.exception.FitNusException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

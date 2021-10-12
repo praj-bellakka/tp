@@ -1,10 +1,10 @@
 package fitnus.command;
 
-import fitnus.Entry;
-import fitnus.EntryDatabase;
-import fitnus.FoodDatabase;
-import fitnus.FitNusException;
-import fitnus.User;
+import fitnus.tracker.Entry;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
+import fitnus.utility.User;
 
 public class DeleteFoodEntryCommand extends Command {
     private final int index;

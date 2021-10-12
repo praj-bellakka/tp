@@ -1,6 +1,6 @@
 package fitnus.parser;
 
-import fitnus.FitNusException;
+import fitnus.exception.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;

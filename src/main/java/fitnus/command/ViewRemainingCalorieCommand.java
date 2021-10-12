@@ -1,8 +1,8 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.FoodDatabase;
-import fitnus.User;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
 
 public class ViewRemainingCalorieCommand extends Command {
     public ViewRemainingCalorieCommand() {

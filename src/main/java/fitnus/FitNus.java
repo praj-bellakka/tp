@@ -3,7 +3,13 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
+import fitnus.utility.Storage;
+import fitnus.utility.Ui;
+import fitnus.utility.User;
 
 import java.io.IOException;
 

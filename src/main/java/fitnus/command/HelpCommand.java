@@ -1,9 +1,8 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.FitNusException;
-import fitnus.FoodDatabase;
-import fitnus.User;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
 
 public class HelpCommand extends Command {
     public HelpCommand() {
@@ -21,7 +20,7 @@ public class HelpCommand extends Command {
                 + "[X] Add custom food entry: add /cust FOOD_NAME|CALORIES\n"
                 + "[X] Delete food entry: remove /food INDEX_OF_FOOD\n"
                 + "[X] Set Gender: gender /set M/F (Select one)\n"
-                + "[X] View food intake for the day: list /intake /DAY\n"
+                + "[X] View food intake for the day: list /intake /day\n"
                 + "[X] Set calorie goal: calorie /set GOAL\n"
                 + "[X] View remaining calories for the day: calorie /remain\n"
                 + "[X] Exit FitNUS: exit\n"

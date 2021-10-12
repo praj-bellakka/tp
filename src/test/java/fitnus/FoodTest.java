@@ -1,5 +1,6 @@
 package fitnus;
 
+import fitnus.tracker.Food;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
