@@ -34,16 +34,21 @@ public class FitNus {
     }
 
     private static void run(Ui ui, Parser parser, FoodDatabase fd, EntryDatabase ed,
-                            User user) throws FitNusException {
+                            User user) {
+        Ui.println(new HelpCommand().execute(ed, fd, user));
         while (true) {
-            String userInput;
-            Command inputType;
-            userInput = ui.readInput();
-            inputType = parser.parseCommandType(userInput);
-            Ui.println(inputType.execute(ed, fd, user));
-            saveFitNus(fd, ed, user);
-            if (inputType instanceof ExitCommand) {
-                break;
+            try {
+                String userInput;
+                Command inputType;
+                userInput = ui.readInput();
+                inputType = parser.parseCommandType(userInput);
+                Ui.println(inputType.execute(ed, fd, user));
+                saveFitNus(fd, ed, user);
+                if (inputType instanceof ExitCommand) {
+                    break;
+                }
+            } catch (FitNusException e) {
+            Ui.println(e.getMessage());
             }
         }
     }
@@ -70,11 +75,7 @@ public class FitNus {
 
         printPreloadedData(fd, ed, user);
 
-        try {
-            Ui.println(new HelpCommand().execute(ed, fd, user));
-            run(ui, parser, fd, ed, user);
-        } catch (FitNusException e) {
-            Ui.println(e.getMessage());
-        }
+        run(ui, parser, fd, ed, user);
+
     }
 }
