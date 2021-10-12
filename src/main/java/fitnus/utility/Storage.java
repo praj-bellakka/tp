@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -26,9 +27,14 @@ public class Storage {
         createFile(FILE_PATH_FOOD_DATA.toString());
         createFile(FILE_PATH_USER_DATA.toString());
         createFile(FILE_PATH_ENTRY_DATA.toString());
+        assert Files.exists(DIRECTORY_PATH);
+        assert Files.exists(FILE_PATH_FOOD_DATA);
+        assert Files.exists(FILE_PATH_USER_DATA);
+        assert Files.exists(FILE_PATH_ENTRY_DATA);
     }
 
     public static void initialiseFoodDatabase(FoodDatabase database) throws IOException, FitNusException {
+        assert Files.exists(FILE_PATH_FOOD_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_FOOD_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -37,6 +43,7 @@ public class Storage {
     }
 
     public static void initialiseEntryDatabase(EntryDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_ENTRY_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -45,6 +52,7 @@ public class Storage {
     }
 
     public static void initialiseUser(User user) throws IOException {
+        assert Files.exists(FILE_PATH_USER_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_USER_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -53,16 +61,19 @@ public class Storage {
     }
 
     public static void saveFoodDatabase(FoodDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_FOOD_DATA);
         String data = database.convertDatabaseToString();
         saveData(FILE_PATH_FOOD_DATA.toString(), data);
     }
 
     public static void saveEntryDatabase(EntryDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_ENTRY_DATA);
         String data = database.convertDatabaseToString();
         saveData(FILE_PATH_ENTRY_DATA.toString(), data);
     }
 
     public static void saveUserData(User user) throws IOException {
+        assert Files.exists(FILE_PATH_USER_DATA);
         String userData = user.convertUserDataToString();
         saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
