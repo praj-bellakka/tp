@@ -1,9 +1,8 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.FoodDatabase;
-import fitnus.Ui;
-import fitnus.User;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
 
 public class SetGenderCommand extends Command {
     String genderSymbol;

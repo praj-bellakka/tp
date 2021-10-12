@@ -1,4 +1,4 @@
-package fitnus;
+package fitnus.tracker;
 
 public class Food {
     private final String name;

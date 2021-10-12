@@ -1,5 +1,10 @@
 package fitnus;
 
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
+import fitnus.tracker.Entry;
+import fitnus.tracker.Food;
 import fitnus.parser.Parser;
 import org.junit.jupiter.api.Test;
 
@@ -54,8 +59,8 @@ class EntryDatabaseTest {
         edb.addEntry(chickenRiceEntry);
 
         // Test
-        assertEquals(prata, edb.getEntryAtIndex(1).food);
-        assertEquals(chickenRice, edb.getEntryAtIndex(2).food);
+        assertEquals(prata, edb.getEntryAtIndex(1).getFood());
+        assertEquals(chickenRice, edb.getEntryAtIndex(2).getFood());
     }
 
     @Test
@@ -102,9 +107,9 @@ class EntryDatabaseTest {
         edb.addDefaultEntry(fdb, 3);
 
         // Test
-        assertEquals(prata, edb.getEntryAtIndex(1).food);
-        assertEquals(chickenRice, edb.getEntryAtIndex(2).food);
-        assertEquals(pizza, edb.getEntryAtIndex(3).food);
+        assertEquals(prata, edb.getEntryAtIndex(1).getFood());
+        assertEquals(chickenRice, edb.getEntryAtIndex(2).getFood());
+        assertEquals(pizza, edb.getEntryAtIndex(3).getFood());
     }
 
     @Test
@@ -184,8 +189,8 @@ class EntryDatabaseTest {
         edb.addEntry(chickenRice);
 
         // Test
-        assertEquals(prata, edb.getEntryAtIndex(1).food);
-        assertEquals(chickenRice, edb.getEntryAtIndex(2).food);
+        assertEquals(prata, edb.getEntryAtIndex(1).getFood());
+        assertEquals(chickenRice, edb.getEntryAtIndex(2).getFood());
     }
 
     @Test

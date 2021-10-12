@@ -1,9 +1,9 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.FitNusException;
-import fitnus.FoodDatabase;
-import fitnus.User;
+import fitnus.database.EntryDatabase;
+import fitnus.exception.FitNusException;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
 
 public class AddDefaultFoodEntryCommand extends Command {
     private final int index;

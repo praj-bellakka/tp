@@ -1,6 +1,6 @@
 package fitnus.parser;
 
-import fitnus.FitNusException;
+import fitnus.exception.FitNusException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

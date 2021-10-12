@@ -1,10 +1,15 @@
-package fitnus;
+package fitnus.database;
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import fitnus.exception.FitNusException;
+import fitnus.tracker.Entry;
+import fitnus.tracker.Food;
 import fitnus.parser.Parser;
+import fitnus.utility.Storage;
+import fitnus.utility.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
