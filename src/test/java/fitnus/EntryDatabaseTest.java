@@ -42,7 +42,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void addEntry_validEntry_entryAddedSuccessfully() {
+    void addEntry_validEntry_entryAddedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         Food prata = new Food("Prata", 100);
@@ -173,7 +173,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void getEntryAtIndex_validIndex_getEntrySuccessfully() {
+    void getEntryAtIndex_validIndex_getEntrySuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         Food prata = new Food("Prata", 100);
