@@ -7,7 +7,6 @@ import fitnus.command.Command;
 import fitnus.command.DeleteFoodEntryCommand;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
-import fitnus.command.InvalidCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
@@ -43,7 +42,7 @@ public class Parser {
     public static final int INVALID_INPUT = -1;
 
 
-    public Command parseCommandType(String input) {
+    public Command parseCommandType(String input) throws FitNusException {
         String[] splitString = input.strip().split(" ");
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
@@ -59,7 +58,7 @@ public class Parser {
                 case "exit":
                     return new ExitCommand();
                 default:
-                    return new InvalidCommand();
+                    throw new FitNusException("That was an invalid command! PLease try again!");
                 }
             }
 
@@ -86,34 +85,31 @@ public class Parser {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Input format is not correct. Follow the one stated!");
+            throw new FitNusException("Input format is not correct. Follow the one stated!");
         } catch (NumberFormatException e) {
-            System.out.println("Input value is not an integer!");
+            throw new FitNusException("Input value is not an integer!");
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Did you forget to write the full command? :)");
-        } catch (Exception e) {
-            e.printStackTrace();
+            throw new FitNusException("Did you forget to write the full command? :)");
         }
-        return new InvalidCommand();
+        throw new FitNusException("That was an invalid command! PLease try again!");
     }
-
 
     private Command parseRemoveTypeCommand(String[] splitInput) {
         return new DeleteFoodEntryCommand(Integer.parseInt(splitInput[2]));
     }
 
-    private Command parseListTypeCommand(String[] splitInput) {
+    private Command parseListTypeCommand(String[] splitInput) throws FitNusException {
         switch (splitInput[1]) {
         case DESCRIPTOR_INTAKE:
             return new ListFoodIntakeCommand(splitInput[2]);
         case DESCRIPTOR_FOOD:
             return new ListFoodDatabaseCommand();
         default:
-            return new InvalidCommand();
+            throw new FitNusException("That was an invalid command! PLease try again!");
         }
     }
 
-    private Command parseAddTypeCommand(String input) {
+    private Command parseAddTypeCommand(String input) throws FitNusException {
         if (input.contains(DESCRIPTOR_CUSTOM)) {
             String[] foodDescription = input.substring(6).split("\\|");
             return new AddCustomFoodEntryCommand(foodDescription[0].trim(),
@@ -124,26 +120,26 @@ public class Parser {
             return new AddDefaultFoodEntryCommand(Integer.parseInt(input.substring(5)));
         }
 
-        return new InvalidCommand();
+        throw new FitNusException("That was an invalid command! PLease try again!");
     }
 
-    private Command parseCalorieTypeCommand(String[] splitInput) {
+    private Command parseCalorieTypeCommand(String[] splitInput) throws FitNusException {
         switch (splitInput[1]) {
         case DESCRIPTOR_SET:
             return new SetCalorieGoalCommand(Integer.parseInt(splitInput[2]));
         case DESCRIPTOR_REMAIN:
             return new ViewRemainingCalorieCommand();
         default:
-            return new InvalidCommand();
+            throw new FitNusException("That was an invalid command! PLease try again!");
         }
 
     }
 
-    private Command parseGenderTypeCommand(String[] splitInput) {
+    private Command parseGenderTypeCommand(String[] splitInput) throws FitNusException {
         if (splitInput[1].equals(DESCRIPTOR_SET)) {
             return new SetGenderCommand(splitInput[2]);
         }
-        return new InvalidCommand();
+        throw new FitNusException("That was an invalid command! PLease try again!");
     }
 
     private static LocalDate parseDate(String description) {
