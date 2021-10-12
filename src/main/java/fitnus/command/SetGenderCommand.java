@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.EntryDatabase;
 import fitnus.FoodDatabase;
+import fitnus.Ui;
 import fitnus.User;
 
 public class SetGenderCommand extends Command {
@@ -18,8 +19,8 @@ public class SetGenderCommand extends Command {
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         if (genderSymbol.equals(MALE_SYMBOL) || genderSymbol.equals(FEMALE_SYMBOL)) {
-            us.setGender(genderSymbol.equals("m") ? 0 : 1);
-            return "You have set your gender to " + (genderSymbol.equals("m") ? "Male" : "Female");
+            us.setGender(genderSymbol.equals(MALE_SYMBOL) ? 0 : 1);
+            return "You have set your gender to " + (genderSymbol.equals(MALE_SYMBOL) ? "Male" : "Female");
         } else {
             return "Invalid input! Please input M for male or F for female when setting your gender.";
         }
