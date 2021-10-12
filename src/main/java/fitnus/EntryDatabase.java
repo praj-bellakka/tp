@@ -89,8 +89,12 @@ public class EntryDatabase {
         }
     }
 
-    public Entry getEntryAtIndex(int index) throws IndexOutOfBoundsException {
-        return entries.get(index - 1);
+    public Entry getEntryAtIndex(int index) throws FitNusException {
+        try {
+            return entries.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
     }
 
     public String listEntries() {

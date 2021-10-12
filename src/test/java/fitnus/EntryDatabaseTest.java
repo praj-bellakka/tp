@@ -42,7 +42,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void addEntry_validEntry_entryAddedSuccessfully() {
+    void addEntry_validEntry_entryAddedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         Food prata = new Food("Prata", 100);
@@ -146,9 +146,9 @@ class EntryDatabaseTest {
         edb.deleteEntry(2);
 
         // Test
-        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> edb.getEntryAtIndex(2));
+        Exception exception = assertThrows(FitNusException.class, () -> edb.getEntryAtIndex(2));
 
-        assertEquals("Index 1 out of bounds for length 1", exception.getMessage());
+        assertEquals("Sorry the index chosen is invalid! Please try again!", exception.getMessage());
     }
 
     @Test
@@ -173,7 +173,7 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void getEntryAtIndex_validIndex_getEntrySuccessfully() {
+    void getEntryAtIndex_validIndex_getEntrySuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         Food prata = new Food("Prata", 100);
@@ -200,12 +200,12 @@ class EntryDatabaseTest {
         edb.addEntry(chickenRice);
 
         // Test
-        Exception exception1 = assertThrows(IndexOutOfBoundsException.class, () -> edb.getEntryAtIndex(0));
-        Exception exception2 = assertThrows(IndexOutOfBoundsException.class, () -> edb.getEntryAtIndex(-1));
-        Exception exception3 = assertThrows(IndexOutOfBoundsException.class, () -> edb.getEntryAtIndex(100));
+        Exception exception1 = assertThrows(FitNusException.class, () -> edb.getEntryAtIndex(0));
+        Exception exception2 = assertThrows(FitNusException.class, () -> edb.getEntryAtIndex(-1));
+        Exception exception3 = assertThrows(FitNusException.class, () -> edb.getEntryAtIndex(100));
 
-        assertEquals("Index -1 out of bounds for length 2", exception1.getMessage());
-        assertEquals("Index -2 out of bounds for length 2", exception2.getMessage());
-        assertEquals("Index 99 out of bounds for length 2", exception3.getMessage());
+        assertEquals("Sorry the index chosen is invalid! Please try again!", exception1.getMessage());
+        assertEquals("Sorry the index chosen is invalid! Please try again!", exception2.getMessage());
+        assertEquals("Sorry the index chosen is invalid! Please try again!", exception3.getMessage());
     }
 }
