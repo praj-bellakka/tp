@@ -11,7 +11,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
         return "------------------ \n"
                 + "Here are some commands that you can use!\n"
                 + "------------------ \n"
