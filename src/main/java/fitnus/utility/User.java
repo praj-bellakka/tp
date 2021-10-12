@@ -29,10 +29,12 @@ public class User {
         } else if (newGoal == this.calorieGoal) {
             throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
         }
+        assert newGoal >= 0 : "calorie goal cannot be negative";
         this.calorieGoal = newGoal;
     }
 
     public int getGender() {
+        assert gender == FEMALE || gender == MALE : "invalid gender setting";
         return gender;
     }
 

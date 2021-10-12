@@ -121,11 +121,16 @@ public class Parser {
         if (input.contains(DESCRIPTOR_CUSTOM)) {
             //TODO: remove magic numbers
             String[] foodDescription = input.substring(6).split("\\|");
-            if (foodDescription[0].strip().equals("")) {
-                throw new FitNusException(INVALID_COMMAND_MESSAGE);
+            String foodName = foodDescription[0].trim();
+            int calorie = Integer.parseInt(foodDescription[1].trim());
+
+            if (foodName.equals("")) {
+                throw new FitNusException("Food name cannot be empty);
             }
-            return new AddCustomFoodEntryCommand(foodDescription[0].trim(),
-                    Integer.parseInt(foodDescription[1].trim()));
+            if (calorie <= 0) {
+                throw new FitNusException("Calorie of food cannot be less than or equal to 0");
+            }
+            return new AddCustomFoodEntryCommand(foodName, calorie);
         }
 
         if (input.contains(DESCRIPTOR_DEFAULT)) {
