@@ -31,6 +31,7 @@ public class FitNus {
 
     private static void saveFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
         try {
+            Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(fd);
             Storage.saveEntryDatabase(ed);
             Storage.saveUserData(user);
