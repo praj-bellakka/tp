@@ -118,9 +118,15 @@ public class Parser {
     }
 
     private Command parseAddTypeCommand(String input) throws FitNusException {
-        if (input.contains(DESCRIPTOR_CUSTOM)) {
-            //TODO: remove magic numbers
-            String[] foodDescription = input.substring(6).split("\\|");
+        int typeDescriptorIndex = input.indexOf(" ");
+
+        if (typeDescriptorIndex == -1) {
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        }
+
+        String typeDescriptor = input.substring(0, typeDescriptorIndex);
+        if (typeDescriptor.equals(DESCRIPTOR_CUSTOM)) {
+            String[] foodDescription = input.substring(typeDescriptorIndex).split("\\|");
             String foodName = foodDescription[0].trim();
             int calorie = Integer.parseInt(foodDescription[1].trim());
 
@@ -133,8 +139,9 @@ public class Parser {
             return new AddCustomFoodEntryCommand(foodName, calorie);
         }
 
-        if (input.contains(DESCRIPTOR_DEFAULT)) {
-            return new AddDefaultFoodEntryCommand(Integer.parseInt(input.substring(5)));
+        if (typeDescriptor.equals(DESCRIPTOR_DEFAULT)) {
+            return new AddDefaultFoodEntryCommand(Integer.parseInt(input
+                    .substring(typeDescriptorIndex).trim()));
         }
 
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
