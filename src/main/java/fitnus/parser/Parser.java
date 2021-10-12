@@ -59,6 +59,7 @@ public class Parser {
              * Help, Exit or Invalid command will be returned based on the input.
              */
             if (spaceIndex == INVALID_INPUT) {
+                assert spaceIndex < 0 : "Illegal input";
                 switch (input) {
                 case "help":
                     return new HelpCommand();
@@ -68,7 +69,6 @@ public class Parser {
                     throw new FitNusException(INVALID_COMMAND_MESSAGE);
                 }
             }
-
             String inputCommandType = input.substring(0, spaceIndex);
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
                 String subString = input.substring(spaceIndex + 1);
@@ -90,6 +90,7 @@ public class Parser {
             if (inputCommandType.equals(COMMAND_REMOVE)) {
                 return parseRemoveTypeCommand(splitString);
             }
+
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FitNusException("Input format is not correct. Follow the one stated!");
@@ -118,7 +119,11 @@ public class Parser {
 
     private Command parseAddTypeCommand(String input) throws FitNusException {
         if (input.contains(DESCRIPTOR_CUSTOM)) {
+            //TODO: remove magic numbers
             String[] foodDescription = input.substring(6).split("\\|");
+            if (foodDescription[0].strip().equals("")) {
+                throw new FitNusException(INVALID_COMMAND_MESSAGE);
+            }
             return new AddCustomFoodEntryCommand(foodDescription[0].trim(),
                     Integer.parseInt(foodDescription[1].trim()));
         }
