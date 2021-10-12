@@ -13,7 +13,6 @@ public class Food {
     public Food(String name, Integer calories) {
         this.name = name;
         this.calories = calories;
-        assert calories > 0 : "calorie of food should not be less than or equal to 0";
     }
 
     public String getName() {
@@ -32,10 +31,12 @@ public class Food {
      */
     @Override
     public String toString() {
+        assert calories > 0 : "calorie of food should not be less than or equal to 0";
         return this.name + " (" + this.calories.toString() + " Kcal)";
     }
 
     public String convertToStringForStorage() {
+        assert calories > 0 : "calorie of food should not be less than or equal to 0";
         return String.format("%s | %s", this.name, this.calories);
     }
 }
