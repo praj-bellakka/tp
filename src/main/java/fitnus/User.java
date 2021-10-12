@@ -65,7 +65,8 @@ public class User {
     }
 
     public String listUserData() {
-        return this.calorieGoal + " " + this.gender;
+        return "Calorie goal: " + this.calorieGoal + " " + System.lineSeparator()
+                + "Gender: " + (this.gender == 1 ? "Female" : "Male");
     }
 
     public String convertUserDataToString() {
