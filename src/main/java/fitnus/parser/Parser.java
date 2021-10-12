@@ -102,7 +102,7 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
-    private Command parseRemoveTypeCommand(String input) throws FitNusException{
+    private Command parseRemoveTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         try {
             return new DeleteFoodEntryCommand(Integer.parseInt(input
@@ -171,7 +171,7 @@ public class Parser {
         }
 
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
-        switch(typeDescriptor) {
+        switch (typeDescriptor) {
         case DESCRIPTOR_SET:
             int calorieGoal = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
             return new SetCalorieGoalCommand(calorieGoal);
