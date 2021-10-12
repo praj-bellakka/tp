@@ -9,7 +9,13 @@ import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Storage {
+
+    //Logger object
+    private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
     private static final String ROOT = System.getProperty("user.dir");
     private static final Path DIRECTORY_PATH = Paths.get(ROOT, "data");
@@ -22,6 +28,7 @@ public class Storage {
         createFile(FILE_PATH_FOOD_DATA.toString());
         createFile(FILE_PATH_USER_DATA.toString());
         createFile(FILE_PATH_ENTRY_DATA.toString());
+        logger.log(Level.INFO, "Create directory and file successful");
     }
 
     public static void initialiseFoodDatabase(FoodDatabase database) throws IOException, FitNusException {
@@ -49,18 +56,18 @@ public class Storage {
     }
 
     public static void saveFoodDatabase(FoodDatabase database) throws IOException {
-        String currentFoods = database.convertDatabaseToString();
-        saveData(FILE_PATH_FOOD_DATA.toString(), currentFoods);
+        String data = database.convertDatabaseToString();
+        saveData(FILE_PATH_FOOD_DATA.toString(), data);
     }
 
     public static void saveEntryDatabase(EntryDatabase database) throws IOException {
-        String currentFoods = database.convertDatabaseToString();
-        saveData(FILE_PATH_ENTRY_DATA.toString(), currentFoods);
+        String data = database.convertDatabaseToString();
+        saveData(FILE_PATH_ENTRY_DATA.toString(), data);
     }
 
     public static void saveUserData(User user) throws IOException {
-        String currentFoods = user.convertUserDataToString();
-        saveData(FILE_PATH_USER_DATA.toString(), currentFoods);
+        String userData = user.convertUserDataToString();
+        saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
     public static void saveData(String filePath, String content) throws IOException {
@@ -69,6 +76,7 @@ public class Storage {
         fw = new FileWriter(file);
         fw.write(content);
         fw.close();
+        logger.log(Level.INFO, "File successfully saved at: " + filePath);
     }
 
     // @@author brendanlsz-reused
