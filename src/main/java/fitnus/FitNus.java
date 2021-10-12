@@ -48,11 +48,13 @@ public class FitNus {
         }
     }
 
-    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed) {
+    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, User user) {
         Ui.println("Food database:" + System.lineSeparator()
                 + fd.listFoods());
         Ui.println("Entry database:" + System.lineSeparator()
                 + ed.listEntries());
+        Ui.println("User data:" + System.lineSeparator()
+                + user.listUserData());
     }
 
     public static void main(String[] args) {
@@ -65,6 +67,8 @@ public class FitNus {
         Ui.printWelcomeMessage();
 
         initialiseFitNus(fd, ed, user);
+
+        printPreloadedData(fd, ed, user);
 
         try {
             Ui.println(new HelpCommand().execute(ed, fd, user));
