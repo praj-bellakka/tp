@@ -48,7 +48,7 @@ public class FitNus {
                     break;
                 }
             } catch (FitNusException e) {
-            Ui.println(e.getMessage());
+                Ui.println(e.getMessage());
             }
         }
     }
@@ -66,16 +66,15 @@ public class FitNus {
         User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
         FoodDatabase fd = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
-        Parser parser = new Parser();
-        Ui ui = new Ui();
 
+        // Init
         Ui.printWelcomeMessage();
-
         initialiseFitNus(fd, ed, user);
-
         printPreloadedData(fd, ed, user);
 
+        // Run
+        Ui ui = new Ui();
+        Parser parser = new Parser();
         run(ui, parser, fd, ed, user);
-
     }
 }
