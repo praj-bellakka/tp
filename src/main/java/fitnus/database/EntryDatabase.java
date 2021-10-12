@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class EntryDatabase {
     private final ArrayList<Entry> entries;
+    private static final String DELIMITER = " | ";
 
     public EntryDatabase() {
         this.entries = new ArrayList<>();
@@ -51,12 +52,17 @@ public class EntryDatabase {
     }
 
     public String convertDatabaseToString() {
-        String content = "";
+        StringBuilder lines = new StringBuilder();
         for (Entry e : entries) {
             assert e != null : "e should not be null";
-            content += (e.convertToStringForStorage() + "\n");
+            Food food = e.getFood();
+            String date = e.getDate();
+            String name = food.getName();
+            Integer calories = food.getCalories();
+            lines.append(name).append(DELIMITER).append(calories).append(DELIMITER)
+                    .append(date).append(System.lineSeparator());
         }
-        return content;
+        return lines.toString();
     }
 
     public void preLoadDatabase(BufferedReader reader) throws IOException {

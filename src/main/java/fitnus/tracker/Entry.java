@@ -30,13 +30,9 @@ public class Entry {
      *
      * @return Formatted date as a String.
      */
-    protected String getDate() {
+    public String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
-    }
-
-    public String convertToStringForStorage() {
-        return String.format("%s | %s", this.food.convertToStringForStorage(), this.getDate());
     }
 
     @Override

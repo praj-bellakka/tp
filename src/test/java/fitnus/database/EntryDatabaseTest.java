@@ -1,4 +1,4 @@
-package fitnus;
+package fitnus.database;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
@@ -7,6 +7,12 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.parser.Parser;
 import org.junit.jupiter.api.Test;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import java.time.LocalDate;
 
@@ -39,10 +45,10 @@ class EntryDatabaseTest {
         edb.addEntry(entry2);
         edb.addEntry(entry3);
         edb.addEntry(entry4);
-        String expectedOutput = String.format("chicken rice | 200 | %s\n"
-                + "steak | 900 | %s\n"
-                + "laksa | 400 | %s\n"
-                + "hotpot | 1100 | %s\n", date, date, date, date);
+        String expectedOutput = String.format("chicken rice | 200 | %s" + System.lineSeparator()
+                + "steak | 900 | %s" + System.lineSeparator()
+                + "laksa | 400 | %s" + System.lineSeparator()
+                + "hotpot | 1100 | %s" + System.lineSeparator(), date, date, date, date);
         assertEquals(expectedOutput, edb.convertDatabaseToString());
     }
 
@@ -212,5 +218,18 @@ class EntryDatabaseTest {
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception1.getMessage());
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception2.getMessage());
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception3.getMessage());
+    }
+
+    @Test
+    void preLoadDatabase_validInput_SuccessfullyPreloadDatabase()
+            throws IOException {
+        EntryDatabase ed = new EntryDatabase();
+        String initialString = "food1 | 100 | 2021-10-12" + System.lineSeparator()
+                + "food2 | 200 | 2021-10-12";
+        InputStream stream = new ByteArrayInputStream(initialString.getBytes());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        ed.preLoadDatabase(reader);
+        assertEquals(" 1.[2021-10-12] food1 (100 Kcal)" + System.lineSeparator()
+                + " 2.[2021-10-12] food2 (200 Kcal)" + System.lineSeparator(), ed.listEntries());
     }
 }
