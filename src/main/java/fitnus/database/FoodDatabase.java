@@ -61,9 +61,12 @@ public class FoodDatabase {
             assert description.length == 2 : "description does not contain both name and calories";
             try {
                 String name = description[0].strip();
-                Integer calories = Integer.parseInt(description[1].strip());
                 assert name.equals("") == false : "name field cannot only contain white spaces";
-                assert calories.equals("") == false : "calories field cannot only contain white spaces";
+
+                String caloriesString = description[1].strip();
+                assert caloriesString.equals("") == false : "calories field cannot only contain white spaces";
+
+                Integer calories = Integer.parseInt(caloriesString);
                 this.addFood(name, calories);
                 preloadFoodCount++;
             } catch (IndexOutOfBoundsException e) {

@@ -36,7 +36,7 @@ class SetGenderCommandTest {
         User us = new User(0, 1000);
 
         SetGenderCommand c = new SetGenderCommand("invalidInput");
-        assertEquals("Invalid input! Please input M for male or F for female when setting your gender.",
+        assertEquals("Invalid input! Please input m for male or f for female when setting your gender.",
                 c.execute(ed, fd, us));
     }
 }
