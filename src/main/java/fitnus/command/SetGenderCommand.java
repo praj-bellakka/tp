@@ -21,7 +21,8 @@ public class SetGenderCommand extends Command {
             us.setGender(genderSymbol.equals(MALE_SYMBOL) ? 0 : 1);
             return "You have set your gender to " + (genderSymbol.equals(MALE_SYMBOL) ? "Male" : "Female");
         } else {
-            return "Invalid input! Please input " + MALE_SYMBOL + " for male or "+ FEMALE_SYMBOL + " for female when setting your gender.";
+            return "Invalid input! Please input " + MALE_SYMBOL + " for male or "
+                    + FEMALE_SYMBOL + " for female when setting your gender.";
         }
     }
 }
