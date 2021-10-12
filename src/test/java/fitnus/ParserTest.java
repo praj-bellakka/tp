@@ -4,7 +4,6 @@ import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
 import fitnus.command.DeleteFoodEntryCommand;
-import fitnus.command.InvalidCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
@@ -16,16 +15,19 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class ParserTest {
 
     Parser parser = new Parser();
+    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
 
     @Test
-    void parseCommandType_correctInput_parsedCorrectly() {
+    void parseCommandType_correctInput_parsedCorrectly() throws FitNusException {
         assertTrue(parser.parseCommandType("add /cust food1 | 21") instanceof AddCustomFoodEntryCommand);
         assertTrue(parser.parseCommandType("add /def 10") instanceof AddDefaultFoodEntryCommand);
         assertTrue(parser.parseCommandType("list /food") instanceof ListFoodDatabaseCommand);
@@ -39,14 +41,20 @@ public class ParserTest {
 
     @Test
     void parseCommandType_wrongInput_invalidCommand() {
-        assertTrue(parser.parseCommandType("add food1 | 21") instanceof InvalidCommand);
-        assertTrue(parser.parseCommandType("add /cust food1 21") instanceof InvalidCommand);
-        assertTrue(parser.parseCommandType("list") instanceof InvalidCommand);
-        assertTrue(parser.parseCommandType("genderr /set M/F") instanceof InvalidCommand);
-        assertTrue(parser.parseCommandType("remove/food 2") instanceof InvalidCommand);
-        assertTrue(parser.parseCommandType("calorie/set GOAL") instanceof InvalidCommand);
-        assertTrue(parser.parseCommandType("calories /remain") instanceof InvalidCommand);
+        Exception exception1 = assertThrows(FitNusException.class, () -> parser.parseCommandType("add food1 | 21"));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception1.getMessage());
 
+        Exception exception2 = assertThrows(FitNusException.class, () -> parser.parseCommandType("genderr /set M/F"));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception2.getMessage());
+
+        Exception exception3 = assertThrows(FitNusException.class, () -> parser.parseCommandType("remove/food 2"));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception3.getMessage());
+
+        Exception exception4 = assertThrows(FitNusException.class, () -> parser.parseCommandType("calorie/set GOAL"));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception4.getMessage());
+
+        Exception exception5 = assertThrows(FitNusException.class, () -> parser.parseCommandType("calories /remain"));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception5.getMessage());
     }
 
     @Test
@@ -85,7 +93,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseCommandType_validGenderInput_returnCommand() {
+    void parseCommandType_validGenderInput_returnCommand() throws FitNusException {
         String input = "gender /set M";
         Command returnCommand = parser.parseCommandType(input);
 
