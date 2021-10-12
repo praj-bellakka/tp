@@ -119,8 +119,12 @@ public class Parser {
     private Command parseAddTypeCommand(String input) throws FitNusException {
         if (input.contains(DESCRIPTOR_CUSTOM)) {
             String[] foodDescription = input.substring(6).split("\\|");
-            return new AddCustomFoodEntryCommand(foodDescription[0].trim(),
-                    Integer.parseInt(foodDescription[1].trim()));
+            String foodName = foodDescription[0].trim();
+            int calorie = Integer.parseInt(foodDescription[1].trim());
+            if (calorie <= 0) {
+                throw new FitNusException("Calorie of food cannot be less than or equal to 0");
+            }
+            return new AddCustomFoodEntryCommand(foodName, calorie);
         }
 
         if (input.contains(DESCRIPTOR_DEFAULT)) {

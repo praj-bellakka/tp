@@ -13,6 +13,7 @@ public class Food {
     public Food(String name, Integer calories) {
         this.name = name;
         this.calories = calories;
+        assert calories > 0: "calorie of food should not be less than or equal to 0";
     }
 
     public String getName() {
