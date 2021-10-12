@@ -31,7 +31,6 @@ public class EntryDatabase {
 
     public void deleteEntry(int index) throws FitNusException {
         try {
-            assert index > 0 : "index should be non-negative";
             this.entries.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
@@ -89,7 +88,6 @@ public class EntryDatabase {
 
     public void addDefaultEntry(FoodDatabase fd, int index) throws FitNusException {
         try {
-            assert index > 0 : "index should be non-negative";
             Food food = fd.getFoodAtIndex(index);
             addEntry(food);
         } catch (IndexOutOfBoundsException e) {
@@ -99,7 +97,6 @@ public class EntryDatabase {
 
     public Entry getEntryAtIndex(int index) throws FitNusException {
         try {
-            assert index > 0 : "index should be non-negative";
             return entries.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
