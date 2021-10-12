@@ -34,6 +34,7 @@ public class User {
     }
 
     public int getGender() {
+        assert gender == FEMALE || gender == MALE : "invalid gender setting";
         return gender;
     }
 
@@ -41,7 +42,6 @@ public class User {
         if (gender == MALE || gender == FEMALE) {
             this.gender = gender;
         }
-        assert gender == FEMALE || gender == MALE : "invalid gender setting";
     }
 
     public int showCaloriesRemaining(EntryDatabase entryDB) {
