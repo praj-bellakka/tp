@@ -46,6 +46,7 @@ public class EntryDatabase {
         for (Entry e : entries) {
             caloriesConsumed += e.getFood().getCalories();
         }
+        assert caloriesConsumed >= 0 : "calories consumed should be non-negative";
         return caloriesConsumed;
     }
 
