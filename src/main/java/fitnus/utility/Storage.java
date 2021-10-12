@@ -1,4 +1,8 @@
-package fitnus;
+package fitnus.utility;
+
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -49,18 +53,18 @@ public class Storage {
     }
 
     public static void saveFoodDatabase(FoodDatabase database) throws IOException {
-        String currentFoods = database.convertDatabaseToString();
-        saveData(FILE_PATH_FOOD_DATA.toString(), currentFoods);
+        String data = database.convertDatabaseToString();
+        saveData(FILE_PATH_FOOD_DATA.toString(), data);
     }
 
     public static void saveEntryDatabase(EntryDatabase database) throws IOException {
-        String currentFoods = database.convertDatabaseToString();
-        saveData(FILE_PATH_ENTRY_DATA.toString(), currentFoods);
+        String data = database.convertDatabaseToString();
+        saveData(FILE_PATH_ENTRY_DATA.toString(), data);
     }
 
     public static void saveUserData(User user) throws IOException {
-        String currentFoods = user.convertUserDataToString();
-        saveData(FILE_PATH_USER_DATA.toString(), currentFoods);
+        String userData = user.convertUserDataToString();
+        saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
     public static void saveData(String filePath, String content) throws IOException {

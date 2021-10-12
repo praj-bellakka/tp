@@ -1,9 +1,9 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.Food;
-import fitnus.FoodDatabase;
-import fitnus.User;
+import fitnus.database.EntryDatabase;
+import fitnus.tracker.Food;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
 class ListFoodIntakeCommandTest {

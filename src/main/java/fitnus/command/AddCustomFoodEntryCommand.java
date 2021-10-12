@@ -1,11 +1,11 @@
 package fitnus.command;
 
 
-import fitnus.EntryDatabase;
-import fitnus.Food;
-import fitnus.FoodDatabase;
-import fitnus.User;
-import fitnus.FitNusException;
+import fitnus.database.EntryDatabase;
+import fitnus.tracker.Food;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
+import fitnus.exception.FitNusException;
 
 public class AddCustomFoodEntryCommand extends Command {
     private final String foodName;

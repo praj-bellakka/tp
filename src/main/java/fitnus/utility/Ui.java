@@ -1,10 +1,9 @@
-package fitnus;
+package fitnus.utility;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public static final String WELCOME_MESSAGE = "------------------ \n"
             + "Welcome to FitNUS Tracker!";

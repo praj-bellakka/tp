@@ -3,55 +3,84 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
+import fitnus.utility.Storage;
+import fitnus.utility.Ui;
+import fitnus.utility.User;
+
+import java.io.IOException;
 
 public class FitNus {
-    public static void main(String[] args) {
-        User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
-        FoodDatabase fd = new FoodDatabase();
-        EntryDatabase ed = new EntryDatabase();
-        Parser parser = new Parser();
-        Ui ui = new Ui();
 
-
+    private static void initialiseFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
+        // Load From Storage
         try {
-            // Welcome Message
-            Ui.printWelcomeMessage();
-            Ui.println(new HelpCommand().execute(ed, fd, user));
-
-            // Load From Storage
             Storage.createDirectoryAndFiles();
             Storage.initialiseFoodDatabase(fd);
             Storage.initialiseEntryDatabase(ed);
             Storage.initialiseUser(user);
-            Ui.println("Food database:" + System.lineSeparator()
-                    + fd.listFoods());
-            Ui.println("Entry database:" + System.lineSeparator()
-                    + ed.listEntries());
-            Ui.println(user.listUserData());
+        } catch (IOException e) {
+            Ui.println("I/O error! " + e.getMessage());
+        } catch (FitNusException e) {
+            Ui.println(e.getMessage());
+        }
+    }
+
+    private static void saveFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
+        try {
             Storage.saveFoodDatabase(fd);
             Storage.saveEntryDatabase(ed);
             Storage.saveUserData(user);
-        } catch (Exception e) {
-            Ui.println(e.getMessage());
+        } catch (IOException e) {
+            Ui.println("I/O error! " + e.getMessage());
         }
+    }
 
-
+    private static void run(Ui ui, Parser parser, FoodDatabase fd, EntryDatabase ed,
+                            User user) {
+        Ui.println(new HelpCommand().execute(ed, fd, user));
         while (true) {
-            String userInput;
-            Command inputType;
             try {
+                String userInput;
+                Command inputType;
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput);
                 Ui.println(inputType.execute(ed, fd, user));
-
+                saveFitNus(fd, ed, user);
                 if (inputType instanceof ExitCommand) {
                     break;
                 }
-            } catch (Exception e) {
+            } catch (FitNusException e) {
                 Ui.println(e.getMessage());
-                //ui.println(new InvalidCommand().execute(ed, fd, user));
             }
         }
+    }
+
+    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, User user) {
+        Ui.println("Food database:" + System.lineSeparator()
+                + fd.listFoods());
+        Ui.println("Entry database:" + System.lineSeparator()
+                + ed.listEntries());
+        Ui.println("User data:" + System.lineSeparator()
+                + user.listUserData());
+    }
+
+    public static void main(String[] args) {
+        User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
+        FoodDatabase fd = new FoodDatabase();
+        EntryDatabase ed = new EntryDatabase();
+
+        // Init
+        Ui.printWelcomeMessage();
+        initialiseFitNus(fd, ed, user);
+        printPreloadedData(fd, ed, user);
+
+        // Run
+        Ui ui = new Ui();
+        Parser parser = new Parser();
+        run(ui, parser, fd, ed, user);
     }
 }

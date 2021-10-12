@@ -1,5 +1,7 @@
 package fitnus;
 
+import fitnus.exception.FitNusException;
+import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

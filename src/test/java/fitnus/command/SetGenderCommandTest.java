@@ -1,9 +1,8 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.Food;
-import fitnus.FoodDatabase;
-import fitnus.User;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +15,7 @@ class SetGenderCommandTest {
         FoodDatabase fd = new FoodDatabase();
         User us = new User(0, 1000);
 
-        SetGenderCommand c = new SetGenderCommand("M");
+        SetGenderCommand c = new SetGenderCommand("m");
         assertEquals("You have set your gender to Male", c.execute(ed, fd, us));
     }
 
@@ -26,7 +25,7 @@ class SetGenderCommandTest {
         FoodDatabase fd = new FoodDatabase();
         User us = new User(0, 1000);
 
-        SetGenderCommand c = new SetGenderCommand("F");
+        SetGenderCommand c = new SetGenderCommand("f");
         assertEquals("You have set your gender to Female", c.execute(ed, fd, us));
     }
 

@@ -1,9 +1,10 @@
 package fitnus.command;
 
-import fitnus.EntryDatabase;
-import fitnus.FitNusException;
-import fitnus.FoodDatabase;
-import fitnus.User;
+import fitnus.tracker.Entry;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
+import fitnus.utility.User;
 
 public class DeleteFoodEntryCommand extends Command {
     private final int index;
@@ -14,7 +15,8 @@ public class DeleteFoodEntryCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+        Entry deletedEntry = ed.getEntryAtIndex(index);
         ed.deleteEntry(index);
-        return "You have successfully deleted " + ed.getEntryAtIndex(index).getFood();
+        return "You have successfully deleted " + deletedEntry.getFood();
     }
 }

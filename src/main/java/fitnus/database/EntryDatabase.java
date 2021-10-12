@@ -1,10 +1,15 @@
-package fitnus;
+package fitnus.database;
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import fitnus.exception.FitNusException;
+import fitnus.tracker.Entry;
+import fitnus.tracker.Food;
 import fitnus.parser.Parser;
+import fitnus.utility.Storage;
+import fitnus.utility.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -89,8 +94,12 @@ public class EntryDatabase {
         }
     }
 
-    public Entry getEntryAtIndex(int index) throws IndexOutOfBoundsException {
-        return entries.get(index - 1);
+    public Entry getEntryAtIndex(int index) throws FitNusException {
+        try {
+            return entries.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
     }
 
     public String listEntries() {

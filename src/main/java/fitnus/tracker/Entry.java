@@ -1,4 +1,6 @@
-package fitnus;
+package fitnus.tracker;
+
+import fitnus.tracker.Food;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

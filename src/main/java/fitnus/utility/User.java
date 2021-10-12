@@ -1,12 +1,11 @@
-package fitnus;
+package fitnus.utility;
 
-import fitnus.parser.Parser;
+import fitnus.database.EntryDatabase;
+import fitnus.exception.FitNusException;
+import fitnus.utility.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class User {
     private static final int MALE = 0;
@@ -65,7 +64,8 @@ public class User {
     }
 
     public String listUserData() {
-        return this.calorieGoal + " " + this.gender;
+        return "Calorie goal: " + this.calorieGoal + " " + System.lineSeparator()
+                + "Gender: " + (this.gender == 1 ? "Female" : "Male");
     }
 
     public String convertUserDataToString() {
