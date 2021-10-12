@@ -40,6 +40,7 @@ public class Parser {
     private static final String DESCRIPTOR_REMAIN = "/remain";
     private static final String DESCRIPTOR_SET = "/set";
     public static final int INVALID_INPUT = -1;
+    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
 
 
     public Command parseCommandType(String input) throws FitNusException {
@@ -58,7 +59,7 @@ public class Parser {
                 case "exit":
                     return new ExitCommand();
                 default:
-                    throw new FitNusException("That was an invalid command! PLease try again!");
+                    throw new FitNusException(INVALID_COMMAND_MESSAGE);
                 }
             }
 
@@ -91,7 +92,7 @@ public class Parser {
         } catch (StringIndexOutOfBoundsException e) {
             throw new FitNusException("Did you forget to write the full command? :)");
         }
-        throw new FitNusException("That was an invalid command! PLease try again!");
+        throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
     private Command parseRemoveTypeCommand(String[] splitInput) {
@@ -105,7 +106,7 @@ public class Parser {
         case DESCRIPTOR_FOOD:
             return new ListFoodDatabaseCommand();
         default:
-            throw new FitNusException("That was an invalid command! PLease try again!");
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
     }
 
@@ -120,7 +121,7 @@ public class Parser {
             return new AddDefaultFoodEntryCommand(Integer.parseInt(input.substring(5)));
         }
 
-        throw new FitNusException("That was an invalid command! PLease try again!");
+        throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
     private Command parseCalorieTypeCommand(String[] splitInput) throws FitNusException {
@@ -130,7 +131,7 @@ public class Parser {
         case DESCRIPTOR_REMAIN:
             return new ViewRemainingCalorieCommand();
         default:
-            throw new FitNusException("That was an invalid command! PLease try again!");
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
 
     }
@@ -139,7 +140,7 @@ public class Parser {
         if (splitInput[1].equals(DESCRIPTOR_SET)) {
             return new SetGenderCommand(splitInput[2]);
         }
-        throw new FitNusException("That was an invalid command! PLease try again!");
+        throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
     private static LocalDate parseDate(String description) {
