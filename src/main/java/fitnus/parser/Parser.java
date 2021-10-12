@@ -70,25 +70,25 @@ public class Parser {
                 }
             }
             String inputCommandType = input.substring(0, spaceIndex);
+            String subString = input.substring(spaceIndex + 1).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                String subString = input.substring(spaceIndex + 1);
                 return parseAddTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
-                return parseListTypeCommand(splitString);
+                return parseListTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_CALORIE)) { //calorie type command
-                return parseCalorieTypeCommand(splitString);
+                return parseCalorieTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_GENDER)) { //gender type command
-                return parseGenderTypeCommand(splitString);
+                return parseGenderTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_REMOVE)) {
-                return parseRemoveTypeCommand(splitString);
+                return parseRemoveTypeCommand(subString);
             }
 
 
@@ -102,16 +102,29 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
-    private Command parseRemoveTypeCommand(String[] splitInput) {
-        return new DeleteFoodEntryCommand(Integer.parseInt(splitInput[2]));
+    private Command parseRemoveTypeCommand(String input) throws FitNusException{
+        int typeDescriptorIndex = input.indexOf(" ");
+        try {
+            return new DeleteFoodEntryCommand(Integer.parseInt(input
+                    .substring(typeDescriptorIndex).trim()));
+        } catch (NumberFormatException e) {
+            throw new FitNusException("Input value is not an integer!");
+        }
     }
 
-    private Command parseListTypeCommand(String[] splitInput) throws FitNusException {
-        switch (splitInput[1]) {
+    private Command parseListTypeCommand(String input) throws FitNusException {
+        int typeDescriptorIndex = input.indexOf(" ");
+        if (typeDescriptorIndex == -1) {
+            if (input.equals(DESCRIPTOR_FOOD)) {
+                return new ListFoodDatabaseCommand();
+            }
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        }
+
+        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
+        switch (typeDescriptor) {
         case DESCRIPTOR_INTAKE:
-            return new ListFoodIntakeCommand(splitInput[2]);
-        case DESCRIPTOR_FOOD:
-            return new ListFoodDatabaseCommand();
+            return new ListFoodIntakeCommand(input.substring(typeDescriptorIndex).trim());
         default:
             throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
@@ -124,7 +137,7 @@ public class Parser {
             throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
 
-        String typeDescriptor = input.substring(0, typeDescriptorIndex);
+        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
         if (typeDescriptor.equals(DESCRIPTOR_CUSTOM)) {
             String[] foodDescription = input.substring(typeDescriptorIndex).split("\\|");
             String foodName = foodDescription[0].trim();
@@ -147,21 +160,37 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
-    private Command parseCalorieTypeCommand(String[] splitInput) throws FitNusException {
-        switch (splitInput[1]) {
+    private Command parseCalorieTypeCommand(String input) throws FitNusException {
+        int typeDescriptorIndex = input.indexOf(" ");
+
+        if (typeDescriptorIndex == -1) {
+            if (input.equals(DESCRIPTOR_REMAIN)) {
+                return new ViewRemainingCalorieCommand();
+            }
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        }
+
+        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
+        switch(typeDescriptor) {
         case DESCRIPTOR_SET:
-            return new SetCalorieGoalCommand(Integer.parseInt(splitInput[2]));
-        case DESCRIPTOR_REMAIN:
-            return new ViewRemainingCalorieCommand();
+            int calorieGoal = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
+            return new SetCalorieGoalCommand(calorieGoal);
+
         default:
             throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
 
     }
 
-    private Command parseGenderTypeCommand(String[] splitInput) throws FitNusException {
-        if (splitInput[1].equals(DESCRIPTOR_SET)) {
-            return new SetGenderCommand(splitInput[2]);
+    private Command parseGenderTypeCommand(String input) throws FitNusException {
+        int typeDescriptorIndex = input.indexOf(" ");
+        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
+        try {
+            if (typeDescriptor.equals(DESCRIPTOR_SET)) {
+                return new SetGenderCommand(input.substring(typeDescriptorIndex).trim());
+            }
+        } catch (Exception e) {
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
