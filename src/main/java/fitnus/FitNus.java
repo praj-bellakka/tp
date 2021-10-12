@@ -3,7 +3,13 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
+import fitnus.utility.Storage;
+import fitnus.utility.Ui;
+import fitnus.utility.User;
 
 import java.io.IOException;
 
@@ -34,16 +40,21 @@ public class FitNus {
     }
 
     private static void run(Ui ui, Parser parser, FoodDatabase fd, EntryDatabase ed,
-                            User user) throws FitNusException {
+                            User user) {
+        Ui.println(new HelpCommand().execute(ed, fd, user));
         while (true) {
-            String userInput;
-            Command inputType;
-            userInput = ui.readInput();
-            inputType = parser.parseCommandType(userInput);
-            Ui.println(inputType.execute(ed, fd, user));
-            saveFitNus(fd, ed, user);
-            if (inputType instanceof ExitCommand) {
-                break;
+            try {
+                String userInput;
+                Command inputType;
+                userInput = ui.readInput();
+                inputType = parser.parseCommandType(userInput);
+                Ui.println(inputType.execute(ed, fd, user));
+                saveFitNus(fd, ed, user);
+                if (inputType instanceof ExitCommand) {
+                    break;
+                }
+            } catch (FitNusException e) {
+                Ui.println(e.getMessage());
             }
         }
     }
@@ -61,20 +72,15 @@ public class FitNus {
         User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
         FoodDatabase fd = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
-        Parser parser = new Parser();
-        Ui ui = new Ui();
 
+        // Init
         Ui.printWelcomeMessage();
-
         initialiseFitNus(fd, ed, user);
-
         printPreloadedData(fd, ed, user);
 
-        try {
-            Ui.println(new HelpCommand().execute(ed, fd, user));
-            run(ui, parser, fd, ed, user);
-        } catch (FitNusException e) {
-            Ui.println(e.getMessage());
-        }
+        // Run
+        Ui ui = new Ui();
+        Parser parser = new Parser();
+        run(ui, parser, fd, ed, user);
     }
 }

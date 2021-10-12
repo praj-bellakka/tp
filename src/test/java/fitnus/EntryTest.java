@@ -1,5 +1,7 @@
 package fitnus;
 
+import fitnus.tracker.Entry;
+import fitnus.tracker.Food;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

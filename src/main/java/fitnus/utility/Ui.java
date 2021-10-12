@@ -1,6 +1,5 @@
-package fitnus;
+package fitnus.utility;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {
@@ -38,6 +37,7 @@ public class Ui {
                 println("Input cannot be empty! Please try again");
             }
         } while (userInput.equals(""));
+        assert !userInput.trim().equals("") : "input cannot be empty";
         return userInput;
     }
 }

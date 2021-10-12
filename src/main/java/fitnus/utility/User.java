@@ -1,12 +1,11 @@
-package fitnus;
+package fitnus.utility;
 
-import fitnus.parser.Parser;
+import fitnus.database.EntryDatabase;
+import fitnus.exception.FitNusException;
+import fitnus.utility.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class User {
     private static final int MALE = 0;
@@ -30,10 +29,12 @@ public class User {
         } else if (newGoal == this.calorieGoal) {
             throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
         }
+        assert newGoal >= 0 : "calorie goal cannot be negative";
         this.calorieGoal = newGoal;
     }
 
     public int getGender() {
+        assert gender == FEMALE || gender == MALE : "invalid gender setting";
         return gender;
     }
 
