@@ -125,7 +125,7 @@ public class Parser {
             int calorie = Integer.parseInt(foodDescription[1].trim());
 
             if (foodName.equals("")) {
-                throw new FitNusException("Food name cannot be empty);
+                throw new FitNusException("Food name cannot be empty");
             }
             if (calorie <= 0) {
                 throw new FitNusException("Calorie of food cannot be less than or equal to 0");
