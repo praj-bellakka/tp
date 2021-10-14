@@ -12,8 +12,11 @@ import fitnus.utility.Ui;
 import fitnus.utility.User;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FitNus {
+    private static Logger logger = Logger.getLogger("FitNus");
 
     private static void initialiseFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
         // Load From Storage
@@ -23,8 +26,10 @@ public class FitNus {
             Storage.initialiseEntryDatabase(ed);
             Storage.initialiseUser(user);
         } catch (IOException e) {
+            logger.log(Level.INFO, "some problems when loading data");
             Ui.println("I/O error! " + e.getMessage());
         } catch (FitNusException e) {
+            logger.log(Level.INFO, "some problems when loading data");
             Ui.println(e.getMessage());
         }
     }
@@ -36,6 +41,7 @@ public class FitNus {
             Storage.saveEntryDatabase(ed);
             Storage.saveUserData(user);
         } catch (IOException e) {
+            logger.log(Level.INFO, "some problems when saving data");
             Ui.println("I/O error! " + e.getMessage());
         }
     }
