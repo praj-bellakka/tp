@@ -6,6 +6,8 @@ import fitnus.utility.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class User {
     private static final int MALE = 0;
@@ -13,6 +15,7 @@ public class User {
     private int calorieGoal;
     private int gender;
     private static final String DELIMITER = " | ";
+    private static Logger userLogger = Logger.getLogger("user");
 
     public User(int gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
@@ -29,6 +32,7 @@ public class User {
         } else if (newGoal == this.calorieGoal) {
             throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
         }
+        userLogger.log(Level.INFO, "calorie goal cannot be negative");
         assert newGoal >= 0 : "calorie goal cannot be negative";
         this.calorieGoal = newGoal;
     }
