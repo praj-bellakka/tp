@@ -18,6 +18,7 @@ public class Entry {
         this.food = food;
         this.date = date;
         assert !date.isAfter(LocalDate.now()) : "date should not be later than today";
+
     }
 
     public Food getFood() {

@@ -2,7 +2,6 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
-import fitnus.utility.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
