@@ -173,16 +173,12 @@ public class Parser {
         switch (input) {
         case "/bfast":
             return MealType.BREAKFAST;
-            break;
         case "/lunch":
             return MealType.LUNCH;
-            break;
         case "/dinner":
             return MealType.DINNER;
-            break;
         case "/snack":
             return MealType.SNACK;
-            break;
         default:
             return null;
         }
