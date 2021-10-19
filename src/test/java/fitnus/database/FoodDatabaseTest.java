@@ -1,9 +1,16 @@
-package fitnus;
+package fitnus.database;
 
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
 import org.junit.jupiter.api.Test;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,12 +67,23 @@ class FoodDatabaseTest {
     }
 
     @Test
-    void convertDatabaseToString() {
-        //todo
+    void convertDatabaseToString_databaseWithFoods_foodsAsString() throws FitNusException {
+        FoodDatabase fd = new FoodDatabase();
+        fd.addFood("food1", 100);
+        fd.addFood("food2", 200);
+        assertEquals("food1 | 100" + System.lineSeparator()
+                + "food2 | 200" + System.lineSeparator(), fd.convertDatabaseToString());
     }
 
     @Test
-    void preLoadDatabase() {
-        //todo
+    void preLoadDatabase_validInput_SuccessfullyPreloadDatabase()
+            throws FitNusException, IOException {
+        FoodDatabase fd = new FoodDatabase();
+        String initialString = "food1 | 100" + System.lineSeparator() + "food2 | 200";
+        InputStream stream = new ByteArrayInputStream(initialString.getBytes());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        fd.preLoadDatabase(reader);
+        assertEquals(" 1.food1 (100 Kcal)" + System.lineSeparator()
+                + " 2.food2 (200 Kcal)" + System.lineSeparator(), fd.listFoods());
     }
 }

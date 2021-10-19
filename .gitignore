@@ -18,3 +18,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 data/entry.txt
 data/food.txt
 data/user.txt
+src/main/java/META-INF/MANIFEST.MF
+src/main/resources/META-INF/MANIFEST.MF

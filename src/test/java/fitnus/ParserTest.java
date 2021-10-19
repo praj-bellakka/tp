@@ -15,10 +15,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ParserTest {
@@ -38,6 +37,7 @@ public class ParserTest {
         assertTrue(parser.parseCommandType("calorie /remain") instanceof ViewRemainingCalorieCommand);
 
     }
+
 
     @Test
     void parseCommandType_wrongInput_invalidCommand() {
@@ -88,8 +88,11 @@ public class ParserTest {
     @Test
     void getDate_validInput_returnDate() throws FitNusException {
         String input1 = "2020-03-03"; //correct format
-
         assertEquals(LocalDate.class, parser.getDate(input1).getClass());
+
+        String line = "2021-12-23";
+        LocalDate date = Parser.getDate(line);
+        assertEquals(LocalDate.of(2021, 12, 23), date);
     }
 
     @Test

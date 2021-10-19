@@ -18,6 +18,7 @@ public class Entry {
         this.food = food;
         this.date = date;
         assert !date.isAfter(LocalDate.now()) : "date should not be later than today";
+
     }
 
     public Food getFood() {
@@ -30,13 +31,9 @@ public class Entry {
      *
      * @return Formatted date as a String.
      */
-    protected String getDate() {
+    public String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
-    }
-
-    public String convertToStringForStorage() {
-        return String.format("%s | %s", this.food.convertToStringForStorage(), this.getDate());
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ListFoodIntakeCommand extends Command {
         if (timeSpan.equals(DESCRIPTOR_DAY)) {
             return ed.listEntries();
         }
-        return null;
+        return "The time period descriptor is invalid!";
     }
 }
 
