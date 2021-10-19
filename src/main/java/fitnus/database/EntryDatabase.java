@@ -14,6 +14,7 @@ import fitnus.utility.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class EntryDatabase {
     private final ArrayList<Entry> entries;
@@ -119,6 +120,15 @@ public class EntryDatabase {
                     + System.lineSeparator());
         }
         return result;
+    }
+
+    public ArrayList<Entry> findEntry(String keyword) throws FitNusException {
+        if (keyword.equals("")) {
+            throw new FitNusException("Please provide a valid keyword");
+        }
+        return (ArrayList<Entry>) entries.stream()
+                .filter(t -> t.getFood().getName().contains(keyword))
+                .collect(Collectors.toList());
     }
 }
 

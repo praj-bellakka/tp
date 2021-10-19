@@ -1,5 +1,10 @@
 package fitnus.utility;
 
+import fitnus.command.FindFoodCommand;
+import fitnus.tracker.Entry;
+import fitnus.tracker.Food;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -39,5 +44,34 @@ public class Ui {
         } while (userInput.equals(""));
         assert !userInput.trim().equals("") : "input cannot be empty";
         return userInput;
+    }
+
+    private static void printNoMatchingResults() {
+        String message = "  Sorry, no matching results found!";
+        System.out.println(message);
+    }
+
+    public static void printMatchingFoods(ArrayList<Food> matchingFoods) {
+        if (matchingFoods.size() == 0) {
+            printNoMatchingResults();
+            return;
+        }
+        System.out.println(" Here are the matching foods in your database:");
+        for (int i = 1; i <= matchingFoods.size(); i++) {
+            System.out.println(" " + i + "." +
+                    matchingFoods.get(i - 1).toString());
+        }
+    }
+
+    public static void printMatchingEntries(ArrayList<Entry> matchingEntries) {
+        if (matchingEntries.size() == 0) {
+            printNoMatchingResults();
+            return;
+        }
+        System.out.println(" Here are the matching entries in your database:");
+        for (int i = 1; i <= matchingEntries.size(); i++) {
+            System.out.println(" " + i + "." +
+                    matchingEntries.get(i - 1).toString());
+        }
     }
 }
