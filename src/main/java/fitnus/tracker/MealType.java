@@ -24,5 +24,11 @@ public enum MealType {
         public String toString() {
             return "Snack";
         }
+    },
+    UNDEFINED {
+        @Override
+        public String toString() {
+            return "Undefined";
+        }
     }
 }

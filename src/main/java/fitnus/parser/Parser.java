@@ -15,6 +15,7 @@ import fitnus.command.ViewRemainingCalorieCommand;
 import fitnus.tracker.MealType;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import java.util.logging.Level;
@@ -48,6 +49,14 @@ public class Parser {
     private static final String DESCRIPTOR_SET = "/set";
     public static final int INVALID_INPUT = -1;
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
+
+    //predefined breakfast, lunch and dinner timings (in 24hrs)
+    private static final int BREAKFAST_HOUR_LOWER = 6; //6am
+    private static final int BREAKFAST_HOUR_UPPER = 10; //10am
+    private static final int LUNCH_HOUR_LOWER = 11; //11am
+    private static final int LUNCH_HOUR_UPPER = 14; //2pm
+    private static final int DINNER_HOUR_LOWER = 18; //6pm
+    private static final int DINNER_HOUR_UPPER = 21; //9pm
 
 
     public Command parseCommandType(String input) throws FitNusException {
@@ -132,11 +141,26 @@ public class Parser {
     }
 
     private Command parseAddTypeCommand2(String input) throws FitNusException { //add /breakfast ljksadfhjjlk sfjgk
-        //step 1: find time category
-        String timeType = input.substring(0, input.indexOf(SPACE_CHARACTER));
+        //step 1: find meal category and food name
+        String mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
+        MealType mealType =  parseMealType(mealTypeString);
+        String foodName = "";
+
+        //if mealType is null, user didn't specify the command -> auto tag the meal type
+        if (mealType.equals(MealType.UNDEFINED)) {
+            //TODO: Add a print statement that tells user that food category has been auto added
+            mealType = findMealTypeTiming();
+            foodName = input;
+        } else {
+            foodName = input.substring(input.indexOf(SPACE_CHARACTER));
+        }
+
+        //step 2: search database if food exists
 
         return null;
     }
+
+    //private 
 
     private Command parseAddTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
@@ -169,6 +193,14 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Function takes in an input that may contain the meal type.
+     * If the meal type matches the predefined MealType enum, the matching MealType is returned.
+     * Otherwise, UNDEFINED is returned.
+     *
+     * @param input Input that may contain the meal type.
+     * @return MealType if a match is found; UNDEFINED MealType otherwise.
+     */
     private MealType parseMealType(String input) {
         switch (input) {
         case "/bfast":
@@ -180,7 +212,22 @@ public class Parser {
         case "/snack":
             return MealType.SNACK;
         default:
-            return null;
+            return MealType.UNDEFINED;
+        }
+    }
+
+    private MealType findMealTypeTiming() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        int hourOfDay = currentTime.getHour();
+
+        if (hourOfDay >= BREAKFAST_HOUR_LOWER && hourOfDay < BREAKFAST_HOUR_UPPER) {
+            return MealType.BREAKFAST;
+        } else if (hourOfDay >= LUNCH_HOUR_LOWER && hourOfDay < LUNCH_HOUR_UPPER) {
+            return MealType.LUNCH;
+        } else if (hourOfDay >= DINNER_HOUR_LOWER && hourOfDay < DINNER_HOUR_UPPER) {
+            return MealType.DINNER;
+        } else {
+            return MealType.SNACK; //if current time is outside of these hours, the person is assumed to eat snack.
         }
     }
 
