@@ -73,7 +73,7 @@ public class Parser {
             String inputCommandType = input.substring(0, spaceIndex);
             String subString = input.substring(spaceIndex + 1).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand(subString);
+                return parseAddTypeCommand2(subString);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
@@ -131,6 +131,13 @@ public class Parser {
         }
     }
 
+    private Command parseAddTypeCommand2(String input) throws FitNusException { //add /breakfast ljksadfhjjlk sfjgk
+        //step 1: find time category
+        String timeType = input.substring(0, input.indexOf(SPACE_CHARACTER));
+
+        return null;
+    }
+
     private Command parseAddTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
 
@@ -160,6 +167,25 @@ public class Parser {
         }
 
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
+    }
+
+    private MealType parseMealType(String input) {
+        switch (input) {
+        case "/bfast":
+            return MealType.BREAKFAST;
+            break;
+        case "/lunch":
+            return MealType.LUNCH;
+            break;
+        case "/dinner":
+            return MealType.DINNER;
+            break;
+        case "/snack":
+            return MealType.SNACK;
+            break;
+        default:
+            return null;
+        }
     }
 
     private Command parseCalorieTypeCommand(String input) throws FitNusException {
