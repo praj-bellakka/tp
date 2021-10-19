@@ -6,15 +6,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Entry {
-    Food food;
-    LocalDate date;
+    private final MealType mealType;
+    private final Food food;
+    private final LocalDate date;
 
-    public Entry(Food food) {
+    public Entry(MealType mealType, Food food) {
+        this.mealType = mealType;
         this.food = food;
         this.date = LocalDate.now();
     }
 
-    public Entry(Food food, LocalDate date) {
+    public Entry(MealType mealType, Food food, LocalDate date) {
+        this.mealType = mealType;
         this.food = food;
         this.date = date;
         assert !date.isAfter(LocalDate.now()) : "date should not be later than today";
@@ -36,11 +39,14 @@ public class Entry {
         return date.format(formatter);
     }
 
+    public MealType getMealType() {
+        return this.mealType;
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String date = this.date.format(formatter);
-        return "[" + date + "] " + food.toString();
+        return "[" + date + "] " + mealType + ": " + food.toString();
     }
-
 }

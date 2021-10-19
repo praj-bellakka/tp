@@ -8,6 +8,7 @@ import fitnus.exception.FitNusException;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.parser.Parser;
+import fitnus.tracker.MealType;
 import fitnus.utility.Storage;
 import fitnus.utility.Ui;
 
@@ -22,8 +23,8 @@ public class EntryDatabase {
         this.entries = new ArrayList<>();
     }
 
-    public void addEntry(Food food) {
-        this.entries.add(new Entry(food));
+    public void addEntry(MealType mealType, Food food) {
+        this.entries.add(new Entry(mealType, food));
     }
 
     public void addEntry(Entry entry) {
@@ -55,11 +56,12 @@ public class EntryDatabase {
         StringBuilder lines = new StringBuilder();
         for (Entry e : entries) {
             assert e != null : "e should not be null";
+            MealType mealType = e.getMealType();
             Food food = e.getFood();
             String date = e.getDate();
             String name = food.getName();
             Integer calories = food.getCalories();
-            lines.append(name).append(DELIMITER).append(calories).append(DELIMITER)
+            lines.append(mealType).append(DELIMITER).append(name).append(DELIMITER).append(calories).append(DELIMITER)
                     .append(date).append(System.lineSeparator());
         }
         return lines.toString();
@@ -71,11 +73,12 @@ public class EntryDatabase {
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
-                String name = description[0];
-                Integer calories = Integer.parseInt(description[1]);
+                MealType mealType = Parser.getMealType(description[0]);
+                String name = description[1];
+                Integer calories = Integer.parseInt(description[2]);
                 Food food = new Food(name, calories);
                 LocalDate date = Parser.getDate(line);
-                Entry entry = new Entry(food, date);
+                Entry entry = new Entry(mealType, food, date);
                 this.addEntry(entry);
                 preloadEntryCount++;
             } catch (FitNusException e) {
@@ -92,10 +95,10 @@ public class EntryDatabase {
         return entries;
     }
 
-    public void addDefaultEntry(FoodDatabase fd, int index) throws FitNusException {
+    public void addDefaultEntry(MealType mealType, FoodDatabase fd, int index) throws FitNusException {
         try {
             Food food = fd.getFoodAtIndex(index);
-            addEntry(food);
+            addEntry(mealType, food);
         } catch (IndexOutOfBoundsException e) {
             throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
         }
