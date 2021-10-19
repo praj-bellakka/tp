@@ -58,8 +58,8 @@ public class Ui {
         }
         System.out.println(" Here are the matching foods in your database:");
         for (int i = 1; i <= matchingFoods.size(); i++) {
-            System.out.println(" " + i + "." +
-                    matchingFoods.get(i - 1).toString());
+            System.out.println(" " + i + "."
+                    + matchingFoods.get(i - 1).toString());
         }
     }
 
@@ -70,8 +70,8 @@ public class Ui {
         }
         System.out.println(" Here are the matching entries in your database:");
         for (int i = 1; i <= matchingEntries.size(); i++) {
-            System.out.println(" " + i + "." +
-                    matchingEntries.get(i - 1).toString());
+            System.out.println(" " + i + "."
+                    + matchingEntries.get(i - 1).toString());
         }
     }
 }
