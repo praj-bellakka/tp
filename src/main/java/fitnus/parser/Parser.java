@@ -1,6 +1,5 @@
 package fitnus.parser;
 
-import fitnus.exception.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
@@ -12,7 +11,11 @@ import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
+import fitnus.command.FindEntryCommand;
+import fitnus.command.FindFoodCommand;
+import fitnus.exception.FitNusException;
 import fitnus.tracker.MealType;
+import fitnus.utility.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +42,7 @@ public class Parser {
     private static final String COMMAND_CALORIE = "calorie";
     private static final String COMMAND_REMOVE = "remove";
     private static final String COMMAND_GENDER = "gender";
+    private static final String COMMAND_FIND = "find";
 
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
@@ -99,6 +103,10 @@ public class Parser {
 
             if (inputCommandType.equals(COMMAND_REMOVE)) {
                 return parseRemoveTypeCommand(subString);
+            }
+
+            if (inputCommandType.equals(COMMAND_FIND)) {
+                return parseFindCommand(subString);
             }
 
 
@@ -242,14 +250,11 @@ public class Parser {
         }
 
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
-        switch (typeDescriptor) {
-        case DESCRIPTOR_SET:
+        if (DESCRIPTOR_SET.equals(typeDescriptor)) {
             int calorieGoal = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
             return new SetCalorieGoalCommand(calorieGoal);
-
-        default:
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
+        throw new FitNusException(INVALID_COMMAND_MESSAGE);
 
     }
 
@@ -264,6 +269,21 @@ public class Parser {
             throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
+    }
+
+    private Command parseFindCommand(String input) throws FitNusException {
+        if (input.contains("/food")) {
+            int typeDescriptorIndex = input.indexOf("/food");
+            String keyword = input.substring(typeDescriptorIndex + 6);
+            Ui.println(keyword);
+            return new FindFoodCommand(keyword);
+        } else if (input.contains("/entry")) {
+            int typeDescriptorIndex = input.indexOf("/entry");
+            String keyword = input.substring(typeDescriptorIndex + 7);
+            Ui.println(keyword);
+            return new FindEntryCommand(keyword);
+        }
+        throw new FitNusException("parse find error");
     }
 
     private static LocalDate parseDate(String description) {

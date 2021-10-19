@@ -7,6 +7,7 @@ import fitnus.exception.FitNusException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
@@ -74,5 +75,14 @@ public class FoodDatabase {
             }
         }
         System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
+    }
+
+    public ArrayList<Food> findFood(String keyword) throws FitNusException {
+        if (keyword.equals("")) {
+            throw new FitNusException("Please provide a valid keyword");
+        }
+        return (ArrayList<Food>) databaseFoods.stream()
+                .filter(t -> t.getName().contains(keyword))
+                .collect(Collectors.toList());
     }
 }
