@@ -3,6 +3,7 @@ package fitnus.command;
 import fitnus.database.EntryDatabase;
 import fitnus.tracker.Food;
 import fitnus.database.FoodDatabase;
+import fitnus.tracker.MealType;
 import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,8 @@ class ListFoodIntakeCommandTest {
         User us = new User(0, 1000);
 
         ListFoodIntakeCommand c = new ListFoodIntakeCommand("/day");
-        ed.addEntry(new Food("food1", 100));
-        ed.addEntry(new Food("food2", 200));
+        ed.addEntry(MealType.DINNER, new Food("food1", 100));
+        ed.addEntry(MealType.DINNER, new Food("food2", 200));
 
         //todo
     }

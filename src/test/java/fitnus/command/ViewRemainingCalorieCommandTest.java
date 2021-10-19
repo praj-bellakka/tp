@@ -3,6 +3,7 @@ package fitnus.command;
 import fitnus.database.EntryDatabase;
 import fitnus.tracker.Food;
 import fitnus.database.FoodDatabase;
+import fitnus.tracker.MealType;
 import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +16,9 @@ class ViewRemainingCalorieCommandTest {
         EntryDatabase ed = new EntryDatabase();
 
 
-        ed.addEntry(new Food("food1", 100));
-        ed.addEntry(new Food("food2", 200));
-        ed.addEntry(new Food("food3", 300));
+        ed.addEntry(MealType.DINNER, new Food("food1", 100));
+        ed.addEntry(MealType.DINNER, new Food("food2", 200));
+        ed.addEntry(MealType.DINNER, new Food("food3", 300));
 
         FoodDatabase fd = new FoodDatabase();
         User us = new User(0, 1000);

@@ -6,6 +6,7 @@ import fitnus.exception.FitNusException;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.parser.Parser;
+import fitnus.tracker.MealType;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -37,18 +38,18 @@ class EntryDatabaseTest {
         } catch (FitNusException e) {
             fail("Parser getDate error");
         }
-        Entry entry1 = new Entry(new Food("chicken rice", 200), date);
-        Entry entry2 = new Entry(new Food("steak", 900), date);
-        Entry entry3 = new Entry(new Food("laksa", 400), date);
-        Entry entry4 = new Entry(new Food("hotpot", 1100), date);
+        Entry entry1 = new Entry(MealType.DINNER, new Food("chicken rice", 200), date);
+        Entry entry2 = new Entry(MealType.LUNCH, new Food("steak", 900), date);
+        Entry entry3 = new Entry(MealType.BREAKFAST, new Food("laksa", 400), date);
+        Entry entry4 = new Entry(MealType.SNACK, new Food("hotpot", 1100), date);
         edb.addEntry(entry1);
         edb.addEntry(entry2);
         edb.addEntry(entry3);
         edb.addEntry(entry4);
-        String expectedOutput = String.format("chicken rice | 200 | %s" + System.lineSeparator()
-                + "steak | 900 | %s" + System.lineSeparator()
-                + "laksa | 400 | %s" + System.lineSeparator()
-                + "hotpot | 1100 | %s" + System.lineSeparator(), date, date, date, date);
+        String expectedOutput = String.format("Dinner | chicken rice | 200 | %s" + System.lineSeparator()
+                + "Lunch | steak | 900 | %s" + System.lineSeparator()
+                + "Breakfast | laksa | 400 | %s" + System.lineSeparator()
+                + "Snack | hotpot | 1100 | %s" + System.lineSeparator(), date, date, date, date);
         assertEquals(expectedOutput, edb.convertDatabaseToString());
     }
 
@@ -58,10 +59,10 @@ class EntryDatabaseTest {
         EntryDatabase edb = new EntryDatabase();
         Food prata = new Food("Prata", 100);
         Food chickenRice = new Food("Chicken Rice", 325);
-        Entry chickenRiceEntry = new Entry(chickenRice);
+        Entry chickenRiceEntry = new Entry(MealType.DINNER, chickenRice);
 
         // Add Entries
-        edb.addEntry(prata);
+        edb.addEntry(MealType.DINNER, prata);
         edb.addEntry(chickenRiceEntry);
 
         // Test
@@ -77,8 +78,8 @@ class EntryDatabaseTest {
         Food chickenRice = new Food("Chicken Rice", 325);
 
         // Add Entries
-        edb.addEntry(prata);
-        edb.addEntry(chickenRice);
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
 
         // Test
         assertEquals(425, edb.getTotalCalorie());
@@ -108,9 +109,9 @@ class EntryDatabaseTest {
 
         // Add Entries
         EntryDatabase edb = new EntryDatabase();
-        edb.addDefaultEntry(fdb, 1);
-        edb.addDefaultEntry(fdb, 2);
-        edb.addDefaultEntry(fdb, 3);
+        edb.addDefaultEntry(MealType.DINNER, fdb, 1);
+        edb.addDefaultEntry(MealType.DINNER, fdb, 2);
+        edb.addDefaultEntry(MealType.DINNER, fdb, 3);
 
         // Test
         assertEquals(prata, edb.getEntryAtIndex(1).getFood());
@@ -133,9 +134,9 @@ class EntryDatabaseTest {
         fdb.addFood(pizza);
 
         // Test
-        Exception exception1 = assertThrows(FitNusException.class, () -> edb.addDefaultEntry(fdb, 0));
-        Exception exception2 = assertThrows(FitNusException.class, () -> edb.addDefaultEntry(fdb, -1));
-        Exception exception3 = assertThrows(FitNusException.class, () -> edb.addDefaultEntry(fdb, 100));
+        Exception exception1 = assertThrows(FitNusException.class, () -> edb.addDefaultEntry(MealType.DINNER, fdb, 0));
+        Exception exception2 = assertThrows(FitNusException.class, () -> edb.addDefaultEntry(MealType.DINNER, fdb, -1));
+        Exception exception3 = assertThrows(FitNusException.class, () -> edb.addDefaultEntry(MealType.DINNER, fdb, 100));
 
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception1.getMessage());
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception2.getMessage());
@@ -150,8 +151,8 @@ class EntryDatabaseTest {
         Food chickenRice = new Food("Chicken Rice", 325);
 
         // Add Entries
-        edb.addEntry(prata);
-        edb.addEntry(chickenRice);
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
 
         // Delete Entry
         edb.deleteEntry(2);
@@ -170,8 +171,8 @@ class EntryDatabaseTest {
         Food chickenRice = new Food("Chicken Rice", 325);
 
         // Add Entries
-        edb.addEntry(prata);
-        edb.addEntry(chickenRice);
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
 
         // Test
         Exception exception1 = assertThrows(FitNusException.class, () -> edb.deleteEntry(0));
@@ -191,8 +192,8 @@ class EntryDatabaseTest {
         Food chickenRice = new Food("Chicken Rice", 325);
 
         // Add Entries
-        edb.addEntry(prata);
-        edb.addEntry(chickenRice);
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
 
         // Test
         assertEquals(prata, edb.getEntryAtIndex(1).getFood());
@@ -207,8 +208,8 @@ class EntryDatabaseTest {
         Food chickenRice = new Food("Chicken Rice", 325);
 
         // Add Entries
-        edb.addEntry(prata);
-        edb.addEntry(chickenRice);
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
 
         // Test
         Exception exception1 = assertThrows(FitNusException.class, () -> edb.getEntryAtIndex(0));
@@ -224,12 +225,12 @@ class EntryDatabaseTest {
     void preLoadDatabase_validInput_SuccessfullyPreloadDatabase()
             throws IOException {
         EntryDatabase ed = new EntryDatabase();
-        String initialString = "food1 | 100 | 2021-10-12" + System.lineSeparator()
-                + "food2 | 200 | 2021-10-12";
+        String initialString = "Breakfast | food1 | 100 | 2021-10-12" + System.lineSeparator()
+                + "Lunch | food2 | 200 | 2021-10-12";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         ed.preLoadDatabase(reader);
-        assertEquals(" 1.[2021-10-12] food1 (100 Kcal)" + System.lineSeparator()
-                + " 2.[2021-10-12] food2 (200 Kcal)" + System.lineSeparator(), ed.listEntries());
+        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal)" + System.lineSeparator()
+                + " 2.[2021-10-12] Lunch: food2 (200 Kcal)" + System.lineSeparator(), ed.listEntries());
     }
 }
