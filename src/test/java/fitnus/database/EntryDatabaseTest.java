@@ -135,11 +135,11 @@ class EntryDatabaseTest {
 
         // Test
         Exception exception1 = assertThrows(FitNusException.class,
-                                () -> edb.addDefaultEntry(MealType.DINNER, fdb, 0));
+                () -> edb.addDefaultEntry(MealType.DINNER, fdb, 0));
         Exception exception2 = assertThrows(FitNusException.class,
-                                () -> edb.addDefaultEntry(MealType.DINNER, fdb, -1));
+                () -> edb.addDefaultEntry(MealType.DINNER, fdb, -1));
         Exception exception3 = assertThrows(FitNusException.class,
-                                () -> edb.addDefaultEntry(MealType.DINNER, fdb, 100));
+                () -> edb.addDefaultEntry(MealType.DINNER, fdb, 100));
 
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception1.getMessage());
         assertEquals("Sorry the index chosen is invalid! Please try again!", exception2.getMessage());
