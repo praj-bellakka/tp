@@ -82,7 +82,7 @@ public class Parser {
             String inputCommandType = input.substring(0, spaceIndex);
             String subString = input.substring(spaceIndex + 1).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand2(subString);
+                return parseAddTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
