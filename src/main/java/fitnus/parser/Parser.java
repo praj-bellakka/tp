@@ -12,6 +12,7 @@ import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
+import fitnus.tracker.MealType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -149,11 +150,12 @@ public class Parser {
             if (calorie <= 0) {
                 throw new FitNusException("Calorie of food cannot be less than or equal to 0");
             }
-            return new AddCustomFoodEntryCommand(foodName, calorie);
+            //TODO @PRAJ THIS IS JUS A PLACEHOLDER, PLS CHANGE WHEN U REWRITE PARSER
+            return new AddCustomFoodEntryCommand(MealType.DINNER, foodName, calorie);
         }
 
         if (typeDescriptor.equals(DESCRIPTOR_DEFAULT)) {
-            return new AddDefaultFoodEntryCommand(Integer.parseInt(input
+            return new AddDefaultFoodEntryCommand(MealType.DINNER, Integer.parseInt(input
                     .substring(typeDescriptorIndex).trim()));
         }
 
@@ -227,4 +229,25 @@ public class Parser {
         throw new FitNusException("Error parsing date!!");
     }
 
+    public static MealType getMealType(String line) {
+        MealType mealType;
+        switch (line) {
+        case "Breakfast":
+            mealType = MealType.BREAKFAST;
+            break;
+        case "Lunch":
+            mealType = MealType.LUNCH;
+            break;
+        case "Dinner":
+            mealType = MealType.DINNER;
+            break;
+        case "Snack":
+            mealType = MealType.SNACK;
+            break;
+        default:
+            mealType = null;
+            //TODO THROW EXCEPTION
+        }
+        return mealType;
+    }
 }
