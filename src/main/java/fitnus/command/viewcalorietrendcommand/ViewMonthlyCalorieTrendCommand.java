@@ -10,6 +10,7 @@ import java.time.Month;
 import java.util.ArrayList;
 
 public class ViewMonthlyCalorieTrendCommand extends ViewCalorieTrend {
+    private static final int UNIT_PER_SQUARE = 3000;
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
@@ -32,13 +33,13 @@ public class ViewMonthlyCalorieTrendCommand extends ViewCalorieTrend {
                 i++;
             } else {
                 output.append(String.format("%s: %s %d\n", month.toString(),
-                        getSqaures(calories, 1000), calories));
+                        getSqaures(calories, UNIT_PER_SQUARE), calories));
                 month = month.plus(1);
                 calories = 0;
             }
         } while (i < entries.size());
         output.append(String.format("%s: %s %d\n", month.toString(),
-                getSqaures(calories, 1000), calories));
+                getSqaures(calories, UNIT_PER_SQUARE), calories));
         return output.toString();
     }
 }

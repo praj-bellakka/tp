@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ViewDailyCalorieTrendCommand extends ViewCalorieTrend {
+    private static final int UNIT_PER_SQUARE = 100;
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
@@ -34,13 +35,13 @@ public class ViewDailyCalorieTrendCommand extends ViewCalorieTrend {
                 i++;
             } else {
                 output.append(String.format("%s: %s %d\n", date.toString(),
-                        getSqaures(calories, 100), calories));
+                        getSqaures(calories, UNIT_PER_SQUARE), calories));
                 date = date.plusDays(1);
                 calories = 0;
             }
         } while (i < entries.size());
         output.append(String.format("%s: %s %d\n", date.toString(),
-                getSqaures(calories, 100), calories));
+                getSqaures(calories, UNIT_PER_SQUARE), calories));
         return output.toString();
     }
 }
