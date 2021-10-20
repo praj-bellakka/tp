@@ -41,7 +41,7 @@
 ## Storage
 The Storage class reads and writes data to and from the text file.
 
-###Storage format
+### Storage format
 
 - `FoodDatabase`: FOODNAME | CALORIE_VALUE
 
@@ -64,7 +64,7 @@ Example:
 1000 | 0
 ```
 
-###Implementation
+### Implementation
 `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
 its data to String format. This String is then saved to the text file.
 
@@ -72,7 +72,7 @@ For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertD
 method to obtain the String representation of all the data within the `FoodDatabase`. This String is
 then written to the text file.
 
-###UML Sequence Diagram
+### UML Sequence Diagram
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
 
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
