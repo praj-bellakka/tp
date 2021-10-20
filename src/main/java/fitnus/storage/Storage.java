@@ -79,7 +79,7 @@ public class Storage {
         saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
-    public static void saveData(String filePath, String content) throws IOException {
+    private static void saveData(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fw;
         fw = new FileWriter(file);

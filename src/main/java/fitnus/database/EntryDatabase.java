@@ -40,10 +40,6 @@ public class EntryDatabase {
         }
     }
 
-    public void store() throws IOException {
-        Storage.saveData("entry database.txt", this.convertDatabaseToString());
-    }
-
     public int getTotalCalorie() {
         int caloriesConsumed = 0;
         for (Entry e : entries) {
