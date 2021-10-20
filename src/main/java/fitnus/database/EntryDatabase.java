@@ -14,6 +14,8 @@ import fitnus.utility.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class EntryDatabase {
@@ -30,6 +32,10 @@ public class EntryDatabase {
 
     public void addEntry(Entry entry) {
         this.entries.add(entry);
+    }
+
+    public void sortDatabase() {
+        entries.sort(Comparator.comparing(Entry::getDate));
     }
 
     public void deleteEntry(int index) throws FitNusException {

@@ -39,6 +39,10 @@ public class Entry {
         return date.format(formatter);
     }
 
+    public LocalDate getRawDate() {
+        return this.date;
+    }
+
     public MealType getMealType() {
         return this.mealType;
     }
