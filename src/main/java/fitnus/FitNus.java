@@ -56,6 +56,7 @@ public class FitNus {
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput);
                 Ui.println(inputType.execute(ed, fd, user));
+                ed.sortDatabase();
                 saveFitNus(fd, ed, user);
                 if (inputType instanceof ExitCommand) {
                     break;
