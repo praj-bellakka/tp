@@ -3,6 +3,7 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
+import fitnus.command.SetWeightCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
@@ -25,6 +26,7 @@ public class FitNus {
             Storage.initialiseFoodDatabase(fd);
             Storage.initialiseEntryDatabase(ed);
             Storage.initialiseUser(user);
+            Storage.initialiseWeightProgress(user);
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
             Ui.println("I/O error! " + e.getMessage());
@@ -54,7 +56,8 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput);
+                //inputType = parser.parseCommandType(userInput);
+                inputType = new SetWeightCommand(Integer.parseInt(userInput));
                 Ui.println(inputType.execute(ed, fd, user));
                 saveFitNus(fd, ed, user);
                 if (inputType instanceof ExitCommand) {

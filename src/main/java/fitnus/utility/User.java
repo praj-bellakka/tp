@@ -56,15 +56,32 @@ public class User {
         this.weight = weight;
     }
 
-    public void addWeightProgressEntry(int newWeight) {
-        this.weight = newWeight;
+    public String updateWeightAndWeightTracker(int newWeight) {
+        this.setWeight(newWeight);
+
+        LocalDate currDate = LocalDate.now();
+        if (weightProgressEntries.size() == 0) {
+            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+            return "You have updated your weight for today to " + newWeight + " kg!";
+        }
+
         WeightProgressEntry latestEntry = weightProgressEntries.get(weightProgressEntries.size() - 1);
+        if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight progress entry
+            latestEntry.setWeight(newWeight);
+            weightProgressEntries.set(weightProgressEntries.size() - 1, latestEntry);
+        } else {
+            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+        }
 
+        WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
+        int weightDifference = previousEntry.getWeight() - newWeight;
+        String weightChange = weightDifference < 0 ? "gained" : "lost";
 
-
-        weightProgressEntries.add(new WeightProgressEntry(weight, LocalDate.now()));
-
+        return "You have updated your weight for today to " + newWeight
+                + "! You have " + weightChange + " " + weightDifference + " kg from the previous weight entry of "
+                + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
     }
+
 
     public int showCaloriesRemaining(EntryDatabase entryDB) {
         int caloriesConsumed = entryDB.getTotalCalorie();
@@ -85,6 +102,23 @@ public class User {
                 Ui.printPreloadUserError();
             }
         }
+    }
+
+    public void preloadWeightData(BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] description = line.trim().split("\\s*[|]\\s*");
+            try {
+                int weight = Integer.parseInt(description[0]);
+                LocalDate date = LocalDate.parse(description[1]);
+                weightProgressEntries.add(new WeightProgressEntry(weight, date));
+            } catch (IndexOutOfBoundsException e) {
+                //Ui.printPreloadDatabaseError();
+            } catch (NumberFormatException e) {
+                //Ui.printPreloadUserError();
+            }
+        }
+        System.out.println("Successfully preloaded weight data");
     }
 
     public String listUserData() {

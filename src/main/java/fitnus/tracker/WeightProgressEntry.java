@@ -11,4 +11,20 @@ public class WeightProgressEntry {
         this.weight = weight;
         this.date = date;
     }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
 }
