@@ -3,6 +3,7 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
+import fitnus.command.viewcalorietrendcommand.ViewMonthlyCalorieTrendCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
@@ -52,9 +53,9 @@ public class FitNus {
         while (true) {
             try {
                 String userInput;
-                Command inputType;
+                Command inputType = new ViewMonthlyCalorieTrendCommand();
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput);
+                //inputType = parser.parseCommandType(userInput);
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);
