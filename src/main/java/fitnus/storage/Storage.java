@@ -1,8 +1,9 @@
-package fitnus.utility;
+package fitnus.storage;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.utility.User;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -88,7 +89,7 @@ public class Storage {
         saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
-    public static void saveData(String filePath, String content) throws IOException {
+    private static void saveData(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fw;
         fw = new FileWriter(file);
