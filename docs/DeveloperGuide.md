@@ -90,4 +90,4 @@ The SummaryCommand class provides an overview of user's diet over the past week/
 
 ### UML Sequence Diagram
 The following sequence diagram describes the operation of the `generateSummary()` method.
-![UML Sequence Diagram for Summary](diagrams/StorageSequenceUML.PNG)
+![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.drawio)
