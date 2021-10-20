@@ -14,6 +14,8 @@ public class User {
     private static final int FEMALE = 1;
     private int calorieGoal;
     private int gender;
+    private int age;
+    private int height;
     private static final String DELIMITER = " | ";
     private float weight;
     private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
@@ -76,7 +78,7 @@ public class User {
         WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
         float weightDifference = previousEntry.getWeight() - newWeight;
         String weightChange = weightDifference < 0 ? "gained" : "lost";
-        if(weightDifference < 0) {
+        if (weightDifference < 0) {
             weightDifference = Math.abs(weightDifference);
         }
 

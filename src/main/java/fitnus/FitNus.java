@@ -57,7 +57,7 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput);
+                inputType = parser.parseCommandType(userInput, fd);
                 //inputType = new SetWeightCommand(Float.parseFloat(userInput));
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
