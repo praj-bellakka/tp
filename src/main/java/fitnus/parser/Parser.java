@@ -65,6 +65,7 @@ public class Parser {
     private static final int DINNER_HOUR_LOWER = 18; //6pm
     private static final int DINNER_HOUR_UPPER = 21; //9pm
 
+    private static boolean breakLoopFlag = true;
 
     public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
         String[] splitString = input.strip().split(" ");
@@ -167,15 +168,80 @@ public class Parser {
         }
 
         //step 2: search database if food exists
-//        ArrayList<Food> tempFoodDb = db.findFood(foodName);
-        ArrayList<Food> tempFoodDb = fd.findFood("biryani");
+        ArrayList<Food> tempFoodDb = fd.findFood(foodName);
+//        ArrayList<Food> tempFoodDb = fd.findFood("biryani");
 
-        //step 3: prompt the user the suggestions
-        
+        //step 3a: prompt the user the suggestions if matches are found
+        Ui newUi = new Ui();
+        newUi.printMatchingFoods(tempFoodDb);
+        int userInput;
+        if (tempFoodDb.size() > 0) {
+            do {
+                userInput = parseInteger(newUi.readInput(), tempFoodDb.size());
+            } while (breakLoopFlag);
+            String nameOfFood = tempFoodDb.get(userInput - 1).getName();
+            int calOfFood = tempFoodDb.get(userInput - 1).getCalories();
+            return new AddCustomFoodEntryCommand(mealType, nameOfFood, calOfFood);
+        } else if (tempFoodDb.size() == 0) {
+            do {
+                //TODO: Ask user to input calories > 0
+                userInput = parseInteger(newUi.readInput());
+            } while (breakLoopFlag);
+            return new AddCustomFoodEntryCommand(mealType, foodName, userInput);
+        }
         return null;
     }
 
-    //private 
+    /**
+     * Function parses integers from user input when the while loop inside
+     * {@link #parseAddTypeCommand(String, FoodDatabase)} parseAddTypeCommand} is running.
+     * Returns integer if found within range, else -1.
+     *
+     * @param input User input.
+     * @param size Size of temporary database.
+     * @return Integer input by the user. If invalid integer or out of range, -1 is returned.
+     */
+    private int parseInteger(String input, int size) throws FitNusException {
+        try {
+            int val = Integer.parseInt(input.strip());
+            if (val > 0 && val <= size) {
+                breakLoopFlag = false;
+                return val;
+            } else {
+                System.out.println("not in range");
+            }
+        } catch (NumberFormatException e) {
+            //TODO: add proper Ui print message;
+            System.out.println("not an integer");
+        }
+        breakLoopFlag = true;
+        return -1;
+    }
+
+    /**
+     * Function parses integers from user input when the while loop inside {@link #parseAddTypeCommand(String, FoodDatabase)} parseAddTypeCommand} is running.
+     * Returns calories of food if input was valid, else returns -1.
+     *
+     * @param input Input containing the calories.
+     * @return Integer value of the calories.
+     */
+    private int parseInteger(String input) {
+        try {
+            int val = Integer.parseInt(input.strip());
+            if (val > 0) {
+                breakLoopFlag = false;
+                return val;
+            } else {
+                System.out.println("not in range");
+            }
+        } catch (NumberFormatException e) {
+            //TODO: add proper Ui print message;
+            System.out.println("not an integer");
+        }
+        breakLoopFlag = true;
+        return -1;
+    }
+
 
     private Command parseAddTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
