@@ -1,5 +1,7 @@
 package fitnus.parser;
 
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
 import fitnus.command.Command;
@@ -164,7 +166,7 @@ public class Parser {
         MealType mealType =  parseMealType(mealTypeString);
         String foodName = "";
 
-        //if mealType is null, user didn't specify the command -> auto tag the meal type
+        //if mealType is null, user didn't specify  the command -> auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
             //TODO: Add a print statement that tells user that food category has been auto added
             mealType = findMealTypeTiming();
