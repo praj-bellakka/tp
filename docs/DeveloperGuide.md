@@ -40,4 +40,4 @@
 
 ## Storage
 
-![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.png)
+![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
