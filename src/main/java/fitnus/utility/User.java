@@ -2,9 +2,12 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.tracker.WeightProgressEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class User {
     private static final int MALE = 0;
@@ -12,6 +15,8 @@ public class User {
     private int calorieGoal;
     private int gender;
     private static final String DELIMITER = " | ";
+    private int weight;
+    private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
 
     public User(int gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
@@ -41,6 +46,24 @@ public class User {
         if (gender == MALE || gender == FEMALE) {
             this.gender = gender;
         }
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void addWeightProgressEntry(int newWeight) {
+        this.weight = newWeight;
+        WeightProgressEntry latestEntry = weightProgressEntries.get(weightProgressEntries.size() - 1);
+
+
+
+        weightProgressEntries.add(new WeightProgressEntry(weight, LocalDate.now()));
+
     }
 
     public int showCaloriesRemaining(EntryDatabase entryDB) {
