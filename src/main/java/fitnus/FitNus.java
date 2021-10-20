@@ -57,7 +57,7 @@ public class FitNus {
                 String userInput;
                 Command inputType = new ViewMonthlyCalorieTrendCommand();
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput);
+                inputType = parser.parseCommandType(userInput, fd);
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);
