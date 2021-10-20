@@ -7,7 +7,7 @@ import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
 import fitnus.utility.User;
 
-public class AddFoodEntryCommand extends Command{
+public class AddFoodEntryCommand extends Command {
     private final MealType mealType;
     private final String foodName;
     private final int calories;
@@ -21,6 +21,7 @@ public class AddFoodEntryCommand extends Command{
         this.calories = -1;
         this.isCustom = false;
     }
+    
     public AddFoodEntryCommand(MealType mealType, String foodName, int calories) {
         this.mealType = mealType;
         this.foodName = foodName;
