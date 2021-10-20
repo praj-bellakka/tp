@@ -13,7 +13,9 @@ import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
 import fitnus.command.FindEntryCommand;
 import fitnus.command.FindFoodCommand;
+import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
 import fitnus.utility.Ui;
 
@@ -21,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,7 +66,7 @@ public class Parser {
     private static final int DINNER_HOUR_UPPER = 21; //9pm
 
 
-    public Command parseCommandType(String input) throws FitNusException {
+    public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
         String[] splitString = input.strip().split(" ");
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
@@ -86,7 +89,7 @@ public class Parser {
             String inputCommandType = input.substring(0, spaceIndex);
             String subString = input.substring(spaceIndex + 1).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand(subString);
+                return parseAddTypeCommand2(subString, fd);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
@@ -148,7 +151,7 @@ public class Parser {
         }
     }
 
-    private Command parseAddTypeCommand2(String input) throws FitNusException { //add /breakfast ljksadfhjjlk sfjgk
+    private Command parseAddTypeCommand2(String input, FoodDatabase fd) throws FitNusException { //add /breakfast ljksadfhjjlk sfjgk
         //step 1: find meal category and food name
         String mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
         MealType mealType =  parseMealType(mealTypeString);
@@ -164,7 +167,11 @@ public class Parser {
         }
 
         //step 2: search database if food exists
+//        ArrayList<Food> tempFoodDb = db.findFood(foodName);
+        ArrayList<Food> tempFoodDb = fd.findFood("biryani");
 
+        //step 3: prompt the user the suggestions
+        
         return null;
     }
 
@@ -224,6 +231,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds the current hour (in 24hrs) using system LocalDateTime object.
+     * The relevant MealType is returned based on the hourOfDay.
+     * 6am to 10am: Breakfast.
+     * 11am to 2pm: Lunch.
+     * 6pm to 9pm: Dinner.
+     * Otherwise: Snack.
+     *
+     * @return MealType based on hourOfDay.
+     */
     private MealType findMealTypeTiming() {
         LocalDateTime currentTime = LocalDateTime.now();
         int hourOfDay = currentTime.getHour();
