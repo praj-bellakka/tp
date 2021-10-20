@@ -1,9 +1,12 @@
-<mxfile host="app.diagrams.net" modified="2021-10-20T14:47:20.086Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" etag="347Qt-k8JhbEuJAVx-NK" version="15.5.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-10-20T15:23:26.148Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36" etag="d5OYphKeW9iF90vc5U3g" version="15.5.6" type="github">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
     <mxGraphModel dx="1826" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-121" value="loop" style="shape=umlFrame;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="910" y="460.5" width="500" height="180" as="geometry" />
+        </mxCell>
         <UserObject label="" lucidchartObjectId="Yu5M4GIAFP0a" id="4cA7va0PqUtZ-8S5xUUY-1">
           <mxCell style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;fontFamily=helvetica;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=0;startArrow=none;;endArrow=none;;exitX=0.5;exitY=1;exitPerimeter=0;" edge="1" parent="1" source="4cA7va0PqUtZ-8S5xUUY-85">
             <mxGeometry width="100" height="100" relative="1" as="geometry">
@@ -64,93 +67,6 @@
             </mxGeometry>
           </mxCell>
         </UserObject>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-24" value="" style="group;dropTarget=0;" vertex="1" parent="1">
-          <mxGeometry x="1565" y="244" width="12" height="11" as="geometry" />
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-25" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB2aWV3Qm94PSIwIDAgMSAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0gMC4wODMgMCBMIDEgMCBMIDEgMSBMIDAgMSBMIDAuMDgzIDAgWiAiIGZpbGw9IiMzMzMzMzNmZiIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDApIiBzdHJva2Utd2lkdGg9IjAuNzUiLz48L3N2Zz4=;html=1;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-24">
-          <mxGeometry x="4" y="10" width="8" height="1" as="geometry" />
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-26" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB2aWV3Qm94PSIwIDAgMSAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0gMC45ODIgMC4yMDEgTCAwLjg4NCAwLjI5OSBMIDAuNzAxIDAuMTE2IEwgMC43OTkgMC4wMTggQyAwLjgyMyAtMC4wMDYgMC44NiAtMC4wMDYgMC44ODQgMC4wMTggTCAwLjk4MiAwLjExNiBDIDEuMDA2IDAuMTQgMS4wMDYgMC4xNzcgMC45ODIgMC4yMDEgWiBNIDAuNjI4IDAuMTg5IEwgMC44MTEgMC4zNzIgTCAwLjE4MyAxIEwgMCAxIEwgMCAwLjgxNyBMIDAuNjI4IDAuMTg5IFogIiBmaWxsPSIjMzMzMzMzZmYiIHN0cm9rZT0icmdiYSgwLDAsMCwwKSIgc3Ryb2tlLXdpZHRoPSIwLjA2ODE4MTgxODE4MTgxODE4Ii8+PC9zdmc+;html=1;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-24">
-          <mxGeometry width="11" height="11" as="geometry" />
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-27" value="" style="group;dropTarget=0;" vertex="1" parent="1">
-          <mxGeometry x="1609" y="404" width="11" height="11" as="geometry" />
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-28" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB2aWV3Qm94PSIwIDAgMSAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0gMC4wODMgMCBMIDEgMCBMIDEgMSBMIDAgMSBMIDAuMDgzIDAgWiAiIGZpbGw9IiMzRDQ3NTIiIHN0cm9rZT0icmdiYSgwLDAsMCwwKSIgc3Ryb2tlLXdpZHRoPSIwLjc1Ii8+PC9zdmc+;html=1;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-27">
-          <mxGeometry x="3" y="10" width="8" height="1" as="geometry" />
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-29" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB2aWV3Qm94PSIwIDAgMSAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0gMC45ODIgMC4yMDEgTCAwLjg4NCAwLjI5OSBMIDAuNzAxIDAuMTE2IEwgMC43OTkgMC4wMTggQyAwLjgyMyAtMC4wMDYgMC44NiAtMC4wMDYgMC44ODQgMC4wMTggTCAwLjk4MiAwLjExNiBDIDEuMDA2IDAuMTQgMS4wMDYgMC4xNzcgMC45ODIgMC4yMDEgWiBNIDAuNjI4IDAuMTg5IEwgMC44MTEgMC4zNzIgTCAwLjE4MyAxIEwgMCAxIEwgMCAwLjgxNyBMIDAuNjI4IDAuMTg5IFogIiBmaWxsPSIjM0Q0NzUyIiBzdHJva2U9InJnYmEoMCwwLDAsMCkiIHN0cm9rZS13aWR0aD0iMC4wNjgxODE4MTgxODE4MTgxOCIvPjwvc3ZnPg==;html=1;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-27">
-          <mxGeometry width="11" height="11" as="geometry" />
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-30" value="" style="group;dropTarget=0;" vertex="1" parent="1">
-          <mxGeometry x="1380" width="360" height="1091" as="geometry" />
-        </mxCell>
-        <UserObject label="" lucidchartObjectId="nGW4M~.fnqfD" id="4cA7va0PqUtZ-8S5xUUY-31">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;container=1;collapsible=0;whiteSpace=wrap;fontSize=13;spacing=0;strokeOpacity=0;fillOpacity=100;rounded=1;absoluteArcSize=1;arcSize=18;shadow=1;fillColor=#fafafa;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry width="360" height="1091" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Learn how to edit this template" lucidchartObjectId="nGW4M.~ofPef" id="4cA7va0PqUtZ-8S5xUUY-32">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;;whiteSpace=wrap;fontSize=20;fontColor=#333333;fontStyle=1;spacing=3.8;strokeOpacity=0;fillOpacity=0;fillColor=#ffffff;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry y="9" width="360" height="53" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="&lt;div style=&quot;display: flex; justify-content: flex-start; text-align: left; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;To &lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;manually create your sequence diagram&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;&#xa;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;ol style=&quot;margin: 0px; padding-left: 10px;list-style-position: inside; list-style-type:decimal&quot;&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;Add text to a shape&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;by selecting it and typing.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;Add and remove shapes&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;on the canvas.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;To&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;format shapes&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;as you&#39;d like, click on a shape and then click &quot;Shape Options&quot;     , &quot;Fill Color&quot;      , and &quot;Line Color&quot;    on the properties bar at the top of the canvas.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;Hover over a shape and click on any red circle    to&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;add lines&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;Add text to a line&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;by double-clicking the text or anywhere on the line and typing.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#282c33;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;font-style: italic;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#282c33;font-style: italic;&quot;&gt;To&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#282c33;font-weight: bold;font-style: italic;&quot;&gt;format lines&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#282c33;font-style: italic;&quot;&gt;, click on a line and then click &quot;Line Color&quot;     , &quot;Line Style,&quot; &quot;Line Width,&quot; and &quot;Line Options&quot;      on the properties bar at the top of the canvas.&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;div style=&quot;display: flex; justify-content: center; text-align: center; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;&#xa;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;display: flex; justify-content: flex-start; text-align: left; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;To &lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;font-style: italic;&quot;&gt;automatically create your sequence diagram&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;:&#xa;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;ol style=&quot;margin: 0px; padding-left: 10px;list-style-position: inside; list-style-type:decimal&quot;&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;Click &quot;&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#1775e5;font-style: italic;&quot;&gt;&amp;lt;/&amp;gt; Use Markup&quot;&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;in the UML Sequence shape library to the left.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;Add your syntax.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align:left;color:#333333;font-size:16.7px;&quot;&gt;&lt;span style=&quot;margin-left: 5.4px;margin-top: -2px;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;Click &quot;&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#1775e5;font-style: italic;&quot;&gt;Build&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;.&quot;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;" lucidchartObjectId="nGW4PYEKJJqu" id="4cA7va0PqUtZ-8S5xUUY-33">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;;whiteSpace=wrap;fontSize=13;spacing=0;verticalAlign=top;strokeOpacity=0;fillOpacity=0;fillColor=#ffffff;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="30" y="62" width="300" height="560" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="&lt;div style=&quot;display: flex; justify-content: center; text-align: center; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-weight: bold;&quot;&gt;Tutorials&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;&quot;&gt;&#xa;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;display: flex; justify-content: center; text-align: center; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;&quot;&gt;&lt;span style=&quot;font-size:16.7px;color:#333333;font-style: italic;&quot;&gt;(Hold Shift + ⌘ or Ctrl, then click)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;" lucidchartObjectId="nGW4J1XsEXwU" id="4cA7va0PqUtZ-8S5xUUY-34">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;;whiteSpace=wrap;fontSize=13;spacing=3.8;verticalAlign=top;strokeOpacity=0;fillOpacity=0;fillColor=#ffffff;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry y="642" width="360" height="63" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Watch Lucidchart basic tutorials" link="https://www.youtube.com/playlist?list=PLUoebdZqEHTz0aKtk6dygh4dQIz6WDP99" lucidchartObjectId="nGW4quHw2fiD" id="4cA7va0PqUtZ-8S5xUUY-35">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;rounded=1;arcSize=25;;whiteSpace=wrap;fontSize=16.7;fontColor=#ffffff;spacing=0;strokeOpacity=0;fillOpacity=100;shadow=1;fillColor=#6f7681;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="30" y="927" width="300" height="60" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-36" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB2aWV3Qm94PSIwIDAgMSAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0gMC4xNTQgMC42NTcgTCAwLjM2NyAwLjg0NSBDIDAuMzkxIDAuODY2IDAuNDI2IDAuODYzIDAuNDQ2IDAuODM4IEwgMC43MzIgMC40OCBMIDAuNDc2IDAuMjU0IEMgMC40NTMgMC4yMzMgMC40MTcgMC4yMzYgMC4zOTggMC4yNjEgTCAwLjE0NyAwLjU3NSBMIDAuMTgzIDAuNTMgTCAwLjY5NiAwLjUyNCBMIDAuNDQ2IDAuODM4IEMgMC40MjYgMC44NjMgMC4zOTEgMC44NjYgMC4zNjcgMC44NDUgTCAwLjE1NCAwLjY1NyBaIE0gMC44ODkgMC40NjUgTCAwLjQ5NSAwLjk1OCBDIDAuNDU2IDEuMDA4IDAuMzg1IDEuMDE0IDAuMzM4IDAuOTczIEwgMC4wNCAwLjcwOSBDIC0wLjAwNyAwLjY2OCAtMC4wMTMgMC41OTQgMC4wMjYgMC41NDQgTCAwLjM0OCAwLjE0MSBMIDAuMzA2IDAuMTAzIEMgMC4yODIgMC4wODMgMC4yNzkgMC4wNDYgMC4yOTkgMC4wMjEgQyAwLjI5OSAwLjAyMSAwLjI5OSAwLjAyMSAwLjI5OSAwLjAyMSBMIDAuMjk5IDAuMDIxIEMgMC4zMTggLTAuMDA0IDAuMzU0IC0wLjAwNyAwLjM3NyAwLjAxNCBMIDAuODg5IDAuNDY1IFogTSAxIDAuNzk3IEMgMSAwLjg1OSAwLjk1IDAuOTE0IDAuODg5IDAuOTE0IEMgMC44MjcgMC45MTQgMC43NzcgMC44NTkgMC43NzcgMC43OTcgQyAwLjc3NyAwLjcxIDAuODggMC42OTQgMC44ODkgMC41NjMgQyAwLjk5NCAwLjYzOSAxIDAuNzM1IDEgMC43OTcgWiAiIGZpbGw9IiMzMzMzMzNmZiIgc3Ryb2tlPSJyZ2JhKDAsMCwwLDApIiBzdHJva2Utd2lkdGg9IjAuMDM1OTA4MzMzMjcxMjAyMDk2Ii8+PC9zdmc+;html=1;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-          <mxGeometry x="299" y="222" width="17" height="16" as="geometry" />
-        </mxCell>
-        <UserObject label="" lucidchartObjectId="nGW4gwbuOXa~" id="4cA7va0PqUtZ-8S5xUUY-37">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;shape=image;whiteSpace=wrap;fontSize=13;spacing=0;strokeColor=none;strokeOpacity=100;strokeWidth=0;image=https://images.app.lucidchart.com/images/31073ab4-b917-4847-a1bb-6bac2c030fcb/content;imageAspect=0;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="187" y="218" width="21" height="21" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Watch a tutorial on how to create sequence diagrams automatically" link="https://www.youtube.com/watch?v=CGRlAlmhaRA" lucidchartObjectId="nGW4WZRE-OOR" id="4cA7va0PqUtZ-8S5xUUY-38">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;rounded=1;arcSize=25;;whiteSpace=wrap;fontSize=16.7;fontColor=#ffffff;spacing=0;strokeOpacity=0;fillOpacity=100;shadow=1;fillColor=#77818c;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="30" y="702" width="300" height="60" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Read about our automatic UML sequence markup" link="https://lucidchart.zendesk.com/hc/en-us/articles/208029986-UML-Sequence-Markup" lucidchartObjectId="nGW4S~G_UGTw" id="4cA7va0PqUtZ-8S5xUUY-39">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;rounded=1;arcSize=25;;whiteSpace=wrap;fontSize=16.7;fontColor=#ffffff;spacing=0;strokeOpacity=0;fillOpacity=100;shadow=1;fillColor=#77818c;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="30" y="777" width="300" height="60" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="" lucidchartObjectId="nGW49ZNTG-ys" id="4cA7va0PqUtZ-8S5xUUY-40">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;shape=image;whiteSpace=wrap;fontSize=13;spacing=0;strokeColor=none;strokeOpacity=100;rotation=-32.727216831744876;shadow=1;strokeWidth=0;image=https://images.lucidchart.com/images/0a6ed088-cea2-4bff-b587-2e92ff8319ec/content;imageAspect=0;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="269" y="740" width="47" height="47" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="" lucidchartObjectId="AHW4HwbW-_kv" id="4cA7va0PqUtZ-8S5xUUY-41">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;ellipse;whiteSpace=wrap;fontSize=13;spacing=3.8;strokeColor=#c92d39;strokeOpacity=100;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="167" y="306" width="7" height="7" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-42" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB2aWV3Qm94PSIwIDAgMSAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0gMC42ODMgMC44MjQgTCAwLjM5IDAuODI0IEMgMC4zMzYgMC44MjQgMC4yOTMgMC43NzEgMC4yOTMgMC43MDYgTCAwLjI5MyAwLjExOCBDIDAuMjkzIDAuMTE4IDAuMjkyIDAuMTE4IDAuMjkzIDAuMTE4IEwgMCAwLjExOCBMIDAgMCBMIDAuMjkzIDAgQyAwLjM0NiAwIDAuMzkgMC4wNTMgMC4zOSAwLjExOCBMIDAuMzkgMC43MDYgQyAwLjM5IDAuNzA2IDAuMzkgMC43MDYgMC4zOSAwLjcwNiBMIDAuNjgzIDAuNzA2IEwgMC42ODMgMC41MjkgTCAxIDAuNzY1IEwgMC42ODMgMSBMIDAuNjgzIDAuODI0IEwgMC42ODMgMC44MjQgWiAiIGZpbGw9IiMzRDQ3NTIiIHN0cm9rZT0icmdiYSgwLDAsMCwwKSIgc3Ryb2tlLXdpZHRoPSIwLjA1NzY5MjMwNzY5MjMwNzY5NiIvPjwvc3ZnPg==;html=1;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-          <mxGeometry x="134" y="443" width="15" height="13" as="geometry" />
-        </mxCell>
-        <UserObject label="Watch a tutorial on how to make UML sequence diagrams" link="https://www.youtube.com/watch?v=pCK6prSq8aw" lucidchartObjectId="DIW4Rk3akNM~" id="4cA7va0PqUtZ-8S5xUUY-43">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;rounded=1;arcSize=25;;whiteSpace=wrap;fontSize=16.7;fontColor=#ffffff;spacing=0;strokeOpacity=0;fillOpacity=100;shadow=1;fillColor=#77818c;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="30" y="852" width="300" height="60" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="&lt;div style=&quot;display: flex; justify-content: center; text-align: center; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:16.7px;color:#ffffff;font-weight: bold;&quot;&gt;See an example&lt;/span&gt;&lt;span style=&quot;font-size:16.7px;color:#ffffff;&quot;&gt;&#xa;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;display: flex; justify-content: center; text-align: center; align-items: baseline; font-size: 0; line-height: 1.25;margin-top: -2px;&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size:13px;color:#ffffff;&quot;&gt;&lt;span style=&quot;font-size:13.3px;color:#ffffff;font-style: italic;&quot;&gt;(Hold Shift + ⌘ or Ctrl, then click)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;" link="https://www.lucidchart.com/documents/editNew/d931ea29-674f-4a6f-9184-887a066ab126" lucidchartObjectId="DIW4DsmWfDf-" id="4cA7va0PqUtZ-8S5xUUY-44">
-          <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;rounded=1;arcSize=25;;whiteSpace=wrap;fontSize=13;spacing=0;strokeOpacity=0;fillOpacity=100;shadow=1;fillColor=#489bfc;strokeWidth=1.5;" vertex="1" parent="4cA7va0PqUtZ-8S5xUUY-30">
-            <mxGeometry x="30" y="1002" width="300" height="60" as="geometry" />
-          </mxCell>
-        </UserObject>
         <UserObject label="" lucidchartObjectId="hhikuZTCjd7b" id="4cA7va0PqUtZ-8S5xUUY-46">
           <mxCell style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=block;endFill=1;;exitX=-0.012;exitY=0.982;exitPerimeter=0;" edge="1" parent="1">
             <mxGeometry width="100" height="100" relative="1" as="geometry">
@@ -176,10 +92,12 @@
             </mxGeometry>
           </mxCell>
         </UserObject>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-105" value="convertDatabaseToString()" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;fontSize=13;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=0.8;" edge="1" parent="1" source="4cA7va0PqUtZ-8S5xUUY-88" target="4cA7va0PqUtZ-8S5xUUY-97">
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-105" value="convertDatabaseToString()" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;fontSize=13;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=0.8;" edge="1" parent="1">
           <mxGeometry x="0.0227" y="-10" relative="1" as="geometry">
+            <mxPoint x="806.5" y="433.625" as="sourcePoint" />
+            <mxPoint x="1050.5" y="431" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="806" y="480" />
+              <mxPoint x="806" y="431" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
@@ -208,18 +126,15 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-106" value="String representation" style="html=1;jettySize=18;fontSize=13;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=block;endFill=1;;exitX=-0.012;exitY=0.982;exitPerimeter=0;" edge="1" parent="1" source="4cA7va0PqUtZ-8S5xUUY-97" target="4cA7va0PqUtZ-8S5xUUY-88">
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-106" value="String representation" style="html=1;jettySize=18;fontSize=13;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=block;endFill=1;;exitX=-0.012;exitY=0.982;exitPerimeter=0;" edge="1" parent="1">
           <mxGeometry x="-0.0062" y="10" relative="1" as="geometry">
-            <mxPoint x="810" y="580" as="targetPoint" />
+            <mxPoint x="1050.1399999999999" y="666.5799999999999" as="sourcePoint" />
+            <mxPoint x="806.5" y="669" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="980" y="580" />
-              <mxPoint x="980" y="580" />
+              <mxPoint x="1050" y="669" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-97" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1050.5" y="480" width="30" height="100" as="geometry" />
         </mxCell>
         <mxCell id="4cA7va0PqUtZ-8S5xUUY-98" value="" style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;fontFamily=helvetica;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=none;;exitX=0.5;exitY=1;exitPerimeter=0;" edge="1" parent="1" target="4cA7va0PqUtZ-8S5xUUY-97">
           <mxGeometry width="100" height="100" relative="1" as="geometry">
@@ -261,15 +176,83 @@
         <mxCell id="4cA7va0PqUtZ-8S5xUUY-86" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
           <mxGeometry x="530" y="760" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-111" value=":FitNUS" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
-          <mxGeometry x="464.5" y="195" width="120" height="60" as="geometry" />
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-97" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1050.5" y="431" width="30" height="239" as="geometry" />
         </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-112" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;:Storage" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
-          <mxGeometry x="731.5" y="195" width="120" height="60" as="geometry" />
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-122" value="[all foods]" style="text;align=center;fontStyle=0;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="910" y="460.5" width="178" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="4cA7va0PqUtZ-8S5xUUY-113" value="fd:FoodDatabase" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-125" value=":FitNUS" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="464.5" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-126" value="&amp;lt;&amp;lt;class&amp;gt;&amp;gt;&lt;br&gt;Storage" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="731.5" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-127" value="fd:FoodDatabase" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
           <mxGeometry x="1005.5" y="193" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-128" value=":Food" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1239" y="193" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-130" value="" style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;fontFamily=helvetica;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=none;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="4cA7va0PqUtZ-8S5xUUY-134">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="1299" y="920" as="targetPoint" />
+            <mxPoint x="1299" y="585" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-134" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1284" y="470" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-135" value="" style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;fontFamily=helvetica;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=none;;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="4cA7va0PqUtZ-8S5xUUY-128" target="4cA7va0PqUtZ-8S5xUUY-134">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="1299" y="920" as="targetPoint" />
+            <mxPoint x="1299" y="253" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-136" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1284" y="560" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-139" value="getName()" style="endArrow=classic;html=1;fontSize=13;strokeColor=#333333;strokeWidth=0.8;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="4cA7va0PqUtZ-8S5xUUY-134">
+          <mxGeometry x="-0.0196" y="-10" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1080" y="470" as="sourcePoint" />
+            <mxPoint x="1140" y="520" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" lucidchartObjectId="-fik3cqMJuKQ" id="4cA7va0PqUtZ-8S5xUUY-140">
+          <mxCell style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=block;endFill=1;;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="4cA7va0PqUtZ-8S5xUUY-134" target="4cA7va0PqUtZ-8S5xUUY-97">
+            <mxGeometry x="0.0221" y="10" width="100" height="100" relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1140" y="530" />
+                <mxPoint x="1140" y="530" />
+              </Array>
+              <mxPoint x="1349.25" y="550.3210000000001" as="sourcePoint" />
+              <mxPoint x="1110" y="550" as="targetPoint" />
+              <mxPoint as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <mxCell id="4cA7va0PqUtZ-8S5xUUY-141" value="getCalories()" style="endArrow=classic;html=1;fontSize=13;strokeColor=#333333;strokeWidth=0.8;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry x="-0.0245" y="-10" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1080.5" y="560" as="sourcePoint" />
+            <mxPoint x="1284.5" y="560" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" lucidchartObjectId="-fik3cqMJuKQ" id="4cA7va0PqUtZ-8S5xUUY-142">
+          <mxCell style="html=1;jettySize=18;whiteSpace=wrap;fontSize=13;strokeColor=#333333;strokeOpacity=100;dashed=1;fixDash=1;dashPattern=16 6;strokeWidth=0.8;rounded=1;arcSize=24;edgeStyle=orthogonalEdgeStyle;startArrow=none;;endArrow=block;endFill=1;;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+            <mxGeometry width="100" height="100" relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1140" y="620" />
+                <mxPoint x="1140" y="620" />
+              </Array>
+              <mxPoint x="1284" y="620" as="sourcePoint" />
+              <mxPoint x="1080.5" y="620" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
       </root>
     </mxGraphModel>
   </diagram>
