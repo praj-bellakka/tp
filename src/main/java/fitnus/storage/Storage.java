@@ -22,6 +22,7 @@ public class Storage {
     private static final Path FILE_PATH_FOOD_DATA = Paths.get(ROOT, "data", "food.txt");
     private static final Path FILE_PATH_USER_DATA = Paths.get(ROOT, "data", "user.txt");
     private static final Path FILE_PATH_ENTRY_DATA = Paths.get(ROOT, "data", "entry.txt");
+    private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data", "weight.txt");
 
     public static void createDirectoryAndFiles() throws IOException {
         createDirectory(DIRECTORY_PATH.toString());
@@ -58,6 +59,15 @@ public class Storage {
         stream = new FileInputStream(FILE_PATH_USER_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         user.preloadUserData(reader);
+        reader.close();
+    }
+
+    public static void initialiseWeightProgress(User user) throws IOException {
+        assert Files.exists(FILE_PATH_WEIGHT_DATA);
+        FileInputStream stream;
+        stream = new FileInputStream(FILE_PATH_WEIGHT_DATA.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        user.preloadWeightData(reader);
         reader.close();
     }
 
