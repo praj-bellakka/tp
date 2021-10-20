@@ -76,3 +76,18 @@ then written to the text file.
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
 
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
+
+
+## SummaryCommand
+The SummaryCommand class provides an overview of user's diet over the past week/month.
+
+### command format
+`summary /week` or `summary /month`
+
+### implementation
+`SummaryCommand` class provides a method to generate the most and less frequently foods ate by users.
+`ViewMonthlyCalorieTrend` and `ViewDailyCalorieTrend` have static methods to generate monthly/weekly calorie intake graphs.
+
+### UML Sequence Diagram
+The following sequence diagram describes the operation of the `generateSummary()` method.
+![UML Sequence Diagram for Summary](diagrams/StorageSequenceUML.PNG)
