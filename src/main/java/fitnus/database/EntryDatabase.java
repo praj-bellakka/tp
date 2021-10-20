@@ -9,7 +9,7 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.parser.Parser;
 import fitnus.tracker.MealType;
-import fitnus.utility.Storage;
+import fitnus.storage.Storage;
 import fitnus.utility.Ui;
 
 import java.time.LocalDate;

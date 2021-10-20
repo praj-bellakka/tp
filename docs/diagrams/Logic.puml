@@ -1,0 +1,17 @@
+@startuml
+hide member
+
+package storage {
+    Class storage
+}
+
+package command {
+    Class "{abstract}\nCommand"
+    Class XYZGeneralCommand
+}
+
+package parser {
+    Class parser
+}
+
+@enduml

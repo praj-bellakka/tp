@@ -1,0 +1,15 @@
+@startuml
+
+
+!include style
+
+package storage {
+    Class Storage {
+            + readline() : String
+            + printMessage() : void
+            + showError() : void
+        }
+}
+
+
+@enduml

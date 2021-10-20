@@ -1,8 +1,9 @@
-package fitnus.utility;
+package fitnus.storage;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.utility.User;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
