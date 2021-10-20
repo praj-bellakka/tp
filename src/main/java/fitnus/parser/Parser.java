@@ -1,5 +1,6 @@
 package fitnus.parser;
 
+import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.command.AddCustomFoodEntryCommand;
 import fitnus.command.AddDefaultFoodEntryCommand;
@@ -12,12 +13,14 @@ import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
+import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +85,7 @@ public class Parser {
             String inputCommandType = input.substring(0, spaceIndex);
             String subString = input.substring(spaceIndex + 1).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand2(subString);
+                return parseAddTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
@@ -146,7 +149,7 @@ public class Parser {
         MealType mealType =  parseMealType(mealTypeString);
         String foodName = "";
 
-        //if mealType is null, user didn't specify the command -> auto tag the meal type
+        //if mealType is null, user didn't specify  the command -> auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
             //TODO: Add a print statement that tells user that food category has been auto added
             mealType = findMealTypeTiming();
@@ -157,10 +160,14 @@ public class Parser {
 
         //step 2: search database if food exists
 
+
         return null;
     }
 
-    //private 
+    private void findSpecifiedFood(String food) {
+        FoodDatabase tempDb = new FoodDatabase();
+        //ArrayList<Food> filteredFood = tempDb.
+    }
 
     private Command parseAddTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
@@ -216,6 +223,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds the current hour (in 24hrs) using system LocalDateTime object.
+     * The relevant MealType is returned based on the hourOfDay.
+     * 6am to 10am: Breakfast.
+     * 11am to 2pm: Lunch.
+     * 6pm to 9pm: Dinner.
+     * Otherwise: Snack.
+     *
+     * @return MealType based on hourOfDay.
+     */
     private MealType findMealTypeTiming() {
         LocalDateTime currentTime = LocalDateTime.now();
         int hourOfDay = currentTime.getHour();
