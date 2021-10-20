@@ -152,7 +152,7 @@ public class Parser {
         }
     }
 
-    private Command parseAddTypeCommand (String input, FoodDatabase fd) throws FitNusException {
+    private Command parseAddTypeCommand(String input, FoodDatabase fd) throws FitNusException {
         //step 1: find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
@@ -183,8 +183,8 @@ public class Parser {
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
             //TODO: Beautify the print statement
-            System.out.println("Select the food you want by entering the number below. " +
-                    "If the food doesn't exist, enter 0 to create a new custom food!");
+            System.out.println("Select the food you want by entering the number below. "
+                    + "If the food doesn't exist, enter 0 to create a new custom food!");
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
         } else if (tempFoodDb.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
@@ -196,17 +196,21 @@ public class Parser {
     }
 
     /**
+     * Function is responsible for receiving input from the user again during the adding of food phase.
+     * If the user inputs an invalid entry for calorie, i.e. negative or non-integers, the function continues looping.
+     * If the user inputs an invalid entry for selecting choice, i.e. out of range, negative or non-integer,
+     * the function wll continue looping.
+     * {@link #breakLoopFlag} breakLoopFlag is set to false when user prompt loop is not needed, else loop continues.
      *
-     * @param mealType
-     * @param foodName
-     * @param tempFoodDb
-     * @param newUi
-     * @param multipleEntries
-     * @return
-     * @throws FitNusException
+     * @param mealType Type of meal.
+     * @param foodName String name of food.
+     * @param tempFoodDb An arraylist containing Food items matching user entry.
+     * @param newUi Ui element responsible for receiving user input through CLI.
+     * @param multipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
+     * @return AddCustomFoodEntryCommand Command object containing relevant details.
      */
     private AddCustomFoodEntryCommand returnUserInput(MealType mealType, String foodName,
-                                                      ArrayList<Food> tempFoodDb, Ui newUi, boolean multipleEntries) throws FitNusException {
+                                                      ArrayList<Food> tempFoodDb, Ui newUi, boolean multipleEntries) {
         int userInput = 0;
         if (multipleEntries) {
             do {
@@ -242,7 +246,7 @@ public class Parser {
      * @param size Size of temporary database.
      * @return Integer input by the user. If invalid integer or out of range, -1 is returned.
      */
-    private int parseInteger(String input, int size) throws FitNusException {
+    private int parseInteger(String input, int size) {
         try {
             int val = Integer.parseInt(input.strip());
             if (val >= 0 && val <= size) {
