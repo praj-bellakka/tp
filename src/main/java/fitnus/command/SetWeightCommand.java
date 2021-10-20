@@ -5,9 +5,9 @@ import fitnus.database.FoodDatabase;
 import fitnus.utility.User;
 
 public class SetWeightCommand extends Command {
-    private final int newWeight;
+    private final float newWeight;
 
-    public SetWeightCommand(int newWeight) {
+    public SetWeightCommand(float newWeight) {
         this.newWeight = newWeight;
     }
 

@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class WeightProgressEntry {
 
-    private Integer weight;
+    private float weight;
     private LocalDate date;
 
-    public WeightProgressEntry(Integer weight, LocalDate date) {
+    public WeightProgressEntry(float weight, LocalDate date) {
         this.weight = weight;
         this.date = date;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public Integer getWeight() {
+    public float getWeight() {
         return weight;
     }
 

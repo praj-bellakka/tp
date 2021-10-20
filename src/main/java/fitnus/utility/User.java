@@ -14,8 +14,10 @@ public class User {
     private static final int FEMALE = 1;
     private int calorieGoal;
     private int gender;
+    private int age;
+    private int height;
     private static final String DELIMITER = " | ";
-    private int weight;
+    private float weight;
     private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
 
     public User(int gender, int calorieGoal) {
@@ -48,15 +50,15 @@ public class User {
         }
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public String updateWeightAndWeightTracker(int newWeight) {
+    public String updateWeightAndWeightTracker(float newWeight) {
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
@@ -74,8 +76,11 @@ public class User {
         }
 
         WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
-        int weightDifference = previousEntry.getWeight() - newWeight;
+        float weightDifference = previousEntry.getWeight() - newWeight;
         String weightChange = weightDifference < 0 ? "gained" : "lost";
+        if (weightDifference < 0) {
+            weightDifference = Math.abs(weightDifference);
+        }
 
         return "You have updated your weight for today to " + newWeight
                 + "! You have " + weightChange + " " + weightDifference + " kg from the previous weight entry of "
@@ -109,7 +114,7 @@ public class User {
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
-                int weight = Integer.parseInt(description[0]);
+                float weight = Float.parseFloat(description[0]);
                 LocalDate date = LocalDate.parse(description[1]);
                 weightProgressEntries.add(new WeightProgressEntry(weight, date));
             } catch (IndexOutOfBoundsException e) {
