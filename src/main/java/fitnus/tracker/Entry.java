@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Entry {
     private final MealType mealType;
-    private final Food food;
+    private Food food;
     private final LocalDate date;
 
     public Entry(MealType mealType, Food food) {
@@ -28,6 +28,9 @@ public class Entry {
         return this.food;
     }
 
+    public void setFood(Food food) {
+        this.food = food;
+    }
     /**
      * Gets the date and converts it to the specified format. Then,
      * returns the formatted date as a String.

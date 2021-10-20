@@ -136,5 +136,9 @@ public class EntryDatabase {
                 .filter(t -> t.getFood().getName().contains(keyword))
                 .collect(Collectors.toList());
     }
+
+    public void editEntryAtIndex(int index, Food food) {
+        entries.get(index - 1).setFood(food);
+    }
 }
 
