@@ -7,8 +7,16 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Architecture
 
+The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used. The primary components of the app are listed below:
+- `Command`: The abstract class that all other command classes inherit from
+- `EntryDatabase`: For handling all functionality regarding food tracker entries.
+- `FoodDatabase`: For handling all functionality regarding food database entries.
+- `Parser`: For parsing user input.
+- `Storage`: For handling backend storage.
+- `Ui`: For displaying information to the user.
+- `User`: For handling all functionality regarding personalisation of user experience.
 
 ## Product scope
 ### Target user profile
@@ -38,45 +46,46 @@
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
+## Add Food Entry Feature
+The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>.
+It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code>
+and <code>FoodDatabase</code>.
+Additionally, it implements the following operations:
+- <code>EntryDatabase#addEntry(Entry)</code> -- Adds a new entry into the entry database
+- <code>FoodDatabase#addFood</code> -- Adds a new food into the food database
 
-## Storage
-The Storage class reads and writes data to and from the text file.
+![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
-### Storage format
+## Weight Tracker Design & Implementation
 
-- `FoodDatabase`: FOODNAME | CALORIE_VALUE
+###Architecture
+**Main components of the architecture**
 
-Example:
-```
-Nasi Lemak | 400
-```
+The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
-- `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
+**SetWeightCommand Component**
 
-Example:
-```
-Dinner | Ramen | 500 | 2021-10-20
-```
+The entry point for setting or updating weight. The `execute` method in this object calls `updateWeightAndWeightTracker` method in the User object initialised in the main file in order to update the user's weight and weight progress.
 
-- `User`: CALORIE_GOAL | GENDER
+**Storage Component**
 
-Example:
-```
-1000 | 0
-```
+Weight progress entries are stored in a text file in the following format:
 
-### Implementation
-`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
-its data to String format. This String is then saved to the text file.
+`WEIGHT | DATE(YYYY-MM-DD)`
 
-For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is
-then written to the text file.
+Example: `100 | 2021-03-01`
 
-### UML Sequence Diagram
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
+The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.
 
-![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
+On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
+
+**User Component**
+
+How the User component works in the context of the weight tracker:
+1. When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
+2. In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
+3. If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
+4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
 
 ## SummaryCommand
@@ -93,12 +102,65 @@ The SummaryCommand class provides an overview of user's diet over the past week/
 The following sequence diagram describes the operation of the `generateSummary()` method.
 ![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.png)
 
-### Add Food Entry Feature
-The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>. 
-It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code> 
-and <code>FoodDatabase</code>. 
-Additionally, it implements the following operations:
-- <code>EntryDatabase#addEntry(Entry)</code> -- Adds a new entry into the entry database
-- <code>FoodDatabase#addFood</code> -- Adds a new food into the food database
+## Storage
+The Storage class reads and writes data to and from the text file.
 
-![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+### Storage format
+> **_NOTE:_** Every line in each text file represents one object / entry / item
+
+- `FoodDatabase`: FOODNAME | CALORIE_VALUE
+
+Example:
+```
+Nasi Lemak | 400
+Ramen | 600
+```
+
+- `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
+
+Example:
+```
+Dinner | Ramen | 500 | 2021-10-20
+Lunch | Fried rice | 600 | 2021-10-20
+```
+
+- `User`: CALORIE_GOAL | GENDER
+
+Example:
+```
+1000 | 0
+```
+
+- `User weight`: WEIGHT | DATE
+
+Example:
+```
+60.0 | 2021-07-20
+59.0 | 2021-08-20
+58.0 | 2021-09-20
+45.0 | 2021-10-21
+```
+
+
+### Implementation
+#### 1. Saving to file
+`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
+its data to String format. This String is then saved to the text file.
+
+For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
+method to obtain the String representation of all the data within the `FoodDatabase`. This String is
+then written to the text file.
+
+#### 2. Loading from file 
+`Storage` makes use of the `BufferedReader` and `FileInputStream` provided  by `java.io` to access 
+the contents of the storage text files. This is then passed to the respective objects for preloading.
+
+For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file
+and passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates
+the ArrayList in `FoodDatabase`.
+
+### UML Sequence Diagram
+The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
+
+![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
+
