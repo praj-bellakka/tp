@@ -7,8 +7,16 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+###Architecture
 
+The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used. The primary components of the app are listed below:
+- `Command`: The abstract class that all other command classes inherit from
+- `EntryDatabase`: For handling all functionality regarding food tracker entries.
+- `FoodDatabase`: For handling all functionality regarding food database entries.
+- `Parser`: For parsing user input.
+- `Storage`: For handling backend storage.
+- `Ui`: For displaying information to the user.
+- `User`: For handling all functionality regarding personalisation of user experience.
 
 ## Product scope
 ### Target user profile
@@ -37,6 +45,16 @@
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+## Add Food Entry Feature
+The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>.
+It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code>
+and <code>FoodDatabase</code>.
+Additionally, it implements the following operations:
+- <code>EntryDatabase#addEntry(Entry)</code> -- Adds a new entry into the entry database
+- <code>FoodDatabase#addFood</code> -- Adds a new food into the food database
+
+![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
 ## Weight Tracker Design & Implementation
 
@@ -123,12 +141,3 @@ The SummaryCommand class provides an overview of user's diet over the past week/
 The following sequence diagram describes the operation of the `generateSummary()` method.
 ![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.png)
 
-## Add Food Entry Feature
-The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>. 
-It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code> 
-and <code>FoodDatabase</code>. 
-Additionally, it implements the following operations:
-- <code>EntryDatabase#addEntry(Entry)</code> -- Adds a new entry into the entry database
-- <code>FoodDatabase#addFood</code> -- Adds a new food into the food database
-
-![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
