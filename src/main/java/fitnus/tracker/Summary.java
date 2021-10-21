@@ -1,14 +1,14 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
-import fitnus.tracker.Entry;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Summary {
+    private static final int UNIT_PER_SQUARE = 100;
+    private static final String SQUARE = "■";
     private ArrayList<Entry> entries;
 
     public Summary(EntryDatabase ed) {
@@ -76,9 +76,40 @@ public class Summary {
         return totalCalories / totalNumEntries;
     }
 
+    private static String getSqaures(int calorie, int unit) {
+        StringBuilder builder = new StringBuilder("");
+        for (int i = 0; i < calorie / unit; i++) {
+            builder.append(SQUARE);
+        }
+        return builder.toString();
+    }
+
     private String getWeekCalorieTrend() {
-        //TODO @SIYUAN TO REFACTOR VIEWDAILYCALORIETREND HERE (add a new line at the end thanks :D)
-        return null;
+        StringBuilder output = new StringBuilder("");
+        LocalDate date = LocalDate.now().minusDays(6);
+
+        int calories = 0;
+        int j = 0;
+        for (int i = 0; i < entries.size(); i++) {
+            if (!entries.get(i).getRawDate().isBefore(date)) {
+                j = i;
+                break;
+            }
+        }
+
+
+        do {
+            if (j < entries.size() && entries.get(j).getRawDate().equals(date)) {
+                calories += entries.get(j).getFood().getCalories();
+                j++;
+            } else {
+                output.append(String.format("%s: %s %d\n", date,
+                        getSqaures(calories, UNIT_PER_SQUARE), calories));
+                date = date.plusDays(1);
+                calories = 0;
+            }
+        } while (!date.isAfter(LocalDate.now()));
+        return output.toString();
     }
 
     public String generateWeekSummaryReport() {
@@ -86,10 +117,11 @@ public class Summary {
             return "No entries found!";
         }
 
+        int averageCalories = getAverageCalories();
         String output = String.format(getWeekCalorieTrend()
-                        + "Average Daily Calorie Intake: %d\n"
-                + getMostAndLeastEatenFood(),
-                getAverageCalories());
+                        + "Average Daily Calorie Intake: %s %d\n"
+                + getMostAndLeastEatenFood(), getSqaures(averageCalories, UNIT_PER_SQUARE), averageCalories
+                );
         return output;
     }
 
