@@ -1,8 +1,9 @@
-package fitnus.utility;
+package fitnus.storage;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.utility.User;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,6 +22,7 @@ public class Storage {
     private static final Path FILE_PATH_FOOD_DATA = Paths.get(ROOT, "data", "food.txt");
     private static final Path FILE_PATH_USER_DATA = Paths.get(ROOT, "data", "user.txt");
     private static final Path FILE_PATH_ENTRY_DATA = Paths.get(ROOT, "data", "entry.txt");
+    private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data", "weight.txt");
 
     public static void createDirectoryAndFiles() throws IOException {
         createDirectory(DIRECTORY_PATH.toString());
@@ -60,6 +62,15 @@ public class Storage {
         reader.close();
     }
 
+    public static void initialiseWeightProgress(User user) throws IOException {
+        assert Files.exists(FILE_PATH_WEIGHT_DATA);
+        FileInputStream stream;
+        stream = new FileInputStream(FILE_PATH_WEIGHT_DATA.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        user.preloadWeightData(reader);
+        reader.close();
+    }
+
     public static void saveFoodDatabase(FoodDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_FOOD_DATA);
         String data = database.convertDatabaseToString();
@@ -78,7 +89,13 @@ public class Storage {
         saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
-    public static void saveData(String filePath, String content) throws IOException {
+    public static void saveWeightData(User user) throws IOException {
+        assert Files.exists(FILE_PATH_WEIGHT_DATA);
+        String weightData = user.convertWeightDataToString();
+        saveData(FILE_PATH_WEIGHT_DATA.toString(), weightData);
+    }
+
+    private static void saveData(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fw;
         fw = new FileWriter(file);

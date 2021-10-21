@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class FitNus {
++main(String[])
+}
+class User {
+-calorieGoal:int
+-gender:int
++getCalorieGoal()
++setCalorieGoal(int)
++getGender()
++setGender(int)
++showCaloriesRemaining(EntryDatabase)
++preloadUserData(BufferedReader)
++listUserData()
++convertUserDataToString()
+}
+class Ui {
++printWelcomeMessage()
++println(String)
++print(String)
++printPreloadDatabaseError()
++printPreloadUserError()
++readInput()
++printNoMatchingResults()
++printMatchingFoods(ArrayList<Food>)
++printMatchingEntries(ArrayList<Entry>)
+}
+class Storage {
++createDirectoryAndFiles()
++initialiseFoodDatabase(FoodDatabase)
++initialiseEntryDatabase(EntryDatabase)
++initialiseUser(User)
++saveFoodDatabase(FoodDatabase)
++saveEntryDatabase(EntryDatabase)
++saveUserData(User)
++saveData(String)
++createFile(String)
++createDirectory(String)
+}
+class Parser
+class Entry
+class Food
+enum MealType {
+BREAKFAST
+LUNCH
+DINNER
+SNACK
+}
+class EntryDatabase
+class FoodDatabase
+abstract Command
+class XYZCommand
+
+@enduml
