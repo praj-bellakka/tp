@@ -7,7 +7,7 @@
 
 ## Design & implementation
 
-###Architecture
+##Architecture
 
 The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used. The primary components of the app are listed below:
 - `Command`: The abstract class that all other command classes inherit from
