@@ -1,20 +1,19 @@
 package fitnus.parser;
 
-import fitnus.database.FoodDatabase;
-import fitnus.exception.FitNusException;
-import fitnus.command.AddCustomFoodEntryCommand;
-import fitnus.command.AddDefaultFoodEntryCommand;
+import fitnus.command.AddFoodEntryCommand;
 import fitnus.command.Command;
 import fitnus.command.DeleteFoodEntryCommand;
 import fitnus.command.ExitCommand;
+import fitnus.command.FindEntryCommand;
+import fitnus.command.FindFoodCommand;
 import fitnus.command.HelpCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
-import fitnus.command.FindEntryCommand;
-import fitnus.command.FindFoodCommand;
+import fitnus.database.FoodDatabase;
+import fitnus.exception.FitNusException;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
@@ -66,11 +65,12 @@ public class Parser {
     private static final int LUNCH_HOUR_UPPER = 14; //2pm
     private static final int DINNER_HOUR_LOWER = 18; //6pm
     private static final int DINNER_HOUR_UPPER = 21; //9pm
+    public static final int CALORIE_LIMIT = 5000;
 
     private static boolean breakLoopFlag = true;
 
     public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
-        String[] splitString = input.strip().split(" ");
+        String[] splitString = input.strip().split(SPACE_CHARACTER);
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
 
@@ -126,34 +126,19 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
-    private Command parseRemoveTypeCommand(String input) throws FitNusException {
-        int typeDescriptorIndex = input.indexOf(" ");
-        try {
-            return new DeleteFoodEntryCommand(Integer.parseInt(input
-                    .substring(typeDescriptorIndex).trim()));
-        } catch (NumberFormatException e) {
-            throw new FitNusException("Input value is not an integer!");
-        }
-    }
-
-    private Command parseListTypeCommand(String input) throws FitNusException {
-        int typeDescriptorIndex = input.indexOf(" ");
-        if (typeDescriptorIndex == -1) {
-            if (input.equals(DESCRIPTOR_FOOD)) {
-                return new ListFoodDatabaseCommand();
-            }
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
-        }
-
-        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
-        switch (typeDescriptor) {
-        case DESCRIPTOR_INTAKE:
-            return new ListFoodIntakeCommand(input.substring(typeDescriptorIndex).trim());
-        default:
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
-        }
-    }
-
+    /**
+     * Function handles adding food command,by taking in an input string and the food database.
+     * The function finds the MealType of the food using {@link #parseMealType(String)}.If no meal type was added by
+     * the user, it will be automatically allocated based on time of day using {@link #findMealTypeTiming()}.
+     * The food is then searched thorugh the database using FoodDatabase. If food match exists, user will be prompted to
+     * either select from an existing foodlist by entering its index, or create a custom food by entering <0>.
+     * If no food match exists, the user will be prompted to enter the food's calorie between 0 to 5000.
+     *
+     * @param input String containing food name and mealtype (optional).
+     * @param fd FoodDatabase object passed from Main(), containing food in database.
+     * @return Command object
+     * @throws FitNusException Thrown when foodname is empty.
+     */
     private Command parseAddTypeCommand(String input, FoodDatabase fd) throws FitNusException {
         //step 1: find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
@@ -166,7 +151,7 @@ public class Parser {
         MealType mealType =  parseMealType(mealTypeString);
         String foodName = "";
 
-        //if mealType is null, user didn't specify  the command -> auto tag the meal type
+        //if mealType is null, user didn't specify the command -> auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
             //TODO: Add a print statement that tells user that food category has been auto added
             mealType = findMealTypeTiming();
@@ -179,7 +164,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFood(foodName);
 
         Ui newUi = new Ui();
-        newUi.printMatchingFoods(tempFoodDb);
+        newUi.printMatchingFoods(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
@@ -190,9 +175,8 @@ public class Parser {
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
         } else if (tempFoodDb.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
-            System.out.println("The food you specified does not exist in the database");
+            System.out.println("The food you specified does not exist in the database!");
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
-            //return new AddCustomFoodEntryCommand(mealType, foodName, userInputLoop);
         }
         return null;
     }
@@ -209,9 +193,9 @@ public class Parser {
      * @param tempFoodDb An arraylist containing Food items matching user entry.
      * @param newUi Ui element responsible for receiving user input through CLI.
      * @param multipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
-     * @return AddCustomFoodEntryCommand Command object containing relevant details.
+     * @return AddFoodEntryCommand Command object containing relevant details.
      */
-    private AddCustomFoodEntryCommand returnUserInput(MealType mealType, String foodName,
+    private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName,
                                                       ArrayList<Food> tempFoodDb, Ui newUi, boolean multipleEntries) {
         int userInput = 0;
         if (multipleEntries) {
@@ -230,14 +214,10 @@ public class Parser {
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
             } while (breakLoopFlag);
-            return new AddCustomFoodEntryCommand(mealType, foodName, userInput);
+            return new AddFoodEntryCommand(mealType, foodName, userInput);
         }
-        String nameOfFood = tempFoodDb.get(userInput - 1).getName();
-        int calOfFood = tempFoodDb.get(userInput - 1).getCalories();
-        return new AddCustomFoodEntryCommand(mealType, nameOfFood, calOfFood);
+        return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1));
     }
-
-
 
     /**
      * Function parses integers from user input when the while loop inside
@@ -255,11 +235,11 @@ public class Parser {
                 breakLoopFlag = false;
                 return val;
             } else {
-                System.out.println("not in range");
+                System.out.println("The input is outside the range of the database!");
             }
         } catch (NumberFormatException e) {
             //TODO: add proper Ui print message;
-            System.out.println("not an integer");
+            System.out.println("Please enter an integer value!");
         }
         breakLoopFlag = true;
         return -1;
@@ -268,7 +248,7 @@ public class Parser {
     /**
      * Function parses integers from user input when the while loop
      * inside {@link #parseAddTypeCommand(String, FoodDatabase)} parseAddTypeCommand} is running.
-     * Returns calories of food if input was valid, else returns -1.
+     * Returns calories of food if input is valid, else returns -1.
      *
      * @param input Input containing the calories.
      * @return Integer value of the calories.
@@ -276,15 +256,15 @@ public class Parser {
     private int parseInteger(String input) {
         try {
             int val = Integer.parseInt(input.strip());
-            if (val > 0) {
+            if (val > 0 && val <= CALORIE_LIMIT) {
                 breakLoopFlag = false;
                 return val;
             } else {
-                System.out.println("not in range");
+                System.out.println("Calories can only be between 0 and 5000!");
             }
         } catch (NumberFormatException e) {
             //TODO: add proper Ui print message;
-            System.out.println("not an integer");
+            System.out.println("Please enter an integer value!");
         }
         breakLoopFlag = true;
         return -1;
@@ -326,7 +306,6 @@ public class Parser {
     private MealType findMealTypeTiming() {
         LocalDateTime currentTime = LocalDateTime.now();
         int hourOfDay = currentTime.getHour();
-
         if (hourOfDay >= BREAKFAST_HOUR_LOWER && hourOfDay < BREAKFAST_HOUR_UPPER) {
             return MealType.BREAKFAST;
         } else if (hourOfDay >= LUNCH_HOUR_LOWER && hourOfDay < LUNCH_HOUR_UPPER) {
@@ -335,6 +314,34 @@ public class Parser {
             return MealType.DINNER;
         } else {
             return MealType.SNACK; //if current time is outside of these hours, the person is assumed to eat snack.
+        }
+    }
+
+    private Command parseRemoveTypeCommand(String input) throws FitNusException {
+        int typeDescriptorIndex = input.indexOf(" ");
+        try {
+            return new DeleteFoodEntryCommand(Integer.parseInt(input
+                    .substring(typeDescriptorIndex).trim()));
+        } catch (NumberFormatException e) {
+            throw new FitNusException("Input value is not an integer!");
+        }
+    }
+
+    private Command parseListTypeCommand(String input) throws FitNusException {
+        int typeDescriptorIndex = input.indexOf(" ");
+        if (typeDescriptorIndex == -1) {
+            if (input.equals(DESCRIPTOR_FOOD)) {
+                return new ListFoodDatabaseCommand();
+            }
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        }
+
+        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
+        switch (typeDescriptor) {
+        case DESCRIPTOR_INTAKE:
+            return new ListFoodIntakeCommand(input.substring(typeDescriptorIndex).trim());
+        default:
+            throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
     }
 
