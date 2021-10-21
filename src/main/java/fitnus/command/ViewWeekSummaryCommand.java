@@ -10,7 +10,8 @@ public class ViewWeekSummaryCommand extends Command {
 
     public static final int DAYS_IN_WEEK = 7;
 
-    public ViewWeekSummaryCommand() {}
+    public ViewWeekSummaryCommand() {
+    }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
