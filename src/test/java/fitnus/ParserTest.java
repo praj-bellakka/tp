@@ -1,14 +1,5 @@
 package fitnus;
 
-import fitnus.command.AddCustomFoodEntryCommand;
-import fitnus.command.AddDefaultFoodEntryCommand;
-import fitnus.command.Command;
-import fitnus.command.DeleteFoodEntryCommand;
-import fitnus.command.ListFoodDatabaseCommand;
-import fitnus.command.ListFoodIntakeCommand;
-import fitnus.command.SetCalorieGoalCommand;
-import fitnus.command.SetGenderCommand;
-import fitnus.command.ViewRemainingCalorieCommand;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import org.junit.jupiter.api.Test;
