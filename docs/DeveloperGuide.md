@@ -106,12 +106,14 @@ The following sequence diagram describes the operation of the `generateSummary()
 The Storage class reads and writes data to and from the text file.
 
 ### Storage format
+> **_NOTE:_** Every line in each text file represents one object / entry / item
 
 - `FoodDatabase`: FOODNAME | CALORIE_VALUE
 
 Example:
 ```
 Nasi Lemak | 400
+Ramen | 600
 ```
 
 - `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
@@ -119,6 +121,7 @@ Nasi Lemak | 400
 Example:
 ```
 Dinner | Ramen | 500 | 2021-10-20
+Lunch | Fried rice | 600 | 2021-10-20
 ```
 
 - `User`: CALORIE_GOAL | GENDER
@@ -127,6 +130,17 @@ Example:
 ```
 1000 | 0
 ```
+
+- `User weight`: WEIGHT | DATE
+
+Example:
+```
+60.0 | 2021-07-20
+59.0 | 2021-08-20
+58.0 | 2021-09-20
+45.0 | 2021-10-21
+```
+
 
 ### Implementation
 `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
@@ -140,3 +154,4 @@ then written to the text file.
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
 
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
+
