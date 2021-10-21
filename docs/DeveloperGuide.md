@@ -164,3 +164,22 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
 
+---
+## Parser Component
+
+**API: `Parser.java`**
+
+The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called.
+It then returns a `Command` object that represents the type of command called through the input.
+
+The `Parser` component:
+
+- determines the type of `Command` object and returns it.
+- handles input exceptions and returns relevant `FitNusException` command.
+
+### Implementation
+**1. Identifying type of method called**
+
+The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
+If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is 
+then compared with default list of commands to determine the type of method called using if-else statements.
