@@ -13,6 +13,7 @@ import fitnus.storage.Storage;
 import fitnus.utility.Ui;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -133,8 +134,43 @@ public class EntryDatabase {
                 .collect(Collectors.toList());
     }
 
+    public EntryDatabase getPastDaysEntryDatabase(int days) {
+        sortDatabase();
+        ArrayList<Entry> totalEntries = getEntries();
+        EntryDatabase pastDaysEntries = new EntryDatabase();
+
+        LocalDate datePointer = LocalDate.now();
+        int count = totalEntries.size() - 1;
+
+        for (int i = 0; count >= 0 && i < days; i++) {
+            while (count >= 0 && totalEntries.get(count).getRawDate().equals(datePointer)) {
+                pastDaysEntries.addEntry(totalEntries.get(count));
+                count--;
+            }
+            datePointer = datePointer.minusDays(1);
+        }
+        return pastDaysEntries;
+    }
+
+    public EntryDatabase getPastMonthEntryDatabase() {
+        sortDatabase();
+        ArrayList<Entry> totalEntries = getEntries();
+        EntryDatabase pastMonthEntries = new EntryDatabase();
+
+        Month monthPointer = LocalDate.now().getMonth();
+        int count = totalEntries.size() - 1;
+
+        while (count >= 0 && totalEntries.get(count).getRawDate().getMonth().equals(monthPointer)) {
+            pastMonthEntries.addEntry(totalEntries.get(count));
+            count--;
+        }
+
+        return pastMonthEntries;
+    }
+
     public void editEntryAtIndex(int index, Food food) {
         entries.get(index - 1).setFood(food);
+
     }
 }
 
