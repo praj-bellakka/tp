@@ -87,45 +87,6 @@ How the User component works in the context of the weight tracker:
 3. If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
 4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
-## Storage
-The Storage class reads and writes data to and from the text file.
-
-### Storage format
-
-- `FoodDatabase`: FOODNAME | CALORIE_VALUE
-
-Example:
-```
-Nasi Lemak | 400
-```
-
-- `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
-
-Example:
-```
-Dinner | Ramen | 500 | 2021-10-20
-```
-
-- `User`: CALORIE_GOAL | GENDER
-
-Example:
-```
-1000 | 0
-```
-
-### Implementation
-`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
-its data to String format. This String is then saved to the text file.
-
-For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is
-then written to the text file.
-
-### UML Sequence Diagram
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
-
-![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
-
 
 ## SummaryCommand
 The SummaryCommand class provides an overview of user's diet over the past week/month.
@@ -140,4 +101,66 @@ The SummaryCommand class provides an overview of user's diet over the past week/
 ### UML Sequence Diagram
 The following sequence diagram describes the operation of the `generateSummary()` method.
 ![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.png)
+
+## Storage
+The Storage class reads and writes data to and from the text file.
+
+### Storage format
+> **_NOTE:_** Every line in each text file represents one object / entry / item
+
+- `FoodDatabase`: FOODNAME | CALORIE_VALUE
+
+Example:
+```
+Nasi Lemak | 400
+Ramen | 600
+```
+
+- `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
+
+Example:
+```
+Dinner | Ramen | 500 | 2021-10-20
+Lunch | Fried rice | 600 | 2021-10-20
+```
+
+- `User`: CALORIE_GOAL | GENDER
+
+Example:
+```
+1000 | 0
+```
+
+- `User weight`: WEIGHT | DATE
+
+Example:
+```
+60.0 | 2021-07-20
+59.0 | 2021-08-20
+58.0 | 2021-09-20
+45.0 | 2021-10-21
+```
+
+
+### Implementation
+#### 1. Saving to file
+`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
+its data to String format. This String is then saved to the text file.
+
+For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
+method to obtain the String representation of all the data within the `FoodDatabase`. This String is
+then written to the text file.
+
+#### 2. Loading from file 
+`Storage` makes use of the `BufferedReader` and `FileInputStream` provided  by `java.io` to access 
+the contents of the storage text files. This is then passed to the respective objects for preloading.
+
+For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file
+and passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates
+the ArrayList in `FoodDatabase`.
+
+### UML Sequence Diagram
+The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
+
+![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
 
