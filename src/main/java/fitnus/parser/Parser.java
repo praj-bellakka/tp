@@ -58,13 +58,6 @@ public class Parser {
     public static final int INVALID_INPUT = -1;
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
 
-    //predefined breakfast, lunch and dinner timings (in 24hrs)
-    private static final int BREAKFAST_HOUR_LOWER = 6; //6am
-    private static final int BREAKFAST_HOUR_UPPER = 10; //10am
-    private static final int LUNCH_HOUR_LOWER = 11; //11am
-    private static final int LUNCH_HOUR_UPPER = 14; //2pm
-    private static final int DINNER_HOUR_LOWER = 18; //6pm
-    private static final int DINNER_HOUR_UPPER = 21; //9pm
     public static final int CALORIE_LIMIT = 5000;
 
     private static boolean breakLoopFlag = true;
@@ -148,13 +141,13 @@ public class Parser {
         } else {
             mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
         }
-        MealType mealType =  parseMealType(mealTypeString);
+        MealType mealType =  parseMealType(mealTypeString, false);
         String foodName = "";
 
         //if mealType is null, user didn't specify the command -> auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
             //TODO: Add a print statement that tells user that food category has been auto added
-            mealType = findMealTypeTiming();
+            mealType = mealType.findMealTypeTiming();
             foodName = input;
         } else {
             foodName = input.substring(input.indexOf(SPACE_CHARACTER));
@@ -220,6 +213,45 @@ public class Parser {
     }
 
     /**
+     * Function takes in an input that may contain the meal type and a boolean databaseRequest.
+     * If the meal type matches the predefined MealType enum, the matching MealType is returned.
+     * Otherwise, UNDEFINED is returned.
+     *
+     * @param input Input that may contain the meal type.
+     * @param databaseRequest Boolean representing if method is being called for the database.
+     * @return MealType if a match is found; UNDEFINED MealType otherwise.
+     */
+    public static MealType parseMealType(String input, boolean databaseRequest) {
+        if (databaseRequest) {
+            switch (input) {
+            case "Breakfast":
+                return MealType.BREAKFAST;
+            case "Lunch":
+                return MealType.LUNCH;
+            case "Dinner":
+                return MealType.DINNER;
+            case "Snack":
+                return MealType.SNACK;
+            default:
+                return MealType.UNDEFINED;
+            }
+        } else {
+            switch (input) {
+            case "/bfast":
+                return MealType.BREAKFAST;
+            case "/lunch":
+                return MealType.LUNCH;
+            case "/dinner":
+                return MealType.DINNER;
+            case "/snack":
+                return MealType.SNACK;
+            default:
+                return MealType.UNDEFINED;
+            }
+        }
+    }
+
+    /**
      * Function parses integers from user input when the while loop inside
      * {@link #parseAddTypeCommand(String, FoodDatabase)} parseAddTypeCommand} is running.
      * Returns integer if found within range, else -1.
@@ -268,53 +300,6 @@ public class Parser {
         }
         breakLoopFlag = true;
         return -1;
-    }
-
-    /**
-     * Function takes in an input that may contain the meal type.
-     * If the meal type matches the predefined MealType enum, the matching MealType is returned.
-     * Otherwise, UNDEFINED is returned.
-     *
-     * @param input Input that may contain the meal type.
-     * @return MealType if a match is found; UNDEFINED MealType otherwise.
-     */
-    private MealType parseMealType(String input) {
-        switch (input) {
-        case "/bfast":
-            return MealType.BREAKFAST;
-        case "/lunch":
-            return MealType.LUNCH;
-        case "/dinner":
-            return MealType.DINNER;
-        case "/snack":
-            return MealType.SNACK;
-        default:
-            return MealType.UNDEFINED;
-        }
-    }
-
-    /**
-     * Finds the current hour (in 24hrs) using system LocalDateTime object.
-     * The relevant MealType is returned based on the hourOfDay.
-     * 6am to 10am: Breakfast.
-     * 11am to 2pm: Lunch.
-     * 6pm to 9pm: Dinner.
-     * Otherwise: Snack.
-     *
-     * @return MealType based on hourOfDay.
-     */
-    private MealType findMealTypeTiming() {
-        LocalDateTime currentTime = LocalDateTime.now();
-        int hourOfDay = currentTime.getHour();
-        if (hourOfDay >= BREAKFAST_HOUR_LOWER && hourOfDay < BREAKFAST_HOUR_UPPER) {
-            return MealType.BREAKFAST;
-        } else if (hourOfDay >= LUNCH_HOUR_LOWER && hourOfDay < LUNCH_HOUR_UPPER) {
-            return MealType.LUNCH;
-        } else if (hourOfDay >= DINNER_HOUR_LOWER && hourOfDay < DINNER_HOUR_UPPER) {
-            return MealType.DINNER;
-        } else {
-            return MealType.SNACK; //if current time is outside of these hours, the person is assumed to eat snack.
-        }
     }
 
     private Command parseRemoveTypeCommand(String input) throws FitNusException {
@@ -424,25 +409,25 @@ public class Parser {
         throw new FitNusException("Error parsing date!!");
     }
 
-    public static MealType getMealType(String line) {
-        MealType mealType;
-        switch (line) {
-        case "Breakfast":
-            mealType = MealType.BREAKFAST;
-            break;
-        case "Lunch":
-            mealType = MealType.LUNCH;
-            break;
-        case "Dinner":
-            mealType = MealType.DINNER;
-            break;
-        case "Snack":
-            mealType = MealType.SNACK;
-            break;
-        default:
-            mealType = null;
-            //TODO THROW EXCEPTION
-        }
-        return mealType;
-    }
+//    public static MealType getMealType(String line) {
+//        MealType mealType;
+//        switch (line) {
+//        case "Breakfast":
+//            mealType = MealType.BREAKFAST;
+//            break;
+//        case "Lunch":
+//            mealType = MealType.LUNCH;
+//            break;
+//        case "Dinner":
+//            mealType = MealType.DINNER;
+//            break;
+//        case "Snack":
+//            mealType = MealType.SNACK;
+//            break;
+//        default:
+//            mealType = null;
+//            //TODO THROW EXCEPTION
+//        }
+//        return mealType;
+//    }
 }

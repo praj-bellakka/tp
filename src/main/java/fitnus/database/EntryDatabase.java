@@ -77,7 +77,7 @@ public class EntryDatabase {
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
-                MealType mealType = Parser.getMealType(description[0]);
+                MealType mealType = Parser.parseMealType(description[0], true);
                 String name = description[1];
                 Integer calories = Integer.parseInt(description[2]);
                 Food food = new Food(name, calories);
