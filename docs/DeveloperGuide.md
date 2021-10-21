@@ -143,12 +143,21 @@ Example:
 
 
 ### Implementation
+#### 1. Saving to file
 `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
 its data to String format. This String is then saved to the text file.
 
 For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
 method to obtain the String representation of all the data within the `FoodDatabase`. This String is
 then written to the text file.
+
+#### 2. Loading from file 
+`Storage` makes use of the `BufferedReader` and `FileInputStream` provided  by `java.io` to access 
+the contents of the storage text files. This is then passed to the respective objects for preloading.
+
+For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file
+and passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates
+the ArrayList in `FoodDatabase`.
 
 ### UML Sequence Diagram
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
