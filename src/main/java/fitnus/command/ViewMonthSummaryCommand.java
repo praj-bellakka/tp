@@ -7,7 +7,8 @@ import fitnus.tracker.Summary;
 import fitnus.utility.User;
 
 public class ViewMonthSummaryCommand extends Command {
-    public ViewMonthSummaryCommand() {}
+    public ViewMonthSummaryCommand() {
+    }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
