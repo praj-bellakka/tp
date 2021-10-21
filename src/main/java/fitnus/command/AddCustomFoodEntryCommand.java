@@ -21,6 +21,9 @@ public class AddCustomFoodEntryCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+        if (calories > 5000) {
+            throw new FitNusException("Oops! Food calories cannot exceed 5000");
+        }
         Food customFood = new Food(foodName, calories);
         ed.addEntry(mealType, customFood);
         fd.addFood(customFood);

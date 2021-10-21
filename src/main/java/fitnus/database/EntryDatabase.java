@@ -9,11 +9,13 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.parser.Parser;
 import fitnus.tracker.MealType;
-import fitnus.utility.Storage;
+import fitnus.storage.Storage;
 import fitnus.utility.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class EntryDatabase {
@@ -32,16 +34,16 @@ public class EntryDatabase {
         this.entries.add(entry);
     }
 
+    public void sortDatabase() {
+        entries.sort(Comparator.comparing(Entry::getDate));
+    }
+
     public void deleteEntry(int index) throws FitNusException {
         try {
             this.entries.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
         }
-    }
-
-    public void store() throws IOException {
-        Storage.saveData("entry database.txt", this.convertDatabaseToString());
     }
 
     public int getTotalCalorie() {
@@ -129,6 +131,10 @@ public class EntryDatabase {
         return (ArrayList<Entry>) entries.stream()
                 .filter(t -> t.getFood().getName().contains(keyword))
                 .collect(Collectors.toList());
+    }
+
+    public void editEntryAtIndex(int index, Food food) {
+        entries.get(index - 1).setFood(food);
     }
 }
 
