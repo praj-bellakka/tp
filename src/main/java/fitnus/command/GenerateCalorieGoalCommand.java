@@ -24,9 +24,9 @@ public class GenerateCalorieGoalCommand extends Command {
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         if (weeklyChange > 1) {
-            return "In order to lose or gain weight in a safe and healthy way, " +
-                    "FitNUS recommends a weekly change in weight of not more than" +
-                    "1 kg. Please try again with a lower weekly goal!";
+            return "In order to lose or gain weight in a safe and healthy way, "
+                    + "FitNUS recommends a weekly change in weight of not more than "
+                    + "1 kg. Please try again with a lower weekly goal!";
         } else {
             int bmr; //basal metabolic rate
             int calDiff = (int) Math.round(weeklyChange * calDeficitFor1KgWeekly);
