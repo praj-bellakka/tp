@@ -3,8 +3,6 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
-import fitnus.command.SetWeightCommand;
-import fitnus.command.viewcalorietrendcommand.ViewMonthlyCalorieTrendCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;

@@ -17,7 +17,7 @@ public class ViewWeekSummaryCommand extends Command {
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         // Retrieves all entries that fall in the past week
         EntryDatabase pastWeekEntries = ed.getPastDaysEntryDatabase(DAYS_IN_WEEK);
-        Summary sum = new Summary(pastWeekEntries);
+        Summary sum = new Summary(pastWeekEntries, DAYS_IN_WEEK);
 
         return sum.generateWeekSummaryReport();
     }
