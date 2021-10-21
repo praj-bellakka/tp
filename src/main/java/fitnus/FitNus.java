@@ -57,8 +57,7 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                //inputType = parser.parseCommandType(userInput, fd);
-                inputType = new GenerateCalorieGoalCommand(Float.parseFloat(userInput), "gain");
+                inputType = parser.parseCommandType(userInput, fd);
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);
