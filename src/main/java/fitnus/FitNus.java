@@ -43,6 +43,7 @@ public class FitNus {
             Storage.saveFoodDatabase(fd);
             Storage.saveEntryDatabase(ed);
             Storage.saveUserData(user);
+            Storage.saveWeightData(user);
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when saving data");
             Ui.println("I/O error! " + e.getMessage());
@@ -57,8 +58,8 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput, fd);
-                //inputType = new SetWeightCommand(Float.parseFloat(userInput));
+                //inputType = parser.parseCommandType(userInput, fd);
+                inputType = new SetWeightCommand(Float.parseFloat(userInput));
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);
