@@ -43,6 +43,7 @@ public class FitNus {
             Storage.saveFoodDatabase(fd);
             Storage.saveEntryDatabase(ed);
             Storage.saveUserData(user);
+            Storage.saveWeightData(user);
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when saving data");
             Ui.println("I/O error! " + e.getMessage());

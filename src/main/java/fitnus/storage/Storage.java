@@ -89,6 +89,12 @@ public class Storage {
         saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
+    public static void saveWeightData(User user) throws IOException {
+        assert Files.exists(FILE_PATH_WEIGHT_DATA);
+        String weightData = user.convertWeightDataToString();
+        saveData(FILE_PATH_WEIGHT_DATA.toString(), weightData);
+    }
+
     private static void saveData(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fw;

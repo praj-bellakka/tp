@@ -2,6 +2,9 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.tracker.Entry;
+import fitnus.tracker.Food;
+import fitnus.tracker.MealType;
 import fitnus.tracker.WeightProgressEntry;
 
 import java.io.BufferedReader;
@@ -133,5 +136,16 @@ public class User {
 
     public String convertUserDataToString() {
         return this.calorieGoal + DELIMITER + this.gender;
+    }
+
+    public String convertWeightDataToString() {
+        StringBuilder lines = new StringBuilder();
+        for (WeightProgressEntry e : weightProgressEntries) {
+            assert e != null : "e should not be null";
+            float weight = e.getWeight();
+            String date = e.getDate().toString();
+            lines.append(weight).append(DELIMITER).append(date).append(System.lineSeparator());
+        }
+        return lines.toString();
     }
 }
