@@ -10,9 +10,11 @@ public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
     private static final String SQUARE = "■";
     private ArrayList<Entry> entries;
+    private int days;
 
-    public Summary(EntryDatabase ed) {
+    public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
+        this.days = days;
         this.entries = ed.getEntries();
     }
 
@@ -73,7 +75,7 @@ public class Summary {
             totalCalories += e.getFood().getCalories();
         }
 
-        return totalCalories / totalNumEntries;
+        return totalCalories / days;
     }
 
     private static String getSqaures(int calorie, int unit) {
