@@ -87,6 +87,21 @@ How the User component works in the context of the weight tracker:
 3. If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
 4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
+
+## SummaryCommand
+The SummaryCommand class provides an overview of user's diet over the past week/month.
+
+### command format
+`summary /week` or `summary /month`
+
+### implementation
+`SummaryCommand` class provides a method to generate the most and less frequently foods ate by users.
+`ViewMonthlyCalorieTrend` and `ViewDailyCalorieTrend` have static methods to generate monthly/weekly calorie intake graphs.
+
+### UML Sequence Diagram
+The following sequence diagram describes the operation of the `generateSummary()` method.
+![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.png)
+
 ## Storage
 The Storage class reads and writes data to and from the text file.
 
@@ -125,19 +140,3 @@ then written to the text file.
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
 
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
-
-
-## SummaryCommand
-The SummaryCommand class provides an overview of user's diet over the past week/month.
-
-### command format
-`summary /week` or `summary /month`
-
-### implementation
-`SummaryCommand` class provides a method to generate the most and less frequently foods ate by users.
-`ViewMonthlyCalorieTrend` and `ViewDailyCalorieTrend` have static methods to generate monthly/weekly calorie intake graphs.
-
-### UML Sequence Diagram
-The following sequence diagram describes the operation of the `generateSummary()` method.
-![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.png)
-
