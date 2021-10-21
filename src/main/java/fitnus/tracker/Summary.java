@@ -59,8 +59,8 @@ public class Summary {
             }
         }
 
-        return String.format("Food eaten most: %s [%d time(s)]\n" +
-                        "Food eaten least: %s [%d time(s)]",
+        return String.format("Food eaten most: %s [%d time(s)]\n" 
+                        + "Food eaten least: %s [%d time(s)]",
                 mostFrequentFoods, maxOccurrence,
                 leastFrequentFoods, minOccurrence);
     }
@@ -86,9 +86,9 @@ public class Summary {
             return "No entries found!";
         }
 
-        String output = String.format(getWeekCalorieTrend() +
-                        "Average Daily Calorie Intake: %d\n" +
-                getMostAndLeastEatenFood(),
+        String output = String.format(getWeekCalorieTrend() 
+                        + "Average Daily Calorie Intake: %d\n" 
+                + getMostAndLeastEatenFood(),
                 getAverageCalories());
         return output;
     }
@@ -98,8 +98,8 @@ public class Summary {
             return "No entries found!";
         }
 
-        String output = String.format("Average Daily Calorie Intake: %d\n" +
-                getMostAndLeastEatenFood(),
+        String output = String.format("Average Daily Calorie Intake: %d\n" 
+                + getMostAndLeastEatenFood(),
                 getAverageCalories());
         return output;
     }
