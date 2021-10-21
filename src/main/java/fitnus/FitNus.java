@@ -3,12 +3,13 @@ package fitnus;
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
 import fitnus.command.HelpCommand;
+import fitnus.command.SetWeightCommand;
 import fitnus.command.viewcalorietrendcommand.ViewMonthlyCalorieTrendCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
-import fitnus.utility.Storage;
+import fitnus.storage.Storage;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
@@ -26,6 +27,7 @@ public class FitNus {
             Storage.initialiseFoodDatabase(fd);
             Storage.initialiseEntryDatabase(ed);
             Storage.initialiseUser(user);
+            Storage.initialiseWeightProgress(user);
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
             Ui.println("I/O error! " + e.getMessage());
@@ -41,6 +43,7 @@ public class FitNus {
             Storage.saveFoodDatabase(fd);
             Storage.saveEntryDatabase(ed);
             Storage.saveUserData(user);
+            Storage.saveWeightData(user);
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when saving data");
             Ui.println("I/O error! " + e.getMessage());
@@ -53,9 +56,10 @@ public class FitNus {
         while (true) {
             try {
                 String userInput;
-                Command inputType = new ViewMonthlyCalorieTrendCommand();
+                Command inputType;
                 userInput = ui.readInput();
-                //inputType = parser.parseCommandType(userInput);
+                inputType = parser.parseCommandType(userInput, fd);
+                //inputType = new SetWeightCommand(Float.parseFloat(userInput));
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);

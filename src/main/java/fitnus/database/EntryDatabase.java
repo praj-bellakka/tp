@@ -9,7 +9,7 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.parser.Parser;
 import fitnus.tracker.MealType;
-import fitnus.utility.Storage;
+import fitnus.storage.Storage;
 import fitnus.utility.Ui;
 
 import java.time.LocalDate;
@@ -44,10 +44,6 @@ public class EntryDatabase {
         } catch (IndexOutOfBoundsException e) {
             throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
         }
-    }
-
-    public void store() throws IOException {
-        Storage.saveData("entry database.txt", this.convertDatabaseToString());
     }
 
     public int getTotalCalorie() {
@@ -135,6 +131,10 @@ public class EntryDatabase {
         return (ArrayList<Entry>) entries.stream()
                 .filter(t -> t.getFood().getName().contains(keyword))
                 .collect(Collectors.toList());
+    }
+
+    public void editEntryAtIndex(int index, Food food) {
+        entries.get(index - 1).setFood(food);
     }
 }
 
