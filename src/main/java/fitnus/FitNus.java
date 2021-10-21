@@ -2,6 +2,7 @@ package fitnus;
 
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
+import fitnus.command.GenerateCalorieGoalCommand;
 import fitnus.command.HelpCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
@@ -56,8 +57,8 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput, fd);
-                //inputType = new SetWeightCommand(Float.parseFloat(userInput));
+                //inputType = parser.parseCommandType(userInput, fd);
+                inputType = new GenerateCalorieGoalCommand(Float.parseFloat(userInput), "gain");
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);

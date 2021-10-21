@@ -2,9 +2,6 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
-import fitnus.tracker.Entry;
-import fitnus.tracker.Food;
-import fitnus.tracker.MealType;
 import fitnus.tracker.WeightProgressEntry;
 
 import java.io.BufferedReader;
@@ -61,6 +58,22 @@ public class User {
         this.weight = weight;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String updateWeightAndWeightTracker(float newWeight) {
         this.setWeight(newWeight);
 
@@ -92,7 +105,7 @@ public class User {
 
 
     public int showCaloriesRemaining(EntryDatabase entryDB) {
-        int caloriesConsumed = entryDB.getTotalCalorie();
+        int caloriesConsumed = entryDB.getTotalDailyCalorie();
         return this.calorieGoal - caloriesConsumed;
     }
 

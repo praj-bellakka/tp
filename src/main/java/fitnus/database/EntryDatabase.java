@@ -47,10 +47,12 @@ public class EntryDatabase {
         }
     }
 
-    public int getTotalCalorie() {
+    public int getTotalDailyCalorie() {
         int caloriesConsumed = 0;
         for (Entry e : entries) {
-            caloriesConsumed += e.getFood().getCalories();
+            if (e.getDate().toString().equals(LocalDate.now().toString())) {
+                caloriesConsumed += e.getFood().getCalories();
+            }
         }
         assert caloriesConsumed >= 0 : "calories consumed should be non-negative";
         return caloriesConsumed;
