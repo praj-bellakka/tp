@@ -17,11 +17,11 @@ public class Summary {
     }
 
     private String getMostAndLeastEatenFood() {
-        HashMap<Food, Integer> occurrence = new HashMap<>();
+        HashMap<String, Integer> occurrence = new HashMap<>();
 
         for (Entry i: entries) {
-            Food food = i.getFood();
-            occurrence.compute(food, (key, val) -> {
+            String foodName = i.getFood().getName();
+            occurrence.compute(foodName, (key, val) -> {
                 if (val == null) {
                     return 1;
                 }
@@ -29,13 +29,13 @@ public class Summary {
             });
         }
 
-        ArrayList<Food> mostFrequentFoods = new ArrayList<>();
-        ArrayList<Food> leastFrequentFoods = new ArrayList<>();
+        ArrayList<String> mostFrequentFoods = new ArrayList<>();
+        ArrayList<String> leastFrequentFoods = new ArrayList<>();
         int maxOccurrence = 0;
         int minOccurrence = entries.size();
 
         // Iterates through hashmap entries to find most frequent food
-        for (Map.Entry<Food, Integer> e : occurrence.entrySet()) {
+        for (Map.Entry<String, Integer> e : occurrence.entrySet()) {
             if (e.getValue() > maxOccurrence) {
                 // Update max val and most freq foods
                 maxOccurrence = e.getValue();
@@ -47,7 +47,7 @@ public class Summary {
             }
         }
         // Iterates through hashmap entries to find least frequent food
-        for (Map.Entry<Food, Integer> e : occurrence.entrySet()) {
+        for (Map.Entry<String, Integer> e : occurrence.entrySet()) {
             if (e.getValue() < minOccurrence) {
                 // Update min val and least freq foods
                 minOccurrence = e.getValue();
@@ -65,10 +65,42 @@ public class Summary {
                 leastFrequentFoods, minOccurrence);
     }
 
-    public String generateSummaryReport() {
+    private int getAverageCalories() {
+        int totalCalories = 0;
+        int totalNumEntries = entries.size();
+
+        for (Entry e : entries) {
+            totalCalories += e.getFood().getCalories();
+        }
+
+        return totalCalories / totalNumEntries;
+    }
+
+    private String getWeekCalorieTrend() {
+        //TODO @SIYUAN TO REFACTOR VIEWDAILYCALORIETREND HERE (add a new line at the end thanks :D)
+        return null;
+    }
+
+    public String generateWeekSummaryReport() {
         if (entries.size() < 1) {
             return "No entries found!";
         }
-        return getMostAndLeastEatenFood();
+
+        String output = String.format(getWeekCalorieTrend() +
+                        "Average Daily Calorie Intake: %d\n" +
+                getMostAndLeastEatenFood(),
+                getAverageCalories());
+        return output;
+    }
+
+    public String generateMonthSummaryReport() {
+        if (entries.size() < 1) {
+            return "No entries found!";
+        }
+
+        String output = String.format("Average Daily Calorie Intake: %d\n" +
+                getMostAndLeastEatenFood(),
+                getAverageCalories());
+        return output;
     }
 }
