@@ -409,25 +409,4 @@ public class Parser {
         throw new FitNusException("Error parsing date!!");
     }
 
-//    public static MealType getMealType(String line) {
-//        MealType mealType;
-//        switch (line) {
-//        case "Breakfast":
-//            mealType = MealType.BREAKFAST;
-//            break;
-//        case "Lunch":
-//            mealType = MealType.LUNCH;
-//            break;
-//        case "Dinner":
-//            mealType = MealType.DINNER;
-//            break;
-//        case "Snack":
-//            mealType = MealType.SNACK;
-//            break;
-//        default:
-//            mealType = null;
-//            //TODO THROW EXCEPTION
-//        }
-//        return mealType;
-//    }
 }
