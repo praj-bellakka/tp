@@ -19,7 +19,7 @@ public class ViewSuggestionsCommand extends Command {
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         int remaining = us.getCalorieGoal() - ed.getTotalDailyCalorie();
         ArrayList<Food> suggestions = fd.findSuggestions(type, remaining);
-        Ui.printMatchingFoods(suggestions);
+        Ui.printMatchingSuggestions(suggestions);
         return "";
     }
 

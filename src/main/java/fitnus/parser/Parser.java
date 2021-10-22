@@ -395,12 +395,10 @@ public class Parser {
         if (input.contains("/food")) {
             int typeDescriptorIndex = input.indexOf("/food");
             String keyword = input.substring(typeDescriptorIndex + 6);
-            Ui.println(keyword);
             return new FindFoodCommand(keyword);
         } else if (input.contains("/entry")) {
             int typeDescriptorIndex = input.indexOf("/entry");
             String keyword = input.substring(typeDescriptorIndex + 7);
-            Ui.println(keyword);
             return new FindEntryCommand(keyword);
         }
         throw new FitNusException("parse find error");

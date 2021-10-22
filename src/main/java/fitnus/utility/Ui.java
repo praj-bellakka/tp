@@ -47,7 +47,7 @@ public class Ui {
     }
 
     private static void printNoMatchingResults() {
-        String message = "  Sorry, no matching results found!";
+        String message = " Sorry, no matching results found!";
         System.out.println(message);
     }
 
@@ -72,6 +72,18 @@ public class Ui {
         for (int i = 1; i <= matchingEntries.size(); i++) {
             System.out.println(" " + i + "."
                     + matchingEntries.get(i - 1).toString());
+        }
+    }
+
+    public static void printMatchingSuggestions(ArrayList<Food> matchingFoods) {
+        if (matchingFoods.size() == 0) {
+            printNoMatchingResults();
+            return;
+        }
+        System.out.println(" Here are some suggestions:");
+        for (int i = 1; i <= matchingFoods.size(); i++) {
+            System.out.println(" " + i + "."
+                    + matchingFoods.get(i - 1).toString());
         }
     }
 }
