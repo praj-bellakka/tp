@@ -4,8 +4,8 @@
 ## Content
 1. <a href="#Product-Scope">Product Scope</a>
 2. <a href="#Architecture">Application Architecture </a>
-3. Implementation
-4. Non-functional Requirement
+3. <a href="#Implementation">Implementation </a>
+4. <a href="#NF-Requirement">Non-functional Requirement </a>
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
@@ -22,6 +22,7 @@ The entry point of the app is the `FitNUS` class, where the application is run a
 - `User`: For handling all functionality regarding personalisation of user experience.
 
 <h2 id="Product-Scope">Product scope</h2>
+
 ### Target user profile
 
 NUS Computer Engineering students reside in UTown going on diet.
@@ -89,7 +90,7 @@ Additionally, it implements the following operations:
 ![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
 
-## Implementation 
+<h2 id="Implementation"> Implementation </h2>
 ### Weight Tracker Design
 The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
@@ -219,6 +220,6 @@ If no space character is detected, and the `help` or `exit` method was not calle
 then compared with default list of commands to determine the type of method called using if-else statements.
 
 
-## Non-Functional Requirements
+<h2 id="NF-Requirement"> Non-Functional Requirements </h2>
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set.
 2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
