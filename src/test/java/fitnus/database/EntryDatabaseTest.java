@@ -36,18 +36,22 @@ class EntryDatabaseTest {
         } catch (FitNusException e) {
             fail("Parser getDate error");
         }
-        Entry entry1 = new Entry(MealType.DINNER, new Food("chicken rice", 200), date);
-        Entry entry2 = new Entry(MealType.LUNCH, new Food("steak", 900), date);
-        Entry entry3 = new Entry(MealType.BREAKFAST, new Food("laksa", 400), date);
-        Entry entry4 = new Entry(MealType.SNACK, new Food("hotpot", 1100), date);
+        Entry entry1 = new Entry(MealType.DINNER,
+                new Food("chicken rice", 200, Food.FoodType.MEAL), date);
+        Entry entry2 = new Entry(MealType.LUNCH,
+                new Food("steak", 900, Food.FoodType.MEAL), date);
+        Entry entry3 = new Entry(MealType.BREAKFAST,
+                new Food("laksa", 400, Food.FoodType.MEAL), date);
+        Entry entry4 = new Entry(MealType.SNACK,
+                new Food("hotpot", 1100, Food.FoodType.MEAL), date);
         edb.addEntry(entry1);
         edb.addEntry(entry2);
         edb.addEntry(entry3);
         edb.addEntry(entry4);
-        String expectedOutput = String.format("Dinner | chicken rice | 200 | %s" + System.lineSeparator()
-                + "Lunch | steak | 900 | %s" + System.lineSeparator()
-                + "Breakfast | laksa | 400 | %s" + System.lineSeparator()
-                + "Snack | hotpot | 1100 | %s" + System.lineSeparator(), date, date, date, date);
+        String expectedOutput = String.format("Dinner | chicken rice | 200 | %s | MEAL" + System.lineSeparator()
+                + "Lunch | steak | 900 | %s | MEAL" + System.lineSeparator()
+                + "Breakfast | laksa | 400 | %s | MEAL" + System.lineSeparator()
+                + "Snack | hotpot | 1100 | %s | MEAL" + System.lineSeparator(), date, date, date, date);
         assertEquals(expectedOutput, edb.convertDatabaseToString());
     }
 
@@ -55,8 +59,8 @@ class EntryDatabaseTest {
     void addEntry_validEntry_entryAddedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
         Entry chickenRiceEntry = new Entry(MealType.DINNER, chickenRice);
 
         // Add Entries
@@ -72,8 +76,8 @@ class EntryDatabaseTest {
     void getTotalCalorie_nonZeroEntries_getTotalCaloriesSuccessfully() {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
 
         // Add Entries
         edb.addEntry(MealType.DINNER, prata);
@@ -96,9 +100,9 @@ class EntryDatabaseTest {
     void addDefaultEntry_validIndex_entryAddedSuccessfully() throws FitNusException {
         // Instantiate objects
         FoodDatabase fdb = new FoodDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
-        Food pizza = new Food("Pizza", 260);
+        Food prata = new Food("Prata", 100, Food.FoodType.SNACK);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+        Food pizza = new Food("Pizza", 260, Food.FoodType.OTHERS);
 
         // Add Food to database
         fdb.addFood(prata);
@@ -122,9 +126,9 @@ class EntryDatabaseTest {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
         FoodDatabase fdb = new FoodDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
-        Food pizza = new Food("Pizza", 260);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+        Food pizza = new Food("Pizza", 260, Food.FoodType.SNACK);
 
         // Add Food to database
         fdb.addFood(prata);
@@ -148,8 +152,8 @@ class EntryDatabaseTest {
     void deleteEntry_validIndex_entryDeletedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
 
         // Add Entries
         edb.addEntry(MealType.DINNER, prata);
@@ -168,8 +172,8 @@ class EntryDatabaseTest {
     void deleteEntry_invalidIndex_exceptionThrown() {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.BEVERAGE);
 
         // Add Entries
         edb.addEntry(MealType.DINNER, prata);
@@ -189,8 +193,8 @@ class EntryDatabaseTest {
     void getEntryAtIndex_validIndex_getEntrySuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
 
         // Add Entries
         edb.addEntry(MealType.DINNER, prata);
@@ -205,8 +209,8 @@ class EntryDatabaseTest {
     void getEntryAtIndex_invalidIndex_getEntrySuccessfully() {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
-        Food prata = new Food("Prata", 100);
-        Food chickenRice = new Food("Chicken Rice", 325);
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
 
         // Add Entries
         edb.addEntry(MealType.DINNER, prata);
@@ -226,12 +230,13 @@ class EntryDatabaseTest {
     void preLoadDatabase_validInput_SuccessfullyPreloadDatabase()
             throws IOException {
         EntryDatabase ed = new EntryDatabase();
-        String initialString = "Breakfast | food1 | 100 | 2021-10-12" + System.lineSeparator()
-                + "Lunch | food2 | 200 | 2021-10-12";
+        String initialString = "Breakfast | food1 | 100 | 2021-10-12 | MEAL" + System.lineSeparator()
+                + "Lunch | food2 | 200 | 2021-10-12 | MEAL";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         ed.preLoadDatabase(reader);
-        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal)" + System.lineSeparator()
-                + " 2.[2021-10-12] Lunch: food2 (200 Kcal)" + System.lineSeparator(), ed.listEntries());
+        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal) Category: MEAL"
+                + System.lineSeparator() + " 2.[2021-10-12] Lunch: food2 (200 Kcal) Category: MEAL"
+                + System.lineSeparator(), ed.listEntries());
     }
 }

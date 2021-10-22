@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -154,17 +155,20 @@ public class Parser {
         Ui newUi = new Ui();
         newUi.printMatchingFoods(tempFoodDb); //search database for match
         int userInputLoop;
+        int paramIndex = input.indexOf("/type");
+        String typeString = input.substring(paramIndex + 5).trim();
+        Food.FoodType type = parseFoodType(typeString);
 
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
             //TODO: Beautify the print statement
             System.out.println("Select the food you want by entering the number below. "
                     + "If the food doesn't exist, enter 0 to create a new custom food!");
-            return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
+            return returnUserInput(mealType, foodName, tempFoodDb, newUi, true, type);
         } else if (tempFoodDb.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
             System.out.println("The food you specified does not exist in the database!");
-            return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
+            return returnUserInput(mealType, foodName, tempFoodDb, newUi, false, type);
         }
         return null;
     }
@@ -183,8 +187,8 @@ public class Parser {
      * @param multipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
      * @return AddFoodEntryCommand Command object containing relevant details.
      */
-    private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName,
-                                                      ArrayList<Food> tempFoodDb, Ui newUi, boolean multipleEntries) {
+    private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName, ArrayList<Food> tempFoodDb,
+                                                Ui newUi, boolean multipleEntries, Food.FoodType type) {
         int userInput = 0;
         if (multipleEntries) {
             do {
@@ -202,9 +206,24 @@ public class Parser {
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
             } while (isLoopFlagOn);
-            return new AddFoodEntryCommand(mealType, foodName, userInput);
+            return new AddFoodEntryCommand(mealType, foodName, userInput, type);
         }
-        return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1));
+        return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1), type);
+    }
+
+    public static Food.FoodType parseFoodType(String type) {
+        System.out.println(type);
+        String typeString = type.toLowerCase(Locale.ROOT);
+        switch (typeString) {
+        case "snack":
+            return Food.FoodType.SNACK;
+        case "beverage":
+            return Food.FoodType.BEVERAGE;
+        case "meal":
+            return Food.FoodType.MEAL;
+        default:
+            return Food.FoodType.OTHERS;
+        }
     }
 
     /**
