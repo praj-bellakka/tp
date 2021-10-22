@@ -23,7 +23,7 @@ public class AddFoodEntryCommand extends Command {
         this.isCustom = false;
         this.type = type;
     }
-    
+
     public AddFoodEntryCommand(MealType mealType, String foodName, int calories, Food.FoodType type) {
         this.mealType = mealType;
         this.foodName = foodName;

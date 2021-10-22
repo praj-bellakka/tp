@@ -12,8 +12,7 @@ import fitnus.command.ListFoodIntakeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
-import fitnus.database.FoodDatabase;
-import fitnus.exception.FitNusException;
+import fitnus.command.ViewSuggestionsCommand;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
@@ -48,6 +47,7 @@ public class Parser {
     private static final String COMMAND_REMOVE = "remove";
     private static final String COMMAND_GENDER = "gender";
     private static final String COMMAND_FIND = "find";
+    private static final String COMMAND_SUGGEST = "suggest";
 
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
@@ -58,6 +58,12 @@ public class Parser {
     private static final String DESCRIPTOR_SET = "/set";
     public static final int INVALID_INPUT = -1;
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
+
+    // FoodType related strings
+    private static final String MEAL = "/meal";
+    private static final String BEVERAGE = "/beverage";
+    private static final String SNACK = "/snack";
+    private static final String OTHERS = "/others";
 
     public static final int CALORIE_LIMIT = 5000;
 
@@ -109,6 +115,10 @@ public class Parser {
                 return parseFindCommand(subString);
             }
 
+            if (inputCommandType.equals(COMMAND_SUGGEST)) {
+                return parseSuggestCommand(subString);
+            }
+
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FitNusException("Input format is not correct. Follow the one stated!");
@@ -129,7 +139,7 @@ public class Parser {
      * If no food match exists, the user will be prompted to enter the food's calorie between 0 to 5000.
      *
      * @param input String containing food name and mealtype (optional).
-     * @param fd FoodDatabase object passed from Main(), containing food in database.
+     * @param fd    FoodDatabase object passed from Main(), containing food in database.
      * @return Command object
      * @throws FitNusException Thrown when foodname is empty.
      */
@@ -142,7 +152,7 @@ public class Parser {
         } else {
             mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
         }
-        MealType mealType =  parseMealType(mealTypeString, false);
+        MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
 
         //if mealType is null, user didn't specify the command -> auto tag the meal type
@@ -158,7 +168,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFood(foodName);
 
         Ui newUi = new Ui();
-        newUi.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoods(tempFoodDb); //search database for match
         int userInputLoop;
         int paramIndex = input.indexOf("/type");
         String typeString = input.substring(paramIndex + 5).trim();
@@ -185,10 +195,10 @@ public class Parser {
      * the function wll continue looping.
      * {@link #breakLoopFlag} breakLoopFlag is set to false when user prompt loop is not needed, else loop continues.
      *
-     * @param mealType Type of meal.
-     * @param foodName String name of food.
-     * @param tempFoodDb An arraylist containing Food items matching user entry.
-     * @param newUi Ui element responsible for receiving user input through CLI.
+     * @param mealType        Type of meal.
+     * @param foodName        String name of food.
+     * @param tempFoodDb      An arraylist containing Food items matching user entry.
+     * @param newUi           Ui element responsible for receiving user input through CLI.
      * @param multipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
      * @return AddFoodEntryCommand Command object containing relevant details.
      */
@@ -236,7 +246,7 @@ public class Parser {
      * If the meal type matches the predefined MealType enum, the matching MealType is returned.
      * Otherwise, UNDEFINED is returned.
      *
-     * @param input Input that may contain the meal type.
+     * @param input           Input that may contain the meal type.
      * @param databaseRequest Boolean representing if method is being called for the database.
      * @return MealType if a match is found; UNDEFINED MealType otherwise.
      */
@@ -276,7 +286,7 @@ public class Parser {
      * Returns integer if found within range, else -1.
      *
      * @param input User input.
-     * @param size Size of temporary database.
+     * @param size  Size of temporary database.
      * @return Integer input by the user. If invalid integer or out of range, -1 is returned.
      */
     private int parseInteger(String input, int size) {
@@ -394,6 +404,21 @@ public class Parser {
             return new FindEntryCommand(keyword);
         }
         throw new FitNusException("parse find error");
+    }
+
+    private Command parseSuggestCommand(String input) throws FitNusException {
+        switch (input) {
+        case MEAL:
+            return new ViewSuggestionsCommand(Food.FoodType.MEAL);
+        case SNACK:
+            return new ViewSuggestionsCommand(Food.FoodType.SNACK);
+        case BEVERAGE:
+            return new ViewSuggestionsCommand(Food.FoodType.BEVERAGE);
+        case OTHERS:
+            return new ViewSuggestionsCommand(Food.FoodType.OTHERS);
+        default:
+            throw new FitNusException("Parse suggest error");
+        }
     }
 
     private static LocalDate parseDate(String description) {
