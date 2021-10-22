@@ -89,9 +89,12 @@ Given below is a quick overview of main components and how they interact with ea
 - Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
 - Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
 
+***tracker**
 
+***database***
 
-## Weight Tracker Design & Implementation
+## Implementation 
+### Weight Tracker Design
 The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
 **SetWeightCommand Component**
@@ -119,27 +122,28 @@ How the User component works in the context of the weight tracker:
 4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
 
-## View Diet Summary
+**View Diet Summary**
 The Summary class provides an overview of user's diet over the past week/month.
 
-### command format
+***command format***
 `summary /week` or `summary /month`
 
-### implementation
+***implementation***
 `Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
 - generateWeekSummaryReport() shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
 - generateMonthSummaryReport() shows average daily calorie intake, and the most/least frequently eaten food over this month.
 
-### UML Sequence Diagram
+***UML Sequence Diagram***
 The following sequence diagram describes the operation of the `generateWeekSummary()` method.
 ![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.png) <br/>
 
 The following sequence diagram describes the operation of the `generateMonthSummary()` method.
 ![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.png) <br/>
-## Storage
+
+**Storage**
 The Storage class reads and writes data to and from the text file.
 
-### Storage format
+***Storage format***
 > **_NOTE:_** Every line in each text file represents one object / entry / item
 
 - `FoodDatabase`: FOODNAME | CALORIE_VALUE
