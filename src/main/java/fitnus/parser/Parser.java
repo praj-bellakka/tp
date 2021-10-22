@@ -20,7 +20,6 @@ import fitnus.tracker.MealType;
 import fitnus.utility.Ui;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class Parser {
 
     public static final int CALORIE_LIMIT = 5000;
 
-    private static boolean breakLoopFlag = true;
+    private static boolean isLoopFlagOn = true;
 
     public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
         String[] splitString = input.strip().split(SPACE_CHARACTER);
@@ -118,7 +117,6 @@ public class Parser {
             if (inputCommandType.equals(COMMAND_SUGGEST)) {
                 return parseSuggestCommand(subString);
             }
-
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FitNusException("Input format is not correct. Follow the one stated!");
@@ -193,7 +191,7 @@ public class Parser {
      * If the user inputs an invalid entry for calorie, i.e. negative or non-integers, the function continues looping.
      * If the user inputs an invalid entry for selecting choice, i.e. out of range, negative or non-integer,
      * the function wll continue looping.
-     * {@link #breakLoopFlag} breakLoopFlag is set to false when user prompt loop is not needed, else loop continues.
+     * {@link #isLoopFlagOn} breakLoopFlag is set to false when user prompt loop is not needed, else loop continues.
      *
      * @param mealType        Type of meal.
      * @param foodName        String name of food.
@@ -208,7 +206,7 @@ public class Parser {
         if (multipleEntries) {
             do {
                 userInput = parseInteger(newUi.readInput(), tempFoodDb.size());
-            } while (breakLoopFlag);
+            } while (isLoopFlagOn);
         }
 
         /**
@@ -217,10 +215,10 @@ public class Parser {
          */
         if (userInput == 0) {
             System.out.println("Adding new custom food. Enter the calories of the food");
-            breakLoopFlag = false;
+            isLoopFlagOn = false;
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
-            } while (breakLoopFlag);
+            } while (isLoopFlagOn);
             return new AddFoodEntryCommand(mealType, foodName, userInput, type);
         }
         return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1), type);
@@ -293,7 +291,7 @@ public class Parser {
         try {
             int val = Integer.parseInt(input.strip());
             if (val >= 0 && val <= size) {
-                breakLoopFlag = false;
+                isLoopFlagOn = false;
                 return val;
             } else {
                 System.out.println("The input is outside the range of the database!");
@@ -302,7 +300,7 @@ public class Parser {
             //TODO: add proper Ui print message;
             System.out.println("Please enter an integer value!");
         }
-        breakLoopFlag = true;
+        isLoopFlagOn = true;
         return -1;
     }
 
@@ -318,7 +316,7 @@ public class Parser {
         try {
             int val = Integer.parseInt(input.strip());
             if (val > 0 && val <= CALORIE_LIMIT) {
-                breakLoopFlag = false;
+                isLoopFlagOn = false;
                 return val;
             } else {
                 System.out.println("Calories can only be between 0 and 5000!");
@@ -327,7 +325,7 @@ public class Parser {
             //TODO: add proper Ui print message;
             System.out.println("Please enter an integer value!");
         }
-        breakLoopFlag = true;
+        isLoopFlagOn = true;
         return -1;
     }
 
