@@ -1,13 +1,16 @@
 
 # Developer Guide
 
+## Content
+1. <a href="#Product-Scope">Product Scope</a>
+2. <a href="#Architecture">Application Architecture </a>
+3. Implementation
+4. Non-functional Requirement
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
 
-## Architecture
 
 The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used. The primary components of the app are listed below:
 - `Command`: The abstract class that all other command classes inherit from
@@ -18,14 +21,14 @@ The entry point of the app is the `FitNUS` class, where the application is run a
 - `Ui`: For displaying information to the user.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
-## Product scope
+<h2 id="Product-Scope">Product scope</h2>
 ### Target user profile
 
-NUS Computer Engineering students reside in UTown 
+NUS Computer Engineering students reside in UTown going on diet.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Help user to keep track of their daily calorie intake, and manage their diet wisely.
 
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your Computer.
@@ -48,14 +51,24 @@ Refer to the User Guide (no link for now) for details of each command.
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
+<h2 id="Architecture"> Architecture </h2>
+![Overall Architecture Diagram](diagrams/overall%20architecture.png) <br/>
+The Architecture Diagram given above explains the high-level design of the App. <br/>
+Given below is a quick overview of main components and how they interact with each other.
+
 ### Main components of the architecture
 
-{TODO here}
+***command component***
+![command component class diagram](diagrams/command%20class%20diagram.drawio.png)
+- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
+- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
+
+***tracker**
+
+***database***
 
 
-## Non-Functional Requirements
 
-{Give non-functional requirements}
 
 ## Glossary
 
@@ -75,23 +88,6 @@ Additionally, it implements the following operations:
 
 ![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
-
-
-## Architecture
-![Overall Architecture Diagram](diagrams/overall%20architecture.png) <br/>
-The Architecture Diagram given above explains the high-level design of the App. <br/>
-Given below is a quick overview of main components and how they interact with each other.
-
-### Main components of the architecture
-
-***command component***
-![command component class diagram](diagrams/command%20class%20diagram.drawio.png)
-- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
-- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
-
-***tracker**
-
-***database***
 
 ## Implementation 
 ### Weight Tracker Design
@@ -221,3 +217,8 @@ The `Parser` component:
 The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
 If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is 
 then compared with default list of commands to determine the type of method called using if-else statements.
+
+
+## Non-Functional Requirements
+1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set.
+2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
