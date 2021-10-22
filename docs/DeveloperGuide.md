@@ -21,11 +21,24 @@ The entry point of the app is the `FitNUS` class, where the application is run a
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+NUS Computer Engineering students reside in UTown 
 
 ### Value proposition
 
 {Describe the value proposition: what problem does it solve?}
+
+## Quick Start
+1. Ensure you have Java 11 or above installed in your Computer.
+2. Download the latest fitnus.jar from here (no link for now).
+3. Copy the file to the folder you want to use as the home folder for your WellNUS Tracker
+4. Type the following command in your terminal to run this program: java -jar fitnus.jar (You should change directory to where the wellnus.jar file is located or provide the absolute path of wellnus.jar).
+Some example commands you can try:
+`add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your food tracker and food database.
+`list food`: Lists all foods in database
+`list intake /DAY`: Lists all entries in the food tracker for the day.
+`exit`: Exits the app.
+Refer to the User Guide (no link for now) for details of each command.
+
 
 ## User Stories
 
