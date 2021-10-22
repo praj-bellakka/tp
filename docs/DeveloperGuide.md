@@ -78,8 +78,8 @@ Additionally, it implements the following operations:
 
 
 ## Architecture
-![Overall Architecture Diagram](diagrams/overall%20architecture.png)
-The Architecture Diagram given above explains the high-level design of the App.
+![Overall Architecture Diagram](diagrams/overall%20architecture.png) <br/>
+The Architecture Diagram given above explains the high-level design of the App. <br/>
 Given below is a quick overview of main components and how they interact with each other.
 
 ### Main components of the architecture
