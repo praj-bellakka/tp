@@ -34,12 +34,12 @@ class FoodDatabaseTest {
     void addFood_lessThanZeroCalorieInt_exceptionThrown() {
         FoodDatabase fd = new FoodDatabase();
 
-        Exception exception1 = assertThrows(FitNusException.class,
-                () -> fd.addFood(new Food("food1", -100, Food.FoodType.SNACK)));
+        Exception exception1 = assertThrows(FitNusException.class, ()
+                -> fd.addFood(new Food("food1", -100, Food.FoodType.SNACK)));
         assertEquals("Food must have more than 0 calories!", exception1.getMessage());
 
-        Exception exception2 = assertThrows(FitNusException.class,
-                () -> fd.addFood("food2", -100, Food.FoodType.OTHERS));
+        Exception exception2 = assertThrows(FitNusException.class, ()
+                -> fd.addFood("food2", -100, Food.FoodType.OTHERS));
         assertEquals("Food must have more than 0 calories!", exception2.getMessage());
     }
 
