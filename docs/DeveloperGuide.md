@@ -102,6 +102,7 @@ The Summary class provides an overview of user's diet over the past week/month.
 ### UML Sequence Diagram
 The following sequence diagram describes the operation of the `generateWeekSummary()` method.
 ![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.drawio.png) <br/>
+
 The following sequence diagram describes the operation of the `generateMonthSummary()` method.
 ![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.drawio.png) <br/>
 ## Storage
