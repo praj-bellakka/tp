@@ -47,6 +47,16 @@ Refer to the User Guide (no link for now) for details of each command.
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
+## Architecture
+{An Architecture Diagram here}
+The Architecture Diagram given above explains the high-level design of the App. 
+Given below is a quick overview of main components and how they interact with each other.
+
+### Main components of the architecture
+
+{TODO here}
+
+
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
