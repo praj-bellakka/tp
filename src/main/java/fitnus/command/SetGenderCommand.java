@@ -19,10 +19,10 @@ public class SetGenderCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
-       if (genderSymbol != null) {
-           return "You have set your gender to " + genderSymbol.toString();
-       }
-       return "Invalid input! Please input m for male or "
+        if (genderSymbol != null) {
+            return "You have set your gender to " + genderSymbol.toString();
+        }
+        return "Invalid input! Please input m for male or "
                + "f for female when setting your gender.";
     }
 }
