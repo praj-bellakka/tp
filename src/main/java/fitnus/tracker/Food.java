@@ -3,6 +3,14 @@ package fitnus.tracker;
 public class Food {
     private final String name;
     private final Integer calories;
+    private final FoodType type;
+
+    public enum FoodType {
+        SNACK,
+        MEAL,
+        BEVERAGE,
+        OTHERS
+    }
 
     /**
      * Constructor.
@@ -10,9 +18,10 @@ public class Food {
      * @param name     Name of food.
      * @param calories Calorie value of food.
      */
-    public Food(String name, Integer calories) {
+    public Food(String name, Integer calories, FoodType type) {
         this.name = name;
         this.calories = calories;
+        this.type = type;
     }
 
     public String getName() {
@@ -32,7 +41,11 @@ public class Food {
     @Override
     public String toString() {
         assert calories > 0 : "calorie of food should not be less than or equal to 0";
-        return this.name + " (" + this.calories + " Kcal)";
+        return this.name + " (" + this.calories + " Kcal)" + "Category: " + type.toString();
+    }
+
+    public FoodType getType() {
+        return this.type;
     }
 
     public String convertToStringForStorage() {
