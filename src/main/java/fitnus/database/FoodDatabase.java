@@ -1,6 +1,7 @@
 package fitnus.database;
 
 import fitnus.parser.Parser;
+import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.utility.Ui;
 import fitnus.exception.FitNusException;
@@ -8,6 +9,7 @@ import fitnus.exception.FitNusException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class FoodDatabase {
@@ -90,10 +92,14 @@ public class FoodDatabase {
                 .collect(Collectors.toList());
     }
 
-    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories) {
-        return (ArrayList<Food>) databaseFoods.stream()
+    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
+        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
                 .filter(t -> t.getType().equals(type))
                 .filter(c -> c.getCalories() < calories)
                 .collect(Collectors.toList());
+        if (isSort) {
+            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
+        }
+        return matchingSuggestions;
     }
 }

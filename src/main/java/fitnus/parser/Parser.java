@@ -403,15 +403,21 @@ public class Parser {
     }
 
     private Command parseSuggestCommand(String input) throws FitNusException {
+        boolean isSort = false;
+        if (input.contains("/sort")) {
+            isSort = true;
+            int spaceIndex = input.indexOf(" ");
+            input = input.substring(0, spaceIndex);
+        }
         switch (input) {
         case MEAL:
-            return new ViewSuggestionsCommand(Food.FoodType.MEAL);
+            return new ViewSuggestionsCommand(Food.FoodType.MEAL, isSort);
         case SNACK:
-            return new ViewSuggestionsCommand(Food.FoodType.SNACK);
+            return new ViewSuggestionsCommand(Food.FoodType.SNACK, isSort);
         case BEVERAGE:
-            return new ViewSuggestionsCommand(Food.FoodType.BEVERAGE);
+            return new ViewSuggestionsCommand(Food.FoodType.BEVERAGE, isSort);
         case OTHERS:
-            return new ViewSuggestionsCommand(Food.FoodType.OTHERS);
+            return new ViewSuggestionsCommand(Food.FoodType.OTHERS, isSort);
         default:
             throw new FitNusException("Parse suggest error");
         }
