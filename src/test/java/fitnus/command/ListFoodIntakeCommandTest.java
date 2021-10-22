@@ -15,7 +15,7 @@ class ListFoodIntakeCommandTest {
         FoodDatabase fd = new FoodDatabase();
         User us = new User(0, 1000);
 
-        ListFoodIntakeCommand c = new ListFoodIntakeCommand("/day");
+        ListFoodIntakeCommand c = new ListFoodIntakeCommand();
         ed.addEntry(MealType.DINNER, new Food("food1", 100));
         ed.addEntry(MealType.DINNER, new Food("food2", 200));
 

@@ -51,7 +51,7 @@ public class Parser {
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
     private static final String DESCRIPTOR_FOOD = "/food";
-    private static final String DESCRIPTOR_INTAKE = "/intake";
+    private static final String DESCRIPTOR_INTAKE = "/entry";
     private static final String DESCRIPTOR_DEFAULT = "/def";
     private static final String DESCRIPTOR_REMAIN = "/remain";
     private static final String DESCRIPTOR_SET = "/set";
@@ -317,17 +317,11 @@ public class Parser {
         if (typeDescriptorIndex == -1) {
             if (input.equals(DESCRIPTOR_FOOD)) {
                 return new ListFoodDatabaseCommand();
+            } else if (input.equals(DESCRIPTOR_INTAKE)) {
+                return new ListFoodIntakeCommand();
             }
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }
-
-        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
-        switch (typeDescriptor) {
-        case DESCRIPTOR_INTAKE:
-            return new ListFoodIntakeCommand(input.substring(typeDescriptorIndex).trim());
-        default:
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
-        }
+        throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
     private Command parseCalorieTypeCommand(String input) throws FitNusException {
