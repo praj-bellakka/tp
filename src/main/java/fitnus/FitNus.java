@@ -9,6 +9,7 @@ import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import fitnus.storage.Storage;
+import fitnus.tracker.Gender;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
@@ -80,7 +81,7 @@ public class FitNus {
     }
 
     public static void main(String[] args) {
-        User user = new User(0, 1000); //placeholder inputs, to get user's actual input later
+        User user = new User(Gender.MALE, 1000); //placeholder inputs, to get user's actual input later
         FoodDatabase fd = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
 

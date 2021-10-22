@@ -48,11 +48,6 @@ Refer to the User Guide (no link for now) for details of each command.
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
-## Architecture
-{An Architecture Diagram here}
-The Architecture Diagram given above explains the high-level design of the App. 
-Given below is a quick overview of main components and how they interact with each other.
-
 ### Main components of the architecture
 
 {TODO here}
@@ -80,11 +75,23 @@ Additionally, it implements the following operations:
 
 ![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
+
+
+## Architecture
+![Overall Architecture Diagram](diagrams/overall%20architecture.png)
+The Architecture Diagram given above explains the high-level design of the App.
+Given below is a quick overview of main components and how they interact with each other.
+
+### Main components of the architecture
+
+***command component***
+![command component class diagram](diagrams/command%20class%20diagram.drawio.png)
+- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
+- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
+
+
+
 ## Weight Tracker Design & Implementation
-
-###Architecture
-**Main components of the architecture**
-
 The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
 **SetWeightCommand Component**
