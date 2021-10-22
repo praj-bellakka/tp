@@ -1,6 +1,7 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +10,8 @@ import java.util.Map;
 public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
     private static final String SQUARE = "■";
-    private ArrayList<Entry> entries;
-    private int days;
+    private final ArrayList<Entry> entries;
+    private final int days;
 
     public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
@@ -21,7 +22,7 @@ public class Summary {
     private String getMostAndLeastEatenFood() {
         HashMap<String, Integer> occurrence = new HashMap<>();
 
-        for (Entry i: entries) {
+        for (Entry i : entries) {
             String foodName = i.getFood().getName();
             occurrence.compute(foodName, (key, val) -> {
                 if (val == null) {
@@ -79,7 +80,7 @@ public class Summary {
     }
 
     private static String getSqaures(int calorie, int unit) {
-        StringBuilder builder = new StringBuilder("");
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < calorie / unit; i++) {
             builder.append(SQUARE);
         }
@@ -87,7 +88,7 @@ public class Summary {
     }
 
     private String getWeekCalorieTrend() {
-        StringBuilder output = new StringBuilder("");
+        StringBuilder output = new StringBuilder();
         LocalDate date = LocalDate.now().minusDays(6);
 
         int calories = 0;
@@ -121,9 +122,9 @@ public class Summary {
 
         int averageCalories = getAverageCalories();
         String output = String.format(getWeekCalorieTrend()
-                        + "Average Daily Calorie Intake: %s %d\n"
+                + "Average Daily Calorie Intake: %s %d\n"
                 + getMostAndLeastEatenFood(), getSqaures(averageCalories, UNIT_PER_SQUARE), averageCalories
-                );
+        );
         return output;
     }
 
@@ -133,7 +134,7 @@ public class Summary {
         }
 
         String output = String.format("Average Daily Calorie Intake: %d\n"
-                + getMostAndLeastEatenFood(),
+                        + getMostAndLeastEatenFood(),
                 getAverageCalories());
         return output;
     }

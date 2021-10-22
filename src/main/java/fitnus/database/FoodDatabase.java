@@ -89,4 +89,11 @@ public class FoodDatabase {
                 .filter(t -> t.getName().contains(keyword))
                 .collect(Collectors.toList());
     }
+
+    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories) {
+        return (ArrayList<Food>) databaseFoods.stream()
+                .filter(t -> t.getType().equals(type))
+                .filter(c -> c.getCalories() < calories)
+                .collect(Collectors.toList());
+    }
 }

@@ -50,7 +50,7 @@ public class EntryDatabase {
     public int getTotalDailyCalorie() {
         int caloriesConsumed = 0;
         for (Entry e : entries) {
-            if (e.getDate().toString().equals(LocalDate.now().toString())) {
+            if (e.getDate().equals(LocalDate.now().toString())) {
                 caloriesConsumed += e.getFood().getCalories();
             }
         }
