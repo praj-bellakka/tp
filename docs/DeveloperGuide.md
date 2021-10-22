@@ -88,20 +88,23 @@ How the User component works in the context of the weight tracker:
 4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
 
-## SummaryCommand
-The SummaryCommand class provides an overview of user's diet over the past week/month.
+## View Diet Summary
+The Summary class provides an overview of user's diet over the past week/month.
 
 ### command format
 `summary /week` or `summary /month`
 
 ### implementation
-`SummaryCommand` class provides a method to generate the most and less frequently foods ate by users.
-`ViewMonthlyCalorieTrend` and `ViewDailyCalorieTrend` have static methods to generate monthly/weekly calorie intake graphs.
+`Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
+- generateWeekSummaryReport() shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
+- generateMonthSummaryReport() shows average daily calorie intake, and the most/least frequently eaten food over this month.
 
 ### UML Sequence Diagram
-The following sequence diagram describes the operation of the `generateSummary()` method.
-![UML Sequence Diagram for Summary](diagrams/Summary%20Command%20Diagram.png)
+The following sequence diagram describes the operation of the `generateWeekSummary()` method.
+![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.png) <br/>
 
+The following sequence diagram describes the operation of the `generateMonthSummary()` method.
+![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.png) <br/>
 ## Storage
 The Storage class reads and writes data to and from the text file.
 
