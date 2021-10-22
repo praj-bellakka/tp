@@ -99,17 +99,17 @@ Additionally, it implements the following operations:
 <br/>
 <ol>
 <li>
-Weight Tracker
+<h3>Weight Tracker</h3>
 The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 </li> 
 
 <li>
-SetWeightCommand Component
+<h3>SetWeightCommand Component</h3>
 The entry point for setting or updating weight. The `execute` method in this object calls `updateWeightAndWeightTracker` method in the User object initialised in the main file in order to update the user's weight and weight progress.
 </li>
 
 <li>
-Storage Component
+<h3>Storage Component</h3>
 Weight progress entries are stored in a text file in the following format:
 
 `WEIGHT | DATE(YYYY-MM-DD)`
@@ -122,7 +122,7 @@ On startup, the storage file is  parsed and the corresponding WeightProgressEntr
 </li>
 
 <li>
-User Component
+<h3>User Component</h3>
 
 How the User component works in the context of the weight tracker:
 1. When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
@@ -133,7 +133,7 @@ How the User component works in the context of the weight tracker:
 </li>
 
 <li>
-View Diet Summary
+<h3>View Diet Summary</h3>
 The Summary class provides an overview of user's diet over the past week/month.
 
 ***command format***
@@ -154,10 +154,10 @@ The following sequence diagram describes the operation of the `generateMonthSumm
 </li>
 
 <li>
-Storage
+<h3>Storage</h3>
 The Storage class reads and writes data to and from the text file.
 
-***Storage format***
+<h5>Storage format</h5>
 > **_NOTE:_** Every line in each text file represents one object / entry / item
 
 - `FoodDatabase`: FOODNAME | CALORIE_VALUE
@@ -194,7 +194,7 @@ Example:
 ```
 
 
-***Implementation***
+<h5>Implementation<h5>
 #### 1. Saving to file
 `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
 its data to String format. This String is then saved to the text file.
@@ -220,7 +220,7 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 </li>
 
 <li>
-Parser Component
+<h3>Parser Component</h3>
 
 The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called.
 It then returns a `Command` object that represents the type of command called through the input.
@@ -238,6 +238,7 @@ If no space character is detected, and the `help` or `exit` method was not calle
 then compared with default list of commands to determine the type of method called using if-else statements.
 </li>
 </ol>
+
 <h2 id="NF-Requirement"> Non-Functional Requirements </h2>
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set.
 2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
