@@ -93,13 +93,13 @@ public class FoodDatabase {
     }
 
     public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
-         ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
+        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
                 .filter(t -> t.getType().equals(type))
                 .filter(c -> c.getCalories() < calories)
                 .collect(Collectors.toList());
-         if (isSort) {
-             matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
-         }
-         return matchingSuggestions;
+        if (isSort) {
+            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
+        }
+        return matchingSuggestions;
     }
 }
