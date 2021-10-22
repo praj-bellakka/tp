@@ -37,6 +37,7 @@ NUS Computer Engineering students reside in UTown
 - `list food`: Lists all foods in database
 - `list intake /DAY`: Lists all entries in the food tracker for the day.
 - `exit`: Exits the app.
+<br/>
 Refer to the User Guide (no link for now) for details of each command.
 
 
