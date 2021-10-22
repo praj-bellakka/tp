@@ -5,7 +5,7 @@ import fitnus.database.FoodDatabase;
 import fitnus.utility.User;
 
 public class SetGenderCommand extends Command {
-    String genderSymbol;
+    private final String genderSymbol;
 
     public static final String MALE_SYMBOL = "m";
     public static final String FEMALE_SYMBOL = "f";

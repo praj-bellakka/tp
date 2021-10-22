@@ -1,7 +1,5 @@
 package fitnus.database;
 
-import fitnus.database.EntryDatabase;
-import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
@@ -82,7 +80,7 @@ class EntryDatabaseTest {
         edb.addEntry(MealType.DINNER, chickenRice);
 
         // Test
-        assertEquals(425, edb.getTotalCalorie());
+        assertEquals(425, edb.getTotalDailyCalorie());
     }
 
     @Test
@@ -91,7 +89,7 @@ class EntryDatabaseTest {
         EntryDatabase edb = new EntryDatabase();
 
         // Test
-        assertEquals(0, edb.getTotalCalorie());
+        assertEquals(0, edb.getTotalDailyCalorie());
     }
 
     @Test
