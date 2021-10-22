@@ -9,7 +9,6 @@ import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import fitnus.storage.Storage;
-import fitnus.tracker.Summary;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
@@ -56,12 +55,10 @@ public class FitNus {
         while (true) {
             try {
                 String userInput;
-                Command inputType = new HelpCommand();
+                Command inputType;
                 userInput = ui.readInput();
-                //inputType = parser.parseCommandType(userInput, fd);
-               // Ui.println(inputType.execute(ed, fd, user));
-                inputType.execute(ed, fd, user);
-                System.out.println(new Summary(ed, 7).generateWeekSummaryReport());
+                inputType = parser.parseCommandType(userInput, fd);
+                Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);
                 if (inputType instanceof ExitCommand) {
