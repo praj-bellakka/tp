@@ -28,7 +28,7 @@ public class GenerateCalorieGoalCommand extends Command {
                     + "1 kg. Please try again with a lower weekly goal!";
         } else {
             int bmr; //basal metabolic rate
-            int calDiff = (int) Math.round(weeklyChange * calDeficitFor1KgWeekly);
+            int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
             int newGoal;
             if (us.getGender() == Gender.MALE) {
                 bmr = (int) Math.round(((655.1 + (9.563 * us.getWeight())

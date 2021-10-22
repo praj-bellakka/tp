@@ -1,5 +1,6 @@
 package fitnus.database;
 
+import fitnus.parser.Parser;
 import fitnus.tracker.Food;
 import fitnus.utility.Ui;
 import fitnus.exception.FitNusException;
@@ -13,11 +14,11 @@ public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";
 
-    public void addFood(String name, Integer calories) throws FitNusException {
+    public void addFood(String name, Integer calories, Food.FoodType type) throws FitNusException {
         if (calories <= 0) {
             throw new FitNusException("Food must have more than 0 calories!");
         }
-        Food food = new Food(name, calories);
+        Food food = new Food(name, calories, type);
         databaseFoods.add(food);
     }
 
@@ -48,8 +49,9 @@ public class FoodDatabase {
         for (Food food : databaseFoods) {
             String name = food.getName();
             Integer calories = food.getCalories();
+            String type = food.getType().toString();
             lines.append(name).append(DELIMITER).append(calories)
-                    .append(System.lineSeparator());
+                    .append(DELIMITER).append(type).append(System.lineSeparator());
         }
         return lines.toString();
     }
@@ -59,7 +61,7 @@ public class FoodDatabase {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
-            assert description.length == 2 : "description does not contain both name and calories";
+            assert description.length == 3 : "description does not contain both name and calories";
             try {
                 String name = description[0].strip();
                 //assert name.equals("") == false : "name field cannot only contain white spaces";
@@ -67,8 +69,10 @@ public class FoodDatabase {
                 String caloriesString = description[1].strip();
                 assert caloriesString.equals("") == false : "calories field cannot only contain white spaces";
 
+                Food.FoodType type = Parser.parseFoodType(description[2]);
+
                 Integer calories = Integer.parseInt(caloriesString);
-                this.addFood(name, calories);
+                this.addFood(name, calories, type);
                 preloadFoodCount++;
             } catch (IndexOutOfBoundsException e) {
                 Ui.printPreloadDatabaseError();
@@ -83,6 +87,13 @@ public class FoodDatabase {
         }
         return (ArrayList<Food>) databaseFoods.stream()
                 .filter(t -> t.getName().contains(keyword))
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories) {
+        return (ArrayList<Food>) databaseFoods.stream()
+                .filter(t -> t.getType().equals(type))
+                .filter(c -> c.getCalories() < calories)
                 .collect(Collectors.toList());
     }
 }

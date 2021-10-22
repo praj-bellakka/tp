@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FitNus {
-    private static Logger logger = Logger.getLogger("FitNus");
+    private static final Logger logger = Logger.getLogger("FitNus");
 
     private static void initialiseFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
         // Load From Storage

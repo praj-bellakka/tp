@@ -17,8 +17,8 @@ class ListFoodIntakeCommandTest {
         User us = new User(Gender.MALE, 1000);
 
         ListFoodIntakeCommand c = new ListFoodIntakeCommand("/day");
-        ed.addEntry(MealType.DINNER, new Food("food1", 100));
-        ed.addEntry(MealType.DINNER, new Food("food2", 200));
+        ed.addEntry(MealType.DINNER, new Food("food1", 100, Food.FoodType.MEAL));
+        ed.addEntry(MealType.DINNER, new Food("food2", 200, Food.FoodType.SNACK));
 
         //todo
     }

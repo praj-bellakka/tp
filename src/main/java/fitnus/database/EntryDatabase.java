@@ -50,7 +50,7 @@ public class EntryDatabase {
     public int getTotalDailyCalorie() {
         int caloriesConsumed = 0;
         for (Entry e : entries) {
-            if (e.getDate().toString().equals(LocalDate.now().toString())) {
+            if (e.getDate().equals(LocalDate.now().toString())) {
                 caloriesConsumed += e.getFood().getCalories();
             }
         }
@@ -67,8 +67,9 @@ public class EntryDatabase {
             String date = e.getDate();
             String name = food.getName();
             Integer calories = food.getCalories();
+            String type = food.getType().toString();
             lines.append(mealType).append(DELIMITER).append(name).append(DELIMITER).append(calories).append(DELIMITER)
-                    .append(date).append(System.lineSeparator());
+                    .append(date).append(DELIMITER).append(type).append(System.lineSeparator());
         }
         return lines.toString();
     }
@@ -82,7 +83,8 @@ public class EntryDatabase {
                 MealType mealType = Parser.parseMealType(description[0], true);
                 String name = description[1];
                 Integer calories = Integer.parseInt(description[2]);
-                Food food = new Food(name, calories);
+                Food.FoodType type = Parser.parseFoodType(description[4]);
+                Food food = new Food(name, calories, type);
                 LocalDate date = Parser.getDate(line);
                 Entry entry = new Entry(mealType, food, date);
                 this.addEntry(entry);
