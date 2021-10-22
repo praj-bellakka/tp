@@ -91,14 +91,15 @@ Additionally, it implements the following operations:
 
 
 <h2 id="Implementation"> Implementation </h2>
-### Weight Tracker Design
+
+1. Weight Tracker
 The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
-**SetWeightCommand Component**
+2. SetWeightCommand Component
 
 The entry point for setting or updating weight. The `execute` method in this object calls `updateWeightAndWeightTracker` method in the User object initialised in the main file in order to update the user's weight and weight progress.
 
-**Storage Component**
+3. Storage Component
 
 Weight progress entries are stored in a text file in the following format:
 
@@ -110,7 +111,7 @@ The weight progress storage file is updated every time the user sets or updates 
 
 On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
 
-**User Component**
+4. User Component
 
 How the User component works in the context of the weight tracker:
 1. When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
@@ -119,7 +120,7 @@ How the User component works in the context of the weight tracker:
 4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
 
-**View Diet Summary**
+5. View Diet Summary
 The Summary class provides an overview of user's diet over the past week/month.
 
 ***command format***
@@ -137,7 +138,7 @@ The following sequence diagram describes the operation of the `generateWeekSumma
 The following sequence diagram describes the operation of the `generateMonthSummary()` method.
 ![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.png) <br/>
 
-**Storage**
+6. Storage
 The Storage class reads and writes data to and from the text file.
 
 ***Storage format***
@@ -177,7 +178,7 @@ Example:
 ```
 
 
-### Implementation
+***Implementation***
 #### 1. Saving to file
 `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
 its data to String format. This String is then saved to the text file.
@@ -200,9 +201,7 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
 
 ---
-## Parser Component
-
-**API: `Parser.java`**
+7. Parser Component
 
 The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called.
 It then returns a `Command` object that represents the type of command called through the input.
@@ -212,8 +211,8 @@ The `Parser` component:
 - determines the type of `Command` object and returns it.
 - handles input exceptions and returns relevant `FitNusException` command.
 
-### Implementation
-**1. Identifying type of method called**
+***Implementation***
+1. Identifying type of method called
 
 The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
 If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is 
