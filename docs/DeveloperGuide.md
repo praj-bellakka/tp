@@ -91,7 +91,7 @@ Additionally, it implements the following operations:
 
 
 <h2 id="Implementation"> Implementation </h2>
-
+<br/>
 1. Weight Tracker
 The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
