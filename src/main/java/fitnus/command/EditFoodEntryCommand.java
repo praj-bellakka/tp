@@ -15,13 +15,13 @@ public class EditFoodEntryCommand extends Command {
     private final Food.FoodType type;
 
 
-    public EditFoodEntryCommand(int index, Food food, Food.FoodType type) {
+    public EditFoodEntryCommand(int index, Food food) {
         this.index = index;
         this.food = food;
         this.foodName = null;
         this.calories = -1;
         this.isCustom = false;
-        this.type = type;
+        this.type = food.getType();
     }
 
     public EditFoodEntryCommand(int index, String foodName, int calories, Food.FoodType type) {

@@ -30,6 +30,7 @@ public class Parser {
     //main command types
     private static final String COMMAND_ADD = "add";
     private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_EDIT = "edit";
     private static final String COMMAND_CALORIE = "calorie";
     private static final String COMMAND_REMOVE = "remove";
     private static final String COMMAND_GENDER = "gender";
@@ -89,6 +90,10 @@ public class Parser {
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
                 return parseListTypeCommand(subString);
+            }
+
+            if (inputCommandType.equals(COMMAND_EDIT)) { //edit type command
+                return parseEditTypeCommand(subString, fd);
             }
 
             if (inputCommandType.equals(COMMAND_CALORIE)) { //calorie type command
@@ -225,6 +230,37 @@ public class Parser {
         return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1));
     }
 
+    private EditFoodEntryCommand returnUserInput(int index, String foodName, ArrayList<Food> tempFoodDb,
+                                                Ui newUi, boolean multipleEntries) {
+        int userInput = 0;
+        if (multipleEntries) {
+            do {
+                userInput = parseInteger(newUi.readInput(), tempFoodDb.size());
+            } while (isLoopFlagOn);
+        }
+
+        /**
+         * If user input is 0, the user specified his input to be a custom food.
+         * Thus the new loop below will prompt the user to input the calories.
+         */
+        if (userInput == 0) {
+            System.out.println("Adding new custom food. Enter the calories of the food");
+            isLoopFlagOn = false;
+            do {
+                userInput = parseInteger(newUi.readInput()); //getting calories
+            } while (isLoopFlagOn);
+
+            Food.FoodType type = null;
+            do {
+                System.out.println("Enter food category (meal, snack, beverage, others):");
+                type = parseFoodType(newUi.readInput());
+            } while (type == null);
+
+            return new EditFoodEntryCommand(index, foodName, userInput, type);
+        }
+        return new EditFoodEntryCommand(index, tempFoodDb.get(userInput - 1));
+    }
+
     public static Food.FoodType parseFoodType(String type) {
         String typeString = type.toLowerCase(Locale.ROOT);
         switch (typeString) {
@@ -347,7 +383,7 @@ public class Parser {
             if (input.equals(DESCRIPTOR_FOOD)) {
                 return new ListFoodDatabaseCommand();
             } else if (input.equals(DESCRIPTOR_INTAKE)) {
-                return new ListFoodIntakeCommand();
+                return new ListFoodEntryCommand();
             }
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
@@ -433,6 +469,32 @@ public class Parser {
             return new ViewMonthSummaryCommand();
         }
         throw new FitNusException("That is an invalid summary timeframe (/week or /month)");
+    }
+
+    private Command parseEditTypeCommand(String input, FoodDatabase fd) throws FitNusException {
+        int typeDescriptorIndex = input.indexOf(SPACE_CHARACTER);
+        int entryIndex = Integer.parseInt(input.substring(0, typeDescriptorIndex));
+        String foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+
+        //step 2: search database if food exists
+        ArrayList<Food> tempFoodDb = fd.findFood(foodName);
+
+        Ui newUi = new Ui();
+        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        int userInputLoop;
+
+        //step 3a: prompt the user the suggestions if matches are found
+        if (tempFoodDb.size() > 0) {
+            //TODO: Beautify the print statement
+            System.out.println("Select the food you want by entering the number below. "
+                    + "If the food doesn't exist, enter 0 to create a new custom food!");
+            return returnUserInput(entryIndex, foodName, tempFoodDb, newUi, true);
+        } else if (tempFoodDb.size() == 0) {
+            //step 3b: prompt the user to input calorie if not match
+            System.out.println("The food you specified does not exist in the database!");
+            return returnUserInput(entryIndex, foodName, tempFoodDb, newUi, false);
+        }
+        throw new FitNusException("Edit Parser Error");
     }
 
     private static LocalDate parseDate(String description) {
