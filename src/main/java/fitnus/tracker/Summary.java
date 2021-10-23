@@ -79,7 +79,7 @@ public class Summary {
         return totalCalories / days;
     }
 
-    private static String drawGraphSquares (int calorie, int unit) {
+    private static String drawGraphSquares(int calorie, int unit) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < calorie / unit; i++) {
             builder.append(SQUARE);
@@ -87,7 +87,7 @@ public class Summary {
         return builder.toString();
     }
 
-    private String getWeekCalorieTrendGraph () {
+    private String getWeekCalorieTrendGraph() {
         StringBuilder output = new StringBuilder();
         LocalDate date = LocalDate.now().minusDays(6);
 
