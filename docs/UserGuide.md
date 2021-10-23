@@ -149,7 +149,7 @@ Example of usage:
 
 `list /food`
 
-###Weight Tracker
+### Weight Tracker
 
 #### Recording weight: `weight /set`
 Lists out all past records of weight entered by the user.
