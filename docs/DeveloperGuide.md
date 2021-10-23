@@ -216,7 +216,7 @@ method to obtain the String representation of all the data within the `FoodDatab
 the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
 
 For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
-and passes the file contents to the <code>preLoadDatabase()</code> method in ,<code>FoodDatabase</code which populates
+and passes the file contents to the <code>preLoadDatabase()</code> method in ,<code>FoodDatabase</code> which populates
 the ArrayList in <code>FoodDatabase</code>.
 </li>
 
