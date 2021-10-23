@@ -13,15 +13,14 @@ public class AddFoodEntryCommand extends Command {
     private final int calories;
     private final Food food;
     private final boolean isCustom;
-    private final Food.FoodType type;
+    private Food.FoodType type = null;
 
-    public AddFoodEntryCommand(MealType mealType, Food food, Food.FoodType type) {
+    public AddFoodEntryCommand(MealType mealType, Food food) {
         this.mealType = mealType;
         this.food = food;
         this.foodName = null;
         this.calories = -1;
         this.isCustom = false;
-        this.type = type;
     }
 
     public AddFoodEntryCommand(MealType mealType, String foodName, int calories, Food.FoodType type) {
