@@ -135,6 +135,23 @@ Format: `list /weight`
 Example of usage:
 
 `list /weight`
+
+### Suggest food based on food type and calorie goal: `suggest`
+Filters food items in the database based on food type (meal, snack, beverage, others) 
+that if consumed, will not exceed the daily calorie goal set by the user.
+
+
+Format: `suggest /FOODTYPE`
+
+> **_OPTIONAL:_** You can sort the suggestions by calorie value by simply appending "/sort"
+> to the command above e.g. suggest /FOODTYPE /sort
+
+Example of usage:
+
+`suggest /meal`
+`suggest /snack /sort`
+
+
 ## FAQ
 
 
