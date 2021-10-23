@@ -65,11 +65,13 @@ Given below is a quick overview of main components and how they interact with ea
 <h3> Main components of the architecture </h3>
 
 <h4>command component</h4>
+
 ![command class diagram](diagrams/command%20class%20diagram.drawio.png) <br/>
 - Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
 - Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
 
 <h4>tracker</h4>
+
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png) <br/>
 
 <h4>database</h4>
