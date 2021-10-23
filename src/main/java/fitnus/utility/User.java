@@ -73,6 +73,10 @@ public class User {
         this.age = age;
     }
 
+    public ArrayList<WeightProgressEntry> getWeightProgressEntries() {
+        return weightProgressEntries;
+    }
+
     public String updateWeightAndWeightTracker(float newWeight) {
         this.setWeight(newWeight);
 
@@ -100,6 +104,17 @@ public class User {
         return "You have updated your weight for today to " + newWeight
                 + "! You have " + weightChange + " " + weightDifference + " kg from the previous weight entry of "
                 + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
+    }
+
+    public String convertWeightRecordsToStringForUi() {
+        StringBuilder lines = new StringBuilder();
+        for (WeightProgressEntry e : weightProgressEntries) {
+            assert e != null : "e should not be null";
+            float weight = e.getWeight();
+            String date = e.getDate().toString();
+            lines.append(date).append(": ").append(weight).append("kg").append(System.lineSeparator());
+        }
+        return lines.toString();
     }
 
 
