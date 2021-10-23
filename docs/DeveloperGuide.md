@@ -146,11 +146,13 @@ The Summary class provides an overview of user's diet over the past week/month.
 <li> <code>generateMonthSummaryReport()</code> shows average daily calorie intake, and the most/least frequently eaten food over this month.</li>
 </ul>
 
-***UML Sequence Diagram***
-The following sequence diagram describes the operation of the `generateWeekSummary()` method.
+<h5>UML Sequence Diagram<h5/>
+The following sequence diagram describes the operation of the <code>generateWeekSummary()</code> method.<br/>
+
 ![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.png) <br/>
 
-The following sequence diagram describes the operation of the `generateMonthSummary()` method.
+The following sequence diagram describes the operation of the <code>generateMonthSummary()</code> method.
+
 ![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.png) <br/>
 
 </li>
@@ -198,27 +200,38 @@ Example:
 
 
 <h5>Implementation<h5>
-#### 1. Saving to file
-`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
-its data to String format. This String is then saved to the text file.
+<ol>
+<li>
+<div><strong>Saving to file</strong></div>
+<code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
+its data to String format. This String is then saved to the text file. <br/>
+For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
+method to obtain the String representation of all the data within the `FoodDatabase`. This String isthen written to the text file.
+</li>
 
-For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is
-then written to the text file.
 
-#### 2. Loading from file 
-`Storage` makes use of the `BufferedReader` and `FileInputStream` provided  by `java.io` to access 
-the contents of the storage text files. This is then passed to the respective objects for preloading.
+<li>
+<div><strong>Loading from file </strong></div>
+<code>Storage</code> makes use of the <code>BufferedReader</code> and <code>FileInputStream</code> provided  by <code>java.io</code> to access 
+the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
 
-For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file
-and passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates
-the ArrayList in `FoodDatabase`.
+For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
+and passes the file contents to the <code>preLoadDatabase()</code> method in ,<code>FoodDatabase</code which populates
+the ArrayList in <code>FoodDatabase</code>.
+</li>
 
-### UML Sequence Diagram
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
+</ol>
+
+
+
+
+
+
+
+<h5>UML Sequence Diagram </h5>
+The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.
 
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
----
 
 </li>
 
