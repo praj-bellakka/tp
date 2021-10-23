@@ -169,12 +169,11 @@ Example of usage:
 
 `list /weight`
 
-<<<<<<< HEAD
 #### Viewing Help: `help`
 Lists out available commands and additional information regarding each command.
 
 Format: `help`
-=======
+
 ### Suggest food based on food type and calorie goal: `suggest`
 Filters food items in the database based on food type (meal, snack, beverage, others) 
 that if consumed, will not exceed the daily calorie goal set by the user.
