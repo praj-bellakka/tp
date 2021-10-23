@@ -146,7 +146,7 @@ The Summary class provides an overview of user's diet over the past week/month.
 <li> <code>generateMonthSummaryReport()</code> shows average daily calorie intake, and the most/least frequently eaten food over this month.</li>
 </ul>
 
-<h5>UML Sequence Diagram<h5/>
+<h5>UML Sequence Diagram</h5>
 The following sequence diagram describes the operation of the <code>generateWeekSummary()</code> method.<br/>
 
 ![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.png) <br/>
