@@ -53,13 +53,18 @@ public class Storage {
         reader.close();
     }
 
-    public static void initialiseUser(User user) throws IOException {
+    public static int initialiseUser(User user) throws IOException {
         assert Files.exists(FILE_PATH_USER_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_USER_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        user.preloadUserData(reader);
+        int userDataIsValid = user.preloadUserData(reader);
         reader.close();
+        if (userDataIsValid == 1) {
+            return 1; //success
+        } else {
+            return 0; //failure
+        }
     }
 
     public static void initialiseWeightProgress(User user) throws IOException {

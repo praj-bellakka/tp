@@ -11,15 +11,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class User {
-    private static final int MALE = 0;
-    private static final int FEMALE = 1;
     private int calorieGoal;
     private Gender gender;
     private int age;
     private int height;
-    private static final String DELIMITER = " | ";
     private float weight;
     private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
+
+    private static final int MALE = 0;
+    private static final int FEMALE = 1;
+    private static final String DELIMITER = " | ";
+    private static final String GAIN_STRING = "gain";
+    private static final String LOSE_STRING = "lose";
 
     public User(Gender gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
@@ -73,6 +76,10 @@ public class User {
         this.age = age;
     }
 
+    public ArrayList<WeightProgressEntry> getWeightProgressEntries() {
+        return weightProgressEntries;
+    }
+
     public String updateWeightAndWeightTracker(float newWeight) {
         this.setWeight(newWeight);
 
@@ -92,6 +99,7 @@ public class User {
 
         WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
         float weightDifference = previousEntry.getWeight() - newWeight;
+        weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
         String weightChange = weightDifference < 0 ? "gained" : "lost";
         if (weightDifference < 0) {
             weightDifference = Math.abs(weightDifference);
@@ -102,26 +110,76 @@ public class User {
                 + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
     }
 
+    public String convertWeightRecordsToStringForUi() {
+        StringBuilder lines = new StringBuilder();
+        for (WeightProgressEntry e : weightProgressEntries) {
+            assert e != null : "e should not be null";
+            float weight = e.getWeight();
+            String date = e.getDate().toString();
+            lines.append(date).append(": ").append(weight).append("kg").append(System.lineSeparator());
+        }
+        return lines.toString();
+    }
 
     public int showCaloriesRemaining(EntryDatabase entryDB) {
         int caloriesConsumed = entryDB.getTotalDailyCalorie();
         return this.calorieGoal - caloriesConsumed;
     }
 
-    public void preloadUserData(BufferedReader reader) throws IOException {
+    public int generateCalorieGoal(float weeklyChange, String changeType) {
+        int calDeficitFor1KgWeekly = 1000;
+
+        int bmr; //basal metabolic rate
+        int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
+        int newGoal = 0;
+        if (this.gender == Gender.MALE) {
+            bmr = (int) Math.round(((655.1 + (9.563 * this.weight)
+                    + (1.850 * this.height)
+                    - (4.676 * this.age)) * 1.55));
+        } else {
+            bmr = (int) Math.round(((66.47 + (13.75 * this.weight)
+                    + (5.003 * this.height)
+                    - (6.755 * this.age)) * 1.55) - weeklyChange * calDeficitFor1KgWeekly);
+        }
+
+        if (changeType == GAIN_STRING) {
+            newGoal = bmr + calDiff;
+        } else if (changeType == LOSE_STRING) {
+            newGoal = bmr - calDiff;
+        }
+
+        return newGoal;
+    }
+
+    public int preloadUserData(BufferedReader reader) throws IOException {
         String line;
-        while ((line = reader.readLine()) != null) {
+        boolean successfullyPreloadedData = false;
+
+        if ((line = reader.readLine()) != null) { //user data file not empty
             String[] description = line.trim().split("\\s*[|]\\s*");
+
             try {
                 this.calorieGoal = Integer.parseInt(description[0]);
-                gender = Gender.findGender(description[1]);
+                this.gender = Gender.findGender(description[1]);
+                this.age = Integer.parseInt(description[2]);
+                this.height = Integer.parseInt(description[3]);
+                this.weight = Float.parseFloat(description[4]);
                 System.out.println("Successfully preloaded user data");
+                successfullyPreloadedData = true;
             } catch (IndexOutOfBoundsException e) {
+                successfullyPreloadedData = false;
                 Ui.printPreloadDatabaseError();
             } catch (NumberFormatException e) {
+                successfullyPreloadedData = false;
                 Ui.printPreloadUserError();
             }
         }
+
+        if (successfullyPreloadedData == false) {
+            return 0; //failure
+        }
+
+        return 1; //success
     }
 
     public void preloadWeightData(BufferedReader reader) throws IOException {
@@ -147,7 +205,11 @@ public class User {
     }
 
     public String convertUserDataToString() {
-        return this.calorieGoal + DELIMITER + this.gender;
+        return this.calorieGoal + DELIMITER
+                + this.gender + DELIMITER
+                + this.age + DELIMITER
+                + this.height + DELIMITER
+                + this.weight;
     }
 
     public String convertWeightDataToString() {

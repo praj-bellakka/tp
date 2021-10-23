@@ -18,7 +18,7 @@ public class SetGenderCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
+    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         if (genderSymbol != null) {
             us.setGender(genderSymbol);
             if (genderSymbol.toString().equals("f")) {
@@ -26,7 +26,7 @@ public class SetGenderCommand extends Command {
             }
             return "You have set your gender to " + MALE_SYMBOL;
         }
-        return "Invalid input! Please input m for male or "
-               + "f for female when setting your gender.";
+        throw new FitNusException("Invalid input! Please input m for male or "
+                + "f for female when setting your gender.");
     }
 }
