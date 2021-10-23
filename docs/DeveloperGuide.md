@@ -40,10 +40,6 @@ The entry point of the app is the `FitNUS` class, where the application is run a
 - `User`: For handling all functionality regarding personalisation of user experience.
 
 
-
-
-
-
 <h2 id="#user-story"> User Stories</h2>
 
 |Version| As a ... | I want to ... | So that I can ...|
@@ -197,7 +193,7 @@ It then returns a <code>Command</code> object that represents the type of comman
 
 <ul>
 <li>determines the type of <code>Command</code> object and returns it.</li>
-<li>handles input exceptions and returns relevant <code>FitNusException</code> command.li>li
+<li>handles input exceptions and returns relevant <code>FitNusException</code> command.</li>
 </ul>
 
 <h5>Implementation</h5>
@@ -207,10 +203,7 @@ It then returns a <code>Command</code> object that represents the type of comman
 The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
 If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
 then compared with default list of commands to determine the type of method called using if-else statements.
-</li>
-</ul>
-</li>
-</ol>
+</li></ul></li></ol>
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
 
