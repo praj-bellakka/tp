@@ -184,7 +184,7 @@ the ArrayList in <code>FoodDatabase</code>.
 
 <h5>UML Sequence Diagram </h5>
 The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
-<img src="diagrams/StorageSequenceUML.png"/>
+<img src="diagrams/StorageSequenceUML.PNG"/>
 </li>
 
 <li>
