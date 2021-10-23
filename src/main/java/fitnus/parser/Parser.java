@@ -7,7 +7,9 @@ import fitnus.command.DeleteFoodEntryCommand;
 import fitnus.command.ViewMonthSummaryCommand;
 import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.command.AddFoodEntryCommand;
-import fitnus.command.ListFoodEntryCommand;
+import fitnus.command.ListFoodEntryAllCommand;
+import fitnus.command.ListFoodEntryDayCommand;
+import fitnus.command.ListFoodEntryWeekCommand;
 import fitnus.command.FindEntryCommand;
 import fitnus.command.FindFoodCommand;
 import fitnus.command.GenerateCalorieGoalCommand;
@@ -404,7 +406,20 @@ public class Parser {
             if (input.equals(DESCRIPTOR_FOOD)) {
                 return new ListFoodDatabaseCommand();
             } else if (input.equals(DESCRIPTOR_INTAKE)) {
-                return new ListFoodEntryCommand();
+                return new ListFoodEntryAllCommand();
+            }
+        }
+
+        if (input.contains(DESCRIPTOR_INTAKE)) {
+            String timeFrame = input.substring(typeDescriptorIndex);
+
+            switch (timeFrame) {
+            case " /day":
+                return new ListFoodEntryDayCommand();
+            case " /week":
+                return new ListFoodEntryWeekCommand();
+            default:
+                throw new FitNusException("Invalid timeframe! (/day, /week)");
             }
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);

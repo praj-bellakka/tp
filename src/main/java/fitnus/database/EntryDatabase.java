@@ -153,6 +153,7 @@ public class EntryDatabase {
             }
             datePointer = datePointer.minusDays(1);
         }
+        Collections.reverse(pastDaysEntries.entries);
         return pastDaysEntries;
     }
 

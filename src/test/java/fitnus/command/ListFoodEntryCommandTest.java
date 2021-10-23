@@ -16,7 +16,7 @@ class ListFoodEntryCommandTest {
         FoodDatabase fd = new FoodDatabase();
         User us = new User(Gender.MALE, 1000);
 
-        ListFoodEntryCommand c = new ListFoodEntryCommand();
+        ListFoodEntryAllCommand c = new ListFoodEntryAllCommand();
         ed.addEntry(MealType.DINNER, new Food("food1", 100, Food.FoodType.MEAL));
         ed.addEntry(MealType.DINNER, new Food("food2", 200, Food.FoodType.SNACK));
 
