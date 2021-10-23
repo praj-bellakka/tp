@@ -8,7 +8,7 @@ import fitnus.tracker.MealType;
 import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
-class ListFoodIntakeCommandTest {
+class ListFoodEntryCommandTest {
 
     @Test
     void executeTest_validInputDay() {
@@ -16,15 +16,9 @@ class ListFoodIntakeCommandTest {
         FoodDatabase fd = new FoodDatabase();
         User us = new User(Gender.MALE, 1000);
 
-<<<<<<< HEAD
-        ListFoodIntakeCommand c = new ListFoodIntakeCommand();
-        ed.addEntry(MealType.DINNER, new Food("food1", 100));
-        ed.addEntry(MealType.DINNER, new Food("food2", 200));
-=======
-        ListFoodIntakeCommand c = new ListFoodIntakeCommand("/day");
+        ListFoodEntryCommand c = new ListFoodEntryCommand();
         ed.addEntry(MealType.DINNER, new Food("food1", 100, Food.FoodType.MEAL));
         ed.addEntry(MealType.DINNER, new Food("food2", 200, Food.FoodType.SNACK));
->>>>>>> master
 
         //todo
     }
