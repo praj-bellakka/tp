@@ -70,6 +70,7 @@ Given below is a quick overview of main components and how they interact with ea
 - Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
 
 <h4>tracker</h4>
+![command component class diagram](diagrams/tracker%20class%20diagram.png)
 
 <h4>database</h4>
 
