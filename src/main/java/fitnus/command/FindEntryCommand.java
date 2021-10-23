@@ -11,8 +11,6 @@ import fitnus.utility.User;
 import java.util.ArrayList;
 
 public class FindEntryCommand extends Command {
-
-    private static final String COMMAND_FIND = "find";
     private final String keyword;
 
     public FindEntryCommand(String keyword) {

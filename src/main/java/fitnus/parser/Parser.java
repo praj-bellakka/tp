@@ -381,8 +381,15 @@ public class Parser {
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
-                return new SetGenderCommand(input.substring(typeDescriptorIndex).trim());
+                String gender = input.substring(typeDescriptorIndex).trim();
+                if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("f")) {
+                    return new SetGenderCommand(gender);
+                }
+                throw new FitNusException("Invalid input! Please input m for male or "
+                        + "f for female when setting your gender.");
             }
+        } catch (FitNusException e) {
+            throw e;
         } catch (Exception e) {
             throw new FitNusException(INVALID_COMMAND_MESSAGE);
         }

@@ -79,7 +79,7 @@ public class Summary {
         return totalCalories / days;
     }
 
-    private static String getSqaures(int calorie, int unit) {
+    private static String drawGraphSquares(int calorie, int unit) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < calorie / unit; i++) {
             builder.append(SQUARE);
@@ -87,7 +87,7 @@ public class Summary {
         return builder.toString();
     }
 
-    private String getWeekCalorieTrend() {
+    private String getWeekCalorieTrendGraph() {
         StringBuilder output = new StringBuilder();
         LocalDate date = LocalDate.now().minusDays(6);
 
@@ -107,7 +107,7 @@ public class Summary {
                 j++;
             } else {
                 output.append(String.format("%s: %s %d\n", date,
-                        getSqaures(calories, UNIT_PER_SQUARE), calories));
+                        drawGraphSquares(calories, UNIT_PER_SQUARE), calories));
                 date = date.plusDays(1);
                 calories = 0;
             }
@@ -121,9 +121,9 @@ public class Summary {
         }
 
         int averageCalories = getAverageCalories();
-        String output = String.format(getWeekCalorieTrend()
+        String output = String.format(getWeekCalorieTrendGraph()
                 + "Average Daily Calorie Intake: %s %d\n"
-                + getMostAndLeastEatenFood(), getSqaures(averageCalories, UNIT_PER_SQUARE), averageCalories
+                + getMostAndLeastEatenFood(), drawGraphSquares(averageCalories, UNIT_PER_SQUARE), averageCalories
         );
         return output;
     }

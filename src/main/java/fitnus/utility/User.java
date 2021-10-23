@@ -2,6 +2,7 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.tracker.Gender;
 import fitnus.tracker.WeightProgressEntry;
 
 import java.io.BufferedReader;
@@ -13,16 +14,16 @@ public class User {
     private static final int MALE = 0;
     private static final int FEMALE = 1;
     private int calorieGoal;
-    private int gender;
+    private Gender gender;
     private int age;
     private int height;
     private static final String DELIMITER = " | ";
     private float weight;
     private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
 
-    public User(int gender, int calorieGoal) {
+    public User(Gender gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
-        this.gender = (gender == 0) ? MALE : FEMALE;
+        this.gender = gender;
     }
 
     public int getCalorieGoal() {
@@ -39,15 +40,13 @@ public class User {
         this.calorieGoal = newGoal;
     }
 
-    public int getGender() {
-        assert gender == FEMALE || gender == MALE : "invalid gender setting";
+    public Gender getGender() {
+        assert gender.equals(Gender.FEMALE) || gender.equals(Gender.MALE) : "invalid gender setting";
         return gender;
     }
 
-    public void setGender(int gender) {
-        if (gender == MALE || gender == FEMALE) {
-            this.gender = gender;
-        }
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public float getWeight() {
@@ -115,7 +114,7 @@ public class User {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
                 this.calorieGoal = Integer.parseInt(description[0]);
-                gender = Integer.parseInt(description[1]);
+                gender = Gender.findGender(description[1]);
                 System.out.println("Successfully preloaded user data");
             } catch (IndexOutOfBoundsException e) {
                 Ui.printPreloadDatabaseError();
@@ -144,7 +143,7 @@ public class User {
 
     public String listUserData() {
         return "Calorie goal: " + this.calorieGoal + " " + System.lineSeparator()
-                + "Gender: " + (this.gender == 1 ? "Female" : "Male");
+                + "Gender: " + this.gender.toString();
     }
 
     public String convertUserDataToString() {
