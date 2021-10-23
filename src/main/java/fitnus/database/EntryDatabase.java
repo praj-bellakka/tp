@@ -139,7 +139,7 @@ public class EntryDatabase {
     }
 
     public EntryDatabase getPastDaysEntryDatabase(int days) {
-//        sortDatabase();
+        sortDatabase();
         ArrayList<Entry> totalEntries = getEntries();
         EntryDatabase pastDaysEntries = new EntryDatabase();
 
