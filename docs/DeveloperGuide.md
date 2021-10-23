@@ -7,7 +7,8 @@
 3. <a href="user-story"> User Story</a>
 4. <a href="#Architecture">Application Architecture </a>
 5. <a href="#Implementation">Implementation </a>
-6. <a href="#NF-Requirement">Non-functional Requirement </a>
+6. <a href="#instruction-for-manual-testing">Instruction for manual testing</a>
+7. <a href="#NF-Requirement">Non-functional Requirement </a>
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
@@ -76,16 +77,12 @@ Given below is a quick overview of main components and how they interact with ea
 
 <h4>database</h4>
 
-
+{TO BE ADDED HERE}
 
 
 ## Glossary
 
 * *glossary item* - Definition
-
-## Instructions for manual testing
-
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
 ## Add Food Entry Feature
 The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>.
@@ -241,6 +238,12 @@ If no space character is detected, and the `help` or `exit` method was not calle
 then compared with default list of commands to determine the type of method called using if-else statements.
 </li>
 </ol>
+
+<h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
+
+{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+
 
 <h2 id="NF-Requirement"> Non-Functional Requirements </h2>
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set.
