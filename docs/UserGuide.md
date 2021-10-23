@@ -146,7 +146,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-###Food Database
+### Food Database
 
 #### Deleting food from food database: `remove`
 Deletes food from the food database.
@@ -211,7 +211,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-###Personalisation
+### Personalisation
 
 ####  Setting gender: `gender /set`
 Sets the user's gender to either Male or Female.
@@ -270,7 +270,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-###Other
+### Other
 
 #### Viewing Help: `help`
 Lists out available commands and additional information regarding each command.
