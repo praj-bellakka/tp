@@ -2,7 +2,6 @@ package fitnus;
 
 import fitnus.command.Command;
 import fitnus.command.ExitCommand;
-import fitnus.command.GenerateCalorieGoalCommand;
 import fitnus.command.HelpCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
