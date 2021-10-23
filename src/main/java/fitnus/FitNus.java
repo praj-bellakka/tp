@@ -1,6 +1,12 @@
 package fitnus;
 
-import fitnus.command.*;
+import fitnus.command.SetGenderCommand;
+import fitnus.command.SetAgeCommand;
+import fitnus.command.SetHeightCommand;
+import fitnus.command.SetWeightCommand;
+import fitnus.command.HelpCommand;
+import fitnus.command.ExitCommand;
+import fitnus.command.Command;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;

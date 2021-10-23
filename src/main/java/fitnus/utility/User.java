@@ -11,15 +11,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class User {
-    private static final int MALE = 0;
-    private static final int FEMALE = 1;
     private int calorieGoal;
     private Gender gender;
     private int age;
     private int height;
-    private static final String DELIMITER = " | ";
     private float weight;
     private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
+
+    private static final int MALE = 0;
+    private static final int FEMALE = 1;
+    private static final String DELIMITER = " | ";
+    private static final String GAIN_STRING = "gain";
+    private static final String LOSE_STRING = "lose";
 
     public User(Gender gender, int calorieGoal) {
         this.calorieGoal = calorieGoal;
@@ -124,8 +127,6 @@ public class User {
     }
 
     public int generateCalorieGoal(float weeklyChange, String changeType) {
-        String GAIN_STRING = "gain";
-        String LOSE_STRING = "lose";
         int calDeficitFor1KgWeekly = 1000;
 
         int bmr; //basal metabolic rate

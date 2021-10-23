@@ -10,8 +10,8 @@ public class GenerateCalorieGoalCommand extends Command {
     private final float weeklyChange;
     private final String changeType;
 
-    String GAIN_STRING = "gain";
-    String LOSE_STRING = "lose";
+    private static final String GAIN_STRING = "gain";
+    private static final String LOSE_STRING = "lose";
 
     public GenerateCalorieGoalCommand(float weeklyChange, String changeType) {
         this.weeklyChange = weeklyChange;
@@ -27,7 +27,8 @@ public class GenerateCalorieGoalCommand extends Command {
                 return "Your new calorie goal to " + changeType + " " + weeklyChange
                         + " kg per week is " + newGoal + " kcal daily!";
             } else {
-                throw new FitNusException("Invalid change type! Please enter /gain or /lose as the change type parameter.");
+                throw new FitNusException("Invalid change type! "
+                        + "Please enter /gain or /lose as the change type parameter.");
             }
         } else {
             throw new FitNusException("In order to lose or gain weight in a safe and healthy way, "
