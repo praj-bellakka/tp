@@ -113,7 +113,7 @@ On startup, the storage file is  parsed and the corresponding WeightProgressEntr
 <li>
 <h3>View Diet Summary</h3>
 The Summary class provides an overview of user's diet over the past week/month.
-<h5>command format</h5><code>summary /week</code> or <code>summary /month</code> <br/>
+<h4>command format</h4><code>summary /week</code> or <code>summary /month</code> <br/>
 
 <code>Summary</code> class provides two methods <code>generateWeekSummaryReport()</code> and <code>generateMonthSummaryReport()</code> to give the user weekly/monthly report of their diets.<br/>
 <ul>
@@ -121,11 +121,11 @@ The Summary class provides an overview of user's diet over the past week/month.
 <li> <code>generateMonthSummaryReport()</code> shows average daily calorie intake, and the most/least frequently eaten food over this month.</li>
 </ul>
 
-<h5>UML Sequence Diagram</h5>
-The following sequence diagram describes the operation of the <code>generateWeekSummary()</code> method.<br/>
+<h4>UML Sequence Diagram</h4>
+The following sequence diagram describes the operation of the <code>generateWeekSummary()</code>.<br/>
 <img src="diagrams/weekly-report.png"/>
 
-<br/>The following sequence diagram describes the operation of the <code>generateMonthSummary()</code> method.
+<br/>The following sequence diagram describes the operation of <code>generateMonthSummary()</code>.<br/>
 <img src="diagrams/monthly-report.png"/>
 </li>
 
@@ -133,7 +133,7 @@ The following sequence diagram describes the operation of the <code>generateWeek
 <h3>Storage</h3>
 The Storage class reads and writes data to and from the text file.
 
-<h5>Storage format</h5>
+<h4>Storage format</h4>
 <div><strong>Every line in each text file represents one object / entry / item</strong></div>
 <ul>
 <li>
@@ -159,7 +159,7 @@ Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &n
 
 </ul>
 
-<h5>Implementation</h5>
+<h4>Implementation</h4>
 <ol>
 <li>
 <div><strong>Saving to file</strong></div>
@@ -182,7 +182,7 @@ the ArrayList in <code>FoodDatabase</code>.
 
 </ol>
 
-<h5>UML Sequence Diagram </h5>
+<h4>UML Sequence Diagram </h4>
 The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
 <img src="diagrams/StorageSequenceUML.PNG"/>
 </li>
@@ -197,9 +197,9 @@ It then returns a <code>Command</code> object that represents the type of comman
 <li>handles input exceptions and returns relevant <code>FitNusException</code> command.</li>
 </ul>
 
-<h5>Implementation</h5>
+<h4>Implementation</h4>
 <ul>
-<li><h6>Identifying type of method called</h6>
+<li><h5>Identifying type of method called</h5>
 
 The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
 If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
