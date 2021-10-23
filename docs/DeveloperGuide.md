@@ -1,4 +1,3 @@
-
 <h1>Developer Guide</h1>
 
 <h2>Content </h2>
@@ -75,11 +74,11 @@ Given below is a quick overview of main components and how they interact with ea
 {TO BE ADDED HERE}
 
 
-## Glossary
+<h2> Glossary</h2>
 
-* *glossary item* - Definition
+*glossary item* - Definition
 
-## Add Food Entry Feature
+<h2>Add Food Entry Feature</h2>
 The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>.
 It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code>
 and <code>FoodDatabase</code>.
@@ -91,50 +90,34 @@ Additionally, it implements the following operations:
 
 
 <h2 id="Implementation"> Implementation </h2>
-<br/>
 <ol>
-<li>
-<h3>Weight Tracker</h3>
-The weight tracker exists as an ArrayList called <code>WeightProgressEntries</code> within the User class. The ArrayList contains objects of class <code>WeightProgressEntry</code>.
-</li> 
+<li><h3>Weight Tracker</h3>
+The weight tracker exists as an ArrayList called <code>WeightProgressEntries</code> within the User class. The ArrayList contains objects of class <code>WeightProgressEntry</code>.</li> 
 
-<li>
-<h3>SetWeightCommand Component</h3>
-The entry point for setting or updating weight. The <code>execute</code> method in this object calls <code>updateWeightAndWeightTracker</code> method in the User object initialised in the main file in order to update the user's weight and weight progress.
-</li>
+<li><h3>SetWeightCommand Component</h3>
+The entry point for setting or updating weight. The <code>execute</code> method in this object calls <code>updateWeightAndWeightTracker</code> method in the User object initialised in the main file in order to update the user's weight and weight progress.</li>
 
-<li>
-<h3>Storage Component</h3>
+<li><h3>Storage Component</h3>
 Weight progress entries are stored in a text file in the following format: <br/>
-
-<code>WEIGHT | DATE(YYYY-MM-DD)</code> <br/>
-Example: <code>100 | 2021-03-01</code><br/>
-
+<code>WEIGHT | DATE(YYYY-MM-DD)</code> Example: <code>100 | 2021-03-01</code><br/>
 The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the <code>saveFitNus</code> method.<br/>
-On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
-</li>
+On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.</li>
 
-<li>
-<h3>User Component</h3>
-<div>
-How the User component works in the context of the weight tracker: <br/>
+<li><h3>User Component</h3>
+<div>How the User component works in the context of the weight tracker: <br/>
 <ol>
 <li>When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.</li>
 <li>In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.</li>
 <li>If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.</li>
 <li>If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.</li>
-</ol>
-</div>
+</ol></div>
 </li>
 
 <li>
 <h3>View Diet Summary</h3>
 The Summary class provides an overview of user's diet over the past week/month.
+<h5>command format</h5><code>summary /week</code> or <code>summary /month</code> <br/>
 
-<h5>command format</h5>
-<code>summary /week</code> or <code>summary /month</code>
-
-<h5>implementation</h5>
 <code>Summary</code> class provides two methods <code>generateWeekSummaryReport()</code> and <code>generateMonthSummaryReport()</code> to give the user weekly/monthly report of their diets.<br/>
 <ul>
 <li> <code>generateWeekSummaryReport()</code> shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.</li>
@@ -143,13 +126,10 @@ The Summary class provides an overview of user's diet over the past week/month.
 
 <h5>UML Sequence Diagram</h5>
 The following sequence diagram describes the operation of the <code>generateWeekSummary()</code> method.<br/>
-
-![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.png) <br/>
+<img src="diagrams/weekly-report.png"/>
 
 The following sequence diagram describes the operation of the <code>generateMonthSummary()</code> method.
-
-![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.png) <br/>
-
+<img src="diagrams/monthly-report.png"/>
 </li>
 
 <li>
@@ -157,42 +137,30 @@ The following sequence diagram describes the operation of the <code>generateMont
 The Storage class reads and writes data to and from the text file.
 
 <h5>Storage format</h5>
-
 <div><strong>Every line in each text file represents one object / entry / item</strong></div>
+<ul>
+<li>
+FoodDatabase:<code>FOODNAME | CALORIE_VALUE</code> <br/>
+Example: <code>Nasi Lemak | 400</code> &nbsp; <code>Ramen | 600</code>
+</li>
 
-- `FoodDatabase`: FOODNAME | CALORIE_VALUE
+<li>
+EntryDatabase:<code>MEALTYPE | FOODNAME | CALORIE_VALUE | DATE</code> <br/>
+Example: <code>Dinner | Ramen | 500 | 2021-10-20</code> &nbsp; <code>Lunch | Fried rice | 600 | 2021-10-20</code>
+</li>
 
-Example:
-```
-Nasi Lemak | 400
-Ramen | 600
-```
+<li>
+User:<code>CALORIE_GOAL | GENDER</code> <br/>
+Example: <code>1000 | 0</code> &nbsp;
+</li>
 
-- `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
 
-Example:
-```
-Dinner | Ramen | 500 | 2021-10-20
-Lunch | Fried rice | 600 | 2021-10-20
-```
+<li>
+User weight:<code>WEIGHT | DATE</code> <br/>
+Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &nbsp; <code>58.0 | 2021-09-20</code> &nbsp; <code>45.0 | 2021-10-21</code>
+</li>
 
-- `User`: CALORIE_GOAL | GENDER
-
-Example:
-```
-1000 | 0
-```
-
-- `User weight`: WEIGHT | DATE
-
-Example:
-```
-60.0 | 2021-07-20
-59.0 | 2021-08-20
-58.0 | 2021-09-20
-45.0 | 2021-10-21
-```
-
+</ul>
 
 <h5>Implementation</h5>
 <ol>
@@ -222,9 +190,7 @@ the ArrayList in <code>FoodDatabase</code>.
 
 <h5>UML Sequence Diagram </h5>
 The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
-
-![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
-
+<img src="diagrams/StorageSequenceUML.png">
 </li>
 
 <li>
@@ -232,7 +198,6 @@ The following sequence diagram describes the operation of the <code>saveFoodData
 <div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
 It then returns a <code>Command</code> object that represents the type of command called through the input.</div>
 
-<h5>The <code>Parser</code> component</h5>:
 <ul>
 <li>determines the type of <code>Command</code> object and returns it.</li>
 <li>handles input exceptions and returns relevant <code>FitNusException</code> command.li>li
