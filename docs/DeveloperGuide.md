@@ -13,10 +13,10 @@
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 <h2 id="Product-Scope">Product scope</h2>
-    <h3>Target user profile</h3>
-    NUS Computer Engineering students reside in UTown going on diet.
-    <h3>Value proposition</h3>
-    Help user to keep track of their daily calorie intake, and manage their diet wisely.
+<h3>Target user profile</h3>
+NUS Computer Engineering students reside in UTown going on diet.
+<h3>Value proposition</h3>
+Help user to keep track of their daily calorie intake, and manage their diet wisely.
 <h2 id="quick-start">Quick Start</h2>
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest fitnus.jar from here (no link for now).
@@ -128,7 +128,7 @@ The Summary class provides an overview of user's diet over the past week/month.
 The following sequence diagram describes the operation of the <code>generateWeekSummary()</code> method.<br/>
 <img src="diagrams/weekly-report.png"/>
 
-The following sequence diagram describes the operation of the <code>generateMonthSummary()</code> method.
+<br/>The following sequence diagram describes the operation of the <code>generateMonthSummary()</code> method.
 <img src="diagrams/monthly-report.png"/>
 </li>
 
@@ -185,9 +185,6 @@ the ArrayList in <code>FoodDatabase</code>.
 
 </ol>
 
-
-
-
 <h5>UML Sequence Diagram </h5>
 The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
 <img src="diagrams/StorageSequenceUML.png">
@@ -209,17 +206,15 @@ It then returns a <code>Command</code> object that represents the type of comman
 
 The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
 If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
-then compared with default list of commands to determine the type of method called using if-else statements. </li>
+then compared with default list of commands to determine the type of method called using if-else statements.
+</li>
 </ul>
 </li>
-
 </ol>
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-
-
 
 <h2 id="NF-Requirement"> Non-Functional Requirements </h2>
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set.
