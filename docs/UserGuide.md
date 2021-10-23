@@ -152,13 +152,13 @@ Example of usage:
 ### Weight Tracker
 
 #### Recording weight: `weight /set`
-Lists out all past records of weight entered by the user.
+Updates the user's current weight as well as their weight record for the day in the weight tracker.
 
-Format: `list /weight`
+Format: `weight /set WEIGHT`
 
 Example of usage:
 
-`list /weight`
+`weight /set 55.6`
 
 #### Listing weight records: `list`
 Lists out all past records of weight entered by the user.
@@ -168,6 +168,55 @@ Format: `list /weight`
 Example of usage:
 
 `list /weight`
+
+###Personalisation
+
+####  Setting gender: `gender /set`
+Sets the user's gender to either Male or Female.
+
+Format: `gender /set GENDER_SYMBOL`
+
+Example of usage:
+
+`gender /set m`
+
+####  Setting height: `height /set`
+Sets the user's height in centimeters.
+
+Format: `height /set HEIGHT`
+
+Example of usage:
+
+`height /set 180`
+
+####  Setting age: `age /set`
+Sets the user's age in years.
+
+Format: `age /set AGE`
+
+Example of usage:
+
+`age /set 18`
+
+####  Setting calorie goal: `calorie /set`
+Sets the user's calorie goal in kcal.
+
+Format: `calorie /set CALORIE_GOAL`
+
+Example of usage:
+
+`calorie /set 2000`
+
+####  Generate and set calorie goal: `calorie /generate`
+Generates and sets a calorie goal based on the user's target weight loss/gain per week, age, height, weight and gender.
+
+Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
+
+Example of usage:
+
+`calorie /generate /gain 0.5`
+
+###Other
 
 #### Viewing Help: `help`
 Lists out available commands and additional information regarding each command.
