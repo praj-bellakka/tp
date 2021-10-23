@@ -3,12 +3,38 @@
 ## Introduction
 
 FitNUS Tracker is a desktop app for tracking daily food intake to keep a healthy lifestyle. 
-It is based on a Command Line Interface (CLI) and has a rich function list in order to cater to the needs of potential users.
+It is based on a Command Line Interface (CLI) and has rich functionality in order to cater to the needs of potential users.
 
 Here is the list of sections we will be covering in this User Guide.
 
 - Quick Start
+
 - Features
+  - Food Tracker
+    - Adding food tracker entry: `add`
+    - Editing existing food tracker entry: `edit`
+    - Deleting food tracker entry: `remove /entry`
+    - Listing tracker entries for the day: `list /entry`
+    - Searching for tracker entries with keyword: `find /entry`
+  - Food Database
+    - Deleting food from food database: `remove /food`
+    - Searching for foods with keyword: `find /food`
+    - Listing foods in food database: `list /food`
+  - Weight Tracker
+    - Recording weight: `weight /set`
+    - Listing weight records: `list /weight`
+  - Personalisation
+    - Setting gender: `gender /set`
+    - Setting height: `height /set`
+    - Setting age: `age /set`
+    - Setting calorie goal: `calorie /set`
+    - Generate and set calorie goal: `calorie /generate`
+  - Other
+    - Viewing statistics: `summary`
+    - Viewing help: `help`
+    - Getting food recommendations: `suggest`
+    - Exiting FitNUS: `exit`
+- Command Summary
 
 ---
 ## Quick Start
@@ -18,10 +44,7 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program: 
 ```java -jar fitnus.jar```
-5. If you have successfully run the programme, you should see the following message as follows: 
-
-
-
+5. If you have successfully run the programme, you should see the following message as follows:
 
 ## Features 
 > **⚠️ Notes about command format**
@@ -31,17 +54,12 @@ Here is the list of sections we will be covering in this User Guide.
 >  e.g. in `add /food NAME`, NAME is a parameter which can be substituted as `add /food burgers`.
 > - Items in **[Square brackets]** are optional!
 
->  e.g. `add /MEALTYPE FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
+>  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
 
+### Food Tracker
 
-### Viewing Help: `help`
-Lists out available commands and additional information regarding each command.
-
-Format: `help`
-
-### Adding custom food entry: `add`
-Adds a custom food entry to the food tracker as well as the food database.
-
+#### Adding food tracker entry: `add`
+Adds an entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -50,6 +68,7 @@ Format: `add [/MEALTYPE] FOOD_NAME`
   * `lunch` - to denote lunch
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
+* If several matches 
 
 > **⚠️ Notes about omitting `MEALTYPE`**
 >
@@ -59,21 +78,22 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 >- Dinner: 6pm to 9pm
 >- Snack: Remaining time
 
-Examples of usage: 
+Examples of usage:
 
 `add /bfast chocolate rolls`
 
+- Adds a tracker entry of type Breakfast and 
+
 `add mushroom soup`
 
-### Editing existing food entry: `edit`
-Edits an existing food entry inside the database.
+#### Editing existing food tracker entry: `edit`
+Edits an existing food tracker entry's food information. FitNUS will search for FOOD_NAME in the food database and update the chosen entry's food description and calorie information accordingly. If an exact match to FOOD_NAME was not found in the food database, (???)
 
 Format: `edit INDEX_OF_FOOD FOOD_NAME`
 
 Example of usage:
 
-
-### Delete food entry: `remove`
+#### Deleting food tracker entry: `remove`
 Deletes a food entry from the food tracker.
 
 Format: `remove /entry INDEX_OF_FOOD`
@@ -82,43 +102,7 @@ Example of usage:
 
 `remove /entry 2`
 
-### Delete preset food: `remove`
-Deletes food from the food database.
-
-Format: `remove /food INDEX_OF_FOOD`
-
-Example of usage:
-
-`remove /food 12`
-
-### Search food with keyword: `find`
-Finds all matching food in the FoodDatabase based on the keyword you provided.
-
-Format: `find /food KEYWORD`
-
-Example of usage:
-
-`find /food rice`
-
-### Search entry with keyword: `find`
-Finds all matching entries in the EntryDatabase based on the keyword you provided.
-
-Format: `find /entry KEYWORD`
-
-Example of usage:
-
-`find /entry rice`
-
-### List foods in database: `list`
-Lists out all foods in the database and their respective calories.
-
-Format: `list /food`
-
-Example of usage:
-
-`list /food`
-
-### List out entries for the day: `list`
+#### Listing tracker entries for the day: `list`
 Lists out all foods entered for the day.
 
 Format: `list /entry`
@@ -127,7 +111,47 @@ Example of usage:
 
 `list /entry`
 
-### List past records of weight: `list`
+#### Searching for tracker entries with keyword: `find`
+Finds all matching entries in the EntryDatabase based on the keyword you provided.
+
+Format: `find /entry KEYWORD`
+
+Example of usage:
+
+`find /food rice`
+
+###Food Database
+
+#### Deleting food from food database: `remove`
+Deletes food from the food database.
+
+Format: `remove /food INDEX_OF_FOOD`
+
+Example of usage:
+
+`remove /food 12`
+
+#### Searching for foods with keyword: `find`
+Finds all matching food in the FoodDatabase based on the keyword you provided.
+
+Format: `find /food KEYWORD`
+
+Example of usage:
+
+`find /entry rice`
+
+#### Listing foods in food database: `list`
+Lists out all foods in the database and their respective calories.
+
+Format: `list /food`
+
+Example of usage:
+
+`list /food`
+
+###Weight Tracker
+
+#### Recording weight: `weight /set`
 Lists out all past records of weight entered by the user.
 
 Format: `list /weight`
@@ -135,6 +159,20 @@ Format: `list /weight`
 Example of usage:
 
 `list /weight`
+
+#### Listing weight records: `list`
+Lists out all past records of weight entered by the user.
+
+Format: `list /weight`
+
+Example of usage:
+
+`list /weight`
+
+#### Viewing Help: `help`
+Lists out available commands and additional information regarding each command.
+
+Format: `help`
 
 ### Suggest food based on food type and calorie goal: `suggest`
 Filters food items in the database based on food type (meal, snack, beverage, others) 

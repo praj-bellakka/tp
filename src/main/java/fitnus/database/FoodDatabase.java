@@ -63,7 +63,7 @@ public class FoodDatabase {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
-            assert description.length == 3 : "description does not contain both name and calories";
+            //assert description.length == 4 : "description does not contain both name and calories";
             try {
                 String name = description[0].strip();
                 //assert name.equals("") == false : "name field cannot only contain white spaces";
