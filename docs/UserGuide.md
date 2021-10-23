@@ -176,12 +176,15 @@ Format: `help`
 
 #### View statistics: `summary`
 FitNUS supports two kinds of diet report, which are weekly report and monthly report.
+
 ##### Weekly report
 Weekly report gives you an overview of your diet over the past 7 days, which includes daily calorie intake graph, average calorie intake,
 most and least frequently eaten foods.
+
 Format: `summary /week`
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes average calorie intake, most and least frequently eaten foods.
+
 Format: `summary /month`
 
 
@@ -218,6 +221,8 @@ Find entry | find /entry KEYWORD | `find /entry rice`
 List food | list /food | `list /food`
 List daily entry | list /entry | `list /entry`
 List weight record | list /weight | `list /weight`
+View weekly statistics | summary /week | `summary /week`
+View monthly statistics | summary /month | `summary /month`
 Suggest food | suggest /FOODTYPE <br /> suggest /FOODTYPE /sort | `suggest /meal` <br /> `suggest /snack /sort`
 
 
