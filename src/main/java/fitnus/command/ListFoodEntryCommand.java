@@ -12,8 +12,8 @@ public class ListFoodEntryCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
-//        EntryDatabase dayEntry = ed.getPastDaysEntryDatabase(1);
-//        return dayEntry.listEntries();
+        //        EntryDatabase dayEntry = ed.getPastDaysEntryDatabase(1);
+        //        return dayEntry.listEntries();
         return ed.listEntries();
     }
 }
