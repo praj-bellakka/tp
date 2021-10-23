@@ -163,7 +163,7 @@ The Storage class reads and writes data to and from the text file.
 
 <h5>Storage format</h5>
 
-> **_NOTE:_** Every line in each text file represents one object / entry / item
+<div><strong>Every line in each text file represents one object / entry / item</strong></div>
 
 - `FoodDatabase`: FOODNAME | CALORIE_VALUE
 
@@ -206,7 +206,7 @@ Example:
 <code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
 its data to String format. This String is then saved to the text file. <br/>
 For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
-method to obtain the String representation of all the data within the `FoodDatabase`. This String isthen written to the text file.
+method to obtain the String representation of all the data within the `FoodDatabase`. This String is then written to the text file.
 </li>
 
 
@@ -221,9 +221,6 @@ the ArrayList in <code>FoodDatabase</code>.
 </li>
 
 </ol>
-
-
-
 
 
 
@@ -253,6 +250,7 @@ The `Parser` is invoked through the `parseCommandType()` method. The input is fi
 If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is 
 then compared with default list of commands to determine the type of method called using if-else statements.
 </li>
+
 </ol>
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
