@@ -5,13 +5,13 @@ public enum Gender {
     MALE {
         @Override
         public String toString() {
-            return "Male";
+            return "m";
         }
     },
     FEMALE {
         @Override
         public String toString() {
-            return "Female";
+            return "f";
         }
     };
 
