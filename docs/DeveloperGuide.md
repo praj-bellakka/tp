@@ -1,7 +1,7 @@
 
-# Developer Guide
+<h1>Developer Guide</h1>
 
-## Content
+<h2>Content </h2>
 1. <a href="#Product-Scope">Product Scope</a>
 2. <a href="#quick-start">Quick Start</a>
 3. <a href="user-story"> User Story</a>
@@ -9,20 +9,15 @@
 5. <a href="#Implementation">Implementation </a>
 6. <a href="#instruction-for-manual-testing">Instruction for manual testing</a>
 7. <a href="#NF-Requirement">Non-functional Requirement </a>
-## Acknowledgements
 
+<h2> Acknowledgements </h2>
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 <h2 id="Product-Scope">Product scope</h2>
-
-### Target user profile
-
-NUS Computer Engineering students reside in UTown going on diet.
-
-### Value proposition
-
-Help user to keep track of their daily calorie intake, and manage their diet wisely.
-
+    <h3>Target user profile</h3>
+    NUS Computer Engineering students reside in UTown going on diet.
+    <h3>Value proposition</h3>
+    Help user to keep track of their daily calorie intake, and manage their diet wisely.
 <h2 id="quick-start">Quick Start</h2>
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest fitnus.jar from here (no link for now).
