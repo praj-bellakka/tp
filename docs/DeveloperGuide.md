@@ -100,49 +100,51 @@ Additionally, it implements the following operations:
 <ol>
 <li>
 <h3>Weight Tracker</h3>
-The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
+The weight tracker exists as an ArrayList called <code>WeightProgressEntries</code> within the User class. The ArrayList contains objects of class <code>WeightProgressEntry</code>.
 </li> 
 
 <li>
 <h3>SetWeightCommand Component</h3>
-The entry point for setting or updating weight. The `execute` method in this object calls `updateWeightAndWeightTracker` method in the User object initialised in the main file in order to update the user's weight and weight progress.
+The entry point for setting or updating weight. The <code>execute</code> method in this object calls <code>updateWeightAndWeightTracker</code> method in the User object initialised in the main file in order to update the user's weight and weight progress.
 </li>
 
 <li>
 <h3>Storage Component</h3>
-Weight progress entries are stored in a text file in the following format:
+Weight progress entries are stored in a text file in the following format: <br/>
 
-`WEIGHT | DATE(YYYY-MM-DD)`
+<code>WEIGHT | DATE(YYYY-MM-DD)</code> <br/>
+Example: <code>100 | 2021-03-01</code><br/>
 
-Example: `100 | 2021-03-01`
-
-The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.
-
+The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the <code>saveFitNus</code> method.<br/>
 On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
 </li>
 
 <li>
 <h3>User Component</h3>
-
-How the User component works in the context of the weight tracker:
-1. When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
-2. In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
-3. If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
-4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
-
+<div>
+How the User component works in the context of the weight tracker: <br/>
+<ol>
+<li>When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.</li>
+<li>In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.</li>
+<li>If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.</li>
+<li>If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.</li>
+</ol>
+</div>
 </li>
 
 <li>
 <h3>View Diet Summary</h3>
 The Summary class provides an overview of user's diet over the past week/month.
 
-***command format***
-`summary /week` or `summary /month`
+<h5>command format</h5>
+<code>summary /week</code> or <code>summary /month</code>
 
-***implementation***
-`Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
-- generateWeekSummaryReport() shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
-- generateMonthSummaryReport() shows average daily calorie intake, and the most/least frequently eaten food over this month.
+<h5>implementation</h5>
+<code>Summary</code> class provides two methods <code>generateWeekSummaryReport()</code> and <code>generateMonthSummaryReport()</code> to give the user weekly/monthly report of their diets.<br/>
+<ul>
+<li> <code>generateWeekSummaryReport()</code> shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.</li>
+<li> <code>generateMonthSummaryReport()</code> shows average daily calorie intake, and the most/least frequently eaten food over this month.</li>
+</ul>
 
 ***UML Sequence Diagram***
 The following sequence diagram describes the operation of the `generateWeekSummary()` method.
@@ -158,6 +160,7 @@ The following sequence diagram describes the operation of the `generateMonthSumm
 The Storage class reads and writes data to and from the text file.
 
 <h5>Storage format</h5>
+
 > **_NOTE:_** Every line in each text file represents one object / entry / item
 
 - `FoodDatabase`: FOODNAME | CALORIE_VALUE
