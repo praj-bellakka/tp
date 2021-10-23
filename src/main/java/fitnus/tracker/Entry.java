@@ -31,7 +31,7 @@ public class Entry {
     public void setFood(Food food) {
         this.food = food;
     }
-    
+
     /**
      * Gets the date and converts it to the specified format. Then,
      * returns the formatted date as a String.

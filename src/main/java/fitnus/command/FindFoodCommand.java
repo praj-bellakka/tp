@@ -10,8 +10,6 @@ import fitnus.utility.User;
 import java.util.ArrayList;
 
 public class FindFoodCommand extends Command {
-
-    private static final String COMMAND_FIND = "find";
     private final String keyword;
 
     public FindFoodCommand(String keyword) {

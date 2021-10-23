@@ -10,7 +10,7 @@ import fitnus.utility.User;
 import java.util.ArrayList;
 
 public class ViewEachCategoryCalorieCommand extends Command {
-    private int totalMealType = 5;
+    private final int totalMealType = 5;
 
     public ViewEachCategoryCalorieCommand() {
 
@@ -22,7 +22,7 @@ public class ViewEachCategoryCalorieCommand extends Command {
         int[] typeFrequency = {0, 0, 0, 0, 0};
         int[] typeCalories = {0, 0, 0, 0, 0};
         String[] types = {"Breakfast", "Lunch", "Dinner", "Snack", "Undefined"};
-        for (Entry entry: entries) {
+        for (Entry entry : entries) {
             int i = 0;
             switch (entry.getMealType()) {
             case BREAKFAST:

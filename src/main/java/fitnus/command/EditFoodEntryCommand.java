@@ -12,27 +12,31 @@ public class EditFoodEntryCommand extends Command {
     private final int calories;
     private final Food food;
     private final boolean isCustom;
+    private final Food.FoodType type;
 
-    public EditFoodEntryCommand(int index, Food food) {
+
+    public EditFoodEntryCommand(int index, Food food, Food.FoodType type) {
         this.index = index;
         this.food = food;
         this.foodName = null;
         this.calories = -1;
         this.isCustom = false;
+        this.type = type;
     }
 
-    public EditFoodEntryCommand(int index, String foodName, int calories) {
+    public EditFoodEntryCommand(int index, String foodName, int calories, Food.FoodType type) {
         this.index = index;
         this.foodName = foodName;
         this.calories = calories;
         this.food = null;
         this.isCustom = true;
+        this.type = type;
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         if (isCustom) {
-            Food customFood = new Food(foodName, calories);
+            Food customFood = new Food(foodName, calories, type);
             ed.editEntryAtIndex(index, customFood);
             fd.addFood(customFood);
             return "Entry successfully edited to " + customFood;

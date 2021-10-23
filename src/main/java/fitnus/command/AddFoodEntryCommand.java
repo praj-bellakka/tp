@@ -13,6 +13,7 @@ public class AddFoodEntryCommand extends Command {
     private final int calories;
     private final Food food;
     private final boolean isCustom;
+    private Food.FoodType type = null;
 
     public AddFoodEntryCommand(MealType mealType, Food food) {
         this.mealType = mealType;
@@ -21,19 +22,20 @@ public class AddFoodEntryCommand extends Command {
         this.calories = -1;
         this.isCustom = false;
     }
-    
-    public AddFoodEntryCommand(MealType mealType, String foodName, int calories) {
+
+    public AddFoodEntryCommand(MealType mealType, String foodName, int calories, Food.FoodType type) {
         this.mealType = mealType;
         this.foodName = foodName;
         this.calories = calories;
         this.food = null;
         this.isCustom = true;
+        this.type = type;
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
         if (isCustom) {
-            Food customFood = new Food(foodName, calories);
+            Food customFood = new Food(foodName, calories, type);
             ed.addEntry(mealType, customFood);
             fd.addFood(customFood);
             return "You have successfully added " + customFood;
