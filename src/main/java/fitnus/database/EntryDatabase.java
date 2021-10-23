@@ -139,7 +139,7 @@ public class EntryDatabase {
     }
 
     public EntryDatabase getPastDaysEntryDatabase(int days) {
-        sortDatabase();
+//        sortDatabase();
         ArrayList<Entry> totalEntries = getEntries();
         EntryDatabase pastDaysEntries = new EntryDatabase();
 
@@ -153,6 +153,7 @@ public class EntryDatabase {
             }
             datePointer = datePointer.minusDays(1);
         }
+        Collections.reverse(pastDaysEntries.entries);
         return pastDaysEntries;
     }
 

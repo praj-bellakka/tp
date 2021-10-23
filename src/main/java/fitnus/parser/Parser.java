@@ -1,27 +1,6 @@
 package fitnus.parser;
 
-import fitnus.command.Command;
-import fitnus.command.HelpCommand;
-import fitnus.command.EditFoodEntryCommand;
-import fitnus.command.DeleteFoodEntryCommand;
-import fitnus.command.ViewMonthSummaryCommand;
-import fitnus.command.ViewWeekSummaryCommand;
-import fitnus.command.AddFoodEntryCommand;
-import fitnus.command.ListFoodEntryCommand;
-import fitnus.command.FindEntryCommand;
-import fitnus.command.FindFoodCommand;
-import fitnus.command.GenerateCalorieGoalCommand;
-import fitnus.command.ListFoodDatabaseCommand;
-import fitnus.command.ListWeightProgressCommand;
-import fitnus.command.SetAgeCommand;
-import fitnus.command.SetCalorieGoalCommand;
-import fitnus.command.SetGenderCommand;
-import fitnus.command.SetHeightCommand;
-import fitnus.command.ViewEachCategoryCalorieCommand;
-import fitnus.command.SetWeightCommand;
-import fitnus.command.ExitCommand;
-import fitnus.command.ViewRemainingCalorieCommand;
-import fitnus.command.ViewSuggestionsCommand;
+import fitnus.command.*;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
@@ -404,7 +383,20 @@ public class Parser {
             if (input.equals(DESCRIPTOR_FOOD)) {
                 return new ListFoodDatabaseCommand();
             } else if (input.equals(DESCRIPTOR_INTAKE)) {
-                return new ListFoodEntryCommand();
+                return new ListFoodEntryAllCommand();
+            }
+        }
+
+        if (input.contains(DESCRIPTOR_INTAKE)) {
+            String timeFrame = input.substring(typeDescriptorIndex);
+
+            switch (timeFrame) {
+            case " /day":
+                return new ListFoodEntryDayCommand();
+            case " /week":
+                return new ListFoodEntryWeekCommand();
+            default:
+                throw new FitNusException("Invalid timeframe! (/day, /week)");
             }
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
