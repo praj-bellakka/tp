@@ -37,8 +37,8 @@ class SetGenderCommandTest {
         EntryDatabase ed = new EntryDatabase();
         FoodDatabase fd = new FoodDatabase();
         User us = new User(Gender.MALE, 1000);
-
-        Exception exception = assertThrows(FitNusException.class, () -> new SetGenderCommand("invalidInput"));
+        SetGenderCommand c = new SetGenderCommand("invalidInput");
+        Exception exception = assertThrows(FitNusException.class, () -> c.execute(ed, fd, us));
         assertEquals("Invalid input! Please input m for male or "
                 + "f for female when setting your gender.", exception.getMessage());
     }
