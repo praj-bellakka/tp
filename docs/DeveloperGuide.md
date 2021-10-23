@@ -1,28 +1,23 @@
+<h1>Developer Guide</h1>
 
-# Developer Guide
-
-## Content
-1. <a href="#Product-Scope">Product Scope</a>
-2. <a href="#quick-start">Quick Start</a>
-3. <a href="user-story"> User Story</a>
-4. <a href="#Architecture">Application Architecture </a>
-5. <a href="#Implementation">Implementation </a>
-6. <a href="#instruction-for-manual-testing">Instruction for manual testing</a>
-7. <a href="#NF-Requirement">Non-functional Requirement </a>
-## Acknowledgements
-
+<h2>Content </h2>
+<ol>
+<li><a href="#Product-Scope">Product Scope</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="user-story"> User Story</a></li>
+<li><a href="#Architecture">Application Architecture </a></li>
+<li><a href="#Implementation">Implementation </a></li>
+<li><a href="#instruction-for-manual-testing">Instruction for manual testing</a></li>
+<li><a href="#NF-Requirement">Non-functional Requirement </a></li>
+</ol>
+<h2> Acknowledgements </h2>
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 <h2 id="Product-Scope">Product scope</h2>
-
-### Target user profile
-
+<h3>Target user profile</h3>
 NUS Computer Engineering students reside in UTown going on diet.
-
-### Value proposition
-
+<h3>Value proposition</h3>
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
-
 <h2 id="quick-start">Quick Start</h2>
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest fitnus.jar from here (no link for now).
@@ -44,10 +39,6 @@ The entry point of the app is the `FitNUS` class, where the application is run a
 - `Storage`: For handling backend storage.
 - `Ui`: For displaying information to the user.
 - `User`: For handling all functionality regarding personalisation of user experience.
-
-
-
-
 
 
 <h2 id="#user-story"> User Stories</h2>
@@ -80,11 +71,11 @@ Given below is a quick overview of main components and how they interact with ea
 {TO BE ADDED HERE}
 
 
-## Glossary
+<h2> Glossary</h2>
 
-* *glossary item* - Definition
+*glossary item* - Definition
 
-## Add Food Entry Feature
+<h2>Add Food Entry Feature</h2>
 The add food entry mechanism is facilitated by <code>AddFoodEntryCommand</code>.
 It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code>
 and <code>FoodDatabase</code>.
@@ -96,154 +87,128 @@ Additionally, it implements the following operations:
 
 
 <h2 id="Implementation"> Implementation </h2>
-<br/>
 <ol>
-<li>
-<h3>Weight Tracker</h3>
-The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
-</li> 
+<li><h3>Weight Tracker</h3>
+The weight tracker exists as an ArrayList called <code>WeightProgressEntries</code> within the User class. The ArrayList contains objects of class <code>WeightProgressEntry</code>.</li> 
 
-<li>
-<h3>SetWeightCommand Component</h3>
-The entry point for setting or updating weight. The `execute` method in this object calls `updateWeightAndWeightTracker` method in the User object initialised in the main file in order to update the user's weight and weight progress.
-</li>
+<li><h3>SetWeightCommand Component</h3>
+The entry point for setting or updating weight. The <code>execute</code> method in this object calls <code>updateWeightAndWeightTracker</code> method in the User object initialised in the main file in order to update the user's weight and weight progress.</li>
 
-<li>
-<h3>Storage Component</h3>
-Weight progress entries are stored in a text file in the following format:
+<li><h3>Storage Component</h3>
+Weight progress entries are stored in a text file in the following format: <br/>
+<code>WEIGHT | DATE(YYYY-MM-DD)</code> Example: <code>100 | 2021-03-01</code><br/>
+The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the <code>saveFitNus</code> method.<br/>
+On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.</li>
 
-`WEIGHT | DATE(YYYY-MM-DD)`
-
-Example: `100 | 2021-03-01`
-
-The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.
-
-On startup, the storage file is  parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
-</li>
-
-<li>
-<h3>User Component</h3>
-
-How the User component works in the context of the weight tracker:
-1. When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
-2. In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
-3. If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
-4. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
-
+<li><h3>User Component</h3>
+<div>How the User component works in the context of the weight tracker: <br/>
+<ol>
+<li>When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.</li>
+<li>In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.</li>
+<li>If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.</li>
+<li>If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.</li>
+</ol></div>
 </li>
 
 <li>
 <h3>View Diet Summary</h3>
 The Summary class provides an overview of user's diet over the past week/month.
+<h4>command format</h4><code>summary /week</code> or <code>summary /month</code> <br/>
 
-***command format***
-`summary /week` or `summary /month`
+<code>Summary</code> class provides two methods <code>generateWeekSummaryReport()</code> and <code>generateMonthSummaryReport()</code> to give the user weekly/monthly report of their diets.<br/>
+<ul>
+<li> <code>generateWeekSummaryReport()</code> shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.</li>
+<li> <code>generateMonthSummaryReport()</code> shows average daily calorie intake, and the most/least frequently eaten food over this month.</li>
+</ul>
 
-***implementation***
-`Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
-- generateWeekSummaryReport() shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
-- generateMonthSummaryReport() shows average daily calorie intake, and the most/least frequently eaten food over this month.
+<h4>UML Sequence Diagram</h4>
+The following sequence diagram describes the operation of the <code>generateWeekSummary()</code>.<br/>
+<img src="diagrams/weekly-report.png"/>
 
-***UML Sequence Diagram***
-The following sequence diagram describes the operation of the `generateWeekSummary()` method.
-![UML Sequence Diagram for generateWeekSummaryReport()](diagrams/weekly%20report.png) <br/>
-
-The following sequence diagram describes the operation of the `generateMonthSummary()` method.
-![UML Sequence Diagram for generateMonthSummaryReport()](diagrams/monthly%20report.png) <br/>
-
+<br/>The following sequence diagram describes the operation of <code>generateMonthSummary()</code>.<br/>
+<img src="diagrams/monthly-report.png"/>
 </li>
 
 <li>
 <h3>Storage</h3>
 The Storage class reads and writes data to and from the text file.
 
-<h5>Storage format</h5>
-> **_NOTE:_** Every line in each text file represents one object / entry / item
+<h4>Storage format</h4>
+<div><strong>Every line in each text file represents one object / entry / item</strong></div>
+<ul>
+<li>
+FoodDatabase:<code>FOODNAME | CALORIE_VALUE</code> <br/>
+Example: <code>Nasi Lemak | 400</code> &nbsp; <code>Ramen | 600</code>
+</li>
 
-- `FoodDatabase`: FOODNAME | CALORIE_VALUE
+<li>
+EntryDatabase:<code>MEALTYPE | FOODNAME | CALORIE_VALUE | DATE</code> <br/>
+Example: <code>Dinner | Ramen | 500 | 2021-10-20</code> &nbsp; <code>Lunch | Fried rice | 600 | 2021-10-20</code>
+</li>
 
-Example:
-```
-Nasi Lemak | 400
-Ramen | 600
-```
-
-- `EntryDatabase`: MEALTYPE | FOODNAME | CALORIE_VALUE | DATE
-
-Example:
-```
-Dinner | Ramen | 500 | 2021-10-20
-Lunch | Fried rice | 600 | 2021-10-20
-```
-
-- `User`: CALORIE_GOAL | GENDER
-
-Example:
-```
-1000 | 0
-```
-
-- `User weight`: WEIGHT | DATE
-
-Example:
-```
-60.0 | 2021-07-20
-59.0 | 2021-08-20
-58.0 | 2021-09-20
-45.0 | 2021-10-21
-```
+<li>
+User:<code>CALORIE_GOAL | GENDER</code> <br/>
+Example: <code>1000 | 0</code> &nbsp;
+</li>
 
 
-<h5>Implementation<h5>
-#### 1. Saving to file
-`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert
-its data to String format. This String is then saved to the text file.
+<li>
+User weight:<code>WEIGHT | DATE</code> <br/>
+Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &nbsp; <code>58.0 | 2021-09-20</code> &nbsp; <code>45.0 | 2021-10-21</code>
+</li>
 
-For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()`
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is
-then written to the text file.
+</ul>
 
-#### 2. Loading from file 
-`Storage` makes use of the `BufferedReader` and `FileInputStream` provided  by `java.io` to access 
-the contents of the storage text files. This is then passed to the respective objects for preloading.
+<h4>Implementation</h4>
+<ol>
+<li>
+<div><strong>Saving to file</strong></div>
+<code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
+its data to String format. This String is then saved to the text file. <br/>
+For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
+method to obtain the String representation of all the data within the `FoodDatabase`. This String is then written to the text file.
+</li>
 
-For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file
-and passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates
-the ArrayList in `FoodDatabase`.
 
-### UML Sequence Diagram
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.
+<li>
+<div><strong>Loading from file </strong></div>
+<code>Storage</code> makes use of the <code>BufferedReader</code> and <code>FileInputStream</code> provided  by <code>java.io</code> to access 
+the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
 
-![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
----
+For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
+and passes the file contents to the <code>preLoadDatabase()</code> method in ,<code>FoodDatabase</code> which populates
+the ArrayList in <code>FoodDatabase</code>.
+</li>
 
+</ol>
+
+<h4>UML Sequence Diagram </h4>
+The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
+<img src="diagrams/StorageSequenceUML.PNG"/>
 </li>
 
 <li>
 <h3>Parser Component</h3>
+<div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
+It then returns a <code>Command</code> object that represents the type of command called through the input.</div>
 
-The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called.
-It then returns a `Command` object that represents the type of command called through the input.
+<ul>
+<li>determines the type of <code>Command</code> object and returns it.</li>
+<li>handles input exceptions and returns relevant <code>FitNusException</code> command.</li>
+</ul>
 
-The `Parser` component:
+<h4>Implementation</h4>
+<ul>
+<li><h5>Identifying type of method called</h5>
 
-- determines the type of `Command` object and returns it.
-- handles input exceptions and returns relevant `FitNusException` command.
-
-***Implementation***
-1. Identifying type of method called
-
-The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
-If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is 
+The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
+If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
 then compared with default list of commands to determine the type of method called using if-else statements.
-</li>
-</ol>
+</li></ul></li></ol>
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-
-
 
 <h2 id="NF-Requirement"> Non-Functional Requirements </h2>
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set.

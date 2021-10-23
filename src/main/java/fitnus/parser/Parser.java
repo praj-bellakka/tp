@@ -157,9 +157,9 @@ public class Parser {
         if (mealType.equals(MealType.UNDEFINED)) {
             //TODO: Add a print statement that tells user that food category has been auto added
             mealType = mealType.findMealTypeTiming();
-            foodName = input;
+            foodName = input.strip();
         } else {
-            foodName = input.substring(input.indexOf(SPACE_CHARACTER));
+            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
         }
 
         //step 2: search database if food exists
@@ -168,20 +168,17 @@ public class Parser {
         Ui newUi = new Ui();
         Ui.printMatchingFoods(tempFoodDb); //search database for match
         int userInputLoop;
-        int paramIndex = input.indexOf("/type");
-        String typeString = input.substring(paramIndex + 5).trim();
-        Food.FoodType type = parseFoodType(typeString);
 
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
             //TODO: Beautify the print statement
             System.out.println("Select the food you want by entering the number below. "
                     + "If the food doesn't exist, enter 0 to create a new custom food!");
-            return returnUserInput(mealType, foodName, tempFoodDb, newUi, true, type);
+            return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
         } else if (tempFoodDb.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
             System.out.println("The food you specified does not exist in the database!");
-            return returnUserInput(mealType, foodName, tempFoodDb, newUi, false, type);
+            return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
         }
         return null;
     }
@@ -201,7 +198,7 @@ public class Parser {
      * @return AddFoodEntryCommand Command object containing relevant details.
      */
     private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName, ArrayList<Food> tempFoodDb,
-                                                Ui newUi, boolean multipleEntries, Food.FoodType type) {
+                                                Ui newUi, boolean multipleEntries) {
         int userInput = 0;
         if (multipleEntries) {
             do {
@@ -219,13 +216,19 @@ public class Parser {
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
             } while (isLoopFlagOn);
+
+            Food.FoodType type = null;
+            do {
+                System.out.println("Enter food category (meal, snack, beverage, others):");
+                type = parseFoodType(newUi.readInput());
+            } while (type == null);
+
             return new AddFoodEntryCommand(mealType, foodName, userInput, type);
         }
-        return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1), type);
+        return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1));
     }
 
     public static Food.FoodType parseFoodType(String type) {
-        System.out.println(type);
         String typeString = type.toLowerCase(Locale.ROOT);
         switch (typeString) {
         case "snack":
@@ -234,8 +237,10 @@ public class Parser {
             return Food.FoodType.BEVERAGE;
         case "meal":
             return Food.FoodType.MEAL;
-        default:
+        case "others":
             return Food.FoodType.OTHERS;
+        default:
+            return null;
         }
     }
 
