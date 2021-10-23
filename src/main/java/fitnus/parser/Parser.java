@@ -168,9 +168,12 @@ public class Parser {
         Ui newUi = new Ui();
         Ui.printMatchingFoods(tempFoodDb); //search database for match
         int userInputLoop;
-        int paramIndex = input.indexOf("/type");
-        String typeString = input.substring(paramIndex + 5).trim();
-        Food.FoodType type = parseFoodType(typeString);
+        Food.FoodType type = Food.FoodType.OTHERS;
+        if (input.contains("/type")) {
+            int paramIndex = input.indexOf("/type");
+            String typeString = input.substring(paramIndex + 5).trim();
+            type = parseFoodType(typeString);
+        }
 
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
