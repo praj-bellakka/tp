@@ -98,7 +98,7 @@ Format: `find /food KEYWORD`
 
 Example of usage:
 
-`find /entry rice`
+`find /food rice`
 
 ### Search entry with keyword: `find`
 Finds all matching entries in the EntryDatabase based on the keyword you provided.
@@ -155,6 +155,19 @@ Example of usage:
 ## FAQ
 
 
-## Command Summary
+## Command summary
+
+Action | Command Format | Example
+--- | --- | --- | 
+Add | add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
+Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1`
+Remove entry | remove /entry INDEX_OF_FOOD | `remove /entry 2`
+Remove food | remove /food INDEX_OF_FOOD | `remove /food 12`
+Find food | find /food KEYWORD | `find /food rice`
+Find entry | find /entry KEYWORD | `find /entry rice`
+List food | list /food | `list /food`
+List daily entry | list /entry | `list /entry`
+List weight record | list /weight | `list /weight`
+Suggest food | suggest /FOODTYPE <br /> suggest /FOODTYPE /sort | `suggest /meal` <br /> `suggest /snack /sort`
 
 
