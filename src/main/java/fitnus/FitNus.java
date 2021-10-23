@@ -1,6 +1,8 @@
 package fitnus;
 
-import fitnus.command.*;
+import fitnus.command.Command;
+import fitnus.command.ExitCommand;
+import fitnus.command.HelpCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
@@ -55,7 +57,6 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-//                inputType = new ViewWeekSummaryCommand();
                 inputType = parser.parseCommandType(userInput, fd);
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
