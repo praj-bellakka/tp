@@ -16,7 +16,6 @@ class ViewRemainingCalorieCommandTest {
     void executeTest() {
         EntryDatabase ed = new EntryDatabase();
 
-
         ed.addEntry(MealType.DINNER, new Food("food1", 100, Food.FoodType.MEAL));
         ed.addEntry(MealType.DINNER, new Food("food2", 200, Food.FoodType.BEVERAGE));
         ed.addEntry(MealType.DINNER, new Food("food3", 300, Food.FoodType.MEAL));
