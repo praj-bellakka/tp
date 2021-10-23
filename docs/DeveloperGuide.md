@@ -199,10 +199,10 @@ Example:
 ```
 
 
-<h5>Implementation<h5>
+<h5>Implementation</h5>
 <ol>
 <li>
-<div><strong>Saving to file</strong></div>
+<h6><strong><i>Note: Saving to file</i></strong></h6>
 <code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
 its data to String format. This String is then saved to the text file. <br/>
 For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
@@ -227,7 +227,6 @@ the ArrayList in <code>FoodDatabase</code>.
 
 <h5>UML Sequence Diagram </h5>
 The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.
-
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
 
 </li>
