@@ -197,7 +197,7 @@ Example:
 <h5>Implementation</h5>
 <ol>
 <li>
-<h6><strong><i>Note: Saving to file</i></strong></h6>
+<div><strong>Saving to file</strong></div>
 <code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
 its data to String format. This String is then saved to the text file. <br/>
 For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
@@ -221,28 +221,31 @@ the ArrayList in <code>FoodDatabase</code>.
 
 
 <h5>UML Sequence Diagram </h5>
-The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.
+The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
+
 ![UML Sequence Diagram for Storage - saving data](diagrams/StorageSequenceUML.PNG)
 
 </li>
 
 <li>
 <h3>Parser Component</h3>
+<div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
+It then returns a <code>Command</code> object that represents the type of command called through the input.</div>
 
-The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called.
-It then returns a `Command` object that represents the type of command called through the input.
+<h5>The <code>Parser</code> component</h5>:
+<ul>
+<li>determines the type of <code>Command</code> object and returns it.</li>
+<li>handles input exceptions and returns relevant <code>FitNusException</code> command.li>li
+</ul>
 
-The `Parser` component:
+<h5>Implementation</h5>
+<ul>
+<li><h6>Identifying type of method called</h6>
 
-- determines the type of `Command` object and returns it.
-- handles input exceptions and returns relevant `FitNusException` command.
-
-***Implementation***
-1. Identifying type of method called
-
-The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
-If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is 
-then compared with default list of commands to determine the type of method called using if-else statements.
+The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
+If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
+then compared with default list of commands to determine the type of method called using if-else statements. </li>
+</ul>
 </li>
 
 </ol>
