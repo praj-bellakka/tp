@@ -25,8 +25,10 @@ import fitnus.command.SetWeightCommand;
 import fitnus.command.ExitCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
 import fitnus.command.ViewSuggestionsCommand;
+import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
 import fitnus.utility.Ui;
@@ -86,7 +88,7 @@ public class Parser {
 
     private static boolean isLoopFlagOn = true;
 
-    public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
+    public Command parseCommandType(String input, FoodDatabase fd, EntryDatabase ed) throws FitNusException {
         String[] splitString = input.strip().split(SPACE_CHARACTER);
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
@@ -117,7 +119,7 @@ public class Parser {
             }
 
             if (inputCommandType.equals(COMMAND_EDIT)) { //edit type command
-                return parseEditTypeCommand(subString, fd);
+                return parseEditTypeCommand(subString, fd, ed);
             }
 
             if (inputCommandType.equals(COMMAND_CALORIE)) { //calorie type command
@@ -515,9 +517,16 @@ public class Parser {
         throw new FitNusException("That is an invalid summary timeframe (/week or /month)");
     }
 
-    private Command parseEditTypeCommand(String input, FoodDatabase fd) throws FitNusException {
+    private Command parseEditTypeCommand(String input, FoodDatabase fd, EntryDatabase ed) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(SPACE_CHARACTER);
         int entryIndex = Integer.parseInt(input.substring(0, typeDescriptorIndex));
+        int totalNumEntries = ed.getEntries().size();
+
+        // Test for index validity
+        if (entryIndex <= 0 || entryIndex > totalNumEntries) {
+            throw new FitNusException("Please input a valid index!");
+        }
+
         String foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
 
         //step 2: search database if food exists
