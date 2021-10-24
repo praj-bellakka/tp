@@ -2,6 +2,7 @@ package fitnus.parser;
 
 import fitnus.command.*;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
@@ -64,7 +65,7 @@ public class Parser {
 
     private static boolean isLoopFlagOn = true;
 
-    public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
+    public Command parseCommandType(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
         String[] splitString = input.strip().split(SPACE_CHARACTER);
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
@@ -87,7 +88,7 @@ public class Parser {
             String inputCommandType = input.substring(0, spaceIndex);
             String subString = input.substring(spaceIndex).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand(subString, fd);
+                return parseAddTypeCommand(subString, fd, md);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
@@ -150,7 +151,7 @@ public class Parser {
      * @return Command object
      * @throws FitNusException Thrown when foodname is empty.
      */
-    private Command parseAddTypeCommand(String input, FoodDatabase fd) throws FitNusException {
+    private Command parseAddTypeCommand(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
         //step 1: find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
@@ -159,6 +160,12 @@ public class Parser {
         } else {
             mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
         }
+
+        //check if it is adding meal plan
+        if (mealTypeString.equals(DESCRIPTOR_MEALPLAN)) {
+            return parseAddMealPlanFoodCommand(md, input);
+        }
+
         MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
 
@@ -190,6 +197,25 @@ public class Parser {
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
         }
         return null;
+    }
+
+    private AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input) throws FitNusException {
+        int spaceIndex = input.indexOf(SPACE_CHARACTER);
+        if (spaceIndex == -1) {
+            throw new FitNusException("Invalid format");
+        }
+        String remainingString = input.substring(spaceIndex).strip();
+        int spaceRemainingIndex = remainingString.indexOf(SPACE_CHARACTER);
+        if (spaceRemainingIndex == -1) {
+            throw new FitNusException("Invalid format");
+        }
+        MealType mealType = parseMealType(remainingString.substring(0,spaceRemainingIndex), false);
+        try {
+            int index = Integer.parseInt(remainingString.substring(spaceRemainingIndex).strip());
+            return new AddMealPlanEntryCommand(md.getMealAtIndex(index), mealType);
+        } catch (NumberFormatException e) {
+            throw new FitNusException("Integer index could not be parsed. Check format again!");
+        }
     }
 
     private CreateMealPlanCommand parseCreateCommand(String input, FoodDatabase fd) throws FitNusException {
