@@ -157,7 +157,6 @@ public class FitNus {
                 Command inputType;
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput, fd, ed);
-                //inputType = new SetHeightCommand(18);
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
                 saveFitNus(fd, ed, user);
