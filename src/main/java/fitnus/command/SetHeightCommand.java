@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
@@ -15,7 +16,7 @@ public class SetHeightCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         if (height < MINIMUM_HEIGHT) {
             throw new FitNusException("Please enter a height of " + MINIMUM_HEIGHT
                     + " cm and above!");

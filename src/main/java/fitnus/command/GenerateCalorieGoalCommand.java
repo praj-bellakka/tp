@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Gender;
 import fitnus.utility.User;
@@ -19,7 +20,7 @@ public class GenerateCalorieGoalCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         if (weeklyChange <= 1) {
             if ((changeType == GAIN_STRING || changeType == LOSE_STRING)) {
                 int newGoal = us.generateCalorieGoal(weeklyChange, changeType);
