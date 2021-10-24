@@ -39,18 +39,18 @@ public class FitNus {
                 Ui ui = new Ui();
 
                 ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
-                initialiseGender(ui, ed, fd, user);
+                initialiseGender(ui, ed, fd, md, user);
                 ui.println("Please enter your age in years:");
-                initialiseAge(ui, ed, fd, user);
+                initialiseAge(ui, ed, fd, md, user);
                 ui.println("Please enter your height in cm:");
-                initialiseHeight(ui, ed, fd, user);
+                initialiseHeight(ui, ed, fd, md, user);
                 ui.println("Please enter your weight in kg:");
-                initialiseWeight(ui, ed, fd, user);
+                initialiseWeight(ui, ed, fd, md, user);
                 ui.println("Generated your daily calorie needs accordingly.");
                 int calorieGoal = user.generateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
                 ui.println("Your daily calorie need is " + calorieGoal + " kcal.");
-                saveFitNus(fd, ed, user);
+                saveFitNus(fd, ed, md, user);
             }
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
@@ -157,7 +157,7 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput, fd);
+                inputType = parser.parseCommandType(userInput, fd, md);
                 //inputType = new SetHeightCommand(18);
                 Ui.println(inputType.execute(ed, fd, md, user));
                 ed.sortDatabase();
