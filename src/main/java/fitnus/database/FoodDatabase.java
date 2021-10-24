@@ -32,6 +32,14 @@ public class FoodDatabase {
         databaseFoods.add(food);
     }
 
+    public void deleteFood(int index) throws FitNusException {
+        try {
+            this.databaseFoods.remove(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
+    }
+
     // Index here starts from 1
     public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
         return databaseFoods.get(index - 1);
