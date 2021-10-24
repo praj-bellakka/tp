@@ -68,7 +68,7 @@ Format: `add [/MEALTYPE] FOOD_NAME`
   * `lunch` - to denote lunch
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
-* If several matches 
+* If several matches (TODO THIS PART)
 
 > **⚠️ Notes about omitting `MEALTYPE`**
 >
