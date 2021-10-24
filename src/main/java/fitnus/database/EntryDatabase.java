@@ -153,6 +153,7 @@ public class EntryDatabase {
             }
             datePointer = datePointer.minusDays(1);
         }
+        Collections.reverse(pastDaysEntries.entries);
         return pastDaysEntries;
     }
 
@@ -172,8 +173,12 @@ public class EntryDatabase {
         return pastMonthEntries;
     }
 
-    public void editEntryAtIndex(int index, Food food) {
-        entries.get(index - 1).setFood(food);
+    public void editEntryAtIndex(int index, Food food) throws FitNusException {
+        try {
+            entries.get(index - 1).setFood(food);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Invalid index!");
+        }
 
     }
 }

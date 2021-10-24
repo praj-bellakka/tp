@@ -14,7 +14,7 @@ Here is the list of sections we will be covering in this User Guide.
     - Adding food tracker entry: `add`
     - Editing existing food tracker entry: `edit`
     - Deleting food tracker entry: `remove /entry`
-    - Listing tracker entries for the day: `list /entry`
+    - Listing tracker entries: `list /entry`
     - Searching for tracker entries with keyword: `find /entry`
   - Food Database
     - Deleting food from food database: `remove /food`
@@ -59,7 +59,7 @@ Here is the list of sections we will be covering in this User Guide.
 ### Food Tracker
 
 #### Adding food tracker entry: `add`
-Adds an entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
+Adds a food entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -82,16 +82,26 @@ Examples of usage:
 
 `add /bfast chocolate rolls`
 
-- Adds a tracker entry of type Breakfast and 
+- Adds a tracker entry, "chocolate rolls", with type Breakfast,
 
-`add mushroom soup`
+<p>&nbsp;</p>
 
 #### Editing existing food tracker entry: `edit`
-Edits an existing food tracker entry's food information. FitNUS will search for FOOD_NAME in the food database and update the chosen entry's food description and calorie information accordingly. If an exact match to FOOD_NAME was not found in the food database, (???)
+Edits an existing food entry's food information. FitNUS will search for FOOD_NAME in the food database 
+and update the specified entry's food details accordingly.
 
-Format: `edit INDEX_OF_FOOD FOOD_NAME`
+Format: `edit INDEX_OF_ENTRY FOOD_NAME`
+> **⚠️ Notes about `INDEX_OF_ENTRY`**
+>
+> INDEX_OF_ENTRY refers to the index of the entry shown when command `list /entry` is used.
+
 
 Example of usage:
+`edit 2 fish n chips`
+
+- Edits whatever food is in index 2 to "fish n chips"
+
+<p>&nbsp;</p>
 
 #### Deleting food tracker entry: `remove`
 Deletes a food entry from the food tracker.
@@ -102,14 +112,26 @@ Example of usage:
 
 `remove /entry 2`
 
-#### Listing tracker entries for the day: `list`
-Lists out all foods entered for the day.
+<p>&nbsp;</p>
 
-Format: `list /entry`
+#### Listing tracker entries: `list`
+Lists out all foods entered for a given timeframe.
 
-Example of usage:
+Format: `list /entry [/TIMEFRAME]`
+* The `TIMEFRAME` can be of the following 2 types:
+  * `day` - to show entries in the current day
+  * `week` - to show entries in the past week
 
-`list /entry`
+> **⚠️ Notes about omitting `TIMEFRAME`**
+>
+> Command will list out **ALL** available food entries.
+
+Example of usage: 
+
+`list /entry /week`
+- lists out all food entries logged in for the past week.
+
+<p>&nbsp;</p>
 
 #### Searching for tracker entries with keyword: `find`
 Finds all matching entries in the EntryDatabase based on the keyword you provided.
@@ -118,9 +140,13 @@ Format: `find /entry KEYWORD`
 
 Example of usage:
 
-`find /food rice`
+`find /entry rice`
 
-###Food Database
+- Prints out all food entries that contains "rice".
+
+<p>&nbsp;</p>
+
+### Food Database
 
 #### Deleting food from food database: `remove`
 Deletes food from the food database.
@@ -131,6 +157,10 @@ Example of usage:
 
 `remove /food 12`
 
+- Removes the 12th food in the list of preset foods.
+
+<p>&nbsp;</p>
+
 #### Searching for foods with keyword: `find`
 Finds all matching food in the FoodDatabase based on the keyword you provided.
 
@@ -138,7 +168,11 @@ Format: `find /food KEYWORD`
 
 Example of usage:
 
-`find /entry rice`
+`find /food rice`
+
+- Prints out all preset foods that contains "rice".
+
+<p>&nbsp;</p>
 
 #### Listing foods in food database: `list`
 Lists out all foods in the database and their respective calories.
@@ -149,16 +183,22 @@ Example of usage:
 
 `list /food`
 
+<p>&nbsp;</p>
+
+
 ### Weight Tracker
 
 #### Recording weight: `weight /set`
-Lists out all past records of weight entered by the user.
+Updates the user's current weight as well as their weight record for the day in the weight tracker.
 
-Format: `list /weight`
+Format: `weight /set WEIGHT`
 
 Example of usage:
 
-`list /weight`
+`weight /set 55.6`
+
+<p>&nbsp;</p>
+
 
 #### Listing weight records: `list`
 Lists out all past records of weight entered by the user.
@@ -169,32 +209,105 @@ Example of usage:
 
 `list /weight`
 
+<p>&nbsp;</p>
+
+### Personalisation
+
+####  Setting gender: `gender /set`
+Sets the user's gender to either Male or Female.
+
+Format: `gender /set GENDER_SYMBOL`
+
+Example of usage:
+
+`gender /set m`
+
+<p>&nbsp;</p>
+
+
+####  Setting height: `height /set`
+Sets the user's height in centimeters.
+
+Format: `height /set HEIGHT`
+
+Example of usage:
+
+`height /set 180`
+
+<p>&nbsp;</p>
+
+
+####  Setting age: `age /set`
+Sets the user's age in years.
+
+Format: `age /set AGE`
+
+Example of usage:
+
+`age /set 18`
+
+<p>&nbsp;</p>
+
+####  Setting calorie goal: `calorie /set`
+Sets the user's calorie goal in kcal.
+
+Format: `calorie /set CALORIE_GOAL`
+
+Example of usage:
+
+`calorie /set 2000`
+
+<p>&nbsp;</p>
+
+####  Generate and set calorie goal: `calorie /generate`
+Generates and sets a calorie goal based on the user's target weight loss/gain per week, age, height, weight and gender.
+
+Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
+
+Example of usage:
+
+`calorie /generate /gain 0.5`
+
+<p>&nbsp;</p>
+
+### Other
+
 #### Viewing Help: `help`
 Lists out available commands and additional information regarding each command.
 
 Format: `help`
 
+<p>&nbsp;</p>
+
 #### View statistics: `summary`
-FitNUS supports two kinds of diet report, which are weekly report and monthly report.
+FitNUS supports two kinds of diet reports:
+
+
 
 ##### Weekly report
-Weekly report gives you an overview of your diet over the past 7 days, which includes daily calorie intake graph, average calorie intake,
-most and least frequently eaten foods.
+Weekly report gives you an overview of your diet over the past 7 days, which includes:
+- Graph of daily calorie intake
+- Average calorie intake
+- Most frequently eaten foods
+- Least frequently eaten foods
 
 Format: `summary /week`
+
 ##### Monthly report
-Monthly report gives you an overview of your diet over this month, which includes average calorie intake, most and least frequently eaten foods.
+Monthly report gives you an overview of your diet over this month, which includes:
+- Average calorie intake
+- Most frequently eaten foods
+- Least frequently eaten foods
 
 Format: `summary /month`
 
+<p>&nbsp;</p>
 
-
-### Suggest food based on food type and calorie goal: `suggest`
+#### Suggest food based on food type and calorie goal: `suggest`
 Filters food items in the database based on food type (meal, snack, beverage, others) 
 that if consumed, will not exceed the daily calorie goal set by the user.
 
-
-Format: `suggest /FOODTYPE`
+Format: `suggest /FOODTYPE [/sort]`
 
 > **_OPTIONAL:_** You can sort the suggestions by calorie value by simply appending "/sort"
 > to the command above e.g. suggest /FOODTYPE /sort
@@ -202,6 +315,7 @@ Format: `suggest /FOODTYPE`
 Example of usage:
 
 `suggest /meal`
+
 `suggest /snack /sort`
 
 
@@ -213,13 +327,15 @@ Example of usage:
 Action | Command Format | Example
 --- | --- | --- | 
 Add | add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
-Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1`
+Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1 burger`
 Remove entry | remove /entry INDEX_OF_FOOD | `remove /entry 2`
 Remove food | remove /food INDEX_OF_FOOD | `remove /food 12`
 Find food | find /food KEYWORD | `find /food rice`
 Find entry | find /entry KEYWORD | `find /entry rice`
 List food | list /food | `list /food`
-List daily entry | list /entry | `list /entry`
+List all entries | list /entry | `list /entry`
+List daily entry | list /entry | `list /entry /day`
+List weekly entry | list /entry | `list /entry /week`
 List weight record | list /weight | `list /weight`
 View weekly statistics | summary /week | `summary /week`
 View monthly statistics | summary /month | `summary /month`
