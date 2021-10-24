@@ -3,7 +3,8 @@ package fitnus.parser;
 import fitnus.command.Command;
 import fitnus.command.HelpCommand;
 import fitnus.command.EditFoodEntryCommand;
-import fitnus.command.DeleteFoodEntryCommand;
+import fitnus.command.DeleteFoodCommand;
+import fitnus.command.DeleteEntryCommand;
 import fitnus.command.ViewMonthSummaryCommand;
 import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.command.AddFoodEntryCommand;
@@ -392,9 +393,16 @@ public class Parser {
 
     private Command parseRemoveTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
+        String removeType = input.substring(0, typeDescriptorIndex);
         try {
-            return new DeleteFoodEntryCommand(Integer.parseInt(input
-                    .substring(typeDescriptorIndex).trim()));
+            if (removeType.equals(DESCRIPTOR_FOOD)) {
+                return new DeleteFoodCommand(Integer.parseInt(input
+                        .substring(typeDescriptorIndex).trim()));
+            } else if (removeType.equals(DESCRIPTOR_INTAKE)) {
+                return new DeleteEntryCommand(Integer.parseInt(input
+                        .substring(typeDescriptorIndex).trim()));
+            }
+            throw new FitNusException("Invalid remove command!");
         } catch (NumberFormatException e) {
             throw new FitNusException("Input value is not an integer!");
         }
