@@ -1,6 +1,29 @@
 package fitnus.parser;
 
-import fitnus.command.*;
+import fitnus.command.AddFoodEntryCommand;
+import fitnus.command.Command;
+import fitnus.command.DeleteEntryCommand;
+import fitnus.command.DeleteFoodCommand;
+import fitnus.command.ExitCommand;
+import fitnus.command.FindEntryCommand;
+import fitnus.command.FindFoodCommand;
+import fitnus.command.GenerateCalorieGoalCommand;
+import fitnus.command.HelpCommand;
+import fitnus.command.EditFoodEntryCommand;
+import fitnus.command.ListFoodDatabaseCommand;
+import fitnus.command.ListFoodEntryAllCommand;
+import fitnus.command.ListFoodEntryDayCommand;
+import fitnus.command.ListFoodEntryWeekCommand;
+import fitnus.command.ListWeightProgressCommand;
+import fitnus.command.SetAgeCommand;
+import fitnus.command.SetCalorieGoalCommand;
+import fitnus.command.SetGenderCommand;
+import fitnus.command.SetHeightCommand;
+import fitnus.command.SetWeightCommand;
+import fitnus.command.ViewMonthSummaryCommand;
+import fitnus.command.ViewRemainingCalorieCommand;
+import fitnus.command.ViewSuggestionsCommand;
+import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
@@ -155,8 +178,8 @@ public class Parser {
 
     /**
      * Function handles adding food command,by taking in an input string and the food database.
-     * The function finds the MealType of the food using {@link #parseMealType(String, boolean)}.If no meal type was added by
-     * the user, it will be automatically allocated based on time of day.
+     * The function finds the MealType of the food using {@link #parseMealType(String, boolean)}.
+     * If no meal type was added by the user, it will be automatically allocated based on time of day.
      * The food is then searched thorugh the database using FoodDatabase. If food match exists, user will be prompted to
      * either select from an existing foodlist by entering its index, or create a custom food by entering <0>.
      * If no food match exists, the user will be prompted to enter the food's calorie between 0 to 5000.
@@ -452,9 +475,9 @@ public class Parser {
             int goalGenerationInputsIndex = input.indexOf(DESCRIPTOR_GENERATE) + DESCRIPTOR_GENERATE.length();
             String goalGenerationInputsString = input.substring(goalGenerationInputsIndex);
             String[] goalGenerationInputs = goalGenerationInputsString.split("\\s+");
-            String weightChangeInput = goalGenerationInputs[1];
+            String weightChangeInput = goalGenerationInputs[1].strip();
             String weightChangeType;
-            if(weightChangeInput.equals(GAIN)) {
+            if (weightChangeInput.equals(GAIN)) {
                 weightChangeType = "gain";
             } else if (weightChangeInput.equals(LOSE)) {
                 weightChangeType = "lose";
@@ -462,7 +485,7 @@ public class Parser {
                 throw new FitNusException("Invalid change type! "
                         + "Please enter /gain or /lose as the change type parameter.");
             }
-            float weightChangeAmount = Float.parseFloat(goalGenerationInputs[2]);
+            float weightChangeAmount = Float.parseFloat(goalGenerationInputs[2].strip());
 
             return new GenerateCalorieGoalCommand(weightChangeAmount, weightChangeType);
         }
