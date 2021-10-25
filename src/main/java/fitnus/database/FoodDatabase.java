@@ -95,7 +95,7 @@ public class FoodDatabase {
         System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
     }
 
-    public ArrayList<Food> findFood(String keyword) throws FitNusException {
+    public ArrayList<Food> findFoods(String keyword) throws FitNusException {
         if (keyword.equals("")) {
             throw new FitNusException("Please provide a valid keyword");
         }

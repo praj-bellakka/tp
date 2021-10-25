@@ -235,8 +235,8 @@ class EntryDatabaseTest {
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         ed.preloadDatabase(reader);
-        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal) Category: MEAL"
-                + System.lineSeparator() + " 2.[2021-10-12] Lunch: food2 (200 Kcal) Category: MEAL"
+        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[2021-10-12] Lunch: food2 (200 Kcal) Type: MEAL"
                 + System.lineSeparator(), ed.listEntries());
     }
 }
