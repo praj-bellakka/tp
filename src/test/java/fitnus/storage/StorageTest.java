@@ -9,7 +9,15 @@ import fitnus.tracker.MealType;
 import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -147,8 +155,8 @@ class StorageTest {
         saveData(FILE_PATH_ENTRY_DATA_SAVE.toString(), data);
         BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_ENTRY_DATA_SAVE.toString()));
 
-        assertEquals("Dinner | Prata | 100 | 2021-10-25 | MEALDinner " +
-                        "| Chicken Rice | 325 | 2021-10-25 | SNACK",
+        assertEquals("Dinner | Prata | 100 | 2021-10-25 | MEALDinner "
+                        + "| Chicken Rice | 325 | 2021-10-25 | SNACK",
                 reader1.lines().collect(Collectors.joining()));
     }
 
