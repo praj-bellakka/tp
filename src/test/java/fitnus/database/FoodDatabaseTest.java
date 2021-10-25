@@ -1,6 +1,5 @@
 package fitnus.database;
 
-import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
 import org.junit.jupiter.api.Test;
@@ -84,7 +83,7 @@ class FoodDatabaseTest {
         String initialString = "food1 | 100 | MEAL" + System.lineSeparator() + "food2 | 200 | MEAL";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        fd.preLoadDatabase(reader);
+        fd.preloadDatabase(reader);
         assertEquals(" 1.food1 (100 Kcal) Category: MEAL" + System.lineSeparator()
                 + " 2.food2 (200 Kcal) Category: MEAL" + System.lineSeparator(), fd.listFoods());
     }

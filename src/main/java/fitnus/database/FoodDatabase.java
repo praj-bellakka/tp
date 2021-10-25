@@ -66,7 +66,7 @@ public class FoodDatabase {
         return lines.toString();
     }
 
-    public void preLoadDatabase(BufferedReader reader) throws IOException, FitNusException {
+    public void preloadDatabase(BufferedReader reader) throws IOException, FitNusException {
         int preloadFoodCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {

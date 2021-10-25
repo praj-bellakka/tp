@@ -23,8 +23,13 @@ import java.util.logging.Logger;
 
 public class FitNus {
     private static final Logger logger = Logger.getLogger("FitNus");
+    private final FoodDatabase fd;
+    private final EntryDatabase ed;
+    private final User user;
+    private final Ui ui;
+    private final Parser parser;
 
-    private static void initialiseFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
+    private void initialiseFitNus() {
         // Load From Storage
         try {
             Storage.createDirectoryAndFiles();
@@ -38,18 +43,18 @@ public class FitNus {
                 Ui ui = new Ui();
 
                 ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
-                initialiseGender(ui, ed, fd, user);
+                initialiseGender();
                 ui.println("Please enter your age in years:");
-                initialiseAge(ui, ed, fd, user);
+                initialiseAge();
                 ui.println("Please enter your height in cm:");
-                initialiseHeight(ui, ed, fd, user);
+                initialiseHeight();
                 ui.println("Please enter your weight in kg:");
-                initialiseWeight(ui, ed, fd, user);
+                initialiseWeight();
                 ui.println("Generated your daily calorie needs accordingly.");
                 int calorieGoal = user.generateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
                 ui.println("Your daily calorie need is " + calorieGoal + " kcal.");
-                saveFitNus(fd, ed, user);
+                saveFitNus();
             }
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
@@ -60,7 +65,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private void initialiseGender() {
         boolean genderInitialised = false;
         while (genderInitialised == false) {
             try {
@@ -75,7 +80,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseAge(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private void initialiseAge() {
         boolean ageInitialised = false;
         while (ageInitialised == false) {
             try {
@@ -95,7 +100,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseHeight(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private void initialiseHeight() {
         boolean heightInitialised = false;
         while (heightInitialised == false) {
             try {
@@ -115,7 +120,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseWeight(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private void initialiseWeight() {
         boolean weightInitialised = false;
         while (weightInitialised == false) {
             try {
@@ -135,7 +140,7 @@ public class FitNus {
         }
     }
 
-    private static void saveFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
+    private void saveFitNus() {
         try {
             Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(fd);
@@ -148,8 +153,7 @@ public class FitNus {
         }
     }
 
-    private static void run(Ui ui, Parser parser, FoodDatabase fd, EntryDatabase ed,
-                            User user) {
+    private void run() {
         Ui.println(new HelpCommand().execute(ed, fd, user));
         while (true) {
             try {
@@ -159,7 +163,7 @@ public class FitNus {
                 inputType = parser.parseCommandType(userInput, fd, ed);
                 Ui.println(inputType.execute(ed, fd, user));
                 ed.sortDatabase();
-                saveFitNus(fd, ed, user);
+                saveFitNus();
                 if (inputType instanceof ExitCommand) {
                     break;
                 }
@@ -169,7 +173,7 @@ public class FitNus {
         }
     }
 
-    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, User user) {
+    public void printPreloadedData(FoodDatabase fd, EntryDatabase ed, User user) {
         Ui.println("Food database:" + System.lineSeparator()
                 + fd.listFoods());
         Ui.println("Entry database:" + System.lineSeparator()
@@ -178,19 +182,20 @@ public class FitNus {
                 + user.listUserData());
     }
 
-    public static void main(String[] args) {
-        User user = new User(Gender.MALE, 1000);
-        FoodDatabase fd = new FoodDatabase();
-        EntryDatabase ed = new EntryDatabase();
+    private FitNus() {
+        fd = new FoodDatabase();
+        ed = new EntryDatabase();
+        user = new User(Gender.MALE, 1000);
+        ui = new Ui();
+        parser = new Parser();
 
         // Init
         Ui.printWelcomeMessage();
-        initialiseFitNus(fd, ed, user);
+        initialiseFitNus();
         printPreloadedData(fd, ed, user);
+    }
 
-        // Run
-        Ui ui = new Ui();
-        Parser parser = new Parser();
-        run(ui, parser, fd, ed, user);
+    public static void main(String[] args) {
+        new FitNus().run();
     }
 }

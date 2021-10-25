@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class FoodDatabase {
+- databaseFoods:ArrayList<Food>
++ addFood(Food):void
++ addFood(String, Integer, FoodType):void
++ convertDatabaseToString():String
++ deleteFood(int):void
++ findFood(String): ArrayList<Food>
++ findSuggestions(FoodType, int, boolean): ArrayList<Food>
++ getFoodAtIndex(int):Food
++ listFoods():String
++ preloadDatabase(BufferedReader):void
+}
+
+
+@enduml
