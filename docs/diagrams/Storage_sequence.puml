@@ -15,6 +15,9 @@ return name
 ":FoodDatabase" -> ":Food" : getCalories
 activate ":Food"
 return calories
+":FoodDatabase" -> ":Food" : getType
+activate ":Food"
+return type
 end
 return String representation
 "<<class>>\n Storage" -> "<<class>>\n Storage" : saveData

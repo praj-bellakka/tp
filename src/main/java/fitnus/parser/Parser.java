@@ -19,10 +19,8 @@ import fitnus.command.ListFoodEntryWeekCommand;
 import fitnus.command.ListWeightProgressCommand;
 import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
-import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 
-import fitnus.command.SetGenderCommand;
 import fitnus.command.SetHeightCommand;
 import fitnus.command.SetWeightCommand;
 import fitnus.command.ViewMonthSummaryCommand;
@@ -231,7 +229,7 @@ public class Parser {
         }
 
         //step 2: search database if food exists
-        ArrayList<Food> tempFoodDb = fd.findFood(foodName);
+        ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
         Ui.printMatchingFoods(tempFoodDb); //search database for match
@@ -692,7 +690,7 @@ public class Parser {
         String foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
 
         //step 2: search database if food exists
-        ArrayList<Food> tempFoodDb = fd.findFood(foodName);
+        ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
         Ui.printMatchingFoods(tempFoodDb); //search database for match

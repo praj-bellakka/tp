@@ -18,7 +18,7 @@ public class FindFoodCommand extends Command {
     }
 
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        ArrayList<Food> matchingFoods = fd.findFood(keyword);
+        ArrayList<Food> matchingFoods = fd.findFoods(keyword);
         Ui.printMatchingFoods(matchingFoods);
         return "";
     }
