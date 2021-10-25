@@ -77,7 +77,7 @@ public class FitNus {
                 String requiredInput = ui.readInput().strip();
                 String commandString = commandStringFront + requiredInput;
                 //ui.println(commandString);
-                Command c = parser.parseCommandType(commandString, fd, ed);
+                Command c = parser.parseCommandType(commandString, fd, ed, md);
                 Ui.println(c.execute(ed, fd, user));
                 attributeInitialised = true;
             } catch (FitNusException e) {
