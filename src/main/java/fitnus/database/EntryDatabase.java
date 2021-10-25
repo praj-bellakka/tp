@@ -74,7 +74,7 @@ public class EntryDatabase {
         return lines.toString();
     }
 
-    public void preLoadDatabase(BufferedReader reader) throws IOException {
+    public void preloadDatabase(BufferedReader reader) throws IOException {
         int preloadEntryCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {

@@ -7,10 +7,10 @@ import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
-public class DeleteFoodEntryCommand extends Command {
+public class DeleteEntryCommand extends Command {
     private final int index;
 
-    public DeleteFoodEntryCommand(int index) {
+    public DeleteEntryCommand(int index) {
         this.index = index;
     }
 
