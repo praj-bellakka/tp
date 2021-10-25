@@ -137,8 +137,8 @@ class StorageTest {
         database.addFood("rice", 900, Food.FoodType.SNACK);
 
         String data = database.convertDatabaseToString();
-        saveData(FILE_PATH_ENTRY_DATA_SAVE.toString(), data);
-        BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_ENTRY_DATA_SAVE.toString()));
+        saveData(FILE_PATH_FOOD_DATA_SAVE.toString(), data);
+        BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_FOOD_DATA_SAVE.toString()));
 
         assertEquals("ramen | 400 | MEALrice | 900 | SNACK",
                 reader1.lines().collect(Collectors.joining()));
