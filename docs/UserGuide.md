@@ -68,7 +68,6 @@ Format: `add [/MEALTYPE] FOOD_NAME`
   * `lunch` - to denote lunch
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
-* If several matches (TODO THIS PART)
 
 > **⚠️ Notes about omitting `MEALTYPE`**
 >
@@ -78,11 +77,27 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 >- Dinner: 6pm to 9pm
 >- Snack: Remaining time
 
-Examples of usage:
+* If there are any pre-set food that matches `FOOD_NAME`:
+  * You can do one of the following:
+    * Select which food you would like to add
+    * Create your own custom food
 
-`add /bfast chocolate rolls`
 
-- Adds a tracker entry, "chocolate rolls", with type Breakfast,
+
+Examples of usage: `add /bfast chocolate`
+
+Sample output:
+```
+Here are the matching foods in your database:
+ 1.chocolate bar (125 Kcal) Type: SNACK
+ 2.chocolate cake (300 Kcal) Type: SNACK
+ 3.chocolate croissant (120 Kcal) Type: MEAL
+ 4.chocolate rolls (110 Kcal) Type: SNACK
+Select the food you want by entering the number below. If the food doesn't exist, enter 0 to create a new custom food!
+User Input: 4
+You have successfully added chocolate rolls (110 Kcal) Type: SNACK
+```
+
 
 <p>&nbsp;</p>
 
