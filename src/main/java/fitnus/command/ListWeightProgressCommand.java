@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.tracker.WeightProgressEntry;
 import fitnus.utility.User;
 
@@ -12,7 +13,7 @@ public class ListWeightProgressCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) {
         ArrayList<WeightProgressEntry> weightProgressEntries = us.getWeightProgressEntries();
         float startingWeight = weightProgressEntries.get(0).getWeight();
         float currentWeight = weightProgressEntries.get(weightProgressEntries.size() - 1).getWeight();

@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Entry;
 import fitnus.tracker.MealType;
@@ -17,7 +18,7 @@ public class ViewEachCategoryCalorieCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         ArrayList<Entry> entries = ed.getEntries();
         int[] typeFrequency = {0, 0, 0, 0, 0};
         int[] typeCalories = {0, 0, 0, 0, 0};
