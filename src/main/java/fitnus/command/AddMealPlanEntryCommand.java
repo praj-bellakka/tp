@@ -13,11 +13,12 @@ import fitnus.utility.User;
 import java.util.ArrayList;
 
 /**
- * Command is for adding entries based on a meal plan
+ * Command is for adding entries based on a meal plan.
  */
-public class AddMealPlanEntryCommand extends Command{
+public class AddMealPlanEntryCommand extends Command {
     private final MealPlan mealPlan;
     private final MealType mealType;
+
     public AddMealPlanEntryCommand(MealPlan mealPlan, MealType mealType) {
         this.mealPlan = mealPlan;
         this.mealType = mealType;
@@ -29,10 +30,10 @@ public class AddMealPlanEntryCommand extends Command{
         for (Food food: allFoodItems) {
             ed.addEntry(new Entry(mealType,food));
         }
-        //md.addMealPlan(newMealPlan);
-//        ed.addEntry(mealType, customFood);
-//        fd.addFood(customFood);
-        return "You have successfully added ";
+        //  md.addMealPlan(newMealPlan);
+        //  ed.addEntry(mealType, customFood);
+        //  fd.addFood(customFood);
+        return "The following meal plan: " + mealPlan;
 
     }
 }

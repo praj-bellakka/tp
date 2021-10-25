@@ -14,7 +14,8 @@ public class MealPlanDatabase {
         if (index > 0 && index <= databaseMealPlans.size()) {
             return databaseMealPlans.get(index - 1);
         } else {
-            throw new FitNusException("Index specified is outside the range of the database!");
+            throw new FitNusException("Index specified is outside the range of the database! "
+                    + "Meal plan could not be found...");
         }
     }
 

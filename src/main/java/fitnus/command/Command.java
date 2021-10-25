@@ -8,5 +8,6 @@ import fitnus.utility.User;
 
 public abstract class Command {
 
-    public abstract String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException;
+    public abstract String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us)
+            throws FitNusException;
 }

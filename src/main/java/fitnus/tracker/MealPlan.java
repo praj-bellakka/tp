@@ -19,4 +19,17 @@ public class MealPlan {
         return mealFoods;
     }
 
+    /**
+     * Returns String representation of MealPlan object, including all its food under it.
+     * @return String representation of MealPlan object
+     */
+    @Override
+    public String toString() {
+        System.out.println("Adding the following items from your Meal plan, " + mealPlanName);
+        for (Food item: mealFoods) {
+            System.out.println(item.toString());
+        }
+        return this.mealPlanName + "has been added";
+    }
+
 }

@@ -10,7 +10,7 @@ import fitnus.utility.User;
 
 import java.util.ArrayList;
 
-public class CreateMealPlanCommand extends Command{
+public class CreateMealPlanCommand extends Command {
     private final ArrayList<Food> mealFood;
     private final String mealPlanName;
 
@@ -23,9 +23,10 @@ public class CreateMealPlanCommand extends Command{
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         MealPlan newMealPlan = new MealPlan(mealPlanName, mealFood);
         md.addMealPlan(newMealPlan);
-//        ed.addEntry(mealType, customFood);
-//        fd.addFood(customFood);
-        return "You have successfully added ";
+        //        ed.addEntry(mealType, customFood);
+        //        fd.addFood(customFood);
+        newMealPlan.toString();
+        return "You have successfully added the following Meal plan: " + newMealPlan.getMealPlanName();
 
     }
 }
