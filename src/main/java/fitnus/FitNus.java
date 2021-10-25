@@ -60,79 +60,40 @@ public class FitNus {
         }
     }
 
-    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
-        boolean genderInitialised = false;
-        while (genderInitialised == false) {
+    private static void initialiseAttribute(Ui ui, EntryDatabase ed, FoodDatabase fd,
+                                            User user, String commandStringFront) {
+        Parser parser = new Parser();
+
+        boolean attributeInitialised = false;
+        while (attributeInitialised == false) {
             try {
-                String genderString = ui.readInput().strip();
-                Command c = new SetGenderCommand(genderString);
+                String requiredInput = ui.readInput().strip();
+                String commandString = commandStringFront + requiredInput;
+                ui.println(commandString);
+                Command c = parser.parseCommandType(commandString, fd, ed);
                 Ui.println(c.execute(ed, fd, user));
-                genderInitialised = true;
+                attributeInitialised = true;
             } catch (FitNusException e) {
-                genderInitialised = false;
+                attributeInitialised = false;
                 Ui.println(e.getMessage());
             }
         }
+    }
+
+    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+        initialiseAttribute(ui, ed, fd, user, "gender /set ");
     }
 
     private static void initialiseAge(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
-        boolean ageInitialised = false;
-        while (ageInitialised == false) {
-            try {
-                int age;
-                try {
-                    age = Integer.parseInt(ui.readInput().strip());
-                } catch (NumberFormatException e) {
-                    throw new FitNusException("Input must be an integer!");
-                }
-                Command c = new SetAgeCommand(age);
-                Ui.println(c.execute(ed, fd, user));
-                ageInitialised = true;
-            } catch (FitNusException e) {
-                ageInitialised = false;
-                Ui.println(e.getMessage());
-            }
-        }
+        initialiseAttribute(ui, ed, fd, user, "age /set ");
     }
 
     private static void initialiseHeight(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
-        boolean heightInitialised = false;
-        while (heightInitialised == false) {
-            try {
-                int height;
-                try {
-                    height = Integer.parseInt(ui.readInput().strip());
-                } catch (NumberFormatException e) {
-                    throw new FitNusException("Input must be an integer!");
-                }
-                Command c = new SetHeightCommand(height);
-                Ui.println(c.execute(ed, fd, user));
-                heightInitialised = true;
-            } catch (FitNusException e) {
-                heightInitialised = false;
-                Ui.println(e.getMessage());
-            }
-        }
+        initialiseAttribute(ui, ed, fd, user, "height /set ");
     }
 
     private static void initialiseWeight(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
-        boolean weightInitialised = false;
-        while (weightInitialised == false) {
-            try {
-                float weight;
-                try {
-                    weight = Float.parseFloat(ui.readInput().strip());
-                } catch (NumberFormatException e) {
-                    throw new FitNusException("Input must be a number!");
-                }
-                Command c = new SetWeightCommand(weight);
-                Ui.println(c.execute(ed, fd, user));
-                weightInitialised = true;
-            } catch (FitNusException e) {
-                weightInitialised = false;
-                Ui.println(e.getMessage());
-            }
-        }
+        initialiseAttribute(ui, ed, fd, user, "weight /set ");
     }
 
     private static void saveFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
