@@ -347,7 +347,7 @@ public class Parser {
 
             Food.FoodType type = null;
             do {
-                System.out.println("Enter food category (meal, snack, beverage, others):");
+                System.out.println("Enter food type (meal, snack, beverage, others):");
                 type = parseFoodType(newUi.readInput());
             } while (type == null);
 
@@ -378,7 +378,7 @@ public class Parser {
 
             Food.FoodType type = null;
             do {
-                System.out.println("Enter food category (meal, snack, beverage, others):");
+                System.out.println("Enter food type (meal, snack, beverage, others):");
                 type = parseFoodType(newUi.readInput());
             } while (type == null);
 
