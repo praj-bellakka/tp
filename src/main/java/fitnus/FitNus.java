@@ -9,6 +9,7 @@ import fitnus.command.ExitCommand;
 import fitnus.command.Command;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import fitnus.storage.Storage;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 public class FitNus {
     private static final Logger logger = Logger.getLogger("FitNus");
 
-    private static void initialiseFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
+    private static void initialiseFitNus(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
         // Load From Storage
         try {
             Storage.createDirectoryAndFiles();
@@ -38,18 +39,18 @@ public class FitNus {
                 Ui ui = new Ui();
 
                 ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
-                initialiseGender(ui, ed, fd, user);
+                initialiseGender(ui, ed, fd, md, user);
                 ui.println("Please enter your age in years:");
-                initialiseAge(ui, ed, fd, user);
+                initialiseAge(ui, ed, fd, md, user);
                 ui.println("Please enter your height in cm:");
-                initialiseHeight(ui, ed, fd, user);
+                initialiseHeight(ui, ed, fd, md, user);
                 ui.println("Please enter your weight in kg:");
-                initialiseWeight(ui, ed, fd, user);
+                initialiseWeight(ui, ed, fd, md, user);
                 ui.println("Generated your daily calorie needs accordingly.");
                 int calorieGoal = user.generateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
                 ui.println("Your daily calorie need is " + calorieGoal + " kcal.");
-                saveFitNus(fd, ed, user);
+                saveFitNus(fd, ed, md, user);
             }
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
@@ -60,13 +61,13 @@ public class FitNus {
         }
     }
 
-    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User user) {
         boolean genderInitialised = false;
         while (genderInitialised == false) {
             try {
                 String genderString = ui.readInput().strip();
                 Command c = new SetGenderCommand(genderString);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 genderInitialised = true;
             } catch (FitNusException e) {
                 genderInitialised = false;
@@ -75,7 +76,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseAge(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private static void initialiseAge(Ui ui, EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User user) {
         boolean ageInitialised = false;
         while (ageInitialised == false) {
             try {
@@ -86,7 +87,7 @@ public class FitNus {
                     throw new FitNusException("Input must be an integer!");
                 }
                 Command c = new SetAgeCommand(age);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 ageInitialised = true;
             } catch (FitNusException e) {
                 ageInitialised = false;
@@ -95,7 +96,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseHeight(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private static void initialiseHeight(Ui ui, EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User user) {
         boolean heightInitialised = false;
         while (heightInitialised == false) {
             try {
@@ -106,7 +107,7 @@ public class FitNus {
                     throw new FitNusException("Input must be an integer!");
                 }
                 Command c = new SetHeightCommand(height);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 heightInitialised = true;
             } catch (FitNusException e) {
                 heightInitialised = false;
@@ -115,7 +116,7 @@ public class FitNus {
         }
     }
 
-    private static void initialiseWeight(Ui ui, EntryDatabase ed, FoodDatabase fd, User user) {
+    private static void initialiseWeight(Ui ui, EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User user) {
         boolean weightInitialised = false;
         while (weightInitialised == false) {
             try {
@@ -126,7 +127,7 @@ public class FitNus {
                     throw new FitNusException("Input must be a number!");
                 }
                 Command c = new SetWeightCommand(weight);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 weightInitialised = true;
             } catch (FitNusException e) {
                 weightInitialised = false;
@@ -135,7 +136,7 @@ public class FitNus {
         }
     }
 
-    private static void saveFitNus(FoodDatabase fd, EntryDatabase ed, User user) {
+    private static void saveFitNus(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
         try {
             Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(fd);
@@ -148,19 +149,19 @@ public class FitNus {
         }
     }
 
-    private static void run(Ui ui, Parser parser, FoodDatabase fd, EntryDatabase ed,
+    private static void run(Ui ui, Parser parser, FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md,
                             User user) {
-        Ui.println(new HelpCommand().execute(ed, fd, user));
+        Ui.println(new HelpCommand().execute(ed, fd, md, user));
         while (true) {
             try {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput, fd);
+                inputType = parser.parseCommandType(userInput, fd, md);
                 //inputType = new SetHeightCommand(18);
-                Ui.println(inputType.execute(ed, fd, user));
+                Ui.println(inputType.execute(ed, fd, md, user));
                 ed.sortDatabase();
-                saveFitNus(fd, ed, user);
+                saveFitNus(fd, ed, md, user);
                 if (inputType instanceof ExitCommand) {
                     break;
                 }
@@ -170,7 +171,7 @@ public class FitNus {
         }
     }
 
-    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, User user) {
+    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
         Ui.println("Food database:" + System.lineSeparator()
                 + fd.listFoods());
         Ui.println("Entry database:" + System.lineSeparator()
@@ -183,15 +184,15 @@ public class FitNus {
         User user = new User(Gender.MALE, 1000);
         FoodDatabase fd = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
-
+        MealPlanDatabase md = new MealPlanDatabase();
         // Init
         Ui.printWelcomeMessage();
-        initialiseFitNus(fd, ed, user);
-        printPreloadedData(fd, ed, user);
+        initialiseFitNus(fd, ed, md, user);
+        printPreloadedData(fd, ed, md, user);
 
         // Run
         Ui ui = new Ui();
         Parser parser = new Parser();
-        run(ui, parser, fd, ed, user);
+        run(ui, parser, fd, ed, md, user);
     }
 }

@@ -1,30 +1,27 @@
 package fitnus.parser;
 
-import fitnus.command.Command;
-import fitnus.command.HelpCommand;
-import fitnus.command.EditFoodEntryCommand;
-import fitnus.command.DeleteFoodEntryCommand;
-import fitnus.command.ViewMonthSummaryCommand;
-import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.command.AddFoodEntryCommand;
+import fitnus.command.AddMealPlanEntryCommand;
+import fitnus.command.Command;
+import fitnus.command.CreateMealPlanCommand;
+import fitnus.command.DeleteFoodEntryCommand;
+import fitnus.command.EditFoodEntryCommand;
+import fitnus.command.ExitCommand;
+import fitnus.command.FindEntryCommand;
+import fitnus.command.FindFoodCommand;
+import fitnus.command.HelpCommand;
+import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodEntryAllCommand;
 import fitnus.command.ListFoodEntryDayCommand;
 import fitnus.command.ListFoodEntryWeekCommand;
-import fitnus.command.FindEntryCommand;
-import fitnus.command.FindFoodCommand;
-import fitnus.command.GenerateCalorieGoalCommand;
-import fitnus.command.ListFoodDatabaseCommand;
-import fitnus.command.ListWeightProgressCommand;
-import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
-import fitnus.command.SetHeightCommand;
-import fitnus.command.ViewEachCategoryCalorieCommand;
-import fitnus.command.SetWeightCommand;
-import fitnus.command.ExitCommand;
+import fitnus.command.ViewMonthSummaryCommand;
 import fitnus.command.ViewRemainingCalorieCommand;
 import fitnus.command.ViewSuggestionsCommand;
+import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
@@ -60,6 +57,7 @@ public class Parser {
     private static final String COMMAND_FIND = "find";
     private static final String COMMAND_SUGGEST = "suggest";
     private static final String COMMAND_SUMMARY = "summary";
+    private static final String COMMAND_CREATE = "create";
 
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
@@ -68,6 +66,7 @@ public class Parser {
     private static final String DESCRIPTOR_DEFAULT = "/def";
     private static final String DESCRIPTOR_REMAIN = "/remain";
     private static final String DESCRIPTOR_SET = "/set";
+    private static final String DESCRIPTOR_MEALPLAN = "/mealplan";
     public static final int INVALID_INPUT = -1;
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
 
@@ -85,7 +84,7 @@ public class Parser {
 
     private static boolean isLoopFlagOn = true;
 
-    public Command parseCommandType(String input, FoodDatabase fd) throws FitNusException {
+    public Command parseCommandType(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
         String[] splitString = input.strip().split(SPACE_CHARACTER);
         try {
             int spaceIndex = input.indexOf(SPACE_CHARACTER);
@@ -108,7 +107,7 @@ public class Parser {
             String inputCommandType = input.substring(0, spaceIndex);
             String subString = input.substring(spaceIndex).trim();
             if (inputCommandType.equals(COMMAND_ADD)) { //add custom food
-                return parseAddTypeCommand(subString, fd);
+                return parseAddTypeCommand(subString, fd, md);
             }
 
             if (inputCommandType.equals(COMMAND_LIST)) { //list type command
@@ -143,6 +142,11 @@ public class Parser {
                 return parseSummaryCommand(subString);
             }
 
+            if (inputCommandType.equals(COMMAND_CREATE)) { //summary type command
+                return parseCreateCommand(subString, fd);
+            }
+
+
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new FitNusException("Input format is not correct. Follow the one stated!");
         } catch (NumberFormatException e) {
@@ -166,7 +170,7 @@ public class Parser {
      * @return Command object
      * @throws FitNusException Thrown when foodname is empty.
      */
-    private Command parseAddTypeCommand(String input, FoodDatabase fd) throws FitNusException {
+    private Command parseAddTypeCommand(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
         //step 1: find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
@@ -175,6 +179,12 @@ public class Parser {
         } else {
             mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
         }
+
+        //check if it is adding meal plan
+        if (mealTypeString.equals(DESCRIPTOR_MEALPLAN)) {
+            return parseAddMealPlanFoodCommand(md, input);
+        }
+
         MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
 
@@ -206,6 +216,68 @@ public class Parser {
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
         }
         return null;
+    }
+
+    private AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input)
+            throws FitNusException {
+        int spaceIndex = input.indexOf(SPACE_CHARACTER);
+        if (spaceIndex == -1) {
+            throw new FitNusException("Invalid format");
+        }
+        String remainingString = input.substring(spaceIndex).strip();
+        int spaceRemainingIndex = remainingString.indexOf(SPACE_CHARACTER);
+        if (spaceRemainingIndex == -1) {
+            throw new FitNusException("Invalid format");
+        }
+        MealType mealType = parseMealType(remainingString.substring(0,spaceRemainingIndex), false);
+        try {
+            int index = Integer.parseInt(remainingString.substring(spaceRemainingIndex).strip());
+            return new AddMealPlanEntryCommand(md.getMealAtIndex(index), mealType);
+        } catch (NumberFormatException e) {
+            throw new FitNusException("Integer index could not be parsed. Check format again!");
+        }
+    }
+
+    private CreateMealPlanCommand parseCreateCommand(String input, FoodDatabase fd) throws FitNusException {
+        String[] arrayFormInput = input.split(SPACE_CHARACTER);
+        if (!arrayFormInput[0].equals(DESCRIPTOR_MEALPLAN)) {
+            throw new FitNusException("Invalid Command Format!");
+        }
+
+        int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
+        String mealNameString = "";
+        if (spaceCharacterIndex == -1) {
+            throw new FitNusException("Meal plan name cannot be empty!");
+        } else {
+            mealNameString = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+        }
+
+        //display all current foods TODO: refactor
+        System.out.println("We will now create a mealplan! To create a Meal plan, "
+                + "enter the indexes of the foods below with spaces in between each index.");
+        System.out.println("For example: 1 2 8 4");
+        System.out.println("Indexes that are not present/invalid will be ignored. "
+                + "Duplicates are allowed, but try to not eat so much food :)");
+        System.out.println("Here is a list of all foods present in the database:");
+        System.out.println(fd.listFoods());
+        Ui newUi = new Ui();
+        ArrayList<Food> tempMealFoods = new ArrayList<Food>();
+
+        String[] userInputIndexes = newUi.readIndexesInput();
+        //for each index, check if its integer and within range
+        for (String i: userInputIndexes) {
+            try {
+                int inputInt = Integer.parseInt(i);
+                if (inputInt > fd.getFoodDatabase().size() || inputInt <= 0) {
+                    System.out.println("Input " + inputInt + " was out of range. Ignoring Input");
+                    continue;
+                }
+                tempMealFoods.add(fd.getFoodDatabase().get(inputInt - 1));
+            } catch (NumberFormatException e) {
+                System.out.println("Input " + i + " was not an integer. Ignoring input.");
+            }
+        }
+        return new CreateMealPlanCommand(tempMealFoods, mealNameString);
     }
 
     /**
