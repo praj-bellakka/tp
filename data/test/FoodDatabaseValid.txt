@@ -1,0 +1,2 @@
+ramen | 600 | MEAL
+rice | 800 | MEAL

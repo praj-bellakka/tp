@@ -260,7 +260,7 @@ public class Parser {
         if (spaceRemainingIndex == -1) {
             throw new FitNusException("Invalid format");
         }
-        MealType mealType = parseMealType(remainingString.substring(0,spaceRemainingIndex), false);
+        MealType mealType = parseMealType(remainingString.substring(0, spaceRemainingIndex), false);
         try {
             int index = Integer.parseInt(remainingString.substring(spaceRemainingIndex).strip());
             return new AddMealPlanEntryCommand(md.getMealAtIndex(index), mealType);
@@ -296,7 +296,7 @@ public class Parser {
 
         String[] userInputIndexes = newUi.readIndexesInput();
         //for each index, check if its integer and within range
-        for (String i: userInputIndexes) {
+        for (String i : userInputIndexes) {
             try {
                 int inputInt = Integer.parseInt(i);
                 if (inputInt > fd.getFoodDatabase().size() || inputInt <= 0) {
@@ -326,7 +326,7 @@ public class Parser {
      * @return AddFoodEntryCommand Command object containing relevant details.
      */
     private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName, ArrayList<Food> tempFoodDb,
-                                                Ui newUi, boolean multipleEntries) {
+                                                Ui newUi, boolean multipleEntries) throws FitNusException {
         int userInput = 0;
         if (multipleEntries) {
             do {
@@ -357,7 +357,7 @@ public class Parser {
     }
 
     private EditFoodEntryCommand returnUserInput(int index, String foodName, ArrayList<Food> tempFoodDb,
-                                                 Ui newUi, boolean multipleEntries) {
+                                                 Ui newUi, boolean multipleEntries) throws FitNusException {
         int userInput = 0;
         if (multipleEntries) {
             do {
@@ -387,7 +387,7 @@ public class Parser {
         return new EditFoodEntryCommand(index, tempFoodDb.get(userInput - 1));
     }
 
-    public static Food.FoodType parseFoodType(String type) {
+    public static Food.FoodType parseFoodType(String type) throws FitNusException {
         String typeString = type.toLowerCase(Locale.ROOT);
         switch (typeString) {
         case "snack":
@@ -399,7 +399,7 @@ public class Parser {
         case "others":
             return Food.FoodType.OTHERS;
         default:
-            return null;
+            throw new FitNusException("Unable to parse Food type");
         }
     }
 

@@ -94,6 +94,8 @@ public class EntryDatabase {
                 Ui.printPreloadDatabaseError();
             } catch (IndexOutOfBoundsException e) {
                 Ui.printPreloadDatabaseError();
+            } catch (NumberFormatException e) {
+                Ui.println(e.getMessage());
             }
         }
         System.out.println("Successfully preloaded " + preloadEntryCount + " entries");
