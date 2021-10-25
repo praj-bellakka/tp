@@ -45,13 +45,13 @@ public class FitNus {
                 Ui ui = new Ui();
 
                 ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
-                initialiseGender();
+                initialiseGender(ui, ed, fd, md, user);
                 ui.println("Please enter your age in years:");
-                initialiseAge();
+                initialiseAge(ui, ed, fd, md, user);
                 ui.println("Please enter your height in cm:");
-                initialiseHeight();
+                initialiseHeight(ui, ed, fd, md, user);
                 ui.println("Please enter your weight in kg:");
-                initialiseWeight();
+                initialiseWeight(ui, ed, fd, md, user);
                 ui.println("Generated your daily calorie needs accordingly.");
                 int calorieGoal = user.generateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
@@ -67,79 +67,44 @@ public class FitNus {
         }
     }
 
-    private void initialiseGender() {
-        boolean genderInitialised = false;
-        while (genderInitialised == false) {
+    private static void initialiseAttribute(Ui ui, EntryDatabase ed, FoodDatabase fd,
+                                            MealPlanDatabase md, User user, String commandStringFront) {
+        Parser parser = new Parser();
+
+        boolean attributeInitialised = false;
+        while (attributeInitialised == false) {
             try {
-                String genderString = ui.readInput().strip();
-                Command c = new SetGenderCommand(genderString);
+                String requiredInput = ui.readInput().strip();
+                String commandString = commandStringFront + requiredInput;
+                //ui.println(commandString);
+                Command c = parser.parseCommandType(commandString, fd, ed, md);
                 Ui.println(c.execute(ed, fd, md, user));
-                genderInitialised = true;
+                attributeInitialised = true;
             } catch (FitNusException e) {
-                genderInitialised = false;
+                attributeInitialised = false;
                 Ui.println(e.getMessage());
             }
         }
     }
 
-    private void initialiseAge() {
-        boolean ageInitialised = false;
-        while (ageInitialised == false) {
-            try {
-                int age;
-                try {
-                    age = Integer.parseInt(ui.readInput().strip());
-                } catch (NumberFormatException e) {
-                    throw new FitNusException("Input must be an integer!");
-                }
-                Command c = new SetAgeCommand(age);
-                Ui.println(c.execute(ed, fd, md, user));
-                ageInitialised = true;
-            } catch (FitNusException e) {
-                ageInitialised = false;
-                Ui.println(e.getMessage());
-            }
-        }
+    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd,
+                                         MealPlanDatabase md, User user) {
+        initialiseAttribute(ui, ed, fd, md, user, "gender /set ");
     }
 
-    private void initialiseHeight() {
-        boolean heightInitialised = false;
-        while (heightInitialised == false) {
-            try {
-                int height;
-                try {
-                    height = Integer.parseInt(ui.readInput().strip());
-                } catch (NumberFormatException e) {
-                    throw new FitNusException("Input must be an integer!");
-                }
-                Command c = new SetHeightCommand(height);
-                Ui.println(c.execute(ed, fd, md, user));
-                heightInitialised = true;
-            } catch (FitNusException e) {
-                heightInitialised = false;
-                Ui.println(e.getMessage());
-            }
-        }
+    private static void initialiseAge(Ui ui, EntryDatabase ed, FoodDatabase fd,
+                                      MealPlanDatabase md, User user) {
+        initialiseAttribute(ui, ed, fd, md, user, "age /set ");
     }
 
-    private void initialiseWeight() {
-        boolean weightInitialised = false;
-        while (weightInitialised == false) {
-            try {
-                float weight;
-                try {
-                    weight = Float.parseFloat(ui.readInput().strip());
-                } catch (NumberFormatException e) {
-                    throw new FitNusException("Input must be a number!");
-                }
-                Command c = new SetWeightCommand(weight);
-                Ui.println(c.execute(ed, fd, md, user));
-                weightInitialised = true;
-            } catch (FitNusException e) {
-                weightInitialised = false;
-                Ui.println(e.getMessage());
-            }
-        }
+    private static void initialiseHeight(Ui ui, EntryDatabase ed, FoodDatabase fd,
+                                         MealPlanDatabase md, User user) {
+        initialiseAttribute(ui, ed, fd, md, user, "height /set ");
+    }
+
+    private static void initialiseWeight(Ui ui, EntryDatabase ed, FoodDatabase fd,
+                                         MealPlanDatabase md, User user) {
+        initialiseAttribute(ui, ed, fd, md, user, "weight /set ");
     }
 
     private void saveFitNus() {
