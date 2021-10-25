@@ -24,9 +24,12 @@ public class User {
     private static final String GAIN_STRING = "gain";
     private static final String LOSE_STRING = "lose";
 
-    public User(Gender gender, int calorieGoal) {
+    public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;
         this.gender = gender;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
     }
 
     public int getCalorieGoal() {
@@ -80,7 +83,11 @@ public class User {
         return weightProgressEntries;
     }
 
-    public String updateWeightAndWeightTracker(float newWeight) {
+    public String updateWeightAndWeightTracker(float newWeight) throws FitNusException {
+        if(newWeight < 0) {
+            throw new FitNusException("An error occurred! The new weight cannot be negative.");
+        }
+
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();

@@ -22,7 +22,7 @@ class ViewRemainingCalorieCommandTest {
 
         MealPlanDatabase md = new MealPlanDatabase();
         FoodDatabase fd = new FoodDatabase();
-        User us = new User(Gender.MALE, 1000);
+        User us = new User(2000, Gender.MALE, 18, 180, 65);
         ViewRemainingCalorieCommand c = new ViewRemainingCalorieCommand();
         assertEquals("The remaining calories before reaching the daily goal is 400",
                 c.execute(ed, fd, md, us));

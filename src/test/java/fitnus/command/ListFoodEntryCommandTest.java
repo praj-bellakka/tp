@@ -14,7 +14,7 @@ class ListFoodEntryCommandTest {
     void executeTest_validInputDay() {
         EntryDatabase ed = new EntryDatabase();
         FoodDatabase fd = new FoodDatabase();
-        User us = new User(Gender.MALE, 1000);
+        User us = new User(2000, Gender.MALE, 18, 180, 65);
 
         ListFoodEntryAllCommand c = new ListFoodEntryAllCommand();
         ed.addEntry(MealType.DINNER, new Food("food1", 100, Food.FoodType.MEAL));

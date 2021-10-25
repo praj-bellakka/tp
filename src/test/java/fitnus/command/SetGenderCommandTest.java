@@ -18,7 +18,7 @@ class SetGenderCommandTest {
         EntryDatabase ed = new EntryDatabase();
         FoodDatabase fd = new FoodDatabase();
         MealPlanDatabase md = new MealPlanDatabase();
-        User us = new User(Gender.MALE, 1000);
+        User us = new User(2000, Gender.MALE, 18, 180, 65);
 
         SetGenderCommand c = new SetGenderCommand("m");
         assertEquals("You have set your gender to Male", c.execute(ed, fd, md, us));
@@ -29,7 +29,7 @@ class SetGenderCommandTest {
         EntryDatabase ed = new EntryDatabase();
         FoodDatabase fd = new FoodDatabase();
         MealPlanDatabase md = new MealPlanDatabase();
-        User us = new User(Gender.MALE, 1000);
+        User us = new User(2000, Gender.MALE, 18, 180, 65);
 
         SetGenderCommand c = new SetGenderCommand("f");
         assertEquals("You have set your gender to Female", c.execute(ed, fd, md, us));
@@ -40,7 +40,7 @@ class SetGenderCommandTest {
         EntryDatabase ed = new EntryDatabase();
         FoodDatabase fd = new FoodDatabase();
         MealPlanDatabase md = new MealPlanDatabase();
-        User us = new User(Gender.MALE, 1000);
+        User us = new User(2000, Gender.MALE, 18, 180, 65);
         SetGenderCommand c = new SetGenderCommand("invalidInput");
         Exception exception = assertThrows(FitNusException.class, () -> c.execute(ed, fd, md, us));
         assertEquals("Invalid input! Please input m for male or "
