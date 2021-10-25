@@ -215,7 +215,8 @@ class EntryDatabaseTest {
         assertEquals(" 1.[" + LocalDate.now().minusDays(2) + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL"
                         + System.lineSeparator() + " 2.[" + LocalDate.now().minusDays(1)
                         + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
-                        + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator(),
+                        + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                        + System.lineSeparator(),
                 edbThree.listEntries());
     }
 
