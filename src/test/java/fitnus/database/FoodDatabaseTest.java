@@ -63,8 +63,8 @@ class FoodDatabaseTest {
         FoodDatabase fd = new FoodDatabase();
         fd.addFood("food1", 100, Food.FoodType.BEVERAGE);
         fd.addFood("food2", 200, Food.FoodType.MEAL);
-        assertEquals(" 1.food1 (100 Kcal) Category: BEVERAGE" + System.lineSeparator()
-                + " 2.food2 (200 Kcal) Category: MEAL" + System.lineSeparator(), fd.listFoods());
+        assertEquals(" 1.food1 (100 Kcal) Type: BEVERAGE" + System.lineSeparator()
+                + " 2.food2 (200 Kcal) Type: MEAL" + System.lineSeparator(), fd.listFoods());
     }
 
     @Test
@@ -84,7 +84,7 @@ class FoodDatabaseTest {
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         fd.preloadDatabase(reader);
-        assertEquals(" 1.food1 (100 Kcal) Category: MEAL" + System.lineSeparator()
-                + " 2.food2 (200 Kcal) Category: MEAL" + System.lineSeparator(), fd.listFoods());
+        assertEquals(" 1.food1 (100 Kcal) Type: MEAL" + System.lineSeparator()
+                + " 2.food2 (200 Kcal) Type: MEAL" + System.lineSeparator(), fd.listFoods());
     }
 }
