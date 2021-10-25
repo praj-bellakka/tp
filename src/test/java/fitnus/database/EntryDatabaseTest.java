@@ -207,13 +207,14 @@ class EntryDatabaseTest {
 
         assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
                 + System.lineSeparator(), edbOne.listEntries());
-        assertEquals(" 1.[" + LocalDate.now().minusDays(1) + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
-                + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator(),
-                edbTwo.listEntries());
-        assertEquals(" 1.[" + LocalDate.now().minusDays(2) + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL" + System.lineSeparator()
-                + " 2.[" + LocalDate.now().minusDays(1) + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
-                + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator()
-                , edbThree.listEntries());
+        assertEquals(" 1.[" + LocalDate.now().minusDays(1) + "] Dinner: Prata (100 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edbTwo.listEntries());
+        assertEquals(" 1.[" + LocalDate.now().minusDays(2) + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[" + LocalDate.now().minusDays(1)
+                + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
+                + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator(),
+                edbThree.listEntries());
     }
 
     @Test
@@ -274,9 +275,10 @@ class EntryDatabaseTest {
         edb.editEntryAtIndex(1, nasiLemak);
 
         // Test
-        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL" + System.lineSeparator()
-                        + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator(),
-                edb.listEntries());
+        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[" + LocalDate.now()
+                + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edb.listEntries());
     }
 
     @Test
@@ -314,9 +316,10 @@ class EntryDatabaseTest {
         edb.addEntry(MealType.DINNER, chickenRice);
 
         // Test
-        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
-                        + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator(),
-                edb.listEntries());
+        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Prata (100 Kcal) Type: MEAL"
+                        + System.lineSeparator()
+                        + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                        + System.lineSeparator(), edb.listEntries());
     }
 
     @Test
