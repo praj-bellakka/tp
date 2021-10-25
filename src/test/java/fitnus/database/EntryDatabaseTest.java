@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -329,5 +331,28 @@ class EntryDatabaseTest {
 
         // Test
         assertEquals("", edb.listEntries());
+    }
+
+    @Test
+    void findEntries_validKeyword_getMatchingEntries() throws FitNusException {
+        String keyword = "Rice";
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+        assertEquals("[[2021-10-26] Dinner: Chicken Rice (325 Kcal) Type: SNACK]",
+                database.findEntries(keyword).toString());
+    }
+
+    @Test
+    void findEntries_emptyStringKeyword_throwsFitNusException() throws FitNusException {
+        String keyword = "";
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+        assertThrows(FitNusException.class, () -> database.findEntries(keyword));
     }
 }
