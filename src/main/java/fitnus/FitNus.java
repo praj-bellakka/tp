@@ -9,6 +9,7 @@ import fitnus.command.ExitCommand;
 import fitnus.command.Command;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import fitnus.storage.Storage;
@@ -25,6 +26,7 @@ public class FitNus {
     private static final Logger logger = Logger.getLogger("FitNus");
     private final FoodDatabase fd;
     private final EntryDatabase ed;
+    private final MealPlanDatabase md;
     private final User user;
     private final Ui ui;
     private final Parser parser;
@@ -71,7 +73,7 @@ public class FitNus {
             try {
                 String genderString = ui.readInput().strip();
                 Command c = new SetGenderCommand(genderString);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 genderInitialised = true;
             } catch (FitNusException e) {
                 genderInitialised = false;
@@ -91,7 +93,7 @@ public class FitNus {
                     throw new FitNusException("Input must be an integer!");
                 }
                 Command c = new SetAgeCommand(age);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 ageInitialised = true;
             } catch (FitNusException e) {
                 ageInitialised = false;
@@ -111,7 +113,7 @@ public class FitNus {
                     throw new FitNusException("Input must be an integer!");
                 }
                 Command c = new SetHeightCommand(height);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 heightInitialised = true;
             } catch (FitNusException e) {
                 heightInitialised = false;
@@ -131,7 +133,7 @@ public class FitNus {
                     throw new FitNusException("Input must be a number!");
                 }
                 Command c = new SetWeightCommand(weight);
-                Ui.println(c.execute(ed, fd, user));
+                Ui.println(c.execute(ed, fd, md, user));
                 weightInitialised = true;
             } catch (FitNusException e) {
                 weightInitialised = false;
@@ -154,14 +156,14 @@ public class FitNus {
     }
 
     private void run() {
-        Ui.println(new HelpCommand().execute(ed, fd, user));
+        Ui.println(new HelpCommand().execute(ed, fd, md, user));
         while (true) {
             try {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput, fd, ed);
-                Ui.println(inputType.execute(ed, fd, user));
+                inputType = parser.parseCommandType(userInput, fd, ed, md);
+                Ui.println(inputType.execute(ed, fd, md, user));
                 ed.sortDatabase();
                 saveFitNus();
                 if (inputType instanceof ExitCommand) {
@@ -173,7 +175,7 @@ public class FitNus {
         }
     }
 
-    public void printPreloadedData(FoodDatabase fd, EntryDatabase ed, User user) {
+    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
         Ui.println("Food database:" + System.lineSeparator()
                 + fd.listFoods());
         Ui.println("Entry database:" + System.lineSeparator()
@@ -182,9 +184,11 @@ public class FitNus {
                 + user.listUserData());
     }
 
+
     private FitNus() {
         fd = new FoodDatabase();
         ed = new EntryDatabase();
+        md = new MealPlanDatabase();
         user = new User(Gender.MALE, 1000);
         ui = new Ui();
         parser = new Parser();
@@ -192,7 +196,7 @@ public class FitNus {
         // Init
         Ui.printWelcomeMessage();
         initialiseFitNus();
-        printPreloadedData(fd, ed, user);
+        printPreloadedData(fd, ed, md, user);
     }
 
     public static void main(String[] args) {

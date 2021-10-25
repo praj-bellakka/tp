@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
 import fitnus.utility.Ui;
@@ -16,7 +17,7 @@ public class FindFoodCommand extends Command {
         this.keyword = keyword;
     }
 
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         ArrayList<Food> matchingFoods = fd.findFood(keyword);
         Ui.printMatchingFoods(matchingFoods);
         return "";

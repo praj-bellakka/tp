@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Gender;
 import fitnus.utility.User;
@@ -18,7 +19,7 @@ public class SetGenderCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         if (genderSymbol != null) {
             us.setGender(genderSymbol);
             if (genderSymbol.toString().equals("f")) {

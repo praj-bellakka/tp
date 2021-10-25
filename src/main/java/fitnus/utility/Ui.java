@@ -46,6 +46,18 @@ public class Ui {
         return userInput;
     }
 
+    public String[] readIndexesInput() {
+        String userInput = "";
+        do {
+            userInput = sc.nextLine().toLowerCase().trim();
+            if (userInput.equals("")) {
+                println("Input cannot be empty! Please try again");
+            }
+        } while (userInput.equals(""));
+        assert !userInput.trim().equals("") : "input cannot be empty";
+        return userInput.split(" ");
+    }
+
     private static void printNoMatchingResults() {
         String message = " Sorry, no matching results found!";
         System.out.println(message);

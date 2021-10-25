@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.utility.User;
 
 public class HelpCommand extends Command {
@@ -10,7 +11,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) {
         return "------------------ \n"
                 + "Here are some commands that you can use!\n"
                 + "------------------ \n"
