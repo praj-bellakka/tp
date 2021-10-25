@@ -7,7 +7,7 @@ class FoodDatabase {
 + addFood(String, Integer, FoodType):void
 + convertDatabaseToString():String
 + deleteFood(int):void
-+ findFood(String): ArrayList<Food>
++ findFoods(String): ArrayList<Food>
 + findSuggestions(FoodType, int, boolean): ArrayList<Food>
 + getFoodAtIndex(int):Food
 + listFoods():String

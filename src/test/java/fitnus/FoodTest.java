@@ -10,7 +10,7 @@ class FoodTest {
     @Test
     void testToString() {
         Food food = new Food("Bread", 50, Food.FoodType.MEAL);
-        assertEquals("Bread (50 Kcal) Category: MEAL", food.toString());
+        assertEquals("Bread (50 Kcal) Type: MEAL", food.toString());
     }
 
     @Test

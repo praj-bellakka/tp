@@ -68,14 +68,15 @@ Given below is a quick overview of main components and how they interact with ea
 
 <h4>database</h4>
 
-![FoodDatabase class](diagrams/FoodDatabase_Class.png) <br/>
+<img src="diagrams/FoodDatabase_Class.png">
+<br/>
 
 The `FoodDatabase` component
 - `addFood()` Adds a Food object to the database.
 - `convertDatabaseToString()` Returns a String representation of all
 Food objects in the database.
 - `deleteFood()` Removes a specified Food object from the database.
-- `findFood()` Returns an ArrayList containing matching Food objects
+- `findFoods()` Returns an ArrayList containing matching Food objects
 based on a keyword.
 - `findSuggestions()` Returns an ArrayList containing matching Food objects
 based on the specified FoodType and the user's calorie goal.
@@ -83,7 +84,8 @@ based on the specified FoodType and the user's calorie goal.
 - `listFoods()` Returns a formatted String of all Food objects to be printed.
 - `preloadDatabase()` Preloads the database using data from the text file.
 
-![FoodDatabase class diagram](diagrams/FoodDatabase_Classes.png) <br/>
+<img src="diagrams/FoodDatabase_Classes.png">
+<br/>
 The diagram above showcases the relationships between FoodDatabase object and various components.
 
 <h2> Glossary</h2>
@@ -222,7 +224,7 @@ the ArrayList in <code>FoodDatabase</code>.
 
 <h4>UML Sequence Diagram </h4>
 The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
-![saveFoodDatabase](diagrams/Storage_sequence.png)
+<img src="diagrams/Storage_sequence.png">
 </li>
 
 <li>
