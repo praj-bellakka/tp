@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
 import fitnus.utility.Ui;
@@ -18,7 +19,7 @@ public class ViewSuggestionsCommand extends Command {
         this.isSort = isSort;
     }
 
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) throws FitNusException {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         int remaining = us.getCalorieGoal() - ed.getTotalDailyCalorie();
         ArrayList<Food> suggestions = fd.findSuggestions(type, remaining, isSort);
         Ui.printMatchingSuggestions(suggestions);

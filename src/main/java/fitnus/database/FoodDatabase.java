@@ -1,7 +1,6 @@
 package fitnus.database;
 
 import fitnus.parser.Parser;
-import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.utility.Ui;
 import fitnus.exception.FitNusException;
@@ -43,6 +42,11 @@ public class FoodDatabase {
     // Index here starts from 1
     public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
         return databaseFoods.get(index - 1);
+    }
+
+    //returns ArrayList<Food> db when called.
+    public ArrayList<Food> getFoodDatabase() {
+        return databaseFoods;
     }
 
     public String listFoods() {

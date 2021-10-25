@@ -2,6 +2,7 @@ package fitnus.command;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.utility.User;
 
 public class ListFoodDatabaseCommand extends Command {
@@ -9,7 +10,7 @@ public class ListFoodDatabaseCommand extends Command {
     }
 
     @Override
-    public String execute(EntryDatabase ed, FoodDatabase fd, User us) {
+    public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) {
         return fd.listFoods();
     }
 }
