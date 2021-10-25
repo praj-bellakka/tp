@@ -98,7 +98,30 @@ Additionally, it implements the following operations:
 - <code>EntryDatabase#addEntry(Entry)</code> -- Adds a new entry into the entry database
 - <code>FoodDatabase#addFood</code> -- Adds a new food into the food database
 
-![AddFoodEntrySeqDiagram](AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+
+<h2>Edit Food Entry Feature</h2>
+The edit food entry mechanism is facilitated by <code>EditFoodEntryCommand</code>.
+It extends <code>Command</code> and stores the data internally into <code>EntryDatabase</code>
+and <code>FoodDatabase</code>.
+Additionally, it implements the following operations:
+- <code>EntryDatabase#editEntryAtIndex(int, Entry)</code> -- Edits the entry at the specified index of the entry 
+database
+- <code>FoodDatabase#addFood</code> -- Adds a new food into the food database
+
+![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+
+<h2>List Food Entry Feature</h2>
+The list food entry mechanism is facilitated by <code>ListFoodEntryAllCommand</code>, 
+<code>ListFoodEntryDayCommand</code>, <code>ListFoodEntryWeekCommand</code>.
+They extend <code>Command</code>.
+Additionally, they implement the following operations:
+- <code>EntryDatabase#listEntries()</code> -- Lists all entries within the entry database
+- <code>EntryDatabase#getPastDaysEntryDatabase(int)</code> -- returns a subset of the original entry database
+containing only entries of the past specified days
+
+![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 
 <h2 id="Implementation"> Implementation </h2>
