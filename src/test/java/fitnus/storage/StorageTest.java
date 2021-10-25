@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -162,8 +163,8 @@ class StorageTest {
         saveData(FILE_PATH_ENTRY_DATA_SAVE.toString(), data);
         BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_ENTRY_DATA_SAVE.toString()));
 
-        assertEquals("Dinner | Prata | 100 | 2021-10-26 | MEALDinner "
-                        + "| Chicken Rice | 325 | 2021-10-26 | SNACK",
+        assertEquals("Dinner | Prata | 100 | " + LocalDate.now() + " | MEALDinner "
+                        + "| Chicken Rice | 325 | " + LocalDate.now() + " | SNACK",
                 reader1.lines().collect(Collectors.joining()));
     }
 
