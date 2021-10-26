@@ -134,8 +134,8 @@ The `FoodDatabase` component consists of:
 - `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType and the user's calorie goal. 
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
-- `preloadDatabase()` Preloads the database using data from the text file. 
-  ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
+- `preloadDatabase()` Preloads the database using data from the text file.
+   <br /> ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
 
 ![](diagrams/FoodDatabase_Classes.png)  
 
