@@ -4,30 +4,30 @@ Developer Guide
 Content
 -------
 
-1. [Product Scope](#Product-Scope)
-2. [Quick Start](#quick-start)
-3. [User Story](user-story)
-4. [Application Architecture](#Architecture)
-   - Overall Architecture
-   - Food Tracker
-   - Food Tracker Database
-   - Food Database
-   - User
-   - Summary
-   - Suggest
-   - Command
-   - Storage
-   - Parser
-   - Ui
+1. [Product Scope](##Product-Scope)
+2. [Quick Start](##quick-start)
+3. [User Story](##user-story)
+4. [Application Architecture](##Architecture)
+   - [Overall Architecture](###Overall Architecture)
+   - [Food Tracker](###Food Tracker)
+   - [Food Tracker Database](###Food Tracker Database)
+   - [Food Database](###Food Database)
+   - [User](###User)
+   - [Summary](###Summary)
+   - [Suggest](###Suggest)
+   - [Command](###Command)
+   - [Storage](###Storage)
+   - [Parser](###Parser)
+   - [Ui](###Ui)
 5. [Implementation](#Implementation)
 6. [Instruction for manual testing](#instruction-for-manual-testing)
 7. [Non-functional Requirement](#NF-Requirement)
 
-##Acknowledgements
+## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-##Product scope
+## Product scope
 
 ### Target user profile
 
@@ -37,7 +37,7 @@ NUS Computer Engineering students reside in UTown going on diet.
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
 
-##Quick Start
+## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
@@ -51,13 +51,13 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 Refer to the User Guide (no link for now) for details of each command.
 
-##User Stories
+## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...| |--------|----------|---------------|------------------| |v1.0|new user|see usage instructions|refer to them when I forget how to use the application| |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
-##Architecture
+## Architecture
 
-###Overall Architecture
+### Overall Architecture
 
 ![Overall Architecture Diagram](diagrams/overall%20architecture.png)  
 The Architecture Diagram given above explains the high-level design of the App.  
@@ -90,21 +90,34 @@ The primary components of the app are listed below:
 The `FoodTrackerDatabase` component consists of:
 - `addEntry()` Adds a FoodTracker object to the database.
 - `sortDatabase()` Sorts the database by date.
-- `deleteEntry()` Removes a specified FoodTracker object from the database.
+- `deleteEntry(int)` Removes a specified FoodTracker object from the database.
 - `getTotalDailyCalorie()` Returns the total calorie intake for the day.
 - `convertDatabaseToString()` Returns a String representation of all FoodTracker objects in the database.
-- `preloadDatabase()` Preloads the database using data from the text file.
+  
+  ![convertDatabaseToString Sequence Diagram](diagrams/EntryDatabase_convertDatabaseToString_Seq.png)
+
+- `preloadDatabase(BufferedReader)` Preloads the database using data from the text file.
+
+  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preloadDatabase_Seq.png)
+
 - `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
-- `getEntryAtIndex()` Returns the FoodTracker object at the specified index.
+- `getEntryAtIndex(int)` Returns the FoodTracker object at the specified index.
 - `listEntries()` Returns a formatted String of all Food objects to be printed.
-- `findEntries()` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
-- `getPastDaysEntryDatabase` Returns a subset of the original database consisting of FoodTracker objects added in the current day
-- `getPastMonthsEntryDatabase` Returns a subset of the original database consisting of FoodTracker objects added in the current month
-- `editEntryAtIndex()` Edits the FoodTracker object at the specified index to the new specified Food object
+- `findEntries(String)` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
+- `getPastDaysEntryDatabase(int)` Returns a subset of the original database consisting of FoodTracker objects added in the current day
+
+  ![getPastDaysEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
+
+- `getPastMonthsEntryDatabase()` Returns a subset of the original database consisting of FoodTracker objects added in the current month
+
+  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
+
+- `editEntryAtIndex(int, Food)` Edits the FoodTracker object at the specified index to the new specified Food object
+
+The diagram below showcases the relationships between FoodTrackerDatabase object and various components.
 
 ![Food Tracker Class Architecture](diagrams/FoodTrackerDatabase_Classes.png)
 
-The diagram above showcases the relationships between FoodTrackerDatabase object and various components.
 
 ---
 
