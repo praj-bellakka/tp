@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class MealPlanDatabase {
     private final ArrayList<MealPlan> databaseMealPlans = new ArrayList<>();
     private final String MEALPLAN_DECODER = "--------";
+    private static final String DELIMITER = " | ";
 
     public MealPlan getMealAtIndex(int index) throws FitNusException {
         if (index > 0 && index <= databaseMealPlans.size()) {
@@ -33,6 +34,28 @@ public class MealPlanDatabase {
         } else {
             throw new FitNusException("Unable to add Meal plan as no food detected.");
         }
+    }
+
+    public String convertDatabaseToString() {
+        StringBuilder lines = new StringBuilder();
+        for (MealPlan plan : databaseMealPlans) {
+            String mealPlanName = plan.getMealPlanName();
+            lines.append(convertFoodToString(plan.getMealFoods()));
+            lines.append(this.MEALPLAN_DECODER).append(DELIMITER).append(mealPlanName).append(System.lineSeparator());
+        }
+        return lines.toString();
+    }
+
+    private String convertFoodToString(ArrayList<Food> foodList) {
+        StringBuilder lines = new StringBuilder();
+        for (Food food: foodList) {
+            String name = food.getName();
+            Integer calories = food.getCalories();
+            String type = food.getType().toString();
+            lines.append(name).append(DELIMITER).append(calories)
+                    .append(DELIMITER).append(type).append(System.lineSeparator());
+        }
+        return lines.toString();
     }
 
     public void preloadDatabase(BufferedReader reader) throws IOException {
