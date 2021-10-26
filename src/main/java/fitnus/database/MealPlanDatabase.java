@@ -2,13 +2,21 @@ package fitnus.database;
 
 import fitnus.FitNus;
 import fitnus.exception.FitNusException;
+import fitnus.parser.Parser;
+import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.tracker.MealPlan;
+import fitnus.tracker.MealType;
+import fitnus.utility.Ui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MealPlanDatabase {
     private final ArrayList<MealPlan> databaseMealPlans = new ArrayList<>();
+    private final String MEALPLAN_DECODER = "--------";
 
     public MealPlan getMealAtIndex(int index) throws FitNusException {
         if (index > 0 && index <= databaseMealPlans.size()) {
@@ -27,4 +35,30 @@ public class MealPlanDatabase {
         }
     }
 
+    public void preloadDatabase(BufferedReader reader) throws IOException {
+        int preloadMealPlanCount = 0;
+        String line;
+        String mealPlanName = "";
+        ArrayList<Food> tempArray = new ArrayList<>(); // holds temporary list of Food items per meal plan
+        while ((line = reader.readLine()) != null) {
+            String[] description = line.trim().split("\\s*[|]\\s*");
+            try {
+                if (description[0].equals(this.MEALPLAN_DECODER)) {
+                    mealPlanName = description[1];
+                    this.addMealPlan(new MealPlan(mealPlanName, tempArray));
+                    preloadMealPlanCount++;
+                }
+                String name = description[0].strip();
+                String caloriesString = description[1].strip();
+                assert caloriesString.equals("") == false : "calories field cannot only contain white spaces";
+                Food.FoodType type = Parser.parseFoodType(description[2]);
+                Integer calories = Integer.parseInt(caloriesString);
+                tempArray.add(new Food(name, calories, type));
+
+            } catch (IndexOutOfBoundsException | FitNusException e) {
+                Ui.printPreloadDatabaseError();
+            }
+        }
+        System.out.println("Successfully preloaded " + preloadMealPlanCount + " meal plans");
+    }
 }

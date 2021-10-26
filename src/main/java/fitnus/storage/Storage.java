@@ -2,6 +2,7 @@ package fitnus.storage;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
@@ -45,6 +46,15 @@ public class Storage {
     }
 
     public static void initialiseEntryDatabase(EntryDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_ENTRY_DATA);
+        FileInputStream stream;
+        stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        database.preloadDatabase(reader);
+        reader.close();
+    }
+
+    public static void initialiseMealPlanDatabase(MealPlanDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_ENTRY_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
