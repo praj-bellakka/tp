@@ -135,7 +135,7 @@ The `FoodDatabase` component consists of:
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file. 
-![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
+  ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
 
 ![](diagrams/FoodDatabase_Classes.png)  
 
