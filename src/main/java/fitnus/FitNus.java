@@ -1,9 +1,5 @@
 package fitnus;
 
-import fitnus.command.SetGenderCommand;
-import fitnus.command.SetAgeCommand;
-import fitnus.command.SetHeightCommand;
-import fitnus.command.SetWeightCommand;
 import fitnus.command.HelpCommand;
 import fitnus.command.ExitCommand;
 import fitnus.command.Command;
@@ -18,7 +14,6 @@ import fitnus.utility.Ui;
 import fitnus.utility.User;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -146,7 +141,7 @@ public class FitNus {
         Ui.println("Entry database:" + System.lineSeparator()
                 + ed.listEntries());
         Ui.println("User data:" + System.lineSeparator()
-                + user.listUserData());
+                + user.getUserDataDisplay());
     }
 
 
@@ -154,7 +149,8 @@ public class FitNus {
         fd = new FoodDatabase();
         ed = new EntryDatabase();
         md = new MealPlanDatabase();
-        user = new User(Gender.MALE, 1000);
+        user = new User(2000, Gender.MALE, 18, 180, 65); //placeholder values,
+        // to be replaced by user data saved in storage
         ui = new Ui();
         parser = new Parser();
 

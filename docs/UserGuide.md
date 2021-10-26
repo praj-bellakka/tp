@@ -276,8 +276,11 @@ Example of usage:
 
 ####  Generate and set calorie goal: `calorie /generate`
 Generates and sets a calorie goal based on the user's target weight loss/gain per week, age, height, weight and gender.
-
 Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
+
+* The `WEIGHT_CHANGE_TYPE` can be of the following 2 types: 
+  * `lose` - to denote aiming to lose weight
+  * `gain` - to denote aiming to gain weight
 
 Example of usage:
 

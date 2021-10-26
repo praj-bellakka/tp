@@ -99,6 +99,8 @@ public class Parser {
     private static final String LOSE = "/lose";
 
     public static final int CALORIE_LIMIT = 5000;
+    private static final int MINIMUM_AGE = 12;
+    private static final int MINIMUM_HEIGHT = 40;
 
     private static boolean isLoopFlagOn = true;
 
@@ -444,7 +446,7 @@ public class Parser {
 
     /**
      * Function parses integers from user input when the while loop inside
-     * {@link #parseAddTypeCommand(String, FoodDatabase)} parseAddTypeCommand} is running.
+     * {@link #parseAddTypeCommand(String, FoodDatabase, MealPlanDatabase)} parseAddTypeCommand} is running.
      * Returns integer if found within range, else -1.
      *
      * @param input User input.
@@ -470,7 +472,7 @@ public class Parser {
 
     /**
      * Function parses integers from user input when the while loop
-     * inside {@link #parseAddTypeCommand(String, FoodDatabase)} parseAddTypeCommand} is running.
+     * inside {@link #parseAddTypeCommand(String, FoodDatabase, MealPlanDatabase)} parseAddTypeCommand} is running.
      * Returns calories of food if input is valid, else returns -1.
      *
      * @param input Input containing the calories.
@@ -575,19 +577,13 @@ public class Parser {
     private Command parseGenderTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
-        try {
-            if (typeDescriptor.equals(DESCRIPTOR_SET)) {
-                String gender = input.substring(typeDescriptorIndex).trim();
-                if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("f")) {
-                    return new SetGenderCommand(gender);
-                }
-                throw new FitNusException("Invalid input! Please input m for male or "
-                        + "f for female when setting your gender.");
+        if (typeDescriptor.equals(DESCRIPTOR_SET)) {
+            String gender = input.substring(typeDescriptorIndex).trim();
+            if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("f")) {
+                return new SetGenderCommand(gender);
             }
-        } catch (FitNusException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+            throw new FitNusException("Invalid input! Please input m for male or "
+                    + "f for female when setting your gender.");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
@@ -598,10 +594,15 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 int age = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
+                if (age < MINIMUM_AGE) {
+                    throw new FitNusException("Users of FitNUS must be " + MINIMUM_AGE
+                            + " years old and above!");
+                }
+
                 return new SetAgeCommand(age);
             }
-        } catch (Exception e) {
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        } catch (NumberFormatException e) {
+            throw new FitNusException("The age must be an integer!");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
@@ -612,10 +613,14 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 int height = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
+                if (height < MINIMUM_HEIGHT) {
+                    throw new FitNusException("Please enter a height of " + MINIMUM_HEIGHT
+                            + " cm and above!");
+                }
                 return new SetHeightCommand(height);
             }
-        } catch (Exception e) {
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        } catch (NumberFormatException e) {
+            throw new FitNusException("The height must be an integer!");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
@@ -626,10 +631,13 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 float weight = Float.parseFloat(input.substring(typeDescriptorIndex).trim());
+                if (weight <= 0) {
+                    throw new FitNusException("Please enter a positive number for your weight!");
+                }
                 return new SetWeightCommand(weight);
             }
-        } catch (Exception e) {
-            throw new FitNusException(INVALID_COMMAND_MESSAGE);
+        } catch (NumberFormatException e) {
+            throw new FitNusException("The height must be an integer!");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }

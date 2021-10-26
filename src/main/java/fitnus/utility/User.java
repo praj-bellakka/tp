@@ -24,9 +24,12 @@ public class User {
     private static final String GAIN_STRING = "gain";
     private static final String LOSE_STRING = "lose";
 
-    public User(Gender gender, int calorieGoal) {
+    public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;
         this.gender = gender;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
     }
 
     public int getCalorieGoal() {
@@ -80,7 +83,15 @@ public class User {
         return weightProgressEntries;
     }
 
-    public String updateWeightAndWeightTracker(float newWeight) {
+    public void addToWeightProgressEntries(WeightProgressEntry entry) {
+        weightProgressEntries.add(entry);
+    }
+
+    public String updateWeightAndWeightTracker(float newWeight) throws FitNusException {
+        if (newWeight < 0) {
+            throw new FitNusException("An error occurred! The new weight cannot be negative.");
+        }
+
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
@@ -97,21 +108,32 @@ public class User {
             weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
         }
 
-        WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
-        float weightDifference = previousEntry.getWeight() - newWeight;
-        weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
-        String weightChange = weightDifference < 0 ? "gained" : "lost";
-        if (weightDifference < 0) {
-            weightDifference = Math.abs(weightDifference);
-        }
+        if (weightProgressEntries.size() >= 2) { //If weight tracker has
+            // more than 2 entries after updating the weight accordingly
+            WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
+            float weightDifference = previousEntry.getWeight() - newWeight;
+            weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
+            String weightChange = weightDifference < 0 ? "gained" : "lost";
+            if (weightDifference < 0) {
+                weightDifference = Math.abs(weightDifference);
+            }
 
-        return "You have updated your weight for today to " + newWeight
-                + "! You have " + weightChange + " " + weightDifference + " kg from the previous weight entry of "
-                + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
+            return "You have updated your weight for today to " + newWeight
+                    + " kg! You have " + weightChange + " " + weightDifference
+                    + " kg from the previous weight entry of "
+                    + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
+        } else {
+            return "You have updated your weight for today to " + newWeight + " kg!";
+        }
     }
 
-    public String convertWeightRecordsToStringForUi() {
+    public String convertWeightRecordsToStringForUi() throws FitNusException {
         StringBuilder lines = new StringBuilder();
+
+        if (weightProgressEntries.size() == 0) {
+            throw new FitNusException("An error has occurred! No weight records found.");
+        }
+
         for (WeightProgressEntry e : weightProgressEntries) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
@@ -121,15 +143,50 @@ public class User {
         return lines.toString();
     }
 
-    public int showCaloriesRemaining(EntryDatabase entryDB) {
+    public String getWeightProgressDisplay() throws FitNusException {
+        if (weightProgressEntries.size() == 0) {
+            return "You have not recorded your weight before! "
+                    + "Try recording your weight today using the weight /set command.";
+        } else if (weightProgressEntries.size() == 1) {
+            return "Your weight progress: \n"
+                    + convertWeightRecordsToStringForUi();
+        } else {
+            float startingWeight = weightProgressEntries.get(0).getWeight();
+            float currentWeight = weightProgressEntries.get(weightProgressEntries.size() - 1).getWeight();
+
+            float weightChange = startingWeight - currentWeight;
+            String changeType = weightChange < 0 ? "gained" : "lost";
+
+            weightChange = Math.abs(weightChange);
+
+            return "Your weight progress: \n"
+                    + convertWeightRecordsToStringForUi()
+                    + "\n"
+                    + "You have " + changeType + " " + weightChange + " kg since the start of your FitNUS journey!";
+        }
+    }
+
+    public int getCaloriesRemaining(EntryDatabase entryDB) {
         int caloriesConsumed = entryDB.getTotalDailyCalorie();
         return this.calorieGoal - caloriesConsumed;
     }
 
-    public int generateCalorieGoal(float weeklyChange, String changeType) {
+    public int generateCalorieGoal(float weeklyChange, String changeType) throws FitNusException {
+        if (!(changeType == GAIN_STRING || changeType == LOSE_STRING)) {
+            throw new FitNusException("An error has occurred! The change type is invalid.");
+        }
+
+        if (weeklyChange < 0) {
+            throw new FitNusException("Please enter a positive value for the weekly change!");
+        } else if (weeklyChange >= 1) {
+            throw new FitNusException("In order to lose or gain weight in a safe and healthy way,\n"
+                    + "FitNUS recommends a weekly change in weight of not more than\n"
+                    + "1 kg. Please try again with a lower weekly goal!");
+        }
+
         int calDeficitFor1KgWeekly = 1000;
 
-        int bmr; //basal metabolic rate
+        int bmr; //basal metabolic rate i.e. calories needed to maintain weight
         int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
         int newGoal = 0;
         if (this.gender == Gender.MALE) {
@@ -139,7 +196,7 @@ public class User {
         } else {
             bmr = (int) Math.round(((66.47 + (13.75 * this.weight)
                     + (5.003 * this.height)
-                    - (6.755 * this.age)) * 1.55) - weeklyChange * calDeficitFor1KgWeekly);
+                    - (6.755 * this.age)) * 1.55));
         }
 
         if (changeType == GAIN_STRING) {
@@ -199,9 +256,12 @@ public class User {
         System.out.println("Successfully preloaded weight data");
     }
 
-    public String listUserData() {
-        return "Calorie goal: " + this.calorieGoal + " " + System.lineSeparator()
-                + "Gender: " + this.gender.toString();
+    public String getUserDataDisplay() {
+        return "Calorie Goal: " + this.calorieGoal + " " + System.lineSeparator()
+                + "Gender: " + this.gender.toString() + System.lineSeparator()
+                + "Age: " + this.age + System.lineSeparator()
+                + "Weight: " + this.weight + System.lineSeparator()
+                + "Height: " + this.height + System.lineSeparator();
     }
 
     public String convertUserDataToString() {
