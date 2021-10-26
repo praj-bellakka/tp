@@ -1,0 +1,2 @@
+ramen | 400 | MEAL
+rice | 900 | SNACK
