@@ -157,9 +157,9 @@ matching Food objects.
 - `preloadDatabase()` Preloads the database using data from the text file.
    <br /> ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
 
-![](diagrams/FoodDatabase_Classes.png)  
+The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
-The class diagram above showcases the relationships between the `FoodDatabase` class and various components.
+![](diagrams/FoodDatabase_Classes.png)  
 
 
 ---
