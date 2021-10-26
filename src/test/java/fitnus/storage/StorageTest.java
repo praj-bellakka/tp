@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,16 +35,12 @@ class StorageTest {
             "FoodDatabaseInvalid.txt");
     private static final Path FILE_PATH_FOOD_DATA_SAVE = Paths.get(ROOT, "data/test",
             "FoodDatabaseSave.txt");
-    private static final Path FILE_PATH_FOOD_DATA_NOT_EXISTS = Paths.get(ROOT, "data/test",
-            "FoodDatabaseNotExists.txt");
     private static final Path FILE_PATH_ENTRY_DATA_VALID = Paths.get(ROOT, "data/test",
             "EntryDatabaseValid.txt");
     private static final Path FILE_PATH_ENTRY_DATA_INVALID = Paths.get(ROOT, "data/test",
             "EntryDatabaseInvalid.txt");
     private static final Path FILE_PATH_ENTRY_DATA_SAVE = Paths.get(ROOT, "data/test",
             "EntryDatabaseSave.txt");
-    private static final Path FILE_PATH_ENTRY_DATA_NOT_EXISTS = Paths.get(ROOT, "data/test",
-            "EntryDatabaseNotExists.txt");
 
     private static final Path FILE_PATH_USER_DATA = Paths.get(ROOT, "data/test", "user.txt");
     private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data/test", "weight.txt");
@@ -83,9 +80,9 @@ class StorageTest {
     }
 
     @Test
-    void initialiseFoodDatabase_storageFileNotExists_throwsFileNotFoundException() {
+    void initialiseFoodDatabase_invalidFilePath_throwsFileNotFoundException() {
         assertThrows(FileNotFoundException.class, () ->
-                new FileInputStream(FILE_PATH_FOOD_DATA_NOT_EXISTS.toString()));
+                new FileInputStream(""));
     }
 
     @Test
@@ -115,9 +112,9 @@ class StorageTest {
     }
 
     @Test
-    void initialiseEntryDatabase_storageFileNotExists_throwsFileNotFoundException() {
+    void initialiseEntryDatabase_invalidFilePath_throwsFileNotFoundException() {
         assertThrows(FileNotFoundException.class, () ->
-                new FileInputStream(FILE_PATH_ENTRY_DATA_NOT_EXISTS.toString()));
+                new FileInputStream(""));
     }
 
     @Test
@@ -131,7 +128,7 @@ class StorageTest {
     }
 
     @Test
-    void saveFoodDatabase() throws FitNusException, IOException {
+    void saveFoodDatabase_validFilePath_saveSuccessfully() throws FitNusException, IOException {
         FoodDatabase database = new FoodDatabase();
         database.addFood("ramen", 400, Food.FoodType.MEAL);
         database.addFood("rice", 900, Food.FoodType.SNACK);
@@ -145,7 +142,17 @@ class StorageTest {
     }
 
     @Test
-    void saveEntryDatabase() throws IOException {
+    void saveFoodDatabase_invalidFilePath_throwsFileNotFoundException() throws FitNusException {
+        FoodDatabase database = new FoodDatabase();
+        database.addFood("ramen", 400, Food.FoodType.MEAL);
+        database.addFood("rice", 900, Food.FoodType.SNACK);
+
+        String data = database.convertDatabaseToString();
+        assertThrows(FileNotFoundException.class, () -> saveData("", data));
+    }
+
+    @Test
+    void saveEntryDatabase_validFilePath_saveSuccessfully() throws IOException {
         EntryDatabase database = new EntryDatabase();
         Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
         Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
@@ -156,9 +163,21 @@ class StorageTest {
         saveData(FILE_PATH_ENTRY_DATA_SAVE.toString(), data);
         BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_ENTRY_DATA_SAVE.toString()));
 
-        assertEquals("Dinner | Prata | 100 | 2021-10-25 | MEALDinner "
-                        + "| Chicken Rice | 325 | 2021-10-25 | SNACK",
+        assertEquals("Dinner | Prata | 100 | " + LocalDate.now() + " | MEALDinner "
+                        + "| Chicken Rice | 325 | " + LocalDate.now() + " | SNACK",
                 reader1.lines().collect(Collectors.joining()));
+    }
+
+    @Test
+    void saveEntryDatabase_invalidFilePath_throwsFileNotFoundException() {
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+
+        String data = database.convertDatabaseToString();
+        assertThrows(FileNotFoundException.class, () -> saveData("", data));
     }
 
     @Test

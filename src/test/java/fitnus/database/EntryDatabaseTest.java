@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -211,9 +213,10 @@ class EntryDatabaseTest {
                 + System.lineSeparator() + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
                 + System.lineSeparator(), edbTwo.listEntries());
         assertEquals(" 1.[" + LocalDate.now().minusDays(2) + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL"
-                + System.lineSeparator() + " 2.[" + LocalDate.now().minusDays(1)
-                + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
-                + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL" + System.lineSeparator(),
+                        + System.lineSeparator() + " 2.[" + LocalDate.now().minusDays(1)
+                        + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
+                        + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                        + System.lineSeparator(),
                 edbThree.listEntries());
     }
 
@@ -317,9 +320,9 @@ class EntryDatabaseTest {
 
         // Test
         assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Prata (100 Kcal) Type: MEAL"
-                        + System.lineSeparator()
-                        + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
-                        + System.lineSeparator(), edb.listEntries());
+                + System.lineSeparator()
+                + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edb.listEntries());
     }
 
     @Test
@@ -329,5 +332,29 @@ class EntryDatabaseTest {
 
         // Test
         assertEquals("", edb.listEntries());
+    }
+
+    @Test
+    void findEntries_validKeyword_getMatchingEntries() throws FitNusException {
+        String keyword = "Rice";
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+        assertEquals("[[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: SNACK]",
+                database.findEntries(keyword).toString());
+        System.out.println(database.findEntries(keyword).toString());
+    }
+
+    @Test
+    void findEntries_emptyStringKeyword_throwsFitNusException() throws FitNusException {
+        String keyword = "";
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+        assertThrows(FitNusException.class, () -> database.findEntries(keyword));
     }
 }
