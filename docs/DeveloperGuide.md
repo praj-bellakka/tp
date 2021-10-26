@@ -124,7 +124,7 @@ The `FoodDatabase` component - `addFood()` Adds a Food object to the database.
 - `preloadDatabase()` Preloads the database using data from the text file. 
 
 ![](diagrams/FoodDatabase_Classes.png)  
-The diagram above showcases the relationships between `FoodDatabase` and various components.
+The class diagram above showcases the relationships between the `FoodDatabase` class and various components.
 
 ---
 
