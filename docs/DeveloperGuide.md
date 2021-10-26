@@ -9,27 +9,24 @@ Content
 3. [User Story](user-story)
 4. [Application Architecture](#Architecture)
    - Overall Architecture
-   - Ui
-   - Storage
-   - Parser
-   - Command
    - Food Tracker
    - Food Database
-   - Weight Tracker
    - User
    - Summary
    - Suggest
+   - Command
+   - Storage
+   - Parser
+   - Ui
 5. [Implementation](#Implementation)
 6. [Instruction for manual testing](#instruction-for-manual-testing)
 7. [Non-functional Requirement](#NF-Requirement)
 
-Acknowledgements
-----------------
+##Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-Product scope
--------------
+##Product scope
 
 ### Target user profile
 
@@ -39,8 +36,7 @@ NUS Computer Engineering students reside in UTown going on diet.
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
 
-Quick Start
------------
+##Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
@@ -52,44 +48,78 @@ Quick Start
    - `list intake /DAY`: Lists all entries in the food tracker for the day. 
    - `exit`: Exits the app.  
 
-Refer to the User Guide (no link for now) for details of each command. 
+Refer to the User Guide (no link for now) for details of each command.
 
-The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used. 
-
-The primary components of the app are listed below: 
-- `Command`: The abstract class that all other command classes inherit from 
-- `EntryDatabase`: For handling all functionality regarding food tracker entries.
-- `FoodDatabase`: For handling all functionality regarding food database entries. 
-- `Parser`: For parsing user input. 
-- `Storage`: For handling backend storage. 
-- `Ui`: For displaying information to the user. 
-- `User`: For handling all functionality regarding personalisation of user experience.
-
-User Stories
-------------
+##User Stories
 
 |Version| As a ... | I want to ... | So that I can ...| |--------|----------|---------------|------------------| |v1.0|new user|see usage instructions|refer to them when I forget how to use the application| |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
-Architecture
-------------
+##Architecture
+
+###Overall Architecture
 
 ![Overall Architecture Diagram](diagrams/overall%20architecture.png)  
 The Architecture Diagram given above explains the high-level design of the App.  
+
 Given below is a quick overview of main components and how they interact with each other.
 
-### Main components of the architecture
+The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used.
 
-#### command component
+The primary components of the app are listed below:
+- `Storage`: For handling backend storage.
+- `Parser`: For parsing user input.
+- `Command`: The abstract class that all other command classes inherit from
+- `Ui`: For displaying information to the user.
+- `EntryDatabase`: For handling all functionality regarding food tracker entries.
+- `FoodDatabase`: For handling all functionality regarding food database entries.
+- `User`: For handling all functionality regarding personalisation of user experience.
+
+---
+
+### Command
 
 ![command class diagram](diagrams/command%20class%20diagram.drawio.png)  
 - Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()` 
 - Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
 
-#### tracker
+---
+
+### Food Tracker
 
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png)
 
-#### database
+####Add Food Entry Feature
+
+The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+  ![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+
+####Edit Food Entry Feature
+
+The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+  ![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+
+####List Food Entry Feature
+
+The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
+- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+
+![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+
+---
+
+### Food Database
 
 ![](diagrams/FoodDatabase_Class.png)  
 The `FoodDatabase` component - `addFood()` Adds a Food object to the database. 
@@ -104,119 +134,100 @@ The `FoodDatabase` component - `addFood()` Adds a Food object to the database.
 - ![](diagrams/FoodDatabase_Classes.png)  
 The diagram above showcases the relationships between FoodDatabase object and various components.
 
-Glossary
---------
+---
 
-\*glossary item\* - Definition
+### User
 
-Add Food Entry Feature
-----------------------
+#### Weight Tracker
 
-The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`. Additionally, it implements the following operations: - `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database - `FoodDatabase#addFood` -- Adds a new food into the food database !\[AddFoodEntrySeqDiagram\](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
 
-Edit Food Entry Feature
------------------------
+#### Storage Component
 
-The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`. Additionally, it implements the following operations: - `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database - `FoodDatabase#addFood` -- Adds a new food into the food database !\[EditFoodEntrySeqDiagram\](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+Weight progress entries are stored in a text file in the following format:  
+`WEIGHT | DATE(YYYY-MM-DD)` Example: `100 | 2021-03-01`  
+The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.  
+On startup, the storage file is parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
 
-List Food Entry Feature
------------------------
+#### User Component
 
-The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`. 
+How the User component works in the context of the weight tracker:
 
-Additionally, they implement the following operations: 
-- `EntryDatabase#listEntries()` -- Lists all entries within the entry database 
-- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days 
+1.  When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
+2.  In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
+3.  If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
+4.  If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
 
-![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram") 
-![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+---
 
-Implementation
---------------
+### View Diet Summary
 
-1.  ### Weight Tracker
+The Summary class provides an overview of user's diet over the past week/month.
 
-    The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
-2.  ### SetWeightCommand Component
+#### command format
 
-    The entry point for setting or updating weight. The `execute` method in this object calls `updateWeightAndWeightTracker` method in the User object initialised in the main file in order to update the user's weight and weight progress.
-3.  ### Storage Component
+`summary /week` or `summary /month`  
+`Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
 
-    Weight progress entries are stored in a text file in the following format:  
-    `WEIGHT | DATE(YYYY-MM-DD)` Example: `100 | 2021-03-01`  
-    The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.  
-    On startup, the storage file is parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
-4.  ### User Component
+*   `generateWeekSummaryReport()` shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
+*   `generateMonthSummaryReport()` shows average daily calorie intake, and the most/least frequently eaten food over this month.
 
-    How the User component works in the context of the weight tracker:
+#### UML Sequence Diagram
 
-    1.  When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
-    2.  In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
-    3.  If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
-    4.  If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
+The following sequence diagram describes the operation of the `generateWeekSummary()`.  
+![](diagrams/weekly-report.png)  
+The following sequence diagram describes the operation of `generateMonthSummary()`.  
+![](diagrams/monthly-report.png)
 
-5.  ### View Diet Summary
+---
 
-    The Summary class provides an overview of user's diet over the past week/month.
+### Storage
 
-    #### command format
+The Storage class reads and writes data to and from the text file.
 
-    `summary /week` or `summary /month`  
-    `Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
+#### Storage format
 
-    *   `generateWeekSummaryReport()` shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
-    *   `generateMonthSummaryReport()` shows average daily calorie intake, and the most/least frequently eaten food over this month.
+**Every line in each text file represents one object / entry / item**
 
-    #### UML Sequence Diagram
+*   FoodDatabase:`FOODNAME | CALORIE_VALUE`  
+    Example: `Nasi Lemak | 400`   `Ramen | 600`
+*   EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE`  
+    Example: `Dinner | Ramen | 500 | 2021-10-20`   `Lunch | Fried rice | 600 | 2021-10-20`
+*   User:`CALORIE_GOAL | GENDER`  
+    Example: `1000 | 0`
+*   User weight:`WEIGHT | DATE`  
+    Example: `60.0 | 2021-07-20`   `59.0 | 2021-08-20`   `58.0 | 2021-09-20`   `45.0 | 2021-10-21`
 
-    The following sequence diagram describes the operation of the `generateWeekSummary()`.  
-    ![](diagrams/weekly-report.png)  
-    The following sequence diagram describes the operation of `generateMonthSummary()`.  
-    ![](diagrams/monthly-report.png)
-6.  ### Storage
+#### Implementation
 
-    The Storage class reads and writes data to and from the text file.
+1.  **Saving to file**
 
-    #### Storage format
+    `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
+    For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
+2.  **Loading from file**
 
-    **Every line in each text file represents one object / entry / item**
+    `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
+    For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
 
-    *   FoodDatabase:`FOODNAME | CALORIE_VALUE`  
-        Example: `Nasi Lemak | 400`   `Ramen | 600`
-    *   EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE`  
-        Example: `Dinner | Ramen | 500 | 2021-10-20`   `Lunch | Fried rice | 600 | 2021-10-20`
-    *   User:`CALORIE_GOAL | GENDER`  
-        Example: `1000 | 0`
-    *   User weight:`WEIGHT | DATE`  
-        Example: `60.0 | 2021-07-20`   `59.0 | 2021-08-20`   `58.0 | 2021-09-20`   `45.0 | 2021-10-21`
+#### UML Sequence Diagram
 
-    #### Implementation
+The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
+![](diagrams/Storage_sequence.png)
 
-    1.  **Saving to file**
+---
 
-        `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
-        For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
-    2.  **Loading from file**
+### Parser Component
 
-        `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
-        For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
+The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
 
-    #### UML Sequence Diagram
+*   determines the type of `Command` object and returns it.
+*   handles input exceptions and returns relevant `FitNusException` command.
 
-    The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-    ![](diagrams/Storage_sequence.png)
-7.  ### Parser Component
+#### Implementation
 
-    The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
+*   ##### Identifying type of method called
 
-    *   determines the type of `Command` object and returns it.
-    *   handles input exceptions and returns relevant `FitNusException` command.
-
-    #### Implementation
-
-    *   ##### Identifying type of method called
-
-        The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
+    The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
 Instructions for manual testing
 -------------------------------
@@ -226,4 +237,10 @@ Instructions for manual testing
 Non-Functional Requirements
 ---------------------------
 
-1\. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
+2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+
+Glossary
+--------
+
+\*glossary item\* - Definition
