@@ -60,7 +60,7 @@ public class Storage {
     public static void initialiseMealPlanDatabase(MealPlanDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_MEALPLAN_DATA);
         FileInputStream stream;
-        stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
+        stream = new FileInputStream(FILE_PATH_MEALPLAN_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         database.preloadDatabase(reader);
         reader.close();
@@ -101,10 +101,10 @@ public class Storage {
         saveData(FILE_PATH_ENTRY_DATA.toString(), data);
     }
 
-    public static void saveMealPLanDatabase(MealPlanDatabase database) throws IOException {
-        assert Files.exists(FILE_PATH_ENTRY_DATA);
+    public static void saveMealPlanDatabase(MealPlanDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_MEALPLAN_DATA);
         String data = database.convertDatabaseToString();
-        saveData(FILE_PATH_ENTRY_DATA.toString(), data);
+        saveData(FILE_PATH_MEALPLAN_DATA.toString(), data);
     }
 
     public static void saveUserData(User user) throws IOException {

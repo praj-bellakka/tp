@@ -36,6 +36,21 @@ public class MealPlanDatabase {
         }
     }
 
+    public String listMealPlan() {
+        StringBuilder list = new StringBuilder();
+        for (int i = 1; i <= databaseMealPlans.size(); i++) {
+            MealPlan plan = this.databaseMealPlans.get(i - 1);
+            String mealPlanName = plan.getMealPlanName();
+            String foodString = plan.getFoodString();
+            list.append(i).append(". Meal plan: ").append(mealPlanName)
+                    .append(System.lineSeparator())
+                    .append(foodString)
+                    .append(System.lineSeparator());
+
+        }
+        return list.toString();
+    }
+
     public String convertDatabaseToString() {
         StringBuilder lines = new StringBuilder();
         for (MealPlan plan : databaseMealPlans) {
@@ -68,8 +83,11 @@ public class MealPlanDatabase {
             try {
                 if (description[0].equals(this.MEALPLAN_DECODER)) {
                     mealPlanName = description[1];
-                    this.addMealPlan(new MealPlan(mealPlanName, tempArray));
+                    MealPlan tempMealPlan = new MealPlan(mealPlanName, tempArray);
+                    this.addMealPlan(tempMealPlan);
                     preloadMealPlanCount++;
+                    tempArray = new ArrayList<>(); //empty the temporary array for the next meal plan to add on
+                    continue;
                 }
                 String name = description[0].strip();
                 String caloriesString = description[1].strip();
