@@ -4,29 +4,30 @@ Developer Guide
 Content
 -------
 
-1. [Product Scope](#Product-Scope)
-2. [Quick Start](#quick-start)
-3. [User Story](user-story)
-4. [Application Architecture](#Architecture)
-   - Overall Architecture
-   - Food Tracker
-   - Food Database
-   - User
-   - Summary
-   - Suggest
-   - Command
-   - Storage
-   - Parser
-   - Ui
+1. [Product Scope](##Product-Scope)
+2. [Quick Start](##quick-start)
+3. [User Story](##user-story)
+4. [Application Architecture](##Architecture)
+   - [Overall Architecture](###Overall Architecture)
+   - [Food Tracker](###Food Tracker)
+   - [Food Tracker Database](###Food Tracker Database)
+   - [Food Database](###Food Database)
+   - [User](###User)
+   - [Summary](###Summary)
+   - [Suggest](###Suggest)
+   - [Command](###Command)
+   - [Storage](###Storage)
+   - [Parser](###Parser)
+   - [Ui](###Ui)
 5. [Implementation](#Implementation)
 6. [Instruction for manual testing](#instruction-for-manual-testing)
 7. [Non-functional Requirement](#NF-Requirement)
 
-##Acknowledgements
+## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-##Product scope
+## Product scope
 
 ### Target user profile
 
@@ -36,7 +37,7 @@ NUS Computer Engineering students reside in UTown going on diet.
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
 
-##Quick Start
+## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
@@ -50,13 +51,13 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 Refer to the User Guide (no link for now) for details of each command.
 
-##User Stories
+## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...| |--------|----------|---------------|------------------| |v1.0|new user|see usage instructions|refer to them when I forget how to use the application| |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
-##Architecture
+## Architecture
 
-###Overall Architecture
+### Overall Architecture
 
 ![Overall Architecture Diagram](diagrams/overall%20architecture.png)  
 The Architecture Diagram given above explains the high-level design of the App.  
@@ -80,41 +81,52 @@ The primary components of the app are listed below:
 
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png)
 
-####Add Food Entry Feature
+---
 
-The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+### Food Tracker Database
 
-Additionally, it implements the following operations:
-- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  ![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+![Food Tracker Class Diagram](diagrams/FoodTrackerDatabase_Class.png)
 
-####Edit Food Entry Feature
+The `FoodTrackerDatabase` component consists of:
+- `addEntry()` Adds a FoodTracker object to the database.
+- `sortDatabase()` Sorts the database by date.
+- `deleteEntry(int)` Removes a specified FoodTracker object from the database.
+- `getTotalDailyCalorie()` Returns the total calorie intake for the day.
+- `convertDatabaseToString()` Returns a String representation of all FoodTracker objects in the database.
+  
+  ![convertDatabaseToString Sequence Diagram](diagrams/EntryDatabase_convertDatabaseToString_Seq.png)
 
-The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+- `preloadDatabase(BufferedReader)` Preloads the database using data from the text file.
 
-Additionally, it implements the following operations:
-- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  ![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preloadDatabase_Seq.png)
 
-####List Food Entry Feature
+- `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
+- `getEntryAtIndex(int)` Returns the FoodTracker object at the specified index.
+- `listEntries()` Returns a formatted String of all Food objects to be printed.
+- `findEntries(String)` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
+- `getPastDaysEntryDatabase(int)` Returns a subset of the original database consisting of FoodTracker objects added in the current day
 
-The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+  ![getPastDaysEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
 
-Additionally, they implement the following operations:
-- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
-- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+- `getPastMonthsEntryDatabase()` Returns a subset of the original database consisting of FoodTracker objects added in the current month
 
-![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
+
+- `editEntryAtIndex(int, Food)` Edits the FoodTracker object at the specified index to the new specified Food object
+
+The diagram below showcases the relationships between FoodTrackerDatabase object and various components.
+
+![Food Tracker Class Architecture](diagrams/FoodTrackerDatabase_Classes.png)
+
 
 ---
 
 ### Food Database
 
 ![](diagrams/FoodDatabase_Class.png)  
-The `FoodDatabase` component - `addFood()` Adds a Food object to the database. 
+
+The `FoodDatabase` component consists of:
+- `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
@@ -124,7 +136,9 @@ The `FoodDatabase` component - `addFood()` Adds a Food object to the database.
 - `preloadDatabase()` Preloads the database using data from the text file. 
 
 ![](diagrams/FoodDatabase_Classes.png)  
+
 The class diagram above showcases the relationships between the `FoodDatabase` class and various components.
+
 
 ---
 
@@ -197,6 +211,37 @@ in ascending order of calories. This is indicated by the boolean `isSort` variab
 ![command class diagram](diagrams/command%20class%20diagram.drawio.png)
 - Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
 - Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
+
+####Add Food Entry Feature
+
+The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+
+![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+
+####Edit Food Entry Feature
+
+The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+  
+![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+
+####List Food Entry Feature
+
+The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
+- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+
+![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -325,7 +370,6 @@ then compared with default list of commands to determine the type of method call
 </li></ul></li></ol>
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
->>>>>>> Stashed changes
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
