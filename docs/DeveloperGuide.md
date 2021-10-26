@@ -123,8 +123,8 @@ The `FoodDatabase` component - `addFood()` Adds a Food object to the database.
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file. 
 
-- ![](diagrams/FoodDatabase_Classes.png)  
-The diagram above showcases the relationships between FoodDatabase object and various components.
+![](diagrams/FoodDatabase_Classes.png)  
+The diagram above showcases the relationships between `FoodDatabase` and various components.
 
 ---
 
