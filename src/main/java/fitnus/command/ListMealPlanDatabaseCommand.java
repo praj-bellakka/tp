@@ -5,7 +5,7 @@ import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
 import fitnus.utility.User;
 
-public class ListMealPlanDatabaseCommand extends Command{
+public class ListMealPlanDatabaseCommand extends Command {
     public ListMealPlanDatabaseCommand() {
     }
 

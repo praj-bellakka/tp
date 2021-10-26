@@ -1,22 +1,18 @@
 package fitnus.database;
 
-import fitnus.FitNus;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
-import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.tracker.MealPlan;
-import fitnus.tracker.MealType;
 import fitnus.utility.Ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MealPlanDatabase {
     private final ArrayList<MealPlan> databaseMealPlans = new ArrayList<>();
-    private final String MEALPLAN_DECODER = "--------";
+    private static final String MEAL_PLAN_DECODER = "--------";
     private static final String DELIMITER = " | ";
 
     public MealPlan getMealAtIndex(int index) throws FitNusException {
@@ -56,7 +52,7 @@ public class MealPlanDatabase {
         for (MealPlan plan : databaseMealPlans) {
             String mealPlanName = plan.getMealPlanName();
             lines.append(convertFoodToString(plan.getMealFoods()));
-            lines.append(this.MEALPLAN_DECODER).append(DELIMITER).append(mealPlanName).append(System.lineSeparator());
+            lines.append(this.MEAL_PLAN_DECODER).append(DELIMITER).append(mealPlanName).append(System.lineSeparator());
         }
         return lines.toString();
     }
@@ -81,7 +77,7 @@ public class MealPlanDatabase {
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
-                if (description[0].equals(this.MEALPLAN_DECODER)) {
+                if (description[0].equals(this.MEAL_PLAN_DECODER)) {
                     mealPlanName = description[1];
                     MealPlan tempMealPlan = new MealPlan(mealPlanName, tempArray);
                     this.addMealPlan(tempMealPlan);
