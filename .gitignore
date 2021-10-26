@@ -20,3 +20,4 @@ data/food.txt
 data/user.txt
 src/main/java/META-INF/MANIFEST.MF
 src/main/resources/META-INF/MANIFEST.MF
+data/weight.txt

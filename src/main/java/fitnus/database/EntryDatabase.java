@@ -94,6 +94,8 @@ public class EntryDatabase {
                 Ui.printPreloadDatabaseError();
             } catch (IndexOutOfBoundsException e) {
                 Ui.printPreloadDatabaseError();
+            } catch (NumberFormatException e) {
+                Ui.println(e.getMessage());
             }
         }
         System.out.println("Successfully preloaded " + preloadEntryCount + " entries");
@@ -101,15 +103,6 @@ public class EntryDatabase {
 
     public ArrayList<Entry> getEntries() {
         return entries;
-    }
-
-    public void addDefaultEntry(MealType mealType, FoodDatabase fd, int index) throws FitNusException {
-        try {
-            Food food = fd.getFoodAtIndex(index);
-            addEntry(mealType, food);
-        } catch (IndexOutOfBoundsException e) {
-            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
-        }
     }
 
     public Entry getEntryAtIndex(int index) throws FitNusException {
