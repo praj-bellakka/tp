@@ -137,7 +137,21 @@ The `FoodDatabase` component consists of:
 ![](diagrams/FoodDatabase_convertDatabaseToString_Seq.png)
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
-- `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType and the user's calorie goal. 
+- `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType 
+and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
+matching Food objects.
+```
+    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
+        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
+                .filter(t -> t.getType().equals(type))
+                .filter(c -> c.getCalories() < calories)
+                .collect(Collectors.toList());
+        if (isSort) {
+            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
+        }
+        return matchingSuggestions;
+    }
+```
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file.
