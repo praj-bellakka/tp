@@ -123,8 +123,8 @@ The `FoodDatabase` component - `addFood()` Adds a Food object to the database.
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file. 
 
-- ![](diagrams/FoodDatabase_Classes.png)  
-The diagram above showcases the relationships between FoodDatabase object and various components.
+![](diagrams/FoodDatabase_Classes.png)  
+The class diagram above showcases the relationships between the `FoodDatabase` class and various components.
 
 ---
 
@@ -170,6 +170,25 @@ The following sequence diagram describes the operation of the `generateWeekSumma
 ![](diagrams/weekly-report.png)  
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
 ![](diagrams/monthly-report.png)
+
+---
+### View Food Suggestions
+#### This feature allows users to find food suggestions based on food type and calorie goal.
+
+
+The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
+![](diagrams/SuggestCommandSequence.png) 
+
+<br />
+
+Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
+and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
+3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+based on the remaining calories and specified type. The user also has the option to have the result sorted 
+in ascending order of calories. This is indicated by the boolean `isSort` variable.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
 
 ---
 
@@ -231,6 +250,82 @@ The parser component makes use of the user input String from the `fitNus` class 
 
 Instructions for manual testing
 -------------------------------
+=======
+<h4>Storage format</h4>
+<div><strong>Every line in each text file represents one object / entry / item</strong></div>
+<ul>
+<li>
+FoodDatabase:<code>FOODNAME | CALORIE_VALUE</code> <br/>
+Example: <code>Nasi Lemak | 400</code> &nbsp; <code>Ramen | 600</code>
+</li>
+
+<li>
+EntryDatabase:<code>MEALTYPE | FOODNAME | CALORIE_VALUE | DATE</code> <br/>
+Example: <code>Dinner | Ramen | 500 | 2021-10-20</code> &nbsp; <code>Lunch | Fried rice | 600 | 2021-10-20</code>
+</li>
+
+<li>
+User:<code>CALORIE_GOAL | GENDER</code> <br/>
+Example: <code>1000 | 0</code> &nbsp;
+</li>
+
+
+<li>
+User weight:<code>WEIGHT | DATE</code> <br/>
+Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &nbsp; <code>58.0 | 2021-09-20</code> &nbsp; <code>45.0 | 2021-10-21</code>
+</li>
+
+</ul>
+
+<h4>Implementation</h4>
+<ol>
+<li>
+<div><strong>Saving to file</strong></div>
+<code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
+its data to String format. This String is then saved to the text file. <br/>
+For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
+method to obtain the String representation of all the data within the `FoodDatabase`. This String is then written to the text file.
+</li>
+
+
+<li>
+<div><strong>Loading from file </strong></div>
+<code>Storage</code> makes use of the <code>BufferedReader</code> and <code>FileInputStream</code> provided  by <code>java.io</code> to access 
+the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
+
+For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
+and passes the file contents to the <code>preLoadDatabase()</code> method in <code>FoodDatabase</code> which populates
+the ArrayList in <code>FoodDatabase</code>.
+</li>
+
+</ol>
+
+<h4>UML Sequence Diagram </h4>
+The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
+<img src="diagrams/Storage_sequence.png">
+
+
+<li>
+<h3>Parser Component</h3>
+<div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
+It then returns a <code>Command</code> object that represents the type of command called through the input.</div>
+
+<ul>
+<li>determines the type of <code>Command</code> object and returns it.</li>
+<li>handles input exceptions and returns relevant <code>FitNusException</code> command.</li>
+</ul>
+
+<h4>Implementation</h4>
+<ul>
+<li><h5>Identifying type of method called</h5>
+
+The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
+If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
+then compared with default list of commands to determine the type of method called using if-else statements.
+</li></ul></li></ol>
+
+<h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
+>>>>>>> Stashed changes
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 

@@ -4,23 +4,23 @@
 autonumber
 
 activate ":FitNUS"
-":FitNUS" -> "<<class>>\n Storage": saveFoodDatabase
+":FitNUS" -> "<<class>>\n Storage": saveFoodDatabase(foodDatabase)
 activate "<<class>>\n Storage"
-"<<class>>\n Storage" -> ":FoodDatabase" : convertDatabaseToString
+"<<class>>\n Storage" -> ":FoodDatabase" : convertDatabaseToString()
 activate ":FoodDatabase"
 loop for all food objects
-":FoodDatabase" -> ":Food" : getName
+":FoodDatabase" -> ":Food" : getName()
 activate ":Food"
 return name
-":FoodDatabase" -> ":Food" : getCalories
+":FoodDatabase" -> ":Food" : getCalories()
 activate ":Food"
 return calories
-":FoodDatabase" -> ":Food" : getType
+":FoodDatabase" -> ":Food" : getType()
 activate ":Food"
 return type
 end
-return String representation
-"<<class>>\n Storage" -> "<<class>>\n Storage" : saveData
+return content as String
+"<<class>>\n Storage" -> "<<class>>\n Storage" : saveData(filePath, content)
 activate "<<class>>\n Storage"
 return
 return

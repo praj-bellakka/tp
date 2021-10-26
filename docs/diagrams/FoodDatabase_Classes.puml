@@ -15,7 +15,6 @@ package command {
 
 package database {
     class FoodDatabase
-    class EntryDatabase
 }
 
 package storage {
@@ -31,11 +30,10 @@ package utility {
 }
 
 Storage ..> FoodDatabase
-FitNus -> FoodDatabase
-EntryDatabase ..> FoodDatabase
+FitNus *-> FoodDatabase
 "{Abstract}\nCommand" ..> FoodDatabase
 Parser ..> FoodDatabase
 FoodDatabase ..> Parser
-FoodDatabase ..> Food
+FoodDatabase *-> Food
 FoodDatabase ..> Ui
 @enduml
