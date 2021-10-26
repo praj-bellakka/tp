@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class FoodTrackerDatabase {
+- databaseFoodTrackers:ArrayList<FoodTracker>
++ addEntry(MealType, Food):void
++ addEntry(FoodTracker):void
++ sortDatabase():void
++ deleteEntry(int):void
++ getTotalDailyCalorie():int
++ convertDatabaseToString():String
++ preloadDatabase(BufferedReader):void
++ getEntries():ArrayList<FoodTracker>
++ getEntryAtIndex(int):void
++ listEntries():String
++ findEntries(String):ArrayList<FoodTracker>
++ getPastDaysEntryDatabase(int):FoodTrackerDatabase
++ getPastMonthEntryDatabase():FoodTrackerDatabase
++ editEntryAtIndex(int, Food):void
+}
+
+
+@enduml
