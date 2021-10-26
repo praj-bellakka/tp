@@ -100,6 +100,9 @@ public class Parser {
     public static final int CALORIE_LIMIT = 5000;
     private static final int MINIMUM_AGE = 12;
     private static final int MINIMUM_HEIGHT = 40;
+    private static final float MINIMUM_WEIGHT = 40;
+    private static final float MAXIMUM_WEIGHT = 1000;
+
 
     // Timeframe
     private static final int DAYS_IN_DAY = 1;
@@ -634,8 +637,12 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 float weight = Float.parseFloat(input.substring(typeDescriptorIndex).trim());
-                if (weight <= 0) {
-                    throw new FitNusException("Please enter a positive number for your weight!");
+                if (weight < MINIMUM_WEIGHT) {
+                    throw new FitNusException("Weight cannot be less than 40kg.");
+                }
+
+                if (weight > MAXIMUM_WEIGHT) {
+                    throw new FitNusException("Weight cannot be greater than 200kg.");
                 }
                 return new SetWeightCommand(weight);
             }
