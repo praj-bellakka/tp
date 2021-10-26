@@ -10,6 +10,7 @@ Content
 4. [Application Architecture](#Architecture)
    - Overall Architecture
    - Food Tracker
+   - Food Tracker Database
    - Food Database
    - User
    - Summary
@@ -80,34 +81,7 @@ The primary components of the app are listed below:
 
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png)
 
-####Add Food Entry Feature
 
-The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
-
-Additionally, it implements the following operations:
-- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  ![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
-
-####Edit Food Entry Feature
-
-The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
-
-Additionally, it implements the following operations:
-- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  ![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
-
-####List Food Entry Feature
-
-The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
-
-Additionally, they implement the following operations:
-- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
-- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
-
-![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -178,6 +152,37 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 ![command class diagram](diagrams/command%20class%20diagram.drawio.png)
 - Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
 - Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
+
+####Add Food Entry Feature
+
+The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+
+![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+
+####Edit Food Entry Feature
+
+The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+  
+![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+
+####List Food Entry Feature
+
+The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
+- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+
+![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
