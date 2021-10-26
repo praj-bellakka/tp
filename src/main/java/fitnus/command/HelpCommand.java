@@ -32,8 +32,8 @@ public class HelpCommand extends Command {
                 + "[X] Set Weight: weight /set WEIGHT\n"
                 + "[X] Set calorie goal: calorie /set GOAL\n"
                 + "[X] View remaining calories for the day: calorie /remain\n"
-                + "[X] Auto generate calorie goal: calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG \n" +
-                "      (CHANGE_TYPE - /lose, /gain)\n"
+                + "[X] Auto generate calorie goal: calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG \n"
+                + "      (CHANGE_TYPE - /lose, /gain)\n"
                 + "============== OTHERS ===============\n"
                 + "[X] List out available commands: help\n"
                 + "[X] Show summary: summary /TIMEFRAME (/week, /month)\n"

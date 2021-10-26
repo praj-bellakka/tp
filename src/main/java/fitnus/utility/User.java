@@ -108,7 +108,8 @@ public class User {
             weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
         }
 
-        if (weightProgressEntries.size() >= 2) { //If weight tracker has more than 2 entries after updating the weight accordingly
+        if (weightProgressEntries.size() >= 2) { //If weight tracker has
+            // more than 2 entries after updating the weight accordingly
             WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
             float weightDifference = previousEntry.getWeight() - newWeight;
             weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
@@ -118,7 +119,8 @@ public class User {
             }
 
             return "You have updated your weight for today to " + newWeight
-                    + " kg! You have " + weightChange + " " + weightDifference + " kg from the previous weight entry of "
+                    + " kg! You have " + weightChange + " " + weightDifference
+                    + " kg from the previous weight entry of "
                     + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
         } else {
             return "You have updated your weight for today to " + newWeight + " kg!";
@@ -143,8 +145,8 @@ public class User {
 
     public String getWeightProgressDisplay() throws FitNusException {
         if (weightProgressEntries.size() == 0) {
-            return "You have not recorded your weight before! " +
-                    "Try recording your weight today using the weight /set command.";
+            return "You have not recorded your weight before! "
+                    + "Try recording your weight today using the weight /set command.";
         } else if (weightProgressEntries.size() == 1) {
             return "Your weight progress: \n"
                     + convertWeightRecordsToStringForUi();

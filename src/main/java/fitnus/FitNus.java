@@ -149,7 +149,8 @@ public class FitNus {
         fd = new FoodDatabase();
         ed = new EntryDatabase();
         md = new MealPlanDatabase();
-        user = new User(2000, Gender.MALE, 18, 180, 65); //placeholder values, to be replaced by user data saved in storage
+        user = new User(2000, Gender.MALE, 18, 180, 65); //placeholder values,
+        // to be replaced by user data saved in storage
         ui = new Ui();
         parser = new Parser();
 
