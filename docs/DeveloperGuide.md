@@ -81,14 +81,39 @@ The primary components of the app are listed below:
 
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png)
 
+---
 
+### Food Tracker Database
+
+![Food Tracker Class Diagram](diagrams/FoodTrackerDatabase_Class.png)
+
+The `FoodTrackerDatabase` component consists of:
+- `addEntry()` Adds a FoodTracker object to the database.
+- `sortDatabase()` Sorts the database by date.
+- `deleteEntry()` Removes a specified FoodTracker object from the database.
+- `getTotalDailyCalorie()` Returns the total calorie intake for the day.
+- `convertDatabaseToString()` Returns a String representation of all FoodTracker objects in the database.
+- `preloadDatabase()` Preloads the database using data from the text file.
+- `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
+- `getEntryAtIndex()` Returns the FoodTracker object at the specified index.
+- `listEntries()` Returns a formatted String of all Food objects to be printed.
+- `findEntries()` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
+- `getPastDaysEntryDatabase` Returns a subset of the original database consisting of FoodTracker objects added in the current day
+- `getPastMonthsEntryDatabase` Returns a subset of the original database consisting of FoodTracker objects added in the current month
+- `editEntryAtIndex()` Edits the FoodTracker object at the specified index to the new specified Food object
+
+![Food Tracker Class Architecture](diagrams/FoodTrackerDatabase_Classes.png)
+
+The diagram above showcases the relationships between FoodTrackerDatabase object and various components.
 
 ---
 
 ### Food Database
 
 ![](diagrams/FoodDatabase_Class.png)  
-The `FoodDatabase` component - `addFood()` Adds a Food object to the database. 
+
+The `FoodDatabase` component consists of:
+- `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
@@ -97,7 +122,8 @@ The `FoodDatabase` component - `addFood()` Adds a Food object to the database.
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file. 
 
-- ![](diagrams/FoodDatabase_Classes.png)  
+![](diagrams/FoodDatabase_Classes.png)  
+
 The diagram above showcases the relationships between FoodDatabase object and various components.
 
 ---
