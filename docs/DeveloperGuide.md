@@ -77,7 +77,7 @@ The primary components of the app are listed below:
 - `FoodDatabase`: For handling all functionality regarding food database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
-####How the overall architecture works
+#### How the overall architecture works
 
 1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
@@ -245,7 +245,7 @@ The `Command` component
     
 - Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds a food tracker entry to the food tracker.) 
 
-####Add Food Entry Feature
+#### Add Food Entry Feature
 
 The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -255,7 +255,7 @@ Additionally, it implements the following operations:
 
 ![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
-####Edit Food Entry Feature
+#### Edit Food Entry Feature
 
 The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -265,7 +265,7 @@ Additionally, it implements the following operations:
   
 ![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
 
-####List Food Entry Feature
+#### List Food Entry Feature
 
 The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
 
@@ -400,7 +400,8 @@ It then returns a <code>Command</code> object that represents the type of comman
 The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
 If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
 then compared with default list of commands to determine the type of method called using if-else statements.
-</li></ul></li></ol>
+</li></ul></li>
+
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
 
