@@ -11,7 +11,7 @@ public class ViewRemainingCalorieCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) {
-        int calorieRemain = us.showCaloriesRemaining(ed);
+        int calorieRemain = us.getCaloriesRemaining(ed);
         if (calorieRemain < 0) {
             return String.format("Oops! You have exceeded the daily calorie goal by %d", Math.abs(calorieRemain));
         }

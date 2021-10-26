@@ -21,19 +21,9 @@ public class GenerateCalorieGoalCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        if (weeklyChange <= 1) {
-            if ((changeType.equals(GAIN_STRING) || changeType.equals(LOSE_STRING))) {
-                int newGoal = us.generateCalorieGoal(weeklyChange, changeType);
-                us.setCalorieGoal(newGoal);
-                return "Your new calorie goal to " + changeType + " " + weeklyChange
-                        + " kg per week is " + newGoal + " kcal daily!";
-            } else {
-                throw new FitNusException("Invalid change type! An error occurred when creating command.");
-            }
-        } else {
-            throw new FitNusException("In order to lose or gain weight in a safe and healthy way, "
-                    + "FitNUS recommends a weekly change in weight of not more than "
-                    + "1 kg. Please try again with a lower weekly goal!");
-        }
+        int newGoal = us.generateCalorieGoal(weeklyChange, changeType);
+        us.setCalorieGoal(newGoal);
+        return "Your new calorie goal to " + changeType + " " + weeklyChange
+                + " kg per week is " + newGoal + " kcal daily!";
     }
 }
