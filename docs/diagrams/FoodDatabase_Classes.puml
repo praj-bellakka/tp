@@ -1,6 +1,9 @@
 @startuml
 hide member
 
+hide circle
+skinparam classAttributeIconSize 0
+
 class FitNus
 package parser {
     class Parser
