@@ -1,7 +1,12 @@
 package fitnus;
 
+import fitnus.command.*;
+import fitnus.database.EntryDatabase;
+import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
+import fitnus.tracker.MealType;
+import fitnus.tracker.Summary;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -15,17 +20,17 @@ public class ParserTest {
 
     Parser parser = new Parser();
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
+    EntryDatabase ed = new EntryDatabase();
+    FoodDatabase fd = new FoodDatabase();
 
     @Test
     void parseCommandType_correctInput_parsedCorrectly() throws FitNusException {
-    //        assertTrue(parser.parseCommandType("add /cust food1 | 21") instanceof AddCustomFoodEntryCommand);
-    //        assertTrue(parser.parseCommandType("add /def 10") instanceof AddDefaultFoodEntryCommand);
-    //        assertTrue(parser.parseCommandType("list /food") instanceof ListFoodDatabaseCommand);
-    //        assertTrue(parser.parseCommandType("list /intake /DAY") instanceof ListFoodIntakeCommand);
-    //        assertTrue(parser.parseCommandType("gender /set M/F") instanceof SetGenderCommand);
-    //        assertTrue(parser.parseCommandType("remove /food 2") instanceof DeleteFoodEntryCommand);
-    //        assertTrue(parser.parseCommandType("calorie /set 300") instanceof SetCalorieGoalCommand);
-    //        assertTrue(parser.parseCommandType("calorie /remain") instanceof ViewRemainingCalorieCommand);
+        assertTrue(parser.parseCommandType("help", null, null, null) instanceof HelpCommand);
+        assertTrue(parser.parseCommandType("exit", null, null, null) instanceof ExitCommand);
+        assertTrue(parser.parseCommandType("list /food", null, null, null) instanceof ListFoodDatabaseCommand);
+        assertTrue(parser.parseCommandType("list /entry /day", null, null, null) instanceof ListFoodEntryCustomCommand);
+        assertTrue(parser.parseCommandType("list /weight", null, null, null) instanceof ListWeightProgressCommand);
+        assertTrue(parser.parseCommandType("weight /set 120", null, null, null) instanceof SetWeightCommand);
 
     }
 
@@ -74,6 +79,47 @@ public class ParserTest {
         AssertionError exception6 = assertThrows(AssertionError.class, () -> Parser.getDate(localDateInput6));
         assertEquals("String line should not be empty", exception6.getMessage());
 
+    }
+
+    @Test
+    void parseMealType_validInput_returnMealType() {
+        String input1 = "Breakfast";
+        String input2 = "/bfast";
+        assertEquals(MealType.BREAKFAST, Parser.parseMealType(input1, true));
+        assertEquals(MealType.BREAKFAST, Parser.parseMealType(input2, false));
+
+        String input3 = "Lunch";
+        String input4 = "/lunch";
+        assertEquals(MealType.LUNCH, Parser.parseMealType(input3, true));
+        assertEquals(MealType.LUNCH, Parser.parseMealType(input4, false));
+
+        String input5 = "Dinner";
+        String input6 = "/dinner";
+        assertEquals(MealType.DINNER, Parser.parseMealType(input5, true));
+        assertEquals(MealType.DINNER, Parser.parseMealType(input6, false));
+
+        String input7 = "Snack";
+        String input8 = "/snack";
+        assertEquals(MealType.SNACK, Parser.parseMealType(input7, true));
+        assertEquals(MealType.SNACK, Parser.parseMealType(input8, false));
+    }
+
+    @Test
+    void parseMealType_invalidInput_returnUndefinedMealType() {
+        String input1 = "breakfast";
+        String input2 = "/bfas";
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input1, true));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input2, false));
+
+        String input3 = "random words";
+        String input4 = "random words";
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input3, true));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input4, false));
+
+         String input5 = "";
+        String input6 = "";
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input5, true));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input6, false));
     }
 
     @Test
