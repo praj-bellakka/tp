@@ -1,7 +1,6 @@
-#Developer Guide
+# Developer Guide
 
-##Content
-
+## Content
 
 1. [Product Scope](##Product-Scope)
 2. [Quick Start](##quick-start)
