@@ -128,12 +128,14 @@ The diagram below showcases the relationships between FoodTrackerDatabase object
 The `FoodDatabase` component consists of:
 - `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
+![](diagrams/FoodDatabase_convertDatabaseToString_Seq.png)
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
 - `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType and the user's calorie goal. 
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
-- `preloadDatabase()` Preloads the database using data from the text file. 
+- `preloadDatabase()` Preloads the database using data from the text file.
+![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
 
 ![](diagrams/FoodDatabase_Classes.png)  
 
