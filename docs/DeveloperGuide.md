@@ -98,7 +98,7 @@ The `FoodTrackerDatabase` component consists of:
 
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file.
 
-  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preloadDatabase_Seq.png)
+  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preLoadDatabase_Seq.png)
 
 - `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
 - `getEntryAtIndex(int)` Returns the FoodTracker object at the specified index.
@@ -135,6 +135,7 @@ The `FoodDatabase` component consists of:
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file.
+
 ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
 
 ![](diagrams/FoodDatabase_Classes.png)  
