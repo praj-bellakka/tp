@@ -1,8 +1,8 @@
 package fitnus.database;
 
-import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
+import fitnus.tracker.MealType;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -64,8 +64,8 @@ class FoodDatabaseTest {
         FoodDatabase fd = new FoodDatabase();
         fd.addFood("food1", 100, Food.FoodType.BEVERAGE);
         fd.addFood("food2", 200, Food.FoodType.MEAL);
-        assertEquals(" 1.food1 (100 Kcal) Category: BEVERAGE" + System.lineSeparator()
-                + " 2.food2 (200 Kcal) Category: MEAL" + System.lineSeparator(), fd.listFoods());
+        assertEquals(" 1.food1 (100 Kcal) Type: BEVERAGE" + System.lineSeparator()
+                + " 2.food2 (200 Kcal) Type: MEAL" + System.lineSeparator(), fd.listFoods());
     }
 
     @Test
@@ -84,8 +84,52 @@ class FoodDatabaseTest {
         String initialString = "food1 | 100 | MEAL" + System.lineSeparator() + "food2 | 200 | MEAL";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        fd.preLoadDatabase(reader);
-        assertEquals(" 1.food1 (100 Kcal) Category: MEAL" + System.lineSeparator()
-                + " 2.food2 (200 Kcal) Category: MEAL" + System.lineSeparator(), fd.listFoods());
+        fd.preloadDatabase(reader);
+        assertEquals(" 1.food1 (100 Kcal) Type: MEAL" + System.lineSeparator()
+                + " 2.food2 (200 Kcal) Type: MEAL" + System.lineSeparator(), fd.listFoods());
+    }
+
+    @Test
+    void findFoods_validKeyword_getMatchingFoods() throws FitNusException {
+        String keyword = "Rice";
+        FoodDatabase database = new FoodDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addFood(prata);
+        database.addFood(chickenRice);
+        assertEquals("[Chicken Rice (325 Kcal) Type: SNACK]",
+                database.findFoods(keyword).toString());
+    }
+
+    @Test
+    void findFoods_emptyStringKeyword_throwsFitNusException() throws FitNusException {
+        String keyword = "";
+        FoodDatabase database = new FoodDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addFood(prata);
+        database.addFood(chickenRice);
+        assertThrows(FitNusException.class, () -> database.findFoods(keyword));
+    }
+
+    @Test
+    void findSuggestions_validInput_correctSuggestions() throws FitNusException {
+        FoodDatabase database = new FoodDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addFood(prata);
+        database.addFood(chickenRice);
+        assertEquals("[Prata (100 Kcal) Type: MEAL]",
+                database.findSuggestions(Food.FoodType.MEAL, 1000, true).toString());
+    }
+
+    @Test
+    void findSuggestions_invalidInput_noMatchingSuggestions() throws FitNusException {
+        FoodDatabase database = new FoodDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addFood(prata);
+        database.addFood(chickenRice);
+        assertEquals("[]", database.findSuggestions(null, -1000, true).toString());
     }
 }

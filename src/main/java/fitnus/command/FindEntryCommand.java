@@ -5,7 +5,6 @@ import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Entry;
-import fitnus.tracker.Food;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
@@ -19,7 +18,7 @@ public class FindEntryCommand extends Command {
     }
 
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        ArrayList<Entry> matchingEntries = ed.findEntry(keyword);
+        ArrayList<Entry> matchingEntries = ed.findEntries(keyword);
         Ui.printMatchingEntries(matchingEntries);
         return "";
     }

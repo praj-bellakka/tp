@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -97,58 +99,6 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void addDefaultEntry_validIndex_entryAddedSuccessfully() throws FitNusException {
-        // Instantiate objects
-        FoodDatabase fdb = new FoodDatabase();
-        Food prata = new Food("Prata", 100, Food.FoodType.SNACK);
-        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
-        Food pizza = new Food("Pizza", 260, Food.FoodType.OTHERS);
-
-        // Add Food to database
-        fdb.addFood(prata);
-        fdb.addFood(chickenRice);
-        fdb.addFood(pizza);
-
-        // Add Entries
-        EntryDatabase edb = new EntryDatabase();
-        edb.addDefaultEntry(MealType.DINNER, fdb, 1);
-        edb.addDefaultEntry(MealType.DINNER, fdb, 2);
-        edb.addDefaultEntry(MealType.DINNER, fdb, 3);
-
-        // Test
-        assertEquals(prata, edb.getEntryAtIndex(1).getFood());
-        assertEquals(chickenRice, edb.getEntryAtIndex(2).getFood());
-        assertEquals(pizza, edb.getEntryAtIndex(3).getFood());
-    }
-
-    @Test
-    void addDefaultEntry_invalidIndex_exceptionThrown() throws FitNusException {
-        // Instantiate objects
-        EntryDatabase edb = new EntryDatabase();
-        FoodDatabase fdb = new FoodDatabase();
-        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
-        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
-        Food pizza = new Food("Pizza", 260, Food.FoodType.SNACK);
-
-        // Add Food to database
-        fdb.addFood(prata);
-        fdb.addFood(chickenRice);
-        fdb.addFood(pizza);
-
-        // Test
-        Exception exception1 = assertThrows(FitNusException.class,
-            () -> edb.addDefaultEntry(MealType.DINNER, fdb, 0));
-        Exception exception2 = assertThrows(FitNusException.class,
-            () -> edb.addDefaultEntry(MealType.DINNER, fdb, -1));
-        Exception exception3 = assertThrows(FitNusException.class,
-            () -> edb.addDefaultEntry(MealType.DINNER, fdb, 100));
-
-        assertEquals("Sorry the index chosen is invalid! Please try again!", exception1.getMessage());
-        assertEquals("Sorry the index chosen is invalid! Please try again!", exception2.getMessage());
-        assertEquals("Sorry the index chosen is invalid! Please try again!", exception3.getMessage());
-    }
-
-    @Test
     void deleteEntry_validIndex_entryDeletedSuccessfully() throws FitNusException {
         // Instantiate objects
         EntryDatabase edb = new EntryDatabase();
@@ -227,16 +177,184 @@ class EntryDatabaseTest {
     }
 
     @Test
-    void preLoadDatabase_validInput_SuccessfullyPreloadDatabase()
-            throws IOException {
+    void preLoadDatabase_validInput_SuccessfullyPreloadDatabase() throws IOException {
         EntryDatabase ed = new EntryDatabase();
         String initialString = "Breakfast | food1 | 100 | 2021-10-12 | MEAL" + System.lineSeparator()
                 + "Lunch | food2 | 200 | 2021-10-12 | MEAL";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        ed.preLoadDatabase(reader);
-        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal) Category: MEAL"
-                + System.lineSeparator() + " 2.[2021-10-12] Lunch: food2 (200 Kcal) Category: MEAL"
+        ed.preloadDatabase(reader);
+        assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[2021-10-12] Lunch: food2 (200 Kcal) Type: MEAL"
                 + System.lineSeparator(), ed.listEntries());
+    }
+
+    @Test
+    void getPastDaysEntryDatabase_existingEntries_SuccessfullyReturnsPastDaysEntries() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+        Food nasiLemak = new Food("Nasi Lemak", 400, Food.FoodType.MEAL);
+
+        // Add Entries
+        edb.addEntry(new Entry(MealType.DINNER, nasiLemak, LocalDate.now().minusDays(2)));
+        edb.addEntry(new Entry(MealType.DINNER, prata, LocalDate.now().minusDays(1)));
+        edb.addEntry(new Entry(MealType.DINNER, chickenRice));
+
+        // Test
+        EntryDatabase edbOne = edb.getPastDaysEntryDatabase(1);
+        EntryDatabase edbTwo = edb.getPastDaysEntryDatabase(2);
+        EntryDatabase edbThree = edb.getPastDaysEntryDatabase(3);
+
+        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edbOne.listEntries());
+        assertEquals(" 1.[" + LocalDate.now().minusDays(1) + "] Dinner: Prata (100 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edbTwo.listEntries());
+        assertEquals(" 1.[" + LocalDate.now().minusDays(2) + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL"
+                        + System.lineSeparator() + " 2.[" + LocalDate.now().minusDays(1)
+                        + "] Dinner: Prata (100 Kcal) Type: MEAL" + System.lineSeparator()
+                        + " 3.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                        + System.lineSeparator(),
+                edbThree.listEntries());
+    }
+
+    @Test
+    void getPastDaysEntryDatabase_noEntries_SuccessfullyReturnsNoEntries() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+
+        // Test
+        EntryDatabase edbPastDay = edb.getPastDaysEntryDatabase(1);
+
+        assertEquals("", edbPastDay.listEntries());
+    }
+
+    @Test
+    void getPastMonthEntryDatabase_existingEntries_SuccessfullyReturnsPastMonthEntries() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+        Food nasiLemak = new Food("Nasi Lemak", 400, Food.FoodType.MEAL);
+
+        // Add Entries
+        edb.addEntry(new Entry(MealType.DINNER, nasiLemak, LocalDate.now().minusMonths(2)));
+        edb.addEntry(new Entry(MealType.DINNER, prata, LocalDate.now().minusMonths(1)));
+        edb.addEntry(new Entry(MealType.DINNER, chickenRice));
+
+        // Test
+        EntryDatabase edbMonth = edb.getPastMonthEntryDatabase();
+
+        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edbMonth.listEntries());
+    }
+
+    @Test
+    void getPastMonthEntryDatabase_noEntries_SuccessfullyReturnsNoEntries() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+
+        // Test
+        EntryDatabase edbPastMonth = edb.getPastMonthEntryDatabase();
+
+        assertEquals("", edbPastMonth.listEntries());
+    }
+
+    @Test
+    void editEntryAtIndex_validIndex_SuccessfullyEditEntry() throws FitNusException {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+        Food nasiLemak = new Food("Nasi Lemak", 400, Food.FoodType.MEAL);
+
+        // Add Entries
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
+
+        // Edit Entry
+        edb.editEntryAtIndex(1, nasiLemak);
+
+        // Test
+        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Nasi Lemak (400 Kcal) Type: MEAL"
+                + System.lineSeparator() + " 2.[" + LocalDate.now()
+                + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edb.listEntries());
+    }
+
+    @Test
+    void editEntryAtIndex_invalidIndex_exceptionThrown() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+        Food nasiLemak = new Food("Nasi Lemak", 400, Food.FoodType.MEAL);
+
+        // Add Entries
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
+
+        // Edit Entry
+
+        Exception exception1 = assertThrows(FitNusException.class, () -> edb.editEntryAtIndex(0, nasiLemak));
+        Exception exception2 = assertThrows(FitNusException.class, () -> edb.editEntryAtIndex(-1, nasiLemak));
+        Exception exception3 = assertThrows(FitNusException.class, () -> edb.editEntryAtIndex(3, nasiLemak));
+
+        assertEquals("Invalid index!", exception1.getMessage());
+        assertEquals("Invalid index!", exception2.getMessage());
+        assertEquals("Invalid index!", exception3.getMessage());
+    }
+
+    @Test
+    void listEntries_existingEntries_SuccessfullyReturnsEntries() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.MEAL);
+
+        // Add Entries
+        edb.addEntry(MealType.DINNER, prata);
+        edb.addEntry(MealType.DINNER, chickenRice);
+
+        // Test
+        assertEquals(" 1.[" + LocalDate.now() + "] Dinner: Prata (100 Kcal) Type: MEAL"
+                + System.lineSeparator()
+                + " 2.[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: MEAL"
+                + System.lineSeparator(), edb.listEntries());
+    }
+
+    @Test
+    void listEntries_noEntries_SuccessfullyReturnsNoEntries() {
+        // Instantiate objects
+        EntryDatabase edb = new EntryDatabase();
+
+        // Test
+        assertEquals("", edb.listEntries());
+    }
+
+    @Test
+    void findEntries_validKeyword_getMatchingEntries() throws FitNusException {
+        String keyword = "Rice";
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+        assertEquals("[[" + LocalDate.now() + "] Dinner: Chicken Rice (325 Kcal) Type: SNACK]",
+                database.findEntries(keyword).toString());
+        System.out.println(database.findEntries(keyword).toString());
+    }
+
+    @Test
+    void findEntries_emptyStringKeyword_throwsFitNusException() throws FitNusException {
+        String keyword = "";
+        EntryDatabase database = new EntryDatabase();
+        Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
+        Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
+        database.addEntry(MealType.DINNER, prata);
+        database.addEntry(MealType.DINNER, chickenRice);
+        assertThrows(FitNusException.class, () -> database.findEntries(keyword));
     }
 }

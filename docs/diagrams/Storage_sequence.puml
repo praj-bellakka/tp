@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+activate ":FitNUS"
+":FitNUS" -> "<<class>>\n Storage": saveFoodDatabase
+activate "<<class>>\n Storage"
+"<<class>>\n Storage" -> ":FoodDatabase" : convertDatabaseToString
+activate ":FoodDatabase"
+loop for all food objects
+":FoodDatabase" -> ":Food" : getName
+activate ":Food"
+return name
+":FoodDatabase" -> ":Food" : getCalories
+activate ":Food"
+return calories
+":FoodDatabase" -> ":Food" : getType
+activate ":Food"
+return type
+end
+return String representation
+"<<class>>\n Storage" -> "<<class>>\n Storage" : saveData
+activate "<<class>>\n Storage"
+return
+return
+
+
+@enduml

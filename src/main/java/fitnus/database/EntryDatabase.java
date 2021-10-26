@@ -74,7 +74,7 @@ public class EntryDatabase {
         return lines.toString();
     }
 
-    public void preLoadDatabase(BufferedReader reader) throws IOException {
+    public void preloadDatabase(BufferedReader reader) throws IOException {
         int preloadEntryCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {
@@ -94,6 +94,8 @@ public class EntryDatabase {
                 Ui.printPreloadDatabaseError();
             } catch (IndexOutOfBoundsException e) {
                 Ui.printPreloadDatabaseError();
+            } catch (NumberFormatException e) {
+                Ui.println(e.getMessage());
             }
         }
         System.out.println("Successfully preloaded " + preloadEntryCount + " entries");
@@ -101,15 +103,6 @@ public class EntryDatabase {
 
     public ArrayList<Entry> getEntries() {
         return entries;
-    }
-
-    public void addDefaultEntry(MealType mealType, FoodDatabase fd, int index) throws FitNusException {
-        try {
-            Food food = fd.getFoodAtIndex(index);
-            addEntry(mealType, food);
-        } catch (IndexOutOfBoundsException e) {
-            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
-        }
     }
 
     public Entry getEntryAtIndex(int index) throws FitNusException {
@@ -129,7 +122,7 @@ public class EntryDatabase {
         return result;
     }
 
-    public ArrayList<Entry> findEntry(String keyword) throws FitNusException {
+    public ArrayList<Entry> findEntries(String keyword) throws FitNusException {
         if (keyword.equals("")) {
             throw new FitNusException("Please provide a valid keyword");
         }

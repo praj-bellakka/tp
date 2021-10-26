@@ -40,7 +40,7 @@ public class Storage {
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_FOOD_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        database.preLoadDatabase(reader);
+        database.preloadDatabase(reader);
         reader.close();
     }
 
@@ -49,7 +49,7 @@ public class Storage {
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        database.preLoadDatabase(reader);
+        database.preloadDatabase(reader);
         reader.close();
     }
 

@@ -4,19 +4,20 @@ import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.tracker.Food;
 import fitnus.utility.User;
 
-public class SetAgeCommand extends Command {
-    private final int age;
+public class DeleteFoodCommand extends Command {
+    private final int index;
 
-
-    public SetAgeCommand(int age) {
-        this.age = age;
+    public DeleteFoodCommand(int index) {
+        this.index = index;
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        us.setAge(this.age);
-        return "You have set your age to " + this.age + " years old!";
+        Food deletedFood = fd.getFoodAtIndex(index);
+        fd.deleteFood(index);
+        return "You have successfully deleted " + deletedFood;
     }
 }

@@ -31,6 +31,14 @@ public class FoodDatabase {
         databaseFoods.add(food);
     }
 
+    public void deleteFood(int index) throws FitNusException {
+        try {
+            this.databaseFoods.remove(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
+    }
+
     // Index here starts from 1
     public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
         return databaseFoods.get(index - 1);
@@ -62,7 +70,7 @@ public class FoodDatabase {
         return lines.toString();
     }
 
-    public void preLoadDatabase(BufferedReader reader) throws IOException, FitNusException {
+    public void preloadDatabase(BufferedReader reader) throws IOException, FitNusException {
         int preloadFoodCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {
@@ -87,7 +95,7 @@ public class FoodDatabase {
         System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
     }
 
-    public ArrayList<Food> findFood(String keyword) throws FitNusException {
+    public ArrayList<Food> findFoods(String keyword) throws FitNusException {
         if (keyword.equals("")) {
             throw new FitNusException("Please provide a valid keyword");
         }

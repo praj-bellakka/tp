@@ -21,6 +21,6 @@ class EntryTest {
         MealType mealType = MealType.BREAKFAST;
         Food food = new Food("Bread", 50, Food.FoodType.SNACK);
         Entry entry = new Entry(mealType, food, LocalDate.parse("2021-01-01"));
-        assertEquals("[2021-01-01] Breakfast: Bread (50 Kcal) Category: SNACK", entry.toString());
+        assertEquals("[2021-01-01] Breakfast: Bread (50 Kcal) Type: SNACK", entry.toString());
     }
 }
