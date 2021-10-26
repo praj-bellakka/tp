@@ -98,7 +98,7 @@ public class EntryDatabase {
                 Ui.println(e.getMessage());
             }
         }
-        System.out.println("Successfully preloaded " + preloadEntryCount + " entries");
+        Ui.println("Successfully preloaded " + preloadEntryCount + " entries");
     }
 
     public ArrayList<Entry> getEntries() {

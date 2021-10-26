@@ -31,6 +31,8 @@ loop While there are still unread lines
     return entry:Entry
 
     ":EntryDatabase" -> ":EntryDatabase": addEntry(entry)
+    activate ":EntryDatabase"
+    return
 
 end
 

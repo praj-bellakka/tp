@@ -3,7 +3,7 @@
 
 autonumber
 
--> ":ViewSuggestionsCommand": execute(entryDatabase, foodDatabase, mealPlanDatabase, user)
+-> ":ViewSuggestionsCommand": execute()
 activate ":ViewSuggestionsCommand"
 
 ":ViewSuggestionsCommand" -> ":User" : getCalorieGoal()

@@ -92,7 +92,7 @@ public class FoodDatabase {
                 Ui.printPreloadDatabaseError();
             }
         }
-        System.out.println("Successfully preloaded " + preloadFoodCount + " foods");
+        Ui.println("Successfully preloaded " + preloadFoodCount + " foods");
     }
 
     public ArrayList<Food> findFoods(String keyword) throws FitNusException {
