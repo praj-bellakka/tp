@@ -1,8 +1,7 @@
-Developer Guide
-===============
+#Developer Guide
 
-Content
--------
+##Content
+
 
 1. [Product Scope](#Product-Scope)
 2. [Quick Start](#quick-start)
@@ -74,6 +73,13 @@ The primary components of the app are listed below:
 - `FoodDatabase`: For handling all functionality regarding food database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
+####How the overall architecture works
+
+1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
+3. The `Command` object calls its `execute` method which performs the function required.
+   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add a food tracker entry).
+4. The `execute` method returns a `String` object that contains the outcome message of the command that was executed, which is displayed to the user by the `Ui` component.
 ---
 
 ### Food Tracker
@@ -128,29 +134,35 @@ The class diagram above showcases the relationships between the `FoodDatabase` c
 
 ---
 
-### User
+### User component
 
-#### Weight Tracker
+(put class diagram here)
 
-The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
+The `User` component:
+- Stores the user's personal data eg gender, age, height, weight
+- Stores the user's weight progress data i.e. all `WeightProgressEntry` objects (which are contained in an `ArrayList` as an attribute in `User`)
+- Performs functions related to the user's calorie goal such as setting and generating the calorie goal
 
-#### Storage Component
+####Weight tracker feature
 
-Weight progress entries are stored in a text file in the following format:  
-`WEIGHT | DATE(YYYY-MM-DD)` Example: `100 | 2021-03-01`  
-The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.  
-On startup, the storage file is parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
+The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
 
-#### User Component
+The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
+![SetWeightSeqDiagram](./diagrams/SetWeightCommand.png "Set Weight Sequence Diagram")
 
-How the User component works in the context of the weight tracker:
+How updating the weight tracker works:
 
-1.  When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
-2.  In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
-3.  If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
-4.  If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
+1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
+2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
+3. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the `ArrayList` with the current date and new weight.
 
 ---
+
+The weight tracker can also perform the following operations:
+- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. Weight progress entries are stored in a text file in the following format:  
+  `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
+- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightProgressEntry` objects
+- `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
 
 ### View Diet Summary
 
@@ -179,8 +191,6 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
 ![](diagrams/SuggestCommandSequence.png) 
 
-<br />
-
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
 1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
 and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
@@ -195,8 +205,12 @@ in ascending order of calories. This is indicated by the boolean `isSort` variab
 ### Command
 
 ![command class diagram](diagrams/command%20class%20diagram.drawio.png)
-- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
-- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
+
+The `Command` class is an abstract class that all other specific command classes (eg AddFoodEntryCommand, DeleteEntryCommand) inherit from. 
+
+The `Command` component
+    
+- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds a food tracker entry to the food tracker.) 
 
 ---
 
