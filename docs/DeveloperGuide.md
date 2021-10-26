@@ -172,6 +172,25 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 ![](diagrams/monthly-report.png)
 
 ---
+### View Food Suggestions
+#### This feature allows users to find food suggestions based on food type and calorie goal.
+
+
+The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
+![](diagrams/SuggestCommandSequence.png) 
+
+<br />
+
+Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
+and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
+3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+based on the remaining calories and specified type. The user also has the option to have the result sorted 
+in ascending order of calories. This is indicated by the boolean `isSort` variable.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
+
+---
 
 ### Command
 
@@ -185,7 +204,6 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 
 The Storage class reads and writes data to and from the text file.
 
-<<<<<<< Updated upstream
 #### Storage format
 
 **Every line in each text file represents one object / entry / item**

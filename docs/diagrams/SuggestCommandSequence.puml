@@ -21,8 +21,8 @@ end note
 activate ":FoodDatabase"
 return suggestions
 
-":ViewSuggestionsCommand" -> ":Ui" : printMatchingSuggestions(suggestions)
-activate ":Ui"
+":ViewSuggestionsCommand" -> "<<Class>>\nUi" : printMatchingSuggestions(suggestions)
+activate "<<Class>>\nUi"
 return
 
 return
