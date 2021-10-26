@@ -76,14 +76,6 @@ The primary components of the app are listed below:
 
 ---
 
-### Command
-
-![command class diagram](diagrams/command%20class%20diagram.drawio.png)  
-- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()` 
-- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
-
----
-
 ### Food Tracker
 
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png)
@@ -178,6 +170,14 @@ The following sequence diagram describes the operation of the `generateWeekSumma
 ![](diagrams/weekly-report.png)  
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
 ![](diagrams/monthly-report.png)
+
+---
+
+### Command
+
+![command class diagram](diagrams/command%20class%20diagram.drawio.png)
+- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
+- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
 
 ---
 
