@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+-> ":EntryDatabase": preloadDatabase()
+activate ":EntryDatabase"
+
+loop While there are still unread lines
+
+    ":EntryDatabase" -> ":Parser": parseMealType()
+    activate ":Parser"
+    return mealType:MealType
+
+    ":EntryDatabase" -> ":Parser": parseFoodType()
+    activate ":Parser"
+    return type:FoodType
+
+    ":EntryDatabase" -> ":Parser": getDate()
+    activate ":Parser"
+    return date:LocalDate
+
+    create ":Food"
+    ":EntryDatabase" -> ":Food": new Food(name, calories, type)
+    activate ":Food"
+    return food:Food
+
+    create ":Entry"
+    ":EntryDatabase" -> ":Entry": new Entry(mealType, food, date)
+    activate ":Entry"
+    return entry:Entry
+
+    ":EntryDatabase" -> ":EntryDatabase": addEntry(entry)
+    activate ":EntryDatabase"
+    return
+
+end
+
+return
+@enduml

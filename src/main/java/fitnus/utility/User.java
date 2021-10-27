@@ -248,9 +248,9 @@ public class User {
                 LocalDate date = LocalDate.parse(description[1]);
                 weightProgressEntries.add(new WeightProgressEntry(weight, date));
             } catch (IndexOutOfBoundsException e) {
-                //Ui.printPreloadDatabaseError();
+                Ui.printPreloadDatabaseError();
             } catch (NumberFormatException e) {
-                //Ui.printPreloadUserError();
+                Ui.printPreloadUserError();
             }
         }
         System.out.println("Successfully preloaded weight data");

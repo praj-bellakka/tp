@@ -1,32 +1,32 @@
-Developer Guide
-===============
+#Developer Guide
 
-Content
--------
+##Content
 
-1. [Product Scope](#Product-Scope)
-2. [Quick Start](#quick-start)
-3. [User Story](user-story)
-4. [Application Architecture](#Architecture)
-   - Overall Architecture
-   - Food Tracker
-   - Food Database
-   - User
-   - Summary
-   - Suggest
-   - Command
-   - Storage
-   - Parser
-   - Ui
+
+1. [Product Scope](##Product-Scope)
+2. [Quick Start](##quick-start)
+3. [User Story](##user-story)
+4. [Application Architecture](##Architecture)
+   - [Overall Architecture](###Overall Architecture)
+   - [Food Tracker](###Food Tracker)
+   - [Food Tracker Database](###Food Tracker Database)
+   - [Food Database](###Food Database)
+   - [User](###User)
+   - [Summary](###Summary)
+   - [Suggest](###Suggest)
+   - [Command](###Command)
+   - [Storage](###Storage)
+   - [Parser](###Parser)
+   - [Ui](###Ui)
 5. [Implementation](#Implementation)
 6. [Instruction for manual testing](#instruction-for-manual-testing)
 7. [Non-functional Requirement](#NF-Requirement)
 
-##Acknowledgements
+## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-##Product scope
+## Product scope
 
 ### Target user profile
 
@@ -36,7 +36,7 @@ NUS Computer Engineering students reside in UTown going on diet.
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
 
-##Quick Start
+## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
@@ -50,13 +50,13 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 Refer to the User Guide (no link for now) for details of each command.
 
-##User Stories
+## User Stories
 
 |Version| As a ... | I want to ... | So that I can ...| |--------|----------|---------------|------------------| |v1.0|new user|see usage instructions|refer to them when I forget how to use the application| |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
-##Architecture
+## Architecture
 
-###Overall Architecture
+### Overall Architecture
 
 ![Overall Architecture Diagram](diagrams/overall%20architecture.png)  
 The Architecture Diagram given above explains the high-level design of the App.  
@@ -74,81 +74,158 @@ The primary components of the app are listed below:
 - `FoodDatabase`: For handling all functionality regarding food database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
+####How the overall architecture works
+
+1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
+3. The `Command` object calls its `execute` method which performs the function required.
+   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add a food tracker entry).
+4. The `execute` method returns a `String` object that contains the outcome message of the command that was executed, which is displayed to the user by the `Ui` component.
 ---
 
 ### Food Tracker
 
 ![tracker class diagram](diagrams/tracker%20class%20diagram.png)
 
-####Add Food Entry Feature
+---
 
-The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+### Food Tracker Database
 
-Additionally, it implements the following operations:
-- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  ![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+![Food Tracker Class Diagram](diagrams/FoodTrackerDatabase_Class.png)
 
-####Edit Food Entry Feature
+The `FoodTrackerDatabase` component consists of:
+- `addEntry()` Adds a FoodTracker object to the database.
+- `sortDatabase()` Sorts the database by date.
+- `deleteEntry(int)` Removes a specified FoodTracker object from the database.
+- `getTotalDailyCalorie()` Returns the total calorie intake for the day.
+- `convertDatabaseToString()` Returns a String representation of all FoodTracker objects in the database.
+  
+  ![convertDatabaseToString Sequence Diagram](diagrams/EntryDatabase_convertDatabaseToString_Seq.png)
 
-The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+- `preloadDatabase(BufferedReader)` Preloads the database using data from the text file.
 
-Additionally, it implements the following operations:
-- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  ![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preLoadDatabase_Seq.png)
 
-####List Food Entry Feature
+- `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
+- `getEntryAtIndex(int)` Returns the FoodTracker object at the specified index.
+- `listEntries()` Returns a formatted String of all Food objects to be printed.
+- `findEntries(String)` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
+- `getPastDaysEntryDatabase(int)` Returns a subset of the original database consisting of FoodTracker objects added in the current day
 
-The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+  ![getPastDaysEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
 
-Additionally, they implement the following operations:
-- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
-- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+- `getPastMonthsEntryDatabase()` Returns a subset of the original database consisting of FoodTracker objects added in the current month
 
-![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
+
+- `editEntryAtIndex(int, Food)` Edits the FoodTracker object at the specified index to the new specified Food object
+
+The diagram below showcases the relationships between FoodTrackerDatabase object and various components.
+
+![Food Tracker Class Architecture](diagrams/FoodTrackerDatabase_Classes.png)
+
 
 ---
 
 ### Food Database
 
 ![](diagrams/FoodDatabase_Class.png)  
-The `FoodDatabase` component - `addFood()` Adds a Food object to the database. 
+
+The `FoodDatabase` component consists of:
+- `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
+![](diagrams/FoodDatabase_convertDatabaseToString_Seq.png)
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
-- `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType and the user's calorie goal. 
+- `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType 
+and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
+matching Food objects.
+```
+    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
+        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
+                .filter(t -> t.getType().equals(type))
+                .filter(c -> c.getCalories() < calories)
+                .collect(Collectors.toList());
+        if (isSort) {
+            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
+        }
+        return matchingSuggestions;
+    }
+```
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
-- `preloadDatabase()` Preloads the database using data from the text file. 
+- `preloadDatabase()` Preloads the database using data from the text file.
+   <br /> ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
+
+The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
 ![](diagrams/FoodDatabase_Classes.png)  
-The class diagram above showcases the relationships between the `FoodDatabase` class and various components.
+
 
 ---
 
-### User
+### User component
 
-#### Weight Tracker
+(put class diagram here)
 
-The weight tracker exists as an ArrayList called `WeightProgressEntries` within the User class. The ArrayList contains objects of class `WeightProgressEntry`.
+The `User` component:
+- Stores the user's personal data eg gender, age, height, weight
+- Stores the user's weight progress data i.e. all `WeightProgressEntry` objects (which are contained in an `ArrayList` as an attribute in `User`)
+- Performs functions related to the user's calorie goal such as setting and generating the calorie goal
 
-#### Storage Component
+#### Weight tracker feature
 
-Weight progress entries are stored in a text file in the following format:  
-`WEIGHT | DATE(YYYY-MM-DD)` Example: `100 | 2021-03-01`  
-The weight progress storage file is updated every time the user sets or updates their weight for the day, as all storage files are updated at every iteration of the main loop using the `saveFitNus` method.  
-On startup, the storage file is parsed and the corresponding WeightProgressEntry objects are created and loaded into the ArrayList.
+The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
 
-#### User Component
+The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
+![SetWeightSeqDiagram](./diagrams/SetWeightCommand.png "Set Weight Sequence Diagram")
 
-How the User component works in the context of the weight tracker:
+How updating the weight tracker works:
 
-1.  When the user inputs the weight setting command, User is called upon to execute the function to update the user's weight and weight tracker.
-2.  In all cases, the weight attribute of the initialised User object will be updated to the new weight inputted by the user.
-3.  If no weight progress entries were present in the storage text file, the tracker does not attempt to calculate the difference between the updated weight and the previous weight.
-4.  If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the ArrayList with the current date and new weight.
+1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
+2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
+3. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the `ArrayList` with the current date and new weight.
+
+The weight tracker can also perform the following operations:
+- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. Weight progress entries are stored in a text file in the following format:  
+  `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
+- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightProgressEntry` objects
+- `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
+
+#### Calories remaining feature
+
+The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
+
+![ViewRemainingCalorieSeqDiagram](./diagrams/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
+
+#### Generate and set calorie goal feature
+
+The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
+
+This is performed as shown in the following sequence diagram:
+![GenerateGoalSeqDiagram](./diagrams/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
+
+- The following formulas are used to generate the calorie goal:
+  - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
+  - For males: calorieGoal = [[66.47 + (13.75 x weight in kg) + (5.003 x height in cm) - (6.755 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
+
+
+> ⚠️ Notes about the generate and set calorie goal feature:
+>- The weekly change is the absolute value of the weekly change in weight. It cannot be greater than 1.0, which is the upper bound for the recommended healthy weight change per week.
+
+#### Setting user data feature
+
+The user is able to change their personal data at any point while using the app. 
+
+Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
+![SetHeightSeqDiagram](./diagrams/SetHeightCommand.png "Set Height Sequence Diagram")
+
+> ⚠️ Notes about the setting user data feature:
+> - The age (in years) can only be set to an integer within the range of 12 to 100
+> - The height (in cm) can only be set to an integer within the range of 40 to 300
+> - The weight (in kg) can only be set to a number within the range of 0 to 500
+
+
 
 ---
 
@@ -179,8 +256,6 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
 ![](diagrams/SuggestCommandSequence.png) 
 
-<br />
-
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
 1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
 and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
@@ -195,8 +270,43 @@ in ascending order of calories. This is indicated by the boolean `isSort` variab
 ### Command
 
 ![command class diagram](diagrams/command%20class%20diagram.drawio.png)
-- Different kinds of commands inherit from abstract class command, and inside which there is an abstract method called `execute()`
-- Subclasses are instantiated through parser after parsing the user's input, and each command has its own `execute()` command to perform its task.
+
+The `Command` class is an abstract class that all other specific command classes (eg AddFoodEntryCommand, DeleteEntryCommand) inherit from. 
+
+The `Command` component
+    
+- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds a food tracker entry to the food tracker.) 
+
+####Add Food Entry Feature
+
+The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+
+![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+
+####Edit Food Entry Feature
+
+The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+  
+![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+
+####List Food Entry Feature
+
+The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
+- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+
+![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -325,7 +435,6 @@ then compared with default list of commands to determine the type of method call
 </li></ul></li></ol>
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
->>>>>>> Stashed changes
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
