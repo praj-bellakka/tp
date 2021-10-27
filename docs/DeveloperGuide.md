@@ -196,7 +196,7 @@ The weight tracker can also perform the following operations:
 
 The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
 
-(seq diag)
+![ViewRemainingCalorieSeqDiagram](./diagrams/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
 
 #### Generate and set calorie goal feature
 
