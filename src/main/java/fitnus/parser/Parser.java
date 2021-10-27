@@ -14,13 +14,11 @@ import fitnus.command.GenerateCalorieGoalCommand;
 import fitnus.command.HelpCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodEntryAllCommand;
-import fitnus.command.ListFoodEntryDayCommand;
-import fitnus.command.ListFoodEntryWeekCommand;
-import fitnus.command.ListMealPlanDatabaseCommand;
 import fitnus.command.ListWeightProgressCommand;
 import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
+import fitnus.command.ListFoodEntryCustomCommand;
 import fitnus.command.SetHeightCommand;
 import fitnus.command.SetWeightCommand;
 import fitnus.command.ViewMonthSummaryCommand;
@@ -101,6 +99,10 @@ public class Parser {
     public static final int CALORIE_LIMIT = 5000;
     private static final int MINIMUM_AGE = 12;
     private static final int MINIMUM_HEIGHT = 40;
+
+    // Timeframe
+    private static final int DAYS_IN_DAY = 1;
+    private static final int DAYS_IN_WEEK = 7;
 
     private static boolean isLoopFlagOn = true;
 
@@ -531,9 +533,9 @@ public class Parser {
 
             switch (timeFrame) {
             case " /day":
-                return new ListFoodEntryDayCommand();
+                return new ListFoodEntryCustomCommand(DAYS_IN_DAY);
             case " /week":
-                return new ListFoodEntryWeekCommand();
+                return new ListFoodEntryCustomCommand(DAYS_IN_WEEK);
             default:
                 throw new FitNusException("Invalid timeframe! (/day, /week)");
             }

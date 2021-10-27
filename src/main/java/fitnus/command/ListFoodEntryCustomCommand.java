@@ -5,17 +5,16 @@ import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
 import fitnus.utility.User;
 
-public class ListFoodEntryWeekCommand extends Command {
+public class ListFoodEntryCustomCommand extends Command {
+    private final int days;
 
-    public static final int DAYS_IN_WEEK = 7;
-
-    public ListFoodEntryWeekCommand() {
-
+    public ListFoodEntryCustomCommand(int days) {
+        this.days = days;
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) {
-        EntryDatabase weekEntry = ed.getPastDaysEntryDatabase(DAYS_IN_WEEK);
-        return weekEntry.listEntries();
+        EntryDatabase dayEntry = ed.getPastDaysEntryDatabase(days);
+        return dayEntry.listEntries();
     }
 }

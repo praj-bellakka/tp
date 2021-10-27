@@ -19,9 +19,9 @@ import java.util.logging.Logger;
 
 public class FitNus {
     private static final Logger logger = Logger.getLogger("FitNus");
-    private final FoodDatabase fd;
-    private final EntryDatabase ed;
-    private final MealPlanDatabase md;
+    private final FoodDatabase foodDatabase;
+    private final EntryDatabase entryDatabase;
+    private final MealPlanDatabase mealPlanDatabase;
     private final User user;
     private final Ui ui;
     private final Parser parser;
@@ -30,9 +30,9 @@ public class FitNus {
         // Load From Storage
         try {
             Storage.createDirectoryAndFiles();
-            Storage.initialiseFoodDatabase(fd);
-            Storage.initialiseEntryDatabase(ed);
-            Storage.initialiseMealPlanDatabase(md);
+            Storage.initialiseFoodDatabase(foodDatabase);
+            Storage.initialiseEntryDatabase(entryDatabase);
+            Storage.initialiseMealPlanDatabase(mealPlanDatabase);
             Storage.initialiseWeightProgress(user);
 
             int successfullyInitialisedUser = Storage.initialiseUser(user);
@@ -41,13 +41,13 @@ public class FitNus {
                 Ui ui = new Ui();
 
                 ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
-                initialiseGender(ui, ed, fd, md, user);
+                initialiseGender(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
                 ui.println("Please enter your age in years:");
-                initialiseAge(ui, ed, fd, md, user);
+                initialiseAge(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
                 ui.println("Please enter your height in cm:");
-                initialiseHeight(ui, ed, fd, md, user);
+                initialiseHeight(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
                 ui.println("Please enter your weight in kg:");
-                initialiseWeight(ui, ed, fd, md, user);
+                initialiseWeight(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
                 ui.println("Generated your daily calorie needs accordingly.");
                 int calorieGoal = user.generateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
@@ -106,9 +106,9 @@ public class FitNus {
     private void saveFitNus() {
         try {
             Storage.createDirectoryAndFiles();
-            Storage.saveFoodDatabase(fd);
-            Storage.saveEntryDatabase(ed);
-            Storage.saveMealPlanDatabase(md);
+            Storage.saveFoodDatabase(foodDatabase);
+            Storage.saveEntryDatabase(entryDatabase);
+            Storage.saveMealPlanDatabase(mealPlanDatabase);
             Storage.saveUserData(user);
             Storage.saveWeightData(user);
         } catch (IOException e) {
@@ -118,15 +118,15 @@ public class FitNus {
     }
 
     private void run() {
-        Ui.println(new HelpCommand().execute(ed, fd, md, user));
+        Ui.println(new HelpCommand().execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
         while (true) {
             try {
                 String userInput;
                 Command inputType;
                 userInput = ui.readInput();
-                inputType = parser.parseCommandType(userInput, fd, ed, md);
-                Ui.println(inputType.execute(ed, fd, md, user));
-                ed.sortDatabase();
+                inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
+                Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
+                entryDatabase.sortDatabase();
                 saveFitNus();
                 if (inputType instanceof ExitCommand) {
                     break;
@@ -148,9 +148,9 @@ public class FitNus {
 
 
     private FitNus() {
-        fd = new FoodDatabase();
-        ed = new EntryDatabase();
-        md = new MealPlanDatabase();
+        foodDatabase = new FoodDatabase();
+        entryDatabase = new EntryDatabase();
+        mealPlanDatabase = new MealPlanDatabase();
         user = new User(2000, Gender.MALE, 18, 180, 65); //placeholder values,
         // to be replaced by user data saved in storage
         ui = new Ui();
@@ -159,7 +159,7 @@ public class FitNus {
         // Init
         Ui.printWelcomeMessage();
         initialiseFitNus();
-        printPreloadedData(fd, ed, md, user);
+        printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
 
     public static void main(String[] args) {
