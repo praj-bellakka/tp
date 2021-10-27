@@ -15,6 +15,7 @@ import fitnus.command.HelpCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodEntryAllCommand;
 import fitnus.command.ListWeightProgressCommand;
+import fitnus.command.ListMealPlanDatabaseCommand;
 import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
