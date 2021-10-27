@@ -102,13 +102,6 @@ class UserTest {
     }
 
     @Test
-    void updateWeightAndWeightTracker_negativeNewWeight_exceptionThrown() {
-        User user = new User(2000, Gender.MALE, 18, 180, 65);
-        Exception exception = assertThrows(FitNusException.class, () -> user.updateWeightAndWeightTracker(-10));
-        assertEquals("An error occurred! The new weight cannot be negative.", exception.getMessage());
-    }
-
-    @Test
     void convertWeightRecordsToStringForUi_oneOrMoreWeightEntries_success() throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
         user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));

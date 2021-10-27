@@ -2,6 +2,7 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.parser.Parser;
 import fitnus.tracker.Gender;
 import fitnus.tracker.WeightProgressEntry;
 
@@ -9,8 +10,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class User {
+    private static final Logger logger = Logger.getLogger(User.class.getName());
+
     private int calorieGoal;
     private Gender gender;
     private int age;
@@ -38,8 +43,10 @@ public class User {
 
     public void setCalorieGoal(int newGoal) throws FitNusException {
         if (newGoal < 0) {
+            logger.log(Level.INFO, "Calorie goal entered was negative");
             throw new FitNusException("Calorie Goal cannot be negative! Please try again!");
         } else if (newGoal == this.calorieGoal) {
+            logger.log(Level.INFO, "Calorie goal entered was same as before");
             throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
         }
         assert newGoal >= 0 : "calorie goal cannot be negative";
@@ -87,16 +94,21 @@ public class User {
         weightProgressEntries.add(entry);
     }
 
-    public String updateWeightAndWeightTracker(float newWeight) throws FitNusException {
-        if (newWeight < 0) {
-            throw new FitNusException("An error occurred! The new weight cannot be negative.");
-        }
+    /**
+     * Sets the user's weight to the new weight and updates the daily weight tracker accordingly.
+     *
+     * @param newWeight New weight to be set.
+     * @return The outcome message.
+     */
+    public String updateWeightAndWeightTracker(float newWeight) {
+        logger.log(Level.INFO, "Begin attempt to update weight and weight tracker");
 
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
         if (weightProgressEntries.size() == 0) {
             weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+            logger.log(Level.INFO, "New weight entry added to weight tracker");
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
 
@@ -104,9 +116,13 @@ public class User {
         if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight progress entry
             latestEntry.setWeight(newWeight);
             weightProgressEntries.set(weightProgressEntries.size() - 1, latestEntry);
+            logger.log(Level.INFO, "Latest weight tracker entry updated (No new entry added)");
         } else {
             weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+            logger.log(Level.INFO, "New weight entry added to weight tracker");
         }
+
+        logger.log(Level.INFO, "Update weight and weight tracker completed");
 
         if (weightProgressEntries.size() >= 2) { //If weight tracker has
             // more than 2 entries after updating the weight accordingly
@@ -225,9 +241,11 @@ public class User {
                 successfullyPreloadedData = true;
             } catch (IndexOutOfBoundsException e) {
                 successfullyPreloadedData = false;
+                logger.log(Level.WARNING, "Error processing user data (missing inputs)");
                 Ui.printPreloadDatabaseError();
             } catch (NumberFormatException e) {
                 successfullyPreloadedData = false;
+                logger.log(Level.WARNING, "Error processing user data (invalid inputs for numerical fields)");
                 Ui.printPreloadUserError();
             }
         }
@@ -248,8 +266,10 @@ public class User {
                 LocalDate date = LocalDate.parse(description[1]);
                 weightProgressEntries.add(new WeightProgressEntry(weight, date));
             } catch (IndexOutOfBoundsException e) {
+                logger.log(Level.WARNING, "Error processing weight data (missing inputs)");
                 Ui.printPreloadDatabaseError();
             } catch (NumberFormatException e) {
+                logger.log(Level.WARNING, "Error processing weight data (invalid inputs for numerical fields)");
                 Ui.printPreloadUserError();
             }
         }

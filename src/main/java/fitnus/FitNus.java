@@ -39,7 +39,7 @@ public class FitNus {
             if (successfullyInitialisedUser == 0) { //did not successfully initialise user data
                 Ui ui = new Ui();
 
-                ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
+                ui.println("Please enter your gender (m/f):");
                 initialiseGender(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
                 ui.println("Please enter your age in years:");
                 initialiseAge(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
