@@ -45,10 +45,10 @@ public class User {
 
     public void setCalorieGoal(int newGoal) throws FitNusException {
         if (newGoal < 0) {
-           // logger.log(Level.INFO, "Calorie goal entered was negative");
+            // logger.log(Level.INFO, "Calorie goal entered was negative");
             throw new FitNusException("Calorie Goal cannot be negative! Please try again!");
         } else if (newGoal == this.calorieGoal) {
-           // logger.log(Level.INFO, "Calorie goal entered was same as before");
+            // logger.log(Level.INFO, "Calorie goal entered was same as before");
             throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
         }
         assert newGoal >= 0 : "calorie goal cannot be negative";
@@ -103,14 +103,14 @@ public class User {
      * @return The outcome message.
      */
     public String updateWeightAndWeightTracker(float newWeight) {
-      //  logger.log(Level.INFO, "Begin attempt to update weight and weight tracker");
+        //  logger.log(Level.INFO, "Begin attempt to update weight and weight tracker");
 
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
         if (weightProgressEntries.size() == 0) {
             weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
-      //      logger.log(Level.INFO, "New weight entry added to weight tracker");
+            //logger.log(Level.INFO, "New weight entry added to weight tracker");
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
 
@@ -118,13 +118,13 @@ public class User {
         if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight progress entry
             latestEntry.setWeight(newWeight);
             weightProgressEntries.set(weightProgressEntries.size() - 1, latestEntry);
-          //  logger.log(Level.INFO, "Latest weight tracker entry updated (No new entry added)");
+            //logger.log(Level.INFO, "Latest weight tracker entry updated (No new entry added)");
         } else {
             weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
-         //   logger.log(Level.INFO, "New weight entry added to weight tracker");
+            //logger.log(Level.INFO, "New weight entry added to weight tracker");
         }
 
-       // logger.log(Level.INFO, "Update weight and weight tracker completed");
+        //logger.log(Level.INFO, "Update weight and weight tracker completed");
 
         if (weightProgressEntries.size() >= 2) { //If weight tracker has
             // more than 2 entries after updating the weight accordingly
@@ -146,7 +146,7 @@ public class User {
     }
 
     /**
-     * Converts the weightProgressEntries ArrayList into a String of the list of weight records
+     * Converts the weightProgressEntries ArrayList into a String of the list of weight records.
      *
      * @return The list of weight records.
      * @throws FitNusException if weightProgressEntries is empty.
@@ -262,7 +262,7 @@ public class User {
      *
      * @param reader BufferedReader reading the user data storage file.
      * @return Integer representing if the user data was preloaded successfully
-     * (1 for success, 0 for failure)
+     *     (1 for success, 0 for failure)
      * @throws IOException if any I/O operations failed or were interrupted.
      */
     public int preloadUserData(BufferedReader reader) throws IOException {
@@ -302,8 +302,6 @@ public class User {
      * Loads the weight tracker data from the storage file to the User object.
      *
      * @param reader BufferedReader reading the user data storage file.
-     * @return Integer representing if the user data was preloaded successfully
-     * (1 for success, 0 for failure)
      * @throws IOException if any I/O operations failed or were interrupted.
      */
     public void preloadWeightData(BufferedReader reader) throws IOException {

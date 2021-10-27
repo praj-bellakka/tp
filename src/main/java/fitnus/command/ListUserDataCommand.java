@@ -6,7 +6,7 @@ import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
-public class ListUserDataCommand extends Command{
+public class ListUserDataCommand extends Command {
     public ListUserDataCommand() {
     }
 
