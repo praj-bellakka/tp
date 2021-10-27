@@ -32,6 +32,7 @@ public class FitNus {
             Storage.createDirectoryAndFiles();
             Storage.initialiseFoodDatabase(foodDatabase);
             Storage.initialiseEntryDatabase(entryDatabase);
+            Storage.initialiseMealPlanDatabase(mealPlanDatabase);
             Storage.initialiseWeightProgress(user);
 
             int successfullyInitialisedUser = Storage.initialiseUser(user);
@@ -107,6 +108,7 @@ public class FitNus {
             Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(foodDatabase);
             Storage.saveEntryDatabase(entryDatabase);
+            Storage.saveMealPlanDatabase(mealPlanDatabase);
             Storage.saveUserData(user);
             Storage.saveWeightData(user);
         } catch (IOException e) {

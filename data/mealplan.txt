@@ -1,0 +1,9 @@
+chicken rice | 213 | SNACK
+duck rice | 20 | SNACK
+rice | 1234 | MEAL
+-------- | test 1
+ice lemon tea | 50 | BEVERAGE
+-------- | test 2
+chicken rice | 213 | SNACK
+duck rice | 20 | SNACK
+-------- | food 1

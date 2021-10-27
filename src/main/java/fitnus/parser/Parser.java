@@ -16,11 +16,11 @@ import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodEntryAllCommand;
 import fitnus.command.ListUserDataCommand;
 import fitnus.command.ListWeightProgressCommand;
+import fitnus.command.ListMealPlanDatabaseCommand;
 import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ListFoodEntryCustomCommand;
-
 import fitnus.command.SetHeightCommand;
 import fitnus.command.SetWeightCommand;
 import fitnus.command.ViewMonthSummaryCommand;
@@ -533,6 +533,8 @@ public class Parser {
                 return new ListWeightProgressCommand();
             } else if (input.equals(DESCRIPTOR_USER)) {
                 return new ListUserDataCommand();
+            } else if (input.equals(DESCRIPTOR_MEALPLAN)) {
+                return new ListMealPlanDatabaseCommand();
             }
         }
 
