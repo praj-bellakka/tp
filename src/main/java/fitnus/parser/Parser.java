@@ -91,9 +91,12 @@ public class Parser {
     private static final String SNACK = "/snack";
     private static final String OTHERS = "/others";
 
-    // Summary related strings
+    // time frame related strings
     private static final String WEEK = "/week";
     private static final String MONTH = "/month";
+    private static final String ALL_TIME = "/all";
+    private static final int FIRST_MONTH = 1;
+    private static final int LAST_MONTH = 12;
 
     //calorie goal generation related strings
     private static final String GAIN = "/gain";
@@ -529,8 +532,6 @@ public class Parser {
                 return new ListFoodDatabaseCommand();
             } else if (input.equals(DESCRIPTOR_INTAKE)) {
                 return new ListFoodEntryAllCommand();
-            } else if (input.equals(DESCRIPTOR_WEIGHT)) {
-                return new ListWeightProgressCommand();
             } else if (input.equals(DESCRIPTOR_USER)) {
                 return new ListUserDataCommand();
             } else if (input.equals(DESCRIPTOR_MEALPLAN)) {
@@ -548,6 +549,31 @@ public class Parser {
                 return new ListFoodEntryCustomCommand(DAYS_IN_WEEK);
             default:
                 throw new FitNusException("Invalid timeframe! (/day, /week)");
+            }
+        } else if (input.contains(DESCRIPTOR_WEIGHT)) {
+            int listWeightInputsIndex = input.indexOf(DESCRIPTOR_WEIGHT) + DESCRIPTOR_WEIGHT.length();
+            String listWeightInputsString = input.substring(listWeightInputsIndex);
+            String[] listWeightInputs = listWeightInputsString.split("\\s+");
+            String timeFrame = listWeightInputs[1].strip();
+
+            switch (timeFrame) {
+            case ALL_TIME:
+                return new ListWeightProgressCommand(0);
+            case MONTH:
+                int month;
+                try {
+                    month = Integer.parseInt(listWeightInputs[2].strip());
+
+                    if (month < FIRST_MONTH || month > LAST_MONTH) {
+                        throw new FitNusException("Please enter an integer from 1 to 12 for the month!");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new FitNusException("Please enter the month as an integer! e.g. 1 for January");
+                }
+                return new ListWeightProgressCommand(month);
+            default:
+                throw new FitNusException("Invalid timeframe! Timeframe format is either /all "
+                        + "or /month MONTH_INTEGER (e.g. /month 1)");
             }
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);

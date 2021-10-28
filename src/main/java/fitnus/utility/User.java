@@ -29,7 +29,9 @@ public class User {
     private static final String GAIN_STRING = "gain";
     private static final String LOSE_STRING = "lose";
     private static final float MAXIMUM_WEEKLY_CHANGE = (float) 1.0;
-
+    private static final int ALL_MONTHS = 0;
+    private static final String[] monthStrings = {"January", "February", "March",
+            "April", "May", "June", "July", "August", "October", "September", "November", "December"};
 
     public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;
@@ -145,20 +147,22 @@ public class User {
         }
     }
 
+
     /**
      * Converts the weightProgressEntries ArrayList into a String of the list of weight records.
      *
      * @return The list of weight records.
      * @throws FitNusException if weightProgressEntries is empty.
      */
-    public String convertWeightRecordsToStringForUi() throws FitNusException {
+    public String convertWeightRecordsToStringForUi(ArrayList<WeightProgressEntry> relevantEntries)
+            throws FitNusException {
         StringBuilder lines = new StringBuilder();
 
-        if (weightProgressEntries.size() == 0) {
+        if (relevantEntries.size() == 0) {
             throw new FitNusException("An error has occurred! No weight records found.");
         }
 
-        for (WeightProgressEntry e : weightProgressEntries) {
+        for (WeightProgressEntry e : relevantEntries) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
             String date = e.getDate().toString();
@@ -173,16 +177,38 @@ public class User {
      * @return The weight tracker display.
      * @throws FitNusException if weightProgressEntries is empty.
      */
-    public String getWeightProgressDisplay() throws FitNusException {
-        if (weightProgressEntries.size() == 0) {
-            return "You have not recorded your weight before! "
-                    + "Try recording your weight today using the weight /set command.";
-        } else if (weightProgressEntries.size() == 1) {
-            return "Your weight progress: \n"
-                    + convertWeightRecordsToStringForUi();
+
+    public String getWeightProgressDisplay(int month) throws FitNusException {
+        ArrayList<WeightProgressEntry> relevantEntries = new ArrayList<>();
+
+        if (month == ALL_MONTHS) {
+            relevantEntries = weightProgressEntries;
         } else {
-            float startingWeight = weightProgressEntries.get(0).getWeight();
-            float currentWeight = weightProgressEntries.get(weightProgressEntries.size() - 1).getWeight();
+            for (WeightProgressEntry e : weightProgressEntries) {
+                if (e.getDate().getMonthValue() == month) {
+                    relevantEntries.add(e);
+                }
+            }
+        }
+
+        if (relevantEntries.size() == 0) {
+            if (month == ALL_MONTHS) {
+                return "You have not recorded your weight before! "
+                        + "Try recording your weight today using the weight /set command.";
+            } else {
+                return "You did not record your weight in the month of " + monthStrings[month - 1] + "!";
+            }
+        } else if (relevantEntries.size() == 1) {
+            if (month == ALL_MONTHS) {
+                return "Your weight progress since the start of your FitNUS journey: \n"
+                        + convertWeightRecordsToStringForUi(relevantEntries);
+            } else {
+                return "Your weight progress in " + monthStrings[month - 1] + ": \n"
+                        + convertWeightRecordsToStringForUi(relevantEntries);
+            }
+        } else {
+            float startingWeight = relevantEntries.get(0).getWeight();
+            float currentWeight = relevantEntries.get(relevantEntries.size() - 1).getWeight();
 
             float weightChange = startingWeight - currentWeight;
             String changeType = weightChange < 0 ? "gained" : "lost";
@@ -190,10 +216,19 @@ public class User {
             weightChange = Math.abs(weightChange);
             weightChange = (float) (Math.round(weightChange * 10.0) / 10.0);
 
-            return "Your weight progress: \n"
-                    + convertWeightRecordsToStringForUi()
-                    + "\n"
-                    + "You have " + changeType + " " + weightChange + " kg since the start of your FitNUS journey!";
+            if (month == ALL_MONTHS) {
+                return "Your weight progress since the start of your FitNUS journey: \n"
+                        + convertWeightRecordsToStringForUi(relevantEntries)
+                        + "\n"
+                        + "You have " + changeType + " " + weightChange
+                        + " kg since the start of your FitNUS Journey!";
+            } else {
+                return "Your weight progress in " + monthStrings[month - 1] + " : \n"
+                        + convertWeightRecordsToStringForUi(relevantEntries)
+                        + "\n"
+                        + "You have " + changeType + " " + weightChange + " kg during the month of "
+                        + monthStrings[month - 1] + "!";
+            }
         }
     }
 
@@ -262,7 +297,7 @@ public class User {
      *
      * @param reader BufferedReader reading the user data storage file.
      * @return Integer representing if the user data was preloaded successfully
-     *     (1 for success, 0 for failure)
+     * (1 for success, 0 for failure)
      * @throws IOException if any I/O operations failed or were interrupted.
      */
     public int preloadUserData(BufferedReader reader) throws IOException {
