@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
                 + "[X] List foods in database: list /food\n"
                 + "[X] List out entries: list /entry /TIMEFRAME (/day, /week)\n"
                 + "[X] List out meal plans: list /mealplan\n"
-                + "[X] List past records of weight: list /weight\n\n"
+                + "[X] List past records of weight: list /weight /TIMEFRAME (/month MONTH_INTEGER, /all)\n\n"
                 + "============== SEARCH ===============\n"
                 + "[X] Search food with keyword: find /food KEYWORD\n"
                 + "[X] Search entry with keyword: find /entry KEYWORD\n\n"
