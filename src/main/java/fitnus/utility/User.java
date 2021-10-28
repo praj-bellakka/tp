@@ -30,8 +30,8 @@ public class User {
     private static final String LOSE_STRING = "lose";
     private static final float MAXIMUM_WEEKLY_CHANGE = (float) 1.0;
     private static final int ALL_MONTHS = 0;
-    private static final String[] monthStrings = {"January", "February", "March",
-            "April", "May", "June", "July", "August", "October", "September", "November", "December"};
+    private static final String[] monthStrings = {"January", "February", "March", "April", "May", "June",
+        "July", "August", "October", "September", "November", "December"};
 
     public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;
@@ -223,7 +223,7 @@ public class User {
                         + "You have " + changeType + " " + weightChange
                         + " kg since the start of your FitNUS Journey!";
             } else {
-                return "Your weight progress in " + monthStrings[month - 1] + " : \n"
+                return "Your weight progress in " + monthStrings[month - 1] + ": \n"
                         + convertWeightRecordsToStringForUi(relevantEntries)
                         + "\n"
                         + "You have " + changeType + " " + weightChange + " kg during the month of "
@@ -297,7 +297,7 @@ public class User {
      *
      * @param reader BufferedReader reading the user data storage file.
      * @return Integer representing if the user data was preloaded successfully
-     * (1 for success, 0 for failure)
+     *     (1 for success, 0 for failure)
      * @throws IOException if any I/O operations failed or were interrupted.
      */
     public int preloadUserData(BufferedReader reader) throws IOException {
