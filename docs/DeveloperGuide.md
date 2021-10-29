@@ -164,6 +164,28 @@ The class diagram below showcases the relationships between the `FoodDatabase` c
 
 ---
 
+### Meal Plan Database
+
+The `MealPlanDatabase` component consists of:
+- `addMealPlan()` Adds a MealPlan object to the database.
+- `convertDatabaseToString()` Returns a String representation of all MealPlan objects in the database.
+- `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
+- `convertFoodToString()` Returns an ArrayList containing matching Food objects based on a keyword.
+
+#### Implementation
+`MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
+It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
+- Automatically detect the name of an individual meal plan.
+- Converts string representation of `Food` items under each meal plan into an `ArrayList` of`Food` objects.
+- Detects when all the `Food` items under each meal plan has been added and start parsing the next meal plan if it exists.
+- Add `MealPlan` object into `databaseMealPlans`, which is an `ArrayList` of `MealPlan` objects.
+
+Given below is a sequence diagram of the `preloadDatabase()` method used to populate `databaseMealPlans` once the app is first launched.
+![SetWeightSeqDiagram](./diagrams/MealPlanDatabase_preLoadDatabase_Seq.png "Set MealPlan Database Sequence Diagram")
+
+
+--- 
+
 ### User component
 
 (put class diagram here)
