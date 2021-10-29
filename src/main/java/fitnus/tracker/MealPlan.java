@@ -12,11 +12,19 @@ public class MealPlan {
     }
 
     public String getMealPlanName() {
-        return mealPlanName;
+        return this.mealPlanName;
     }
 
     public ArrayList<Food> getMealFoods() {
-        return mealFoods;
+        return this.mealFoods;
+    }
+
+    public String getFoodString() {
+        String str = "";
+        for (Food item : mealFoods) {
+            str += item.toString() + System.lineSeparator();
+        }
+        return str;
     }
 
     /**
@@ -25,11 +33,11 @@ public class MealPlan {
      */
     @Override
     public String toString() {
-        System.out.println("Adding the following items from your Meal plan, " + mealPlanName);
+        //System.out.println("Adding the following items from your Meal plan, " + mealPlanName);
         for (Food item: mealFoods) {
             System.out.println(item.toString());
         }
-        return this.mealPlanName + "has been added";
+        return this.mealPlanName;
     }
 
 }

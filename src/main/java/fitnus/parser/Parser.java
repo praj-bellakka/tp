@@ -14,12 +14,13 @@ import fitnus.command.GenerateCalorieGoalCommand;
 import fitnus.command.HelpCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodEntryAllCommand;
+import fitnus.command.ListUserDataCommand;
 import fitnus.command.ListWeightProgressCommand;
+import fitnus.command.ListMealPlanDatabaseCommand;
 import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ListFoodEntryCustomCommand;
-
 import fitnus.command.SetHeightCommand;
 import fitnus.command.SetWeightCommand;
 import fitnus.command.ViewMonthSummaryCommand;
@@ -75,6 +76,7 @@ public class Parser {
     private static final String DESCRIPTOR_FOOD = "/food";
     private static final String DESCRIPTOR_INTAKE = "/entry";
     private static final String DESCRIPTOR_WEIGHT = "/weight";
+    private static final String DESCRIPTOR_USER = "/user";
     private static final String DESCRIPTOR_DEFAULT = "/def";
     private static final String DESCRIPTOR_REMAIN = "/remain";
     private static final String DESCRIPTOR_GENERATE = "/generate";
@@ -89,9 +91,12 @@ public class Parser {
     private static final String SNACK = "/snack";
     private static final String OTHERS = "/others";
 
-    // Summary related strings
+    // time frame related strings
     private static final String WEEK = "/week";
     private static final String MONTH = "/month";
+    private static final String ALL_TIME = "/all";
+    private static final int FIRST_MONTH = 1;
+    private static final int LAST_MONTH = 12;
 
     //calorie goal generation related strings
     private static final String GAIN = "/gain";
@@ -99,7 +104,12 @@ public class Parser {
 
     public static final int CALORIE_LIMIT = 5000;
     private static final int MINIMUM_AGE = 12;
+    private static final int MAXIMUM_AGE = 100;
     private static final int MINIMUM_HEIGHT = 40;
+    private static final int MAXIMUM_HEIGHT = 300;
+    private static final int MINIMUM_WEIGHT = 0;
+    private static final int MAXIMUM_WEIGHT = 500;
+
 
     // Timeframe
     private static final int DAYS_IN_DAY = 1;
@@ -522,8 +532,10 @@ public class Parser {
                 return new ListFoodDatabaseCommand();
             } else if (input.equals(DESCRIPTOR_INTAKE)) {
                 return new ListFoodEntryAllCommand();
-            } else if (input.equals(DESCRIPTOR_WEIGHT)) {
-                return new ListWeightProgressCommand();
+            } else if (input.equals(DESCRIPTOR_USER)) {
+                return new ListUserDataCommand();
+            } else if (input.equals(DESCRIPTOR_MEALPLAN)) {
+                return new ListMealPlanDatabaseCommand();
             }
         }
 
@@ -537,6 +549,31 @@ public class Parser {
                 return new ListFoodEntryCustomCommand(DAYS_IN_WEEK);
             default:
                 throw new FitNusException("Invalid timeframe! (/day, /week)");
+            }
+        } else if (input.contains(DESCRIPTOR_WEIGHT)) {
+            int listWeightInputsIndex = input.indexOf(DESCRIPTOR_WEIGHT) + DESCRIPTOR_WEIGHT.length();
+            String listWeightInputsString = input.substring(listWeightInputsIndex);
+            String[] listWeightInputs = listWeightInputsString.split("\\s+");
+            String timeFrame = listWeightInputs[1].strip();
+
+            switch (timeFrame) {
+            case ALL_TIME:
+                return new ListWeightProgressCommand(0);
+            case MONTH:
+                int month;
+                try {
+                    month = Integer.parseInt(listWeightInputs[2].strip());
+
+                    if (month < FIRST_MONTH || month > LAST_MONTH) {
+                        throw new FitNusException("Please enter an integer from 1 to 12 for the month!");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new FitNusException("Please enter the month as an integer! e.g. 1 for January");
+                }
+                return new ListWeightProgressCommand(month);
+            default:
+                throw new FitNusException("Invalid timeframe! Timeframe format is either /all "
+                        + "or /month MONTH_INTEGER (e.g. /month 1)");
             }
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
@@ -600,6 +637,9 @@ public class Parser {
                 if (age < MINIMUM_AGE) {
                     throw new FitNusException("Users of FitNUS must be " + MINIMUM_AGE
                             + " years old and above!");
+                } else if (age > MAXIMUM_AGE) {
+                    throw new FitNusException("Users of FitNUS cannot be older than " + MAXIMUM_AGE
+                            + " years old!");
                 }
 
                 return new SetAgeCommand(age);
@@ -619,6 +659,9 @@ public class Parser {
                 if (height < MINIMUM_HEIGHT) {
                     throw new FitNusException("Please enter a height of " + MINIMUM_HEIGHT
                             + " cm and above!");
+                } else if (height > MAXIMUM_HEIGHT) {
+                    throw new FitNusException("Please enter a height of " + MAXIMUM_HEIGHT
+                            + " cm and below!");
                 }
                 return new SetHeightCommand(height);
             }
@@ -634,8 +677,10 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 float weight = Float.parseFloat(input.substring(typeDescriptorIndex).trim());
-                if (weight <= 0) {
+                if (weight <= MINIMUM_WEIGHT) {
                     throw new FitNusException("Please enter a positive number for your weight!");
+                } else if (weight > MAXIMUM_WEIGHT) {
+                    throw new FitNusException("Please enter a weight of " + MAXIMUM_WEIGHT + " kg and below!");
                 }
                 return new SetWeightCommand(weight);
             }

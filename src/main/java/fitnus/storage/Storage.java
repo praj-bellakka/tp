@@ -2,6 +2,7 @@ package fitnus.storage;
 
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
@@ -23,16 +24,19 @@ public class Storage {
     private static final Path FILE_PATH_USER_DATA = Paths.get(ROOT, "data", "user.txt");
     private static final Path FILE_PATH_ENTRY_DATA = Paths.get(ROOT, "data", "entry.txt");
     private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data", "weight.txt");
+    private static final Path FILE_PATH_MEALPLAN_DATA = Paths.get(ROOT, "data", "mealplan.txt");
 
     public static void createDirectoryAndFiles() throws IOException {
         createDirectory(DIRECTORY_PATH.toString());
         createFile(FILE_PATH_FOOD_DATA.toString());
         createFile(FILE_PATH_USER_DATA.toString());
         createFile(FILE_PATH_ENTRY_DATA.toString());
+        createFile(FILE_PATH_MEALPLAN_DATA.toString());
         assert Files.exists(DIRECTORY_PATH);
         assert Files.exists(FILE_PATH_FOOD_DATA);
         assert Files.exists(FILE_PATH_USER_DATA);
         assert Files.exists(FILE_PATH_ENTRY_DATA);
+        assert Files.exists(FILE_PATH_MEALPLAN_DATA);
     }
 
     public static void initialiseFoodDatabase(FoodDatabase database) throws IOException, FitNusException {
@@ -48,6 +52,15 @@ public class Storage {
         assert Files.exists(FILE_PATH_ENTRY_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_ENTRY_DATA.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        database.preloadDatabase(reader);
+        reader.close();
+    }
+
+    public static void initialiseMealPlanDatabase(MealPlanDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_MEALPLAN_DATA);
+        FileInputStream stream;
+        stream = new FileInputStream(FILE_PATH_MEALPLAN_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         database.preloadDatabase(reader);
         reader.close();
@@ -86,6 +99,12 @@ public class Storage {
         assert Files.exists(FILE_PATH_ENTRY_DATA);
         String data = database.convertDatabaseToString();
         saveData(FILE_PATH_ENTRY_DATA.toString(), data);
+    }
+
+    public static void saveMealPlanDatabase(MealPlanDatabase database) throws IOException {
+        assert Files.exists(FILE_PATH_MEALPLAN_DATA);
+        String data = database.convertDatabaseToString();
+        saveData(FILE_PATH_MEALPLAN_DATA.toString(), data);
     }
 
     public static void saveUserData(User user) throws IOException {

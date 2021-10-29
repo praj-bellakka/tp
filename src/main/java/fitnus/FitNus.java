@@ -32,6 +32,7 @@ public class FitNus {
             Storage.createDirectoryAndFiles();
             Storage.initialiseFoodDatabase(foodDatabase);
             Storage.initialiseEntryDatabase(entryDatabase);
+            Storage.initialiseMealPlanDatabase(mealPlanDatabase);
             Storage.initialiseWeightProgress(user);
 
             int successfullyInitialisedUser = Storage.initialiseUser(user);
@@ -39,7 +40,7 @@ public class FitNus {
             if (successfullyInitialisedUser == 0) { //did not successfully initialise user data
                 Ui ui = new Ui();
 
-                ui.println("Welcome to FitNUS! Please enter your gender (m/f):");
+                ui.println("Please enter your gender (m/f):");
                 initialiseGender(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
                 ui.println("Please enter your age in years:");
                 initialiseAge(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
@@ -107,6 +108,7 @@ public class FitNus {
             Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(foodDatabase);
             Storage.saveEntryDatabase(entryDatabase);
+            Storage.saveMealPlanDatabase(mealPlanDatabase);
             Storage.saveUserData(user);
             Storage.saveWeightData(user);
         } catch (IOException e) {
