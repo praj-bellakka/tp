@@ -559,8 +559,8 @@ public class Parser {
             try {
                 timeFrame = listWeightInputs[1].strip();
             } catch (IndexOutOfBoundsException e) {
-                throw new FitNusException("Invalid list weight command! It is supposed to be " +
-                        "list /weight /all or list /weight /month MONTH_INTEGER");
+                throw new FitNusException("Invalid list weight command! It is supposed to be "
+                        + "list /weight /all or list /weight /month MONTH_INTEGER");
             }
             switch (timeFrame) {
             case ALL_TIME:
