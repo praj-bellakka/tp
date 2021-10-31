@@ -535,12 +535,12 @@ public class Parser {
         int typeDescriptorIndex = input.indexOf(" ");
         String removeType = input.substring(0, typeDescriptorIndex);
         try {
+            int index = Integer.parseInt(input
+                    .substring(typeDescriptorIndex).trim());
             if (removeType.equals(DESCRIPTOR_FOOD)) {
-                return new DeleteFoodCommand(Integer.parseInt(input
-                        .substring(typeDescriptorIndex).trim()));
+                return new DeleteFoodCommand(index);
             } else if (removeType.equals(DESCRIPTOR_INTAKE)) {
-                return new DeleteEntryCommand(Integer.parseInt(input
-                        .substring(typeDescriptorIndex).trim()));
+                return new DeleteEntryCommand(index);
             }
             throw new FitNusException("Invalid remove command!");
         } catch (NumberFormatException e) {
