@@ -5,7 +5,6 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {
