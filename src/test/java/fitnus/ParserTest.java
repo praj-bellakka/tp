@@ -3,6 +3,7 @@ package fitnus;
 import fitnus.command.*;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import fitnus.tracker.MealType;
@@ -22,7 +23,7 @@ public class ParserTest {
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
     EntryDatabase ed = new EntryDatabase();
     FoodDatabase fd = new FoodDatabase();
-
+    MealPlanDatabase md = new MealPlanDatabase();
     @Test
     void parseCommandType_correctInput_parsedCorrectly() throws FitNusException {
         assertTrue(parser.parseCommandType("help", null, null, null) instanceof HelpCommand);
@@ -37,15 +38,15 @@ public class ParserTest {
 
     @Test
     void parseCommandType_wrongInput_invalidCommand() {
-    //    Exception exception1 = assertThrows(FitNusException.class, () -> parser.parseCommandType("add food1 | 21"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception1.getMessage());
-    //
-    //    Exception exception2 = assertThrows(FitNusException.class, () -> parser.parseCommandType("genderr /set M/F"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception2.getMessage());
-    //
-    //    Exception exception3 = assertThrows(FitNusException.class, () -> parser.parseCommandType("remove/food 2"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception3.getMessage());
-    //
+        Exception exception1 = assertThrows(FitNusException.class, () -> parser.parseCommandType("add", fd, ed, md)); //test for invalid input
+        assertEquals(INVALID_COMMAND_MESSAGE, exception1.getMessage());
+
+        Exception exception2 = assertThrows(FitNusException.class, () -> parser.parseCommandType("invalid command 123", fd, ed, md));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception2.getMessage());
+
+//        Exception exception3 = assertThrows(FitNusException.class, () -> parser.parseCommandType("remove/food 2"));
+//        assertEquals(INVALID_COMMAND_MESSAGE, exception3.getMessage());
+
     //    Exception exception4 = assertThrows(FitNusException.class, () -> parser.parseCommandType("calorie/set GOAL"));
     //    assertEquals(INVALID_COMMAND_MESSAGE, exception4.getMessage());
     //
