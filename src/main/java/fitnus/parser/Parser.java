@@ -256,7 +256,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
@@ -780,7 +780,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
