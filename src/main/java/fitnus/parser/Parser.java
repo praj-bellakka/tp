@@ -491,7 +491,7 @@ public class Parser {
                 isLoopFlagOn = false;
                 return val;
             } else {
-                System.out.println("Calories can only be between 0 and 5000!");
+                System.out.println("Calories can only be between 1 and 5000!");
             }
         } catch (NumberFormatException e) {
             //TODO: add proper Ui print message;
