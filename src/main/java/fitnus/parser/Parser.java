@@ -555,8 +555,13 @@ public class Parser {
             int listWeightInputsIndex = input.indexOf(DESCRIPTOR_WEIGHT) + DESCRIPTOR_WEIGHT.length();
             String listWeightInputsString = input.substring(listWeightInputsIndex);
             String[] listWeightInputs = listWeightInputsString.split("\\s+");
-            String timeFrame = listWeightInputs[1].strip();
-
+            String timeFrame;
+            try {
+                timeFrame = listWeightInputs[1].strip();
+            } catch (IndexOutOfBoundsException e) {
+                throw new FitNusException("Invalid list weight command! It is supposed to be " +
+                        "list /weight /all or list /weight /month MONTH_INTEGER");
+            }
             switch (timeFrame) {
             case ALL_TIME:
                 return new ListWeightProgressCommand(0);
