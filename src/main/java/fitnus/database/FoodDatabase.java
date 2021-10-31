@@ -40,8 +40,12 @@ public class FoodDatabase {
     }
 
     // Index here starts from 1
-    public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
-        return databaseFoods.get(index - 1);
+    public Food getFoodAtIndex(int index) throws FitNusException {
+        try {
+            return databaseFoods.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
     }
 
     //returns ArrayList<Food> db when called.
