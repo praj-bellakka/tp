@@ -37,9 +37,13 @@ public class Ui {
     public String readInput() {
         String userInput = "";
         do {
-            userInput = sc.nextLine().toLowerCase().trim();
-            if (userInput.equals("")) {
-                println("Input cannot be empty! Please try again");
+            try {
+                userInput = sc.nextLine().toLowerCase().trim();
+                if (userInput.equals("")) {
+                    println("Input cannot be empty! Please try again");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } while (userInput.equals(""));
         assert !userInput.trim().equals("") : "input cannot be empty";

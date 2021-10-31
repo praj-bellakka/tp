@@ -12,6 +12,8 @@ import fitnus.storage.Storage;
 import fitnus.tracker.Gender;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -161,8 +163,18 @@ public class FitNus {
         initialiseFitNus();
         printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
+    
+
+    private static void disableCrtlC() {
+        SignalHandler handler = sig -> {
+            System.out.println("\nprogram cannot be terminated via ctrl+c."
+                    + "Please type exit if you want to quit");
+        };
+        Signal.handle(new Signal("INT"), handler);
+    }
 
     public static void main(String[] args) {
+        disableCrtlC();
         new FitNus().run();
     }
 }
