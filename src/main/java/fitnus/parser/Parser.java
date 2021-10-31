@@ -365,6 +365,9 @@ public class Parser {
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
                 type = parseFoodType(newUi.readInput());
+                if (type == null) {
+                    Ui.println("The food type is not correct! Please try again");
+                }
             } while (type == null);
 
             return new AddFoodEntryCommand(mealType, foodName, userInput, type);
@@ -396,6 +399,9 @@ public class Parser {
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
                 type = parseFoodType(newUi.readInput());
+                if (type == null) {
+                    Ui.println("The food type is not correct! Please try again");
+                }
             } while (type == null);
 
             return new EditFoodEntryCommand(index, foodName, userInput, type);
@@ -415,7 +421,7 @@ public class Parser {
         case "others":
             return Food.FoodType.OTHERS;
         default:
-            throw new FitNusException("Unable to parse Food type");
+            return null;
         }
     }
 
