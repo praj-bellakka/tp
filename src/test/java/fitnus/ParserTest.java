@@ -34,8 +34,6 @@ public class ParserTest {
         assertTrue(parser.parseCommandType("help", null, null, null) instanceof HelpCommand);
         assertTrue(parser.parseCommandType("exit", null, null, null) instanceof ExitCommand);
         assertTrue(parser.parseCommandType("list /food", null, null, null) instanceof ListFoodDatabaseCommand);
-        assertTrue(parser.parseCommandType("list /entry /day", null, null, null) instanceof ListFoodEntryCustomCommand);
-        assertTrue(parser.parseCommandType("list /weight /all", null, null, null) instanceof ListWeightProgressCommand);
         assertTrue(parser.parseCommandType("weight /set 120", null, null, null) instanceof SetWeightCommand);
 
     }
