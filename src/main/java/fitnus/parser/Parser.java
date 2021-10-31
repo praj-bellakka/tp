@@ -39,6 +39,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -364,7 +365,14 @@ public class Parser {
             Food.FoodType type = null;
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
-                type = parseFoodType(newUi.readInput());
+                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
+                String foodType = newUi.readInput();
+                if (Arrays.asList(possibleFoodType).contains(foodType)) {
+                    type = parseFoodType(foodType);
+                } else {
+                    type = null;
+                    Ui.println("The food type is not correct! Please try again");
+                }
             } while (type == null);
 
             return new AddFoodEntryCommand(mealType, foodName, userInput, type);
@@ -393,9 +401,17 @@ public class Parser {
             } while (isLoopFlagOn);
 
             Food.FoodType type = null;
+
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
-                type = parseFoodType(newUi.readInput());
+                String foodType = newUi.readInput();
+                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
+                if (Arrays.asList(possibleFoodType).contains(foodType)) {
+                    type = parseFoodType(foodType);
+                } else {
+                    type = null;
+                    Ui.println("The food type is not correct! Please try again");
+                }
             } while (type == null);
 
             return new EditFoodEntryCommand(index, foodName, userInput, type);
