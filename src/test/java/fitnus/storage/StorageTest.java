@@ -4,46 +4,32 @@ import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Food;
-import fitnus.tracker.Gender;
 import fitnus.tracker.MealType;
-import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 
 class StorageTest {
     private static final String ROOT = System.getProperty("user.dir");
-    private static final Path FILE_PATH_FOOD_DATA_VALID = Paths.get(ROOT, "data/test",
-            "FoodDatabaseValid.txt");
-    private static final Path FILE_PATH_FOOD_DATA_INVALID = Paths.get(ROOT, "data/test",
-            "FoodDatabaseInvalid.txt");
-    private static final Path FILE_PATH_FOOD_DATA_SAVE = Paths.get(ROOT, "data/test",
-            "FoodDatabaseSave.txt");
-    private static final Path FILE_PATH_ENTRY_DATA_VALID = Paths.get(ROOT, "data/test",
-            "EntryDatabaseValid.txt");
-    private static final Path FILE_PATH_ENTRY_DATA_INVALID = Paths.get(ROOT, "data/test",
-            "EntryDatabaseInvalid.txt");
-    private static final Path FILE_PATH_ENTRY_DATA_SAVE = Paths.get(ROOT, "data/test",
-            "EntryDatabaseSave.txt");
+    private static final Path FILE_PATH_FOOD_DATA = Paths.get(ROOT, "data", "food.txt");
+    private static final Path FILE_PATH_ENTRY_DATA = Paths.get(ROOT, "data", "entry.txt");
 
-    private static final Path FILE_PATH_USER_DATA = Paths.get(ROOT, "data/test", "user.txt");
-    private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data/test", "weight.txt");
+    private static final String FOOD_DATA = "ramen | 600 | MEAL\n" +
+            "rice | 800 | MEAL\n";
+    private static final String ENTRY_DATA = "Lunch | ramen | 600 | 2021-10-25 | MEAL\n" +
+            "Lunch | rice | 800 | 2021-10-25 | MEAL\n";
+
 
     //Utility method
     private static void saveData(String filePath, String content) throws IOException {
@@ -54,67 +40,62 @@ class StorageTest {
         fw.close();
     }
 
+    //Utility method
+    private void initialiseFileTestContents() throws IOException {
+        saveData(FILE_PATH_FOOD_DATA.toString(), FOOD_DATA);
+        saveData(FILE_PATH_ENTRY_DATA.toString(), ENTRY_DATA);
+    }
+
     @Test
     void initialiseFoodDatabase_validStorageFile_preloadSuccess()
             throws IOException, FitNusException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         FoodDatabase database = new FoodDatabase();
-        FileInputStream stream;
-        stream = new FileInputStream(FILE_PATH_FOOD_DATA_VALID.toString());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        database.preloadDatabase(reader);
-        reader.close();
-        assertEquals(" 1.ramen (600 Kcal) Type: MEAL" + System.lineSeparator()
-                + " 2.rice (800 Kcal) Type: MEAL" + System.lineSeparator(), database.listFoods());
+        Storage.initialiseFoodDatabase(database);
+        String fileContent = Files.readString(FILE_PATH_FOOD_DATA);
+        String expected = fileContent.replaceAll("\n", System.lineSeparator());
+        assertEquals(expected, database.convertDatabaseToString());
     }
 
     @Test
-    void initialiseFoodDatabase_invalidStorageFile_throwsFitNusException()
-            throws IOException, FitNusException {
+    void initialiseFoodDatabase_fileNotExists_throwsAssertionError() throws IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         FoodDatabase database = new FoodDatabase();
-        FileInputStream stream;
-        stream = new FileInputStream(FILE_PATH_FOOD_DATA_INVALID.toString());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        assertThrows(FitNusException.class, () -> database.preloadDatabase(reader));
-        database.preloadDatabase(reader);
-        reader.close();
-    }
-
-    @Test
-    void initialiseFoodDatabase_invalidFilePath_throwsFileNotFoundException() {
-        assertThrows(FileNotFoundException.class, () ->
-                new FileInputStream(""));
+        File file = new File(FILE_PATH_FOOD_DATA.toString());
+        boolean isDeleted = file.delete();
+        if (!isDeleted) {
+            fail();
+        }
+        assertThrows(AssertionError.class, () ->
+                Storage.initialiseFoodDatabase(database));
     }
 
     @Test
     void initialiseEntryDatabase_validStorageFile_preloadSuccess()
             throws IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         EntryDatabase database = new EntryDatabase();
-        FileInputStream stream;
-        stream = new FileInputStream(FILE_PATH_ENTRY_DATA_VALID.toString());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        database.preloadDatabase(reader);
-        reader.close();
-        assertEquals(" 1.[2021-10-25] Lunch: ramen (600 Kcal) Type: MEAL"
-                + System.lineSeparator() + " 2.[2021-10-25] Lunch: rice (800 Kcal) Type: MEAL"
-                + System.lineSeparator(), database.listEntries());
+        Storage.initialiseEntryDatabase(database);
+        String fileContent = Files.readString(FILE_PATH_ENTRY_DATA);
+        String expected = fileContent.replaceAll("\n", System.lineSeparator());
+        assertEquals(expected, database.convertDatabaseToString());
     }
 
     @Test
-    void initialiseEntryDatabase_invalidStorageFile_nothingPreloaded()
-            throws IOException {
+    void initialiseEntryDatabase_invalidFilePath_throwsAssertionError() throws IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         EntryDatabase database = new EntryDatabase();
-        FileInputStream stream;
-        stream = new FileInputStream(FILE_PATH_ENTRY_DATA_INVALID.toString());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        database.preloadDatabase(reader);
-        reader.close();
-        assertEquals("Sorry, there is not any record stored", database.listEntries());
-    }
-
-    @Test
-    void initialiseEntryDatabase_invalidFilePath_throwsFileNotFoundException() {
-        assertThrows(FileNotFoundException.class, () ->
-                new FileInputStream(""));
+        File file = new File(FILE_PATH_ENTRY_DATA.toString());
+        boolean isDeleted = file.delete();
+        if (!isDeleted) {
+            fail();
+        }
+        assertThrows(AssertionError.class, () ->
+                Storage.initialiseEntryDatabase(database));
     }
 
     @Test
@@ -129,55 +110,67 @@ class StorageTest {
 
     @Test
     void saveFoodDatabase_validFilePath_saveSuccessfully() throws FitNusException, IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         FoodDatabase database = new FoodDatabase();
         database.addFood("ramen", 400, Food.FoodType.MEAL);
         database.addFood("rice", 900, Food.FoodType.SNACK);
 
-        String data = database.convertDatabaseToString();
-        saveData(FILE_PATH_FOOD_DATA_SAVE.toString(), data);
-        BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_FOOD_DATA_SAVE.toString()));
-
-        assertEquals("ramen | 400 | MEALrice | 900 | SNACK",
-                reader1.lines().collect(Collectors.joining()));
+        String expected = database.convertDatabaseToString();
+        Storage.saveFoodDatabase(database);
+        String fileContent = Files.readString(FILE_PATH_FOOD_DATA);
+        assertEquals(expected, fileContent);
     }
 
     @Test
-    void saveFoodDatabase_invalidFilePath_throwsFileNotFoundException() throws FitNusException {
+    void saveFoodDatabase_invalidFilePath_throwsAssertionError()
+            throws FitNusException, IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         FoodDatabase database = new FoodDatabase();
         database.addFood("ramen", 400, Food.FoodType.MEAL);
         database.addFood("rice", 900, Food.FoodType.SNACK);
-
-        String data = database.convertDatabaseToString();
-        assertThrows(FileNotFoundException.class, () -> saveData("", data));
+        File file = new File(FILE_PATH_FOOD_DATA.toString());
+        boolean isDeleted = file.delete();
+        if (!isDeleted) {
+            fail();
+        }
+        assertThrows(AssertionError.class, () -> Storage.saveFoodDatabase(database));
     }
 
     @Test
     void saveEntryDatabase_validFilePath_saveSuccessfully() throws IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         EntryDatabase database = new EntryDatabase();
         Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
         Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
         database.addEntry(MealType.DINNER, prata);
         database.addEntry(MealType.DINNER, chickenRice);
 
-        String data = database.convertDatabaseToString();
-        saveData(FILE_PATH_ENTRY_DATA_SAVE.toString(), data);
-        BufferedReader reader1 = new BufferedReader(new FileReader(FILE_PATH_ENTRY_DATA_SAVE.toString()));
-
-        assertEquals("Dinner | Prata | 100 | " + LocalDate.now() + " | MEALDinner "
-                        + "| Chicken Rice | 325 | " + LocalDate.now() + " | SNACK",
-                reader1.lines().collect(Collectors.joining()));
+        String expected = database.convertDatabaseToString();
+        Storage.saveEntryDatabase(database);
+        String fileContent = Files.readString(FILE_PATH_ENTRY_DATA);
+        assertEquals(expected, fileContent);
     }
 
     @Test
-    void saveEntryDatabase_invalidFilePath_throwsFileNotFoundException() {
+    void saveEntryDatabase_invalidFilePath_throwsAssertionError() throws IOException {
+        Storage.createDirectoryAndFiles();
+        initialiseFileTestContents();
         EntryDatabase database = new EntryDatabase();
         Food prata = new Food("Prata", 100, Food.FoodType.MEAL);
         Food chickenRice = new Food("Chicken Rice", 325, Food.FoodType.SNACK);
         database.addEntry(MealType.DINNER, prata);
         database.addEntry(MealType.DINNER, chickenRice);
 
-        String data = database.convertDatabaseToString();
-        assertThrows(FileNotFoundException.class, () -> saveData("", data));
+        File file = new File(FILE_PATH_ENTRY_DATA.toString());
+        boolean isDeleted = file.delete();
+        if (!isDeleted) {
+            fail();
+        }
+
+        assertThrows(AssertionError.class, () -> Storage.saveEntryDatabase(database));
     }
 
     @Test
