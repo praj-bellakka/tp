@@ -1,2 +1,2 @@
-Dinner | Prata | 100 | 2021-10-26 | MEAL
-Dinner | Chicken Rice | 325 | 2021-10-26 | SNACK
+Dinner | Prata | 100 | 2021-10-28 | MEAL
+Dinner | Chicken Rice | 325 | 2021-10-28 | SNACK
