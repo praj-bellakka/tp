@@ -25,10 +25,10 @@ class StorageTest {
     private static final Path FILE_PATH_FOOD_DATA = Paths.get(ROOT, "data", "food.txt");
     private static final Path FILE_PATH_ENTRY_DATA = Paths.get(ROOT, "data", "entry.txt");
 
-    private static final String FOOD_DATA = "ramen | 600 | MEAL\n" +
-            "rice | 800 | MEAL\n";
-    private static final String ENTRY_DATA = "Lunch | ramen | 600 | 2021-10-25 | MEAL\n" +
-            "Lunch | rice | 800 | 2021-10-25 | MEAL\n";
+    private static final String FOOD_DATA = "ramen | 600 | MEAL\n"
+            + "rice | 800 | MEAL\n";
+    private static final String ENTRY_DATA = "Lunch | ramen | 600 | 2021-10-25 | MEAL\n"
+            + "Lunch | rice | 800 | 2021-10-25 | MEAL\n";
 
 
     //Utility method
