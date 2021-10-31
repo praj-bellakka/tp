@@ -662,7 +662,8 @@ public class Parser {
             String keyword = input.substring(typeDescriptorIndex + 7);
             return new FindEntryCommand(keyword);
         }
-        throw new FitNusException("parse find error");
+        throw new FitNusException("find command format is wrong. It is supposed to be:\n" +
+                "find /food KEYWORD or find /entry KEYWORD");
     }
 
     private Command parseSuggestTypeCommand(String input) throws FitNusException {
