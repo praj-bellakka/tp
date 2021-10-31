@@ -295,8 +295,9 @@ Example of usage:
 <p>&nbsp;</p>
 
 #### View personal data: `list /user`
-View all the personal body measurements including gender, age, weight, height and calorie goal
+View all the personal body measurements including gender, age, weight, height and calorie goal.
 Format: `list /user`
+
 Sample output:
 ```
 Here are the matching foods in your database:
