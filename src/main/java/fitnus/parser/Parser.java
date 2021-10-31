@@ -106,9 +106,8 @@ public class Parser {
     private static final int MINIMUM_AGE = 12;
     private static final int MAXIMUM_AGE = 100;
     private static final int MINIMUM_HEIGHT = 40;
-    private static final float MINIMUM_WEIGHT = 40;
     private static final int MAXIMUM_HEIGHT = 300;
-    private static final int MINIMUM_WEIGHT = 0;
+    private static final float MINIMUM_WEIGHT = 40;
     private static final int MAXIMUM_WEIGHT = 500;
 
 
