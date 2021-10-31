@@ -97,8 +97,7 @@ public class Parser {
 
     //Parse suggest command error message
     private static final String PARSE_SUGGEST_ERROR = "Oops! Please double check your command format! Please try:"
-            + System.lineSeparator() + "Unsorted: suggest /FOODTYPE (/meal, /beverage, /snack, /others)"
-            + System.lineSeparator() + "Sorted: suggest /FOODTYPE (/meal, /beverage, /snack, /others) /sort";
+            + System.lineSeparator() + "suggest /FOODTYPE (/meal, /beverage, /snack, /others) /sort (optional)";
 
     // time frame related strings
     private static final String WEEK = "/week";
