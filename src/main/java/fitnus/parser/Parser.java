@@ -365,7 +365,7 @@ public class Parser {
             Food.FoodType type = null;
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
-                String possibleFoodType[] = {"meal", "snack", "beverage", "others"};
+                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
                 String foodType = newUi.readInput();
                 if (Arrays.asList(possibleFoodType).contains(foodType)) {
                     type = parseFoodType(foodType);
@@ -405,7 +405,7 @@ public class Parser {
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
                 String foodType = newUi.readInput();
-                String possibleFoodType[] = {"meal", "snack", "beverage", "others"};
+                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
                 if (Arrays.asList(possibleFoodType).contains(foodType)) {
                     type = parseFoodType(foodType);
                 } else {
