@@ -221,13 +221,13 @@ Example of usage:
 
 
 #### Listing weight records: `list`
-Lists out all past records of weight entered by the user.
+Lists out all past records or the past month of weight entered by the user.
 
-Format: `list /weight`
+Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-`list /weight`
+`list /weight /all` or `list /weight /month 12`
 
 <p>&nbsp;</p>
 

@@ -228,7 +228,7 @@ class EntryDatabaseTest {
         // Test
         EntryDatabase edbPastDay = edb.getPastDaysEntryDatabase(1);
 
-        assertEquals("", edbPastDay.listEntries());
+        assertEquals("Sorry, there is not any record stored", edbPastDay.listEntries());
     }
 
     @Test
@@ -259,7 +259,7 @@ class EntryDatabaseTest {
         // Test
         EntryDatabase edbPastMonth = edb.getPastMonthEntryDatabase();
 
-        assertEquals("", edbPastMonth.listEntries());
+        assertEquals("Sorry, there is not any record stored", edbPastMonth.listEntries());
     }
 
     @Test
@@ -331,7 +331,7 @@ class EntryDatabaseTest {
         EntryDatabase edb = new EntryDatabase();
 
         // Test
-        assertEquals("", edb.listEntries());
+        assertEquals("Sorry, there is not any record stored", edb.listEntries());
     }
 
     @Test

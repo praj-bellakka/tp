@@ -1,6 +1,7 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
+import fitnus.exception.FitNusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -115,6 +116,14 @@ public class Summary {
         return output.toString();
     }
 
+
+    /**
+     * This function generates a report based on the calorie intake over the past seven days.
+     * Report includes the calorie intake trend graph, weekly average calorie intake and the
+     * most/least frequently eaten food.
+     *
+     * @return String a report of weekly calorie intake
+     */
     public String generateWeekSummaryReport() {
         if (entries.size() < 1) {
             return "No entries found!";
@@ -128,6 +137,12 @@ public class Summary {
         return output;
     }
 
+    /**
+     * This function generates a report based on the calorie intake over current month.
+     * Report includes monthly average calorie intake and the most/least frequently eaten food.
+     *
+     * @return String a report of monthly calorie intake
+     */
     public String generateMonthSummaryReport() {
         if (entries.size() < 1) {
             return "No entries found!";

@@ -107,8 +107,9 @@ public class Parser {
     private static final int MAXIMUM_AGE = 100;
     private static final int MINIMUM_HEIGHT = 40;
     private static final int MAXIMUM_HEIGHT = 300;
-    private static final int MINIMUM_WEIGHT = 0;
+    private static final float MINIMUM_WEIGHT = 40;
     private static final int MAXIMUM_WEIGHT = 500;
+
 
 
     // Timeframe
@@ -498,7 +499,7 @@ public class Parser {
                 isLoopFlagOn = false;
                 return val;
             } else {
-                System.out.println("Calories can only be between 0 and 5000!");
+                System.out.println("Calories can only be between 1 and 5000!");
             }
         } catch (NumberFormatException e) {
             //TODO: add proper Ui print message;
@@ -554,8 +555,13 @@ public class Parser {
             int listWeightInputsIndex = input.indexOf(DESCRIPTOR_WEIGHT) + DESCRIPTOR_WEIGHT.length();
             String listWeightInputsString = input.substring(listWeightInputsIndex);
             String[] listWeightInputs = listWeightInputsString.split("\\s+");
-            String timeFrame = listWeightInputs[1].strip();
-
+            String timeFrame;
+            try {
+                timeFrame = listWeightInputs[1].strip();
+            } catch (IndexOutOfBoundsException e) {
+                throw new FitNusException("Invalid list weight command! It is supposed to be "
+                        + "list /weight /all or list /weight /month MONTH_INTEGER");
+            }
             switch (timeFrame) {
             case ALL_TIME:
                 return new ListWeightProgressCommand(0);
@@ -677,6 +683,7 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 float weight = Float.parseFloat(input.substring(typeDescriptorIndex).trim());
+
                 if (weight <= MINIMUM_WEIGHT) {
                     throw new FitNusException("Please enter a positive number for your weight!");
                 } else if (weight > MAXIMUM_WEIGHT) {
@@ -700,7 +707,8 @@ public class Parser {
             String keyword = input.substring(typeDescriptorIndex + 7);
             return new FindEntryCommand(keyword);
         }
-        throw new FitNusException("parse find error");
+        throw new FitNusException("find command format is wrong. It is supposed to be:\n"
+                + "find /food KEYWORD or find /entry KEYWORD");
     }
 
     private Command parseSuggestTypeCommand(String input) throws FitNusException {

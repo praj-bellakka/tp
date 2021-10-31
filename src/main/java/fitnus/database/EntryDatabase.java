@@ -114,6 +114,9 @@ public class EntryDatabase {
     }
 
     public String listEntries() {
+        if (entries.size() == 0) {
+            return "Sorry, there is not any record stored";
+        }
         String result = "";
         for (int i = 1; i <= entries.size(); i++) {
             result += String.format(" %d.%s", i, entries.get(i - 1)

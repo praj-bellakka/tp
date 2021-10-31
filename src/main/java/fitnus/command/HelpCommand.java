@@ -38,6 +38,7 @@ public class HelpCommand extends Command {
                 + "[X] Set Height: height /set HEIGHT\n"
                 + "[X] Set Age: age /set AGE\n"
                 + "[X] Set calorie goal: calorie /set GOAL\n"
+                + "[X] Set age: age /set AGE\n"
                 + "[X] View remaining calories for the day: calorie /remain\n"
                 + "[X] Auto generate calorie goal: calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG \n"
                 + "      (CHANGE_TYPE - /lose, /gain)\n"
