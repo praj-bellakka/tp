@@ -5,6 +5,7 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {
@@ -37,6 +38,7 @@ public class Ui {
     public String readInput() {
         String userInput = "";
         do {
+            userInput = sc.nextLine().toLowerCase().trim();
             if (userInput.equals("")) {
                 println("Input cannot be empty! Please try again");
             }
