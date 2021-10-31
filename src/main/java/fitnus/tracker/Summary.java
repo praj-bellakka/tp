@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
-    private static final String SQUARE = "\u25A0";
+    private static final String SQUARE = "■";
     private final ArrayList<Entry> entries;
     private int days;
 
