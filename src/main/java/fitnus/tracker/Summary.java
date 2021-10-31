@@ -2,6 +2,7 @@ package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+import java.time.Period;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,14 +11,24 @@ import java.util.Map;
 
 public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
-    private static final String SQUARE = "■";
+    private static final String SQUARE = "\u25A0";
     private final ArrayList<Entry> entries;
-    private final int days;
+    private int days;
 
     public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
-        this.days = days;
         this.entries = ed.getEntries();
+        if (entries.size() == 0) {
+            days = 1;
+        } else {
+            LocalDate firstUseDate = entries.get(1).getRawDate();
+            int period = firstUseDate.until(LocalDate.now()).getDays() + 1;
+            if (period >= days) {
+                this.days = days;
+            } else {
+                this.days = period;
+            }
+        }
     }
 
     private String getMostAndLeastEatenFood() {
@@ -90,7 +101,13 @@ public class Summary {
 
     private String getWeekCalorieTrendGraph() {
         StringBuilder output = new StringBuilder();
-        LocalDate date = LocalDate.now().minusDays(6);
+        LocalDate date;
+        if (this.days < 6) {
+            date = LocalDate.now().minusDays(this.days - 1);
+        } else {
+            date = LocalDate.now().minusDays(6);
+        }
+
 
         int calories = 0;
         int j = 0;
