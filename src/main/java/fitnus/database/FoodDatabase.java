@@ -40,8 +40,12 @@ public class FoodDatabase {
     }
 
     // Index here starts from 1
-    public Food getFoodAtIndex(int index) throws IndexOutOfBoundsException {
-        return databaseFoods.get(index - 1);
+    public Food getFoodAtIndex(int index) throws FitNusException {
+        try {
+            return databaseFoods.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FitNusException("Sorry the index chosen is invalid! Please try again!");
+        }
     }
 
     //returns ArrayList<Food> db when called.
@@ -50,6 +54,9 @@ public class FoodDatabase {
     }
 
     public String listFoods() {
+        if (databaseFoods.size() < 1) {
+            return "Sorry, there is not any record stored";
+        }
         String result = "";
         for (int i = 1; i <= databaseFoods.size(); i++) {
             result += String.format(" %d.%s", i, databaseFoods.get(i - 1)

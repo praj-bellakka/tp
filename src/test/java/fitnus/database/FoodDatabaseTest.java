@@ -55,7 +55,7 @@ class FoodDatabaseTest {
     void getFoodAtIndex_outOfBoundsIndex_exceptionThrown() throws FitNusException {
         FoodDatabase fd = new FoodDatabase();
         fd.addFood("food1", 100, Food.FoodType.MEAL);
-        assertThrows(IndexOutOfBoundsException.class, () -> fd.getFoodAtIndex(2));
+        assertThrows(FitNusException.class, () -> fd.getFoodAtIndex(2));
     }
 
 

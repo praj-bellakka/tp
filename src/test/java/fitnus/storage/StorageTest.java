@@ -108,7 +108,7 @@ class StorageTest {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         database.preloadDatabase(reader);
         reader.close();
-        assertEquals("", database.listEntries());
+        assertEquals("Sorry, there is not any record stored", database.listEntries());
     }
 
     @Test

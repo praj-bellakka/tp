@@ -31,7 +31,7 @@ public class User {
     private static final float MAXIMUM_WEEKLY_CHANGE = (float) 1.0;
     private static final int ALL_MONTHS = 0;
     private static final String[] monthStrings = {"January", "February", "March", "April", "May", "June",
-        "July", "August", "October", "September", "November", "December"};
+        "July", "August", "September", "October", "November", "December"};
 
     public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;

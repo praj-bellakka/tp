@@ -29,6 +29,7 @@ Here is the list of sections we will be covering in this User Guide.
     - Setting age: `age /set`
     - Setting calorie goal: `calorie /set`
     - Generate and set calorie goal: `calorie /generate`
+    - View personal data: `list /user`
   - Other
     - Viewing statistics: `summary`
     - Viewing help: `help`
@@ -221,13 +222,13 @@ Example of usage:
 
 
 #### Listing weight records: `list`
-Lists out all past records of weight entered by the user.
+Lists out all past records or the past month of weight entered by the user.
 
-Format: `list /weight`
+Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-`list /weight`
+`list /weight /all` or `list /weight /month 12`
 
 <p>&nbsp;</p>
 
@@ -292,6 +293,20 @@ Example of usage:
 `calorie /generate /gain 0.5`
 
 <p>&nbsp;</p>
+
+#### View personal data: `list /user`
+View all the personal body measurements including gender, age, weight, height and calorie goal.
+Format: `list /user`
+
+Sample output:
+```
+Here are the matching foods in your database:
+Calorie Goal: 2365 
+Gender: m
+Age: 18
+Weight: 63.3
+Height: 180
+```
 
 ### Other
 
