@@ -240,11 +240,11 @@ Sample output:
 
 ```
 Your weight progress since the start of your FitNUS journey: 
-2001-03-12: 51.5kg
-2001-03-13: 51.7kg
-2001-03-14: 51.8kg
-2001-03-15: 51.9kg
-2001-04-12: 54.2kg
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+2021-03-14: 51.8kg
+2021-03-15: 51.9kg
+2021-04-12: 54.2kg
 2021-10-27: 63.3kg
 2021-10-31: 54.0kg
 
@@ -257,10 +257,10 @@ Sample output:
 
 ```
 Your weight progress in March: 
-2001-03-12: 51.5kg
-2001-03-13: 51.7kg
-2001-03-14: 51.8kg
-2001-03-15: 51.9kg
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+2021-03-14: 51.8kg
+2021-03-15: 51.9kg
 
 You have gained 0.4 kg during the month of March!
 ```
