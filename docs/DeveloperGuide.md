@@ -75,6 +75,7 @@ The primary components of the app are listed below:
 - `Ui`: For displaying information to the user.
 - `EntryDatabase`: For handling all functionality regarding food tracker entries.
 - `FoodDatabase`: For handling all functionality regarding food database entries.
+- `MealPlanDatabase`: For handling all functionality regarding meal plan database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
 #### How the overall architecture works
