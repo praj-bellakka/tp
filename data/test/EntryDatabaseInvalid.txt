@@ -1,2 +1,0 @@
-Lunch | ramen | 2021-10-24 | MEAL
-Lunch | rice | 800 | 2021-10 | MEAL

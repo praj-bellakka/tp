@@ -48,9 +48,8 @@ import java.util.logging.Logger;
  * Handles the extraction of user inputs into relevant components.
  */
 public class Parser {
-
     //Logger object
-    private static final Logger logger = Logger.getLogger(Parser.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
     private static final String SPACE_CHARACTER = " ";
     private static final String BACKSLASH_CHARACTER = "/";
@@ -88,9 +87,17 @@ public class Parser {
 
     // FoodType related strings
     private static final String MEAL = "/meal";
+    private static final String MEAL_STRING = "meal";
     private static final String BEVERAGE = "/beverage";
+    private static final String BEVERAGE_STRING = "beverage";
     private static final String SNACK = "/snack";
+    private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
+    private static final String OTHERS_STRING = "others";
+
+    //Parse suggest command error message
+    private static final String PARSE_SUGGEST_ERROR = "Oops! Please double check your command format! Please try:"
+            + System.lineSeparator() + "suggest /FOODTYPE (/meal, /beverage, /snack, /others) /sort (optional)";
 
     // time frame related strings
     private static final String WEEK = "/week";
@@ -110,7 +117,6 @@ public class Parser {
     private static final int MAXIMUM_HEIGHT = 300;
     private static final float MINIMUM_WEIGHT = 40;
     private static final int MAXIMUM_WEIGHT = 500;
-
 
 
     // Timeframe
@@ -183,7 +189,7 @@ public class Parser {
             }
 
             if (inputCommandType.equals(COMMAND_SUGGEST)) {
-                return parseSuggestTypeCommand(subString);
+                return parseSuggestCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_SUMMARY)) { //summary type command
@@ -249,7 +255,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
@@ -422,13 +428,13 @@ public class Parser {
     public static Food.FoodType parseFoodType(String type) throws FitNusException {
         String typeString = type.toLowerCase(Locale.ROOT);
         switch (typeString) {
-        case "snack":
+        case SNACK_STRING:
             return Food.FoodType.SNACK;
-        case "beverage":
+        case BEVERAGE_STRING:
             return Food.FoodType.BEVERAGE;
-        case "meal":
+        case MEAL_STRING:
             return Food.FoodType.MEAL;
-        case "others":
+        case OTHERS_STRING:
             return Food.FoodType.OTHERS;
         default:
             throw new FitNusException("Unable to parse Food type");
@@ -529,12 +535,12 @@ public class Parser {
         int typeDescriptorIndex = input.indexOf(" ");
         String removeType = input.substring(0, typeDescriptorIndex);
         try {
+            int index = Integer.parseInt(input
+                    .substring(typeDescriptorIndex).trim());
             if (removeType.equals(DESCRIPTOR_FOOD)) {
-                return new DeleteFoodCommand(Integer.parseInt(input
-                        .substring(typeDescriptorIndex).trim()));
+                return new DeleteFoodCommand(index);
             } else if (removeType.equals(DESCRIPTOR_INTAKE)) {
-                return new DeleteEntryCommand(Integer.parseInt(input
-                        .substring(typeDescriptorIndex).trim()));
+                return new DeleteEntryCommand(index);
             }
             throw new FitNusException("Invalid remove command!");
         } catch (NumberFormatException e) {
@@ -727,7 +733,7 @@ public class Parser {
                 + "find /food KEYWORD or find /entry KEYWORD");
     }
 
-    private Command parseSuggestTypeCommand(String input) throws FitNusException {
+    private Command parseSuggestCommand(String input) throws FitNusException {
         boolean isSort = false;
         if (input.contains("/sort")) {
             isSort = true;
@@ -744,7 +750,7 @@ public class Parser {
         case OTHERS:
             return new ViewSuggestionsCommand(Food.FoodType.OTHERS, isSort);
         default:
-            throw new FitNusException("Parse suggest error");
+            throw new FitNusException(PARSE_SUGGEST_ERROR);
         }
     }
 
@@ -773,7 +779,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
@@ -818,7 +824,7 @@ public class Parser {
                 return date;
             }
         }
-        logger.log(Level.INFO, "Could not parse date");
+        LOGGER.log(Level.INFO, "Could not parse date");
         throw new FitNusException("Error parsing date!!");
     }
 

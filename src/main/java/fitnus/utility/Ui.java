@@ -4,6 +4,8 @@ import fitnus.command.FindFoodCommand;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,6 +68,17 @@ public class Ui {
     public static void printMatchingFoods(ArrayList<Food> matchingFoods) {
         if (matchingFoods.size() == 0) {
             printNoMatchingResults();
+            return;
+        }
+        System.out.println(" Here are the matching foods in your database:");
+        for (int i = 1; i <= matchingFoods.size(); i++) {
+            System.out.println(" " + i + "."
+                    + matchingFoods.get(i - 1).toString());
+        }
+    }
+
+    public static void printMatchingFoodsSilenced(ArrayList<Food> matchingFoods) {
+        if (matchingFoods.size() == 0) {
             return;
         }
         System.out.println(" Here are the matching foods in your database:");
