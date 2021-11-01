@@ -108,11 +108,13 @@ public class User {
      * @return The outcome message.
      */
     public String updateWeightAndWeightTracker(float newWeight) {
+        assert newWeight > 0 : "newWeight should be greater than 0";
+
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
         if (weightProgressEntries.size() == 0) {
-            updateWeightTrackerIfNoPreviousEntries(newWeight, currDate);
+            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
 
@@ -123,6 +125,7 @@ public class User {
             float weightDifference = getWeightDifference(newWeight, previousEntry);
             String changeType = getChangeType(weightDifference);
             weightDifference = Math.abs(weightDifference);
+            assert weightDifference >= 0 : "weightDifference should not be negative";
 
             return "You have updated your weight for today to " + newWeight
                     + " kg! You have " + changeType + " " + weightDifference
@@ -131,17 +134,6 @@ public class User {
         } else {
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
-    }
-
-    /**
-     * Updates the daily weight tracker for the case where the weight tracker does not have any
-     * existing entries.
-     *
-     * @param newWeight New weight to be set.
-     * @param currDate  The current date.
-     */
-    public void updateWeightTrackerIfNoPreviousEntries(float newWeight, LocalDate currDate) {
-        weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
     }
 
     /**
@@ -314,7 +306,6 @@ public class User {
         }
 
         int calDeficitFor1KgWeekly = 1000;
-
         int bmr = calculateBMR(); //basal metabolic rate i.e. calories needed to maintain weight
         int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
         int newGoal = 0;
@@ -329,7 +320,8 @@ public class User {
     }
 
     /**
-     * Calculate the basal metabolic rate (BMR).
+     * Calculate the basal metabolic rate (BMR)
+     * according to the Harris-Benedict Equation.
      *
      * @return The calculated BMR.
      */

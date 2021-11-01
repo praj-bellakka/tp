@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTest {
-
     @Test
     void setCalorieGoal_validGoal_success() throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
@@ -101,28 +100,30 @@ class UserTest {
         assertEquals((float) 55.5, weightProgressEntries.get(weightTrackerSize - 1).getWeight());
     }
 
+    @Test
     void updateWeightAndWeightTracker_negativeNewWeight_exceptionThrown() {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
         Exception exception = assertThrows(FitNusException.class, () -> user.updateWeightAndWeightTracker(-10));
         assertEquals("An error occurred! The new weight cannot be negative.", exception.getMessage());
     }
 
-    //    @Test
-    //    void convertWeightRecordsToStringForUi_oneOrMoreWeightEntries_success() throws FitNusException {
-    //        User user = new User(2000, Gender.MALE, 18, 180, 65);
-    //        user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));
-    //        user.updateWeightAndWeightTracker((float) 55.5);
-    //        assertEquals("2001-10-03: 70.0kg" + System.lineSeparator()
-    //                        + LocalDate.now().toString() + ": 55.5kg" + System.lineSeparator(),
-    //                user.convertWeightRecordsToStringForUi());
-    //    }
-    //
-    //    @Test
-    //    void convertWeightRecordsToStringForUi_noWeightEntries_exceptionThrown() {
-    //        User user = new User(2000, Gender.MALE, 18, 180, 65);
-    //        Exception exception = assertThrows(FitNusException.class, () -> user.convertWeightRecordsToStringForUi());
-    //        assertEquals("An error has occurred! No weight records found.", exception.getMessage());
-    //    }
+    @Test
+    void convertWeightRecordsToStringForUi_oneOrMoreWeightEntries_success() throws FitNusException {
+        User user = new User(2000, Gender.MALE, 18, 180, 65);
+        user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));
+        user.updateWeightAndWeightTracker((float) 55.5);
+        assertEquals("2001-10-03: 70.0kg" + System.lineSeparator()
+                        + LocalDate.now().toString() + ": 55.5kg" + System.lineSeparator(),
+                user.convertWeightRecordsToStringForUi(user.getWeightProgressEntries()));
+    }
+
+    @Test
+    void convertWeightRecordsToStringForUi_noWeightEntries_exceptionThrown() {
+        User user = new User(2000, Gender.MALE, 18, 180, 65);
+        Exception exception = assertThrows(FitNusException.class,
+                () -> user.convertWeightRecordsToStringForUi(user.getWeightProgressEntries()));
+        assertEquals("An error has occurred! No weight records found.", exception.getMessage());
+    }
 
     @Test
     void getCaloriesRemaining_foodTrackerEntriesExist_success() {
