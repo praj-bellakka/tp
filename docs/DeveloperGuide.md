@@ -170,12 +170,16 @@ The class diagram below showcases the relationships between the `FoodDatabase` c
 
 ### Meal Plan Database
 
-The `MealPlanDatabase` component consists of:
-- `addMealPlan()` Adds a MealPlan object to the database.
-- `convertDatabaseToString()` Returns a String representation of all MealPlan objects in the database.
-- `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
-- `convertFoodToString()` Returns an ArrayList containing matching Food objects based on a keyword.
+![](diagrams/MealPlanDatabase_Class.png)
 
+The `MealPlanDatabase` component consists of:
+- `convertFoodToString(ArrayList<Food>)` Returns a string representation of all MealPlan objects in the database.
+- `addMealPlan(MealPlan)` Adds a MealPlan object to the database.
+- `getMealAtIndex(int)` Returns the MealPlan object at that index inside the database. 
+- `convertDatabaseToString()` Returns a string presentation of the MealPlanDatabase object.
+- `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
+- `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
+  
 #### Implementation
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
@@ -186,6 +190,12 @@ It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class
 
 Given below is a sequence diagram of the `preloadDatabase()` method used to populate `databaseMealPlans` once the app is first launched.
 ![SetWeightSeqDiagram](./diagrams/MealPlanDatabase_preLoadDatabase_Seq.png "Set MealPlan Database Sequence Diagram")
+
+
+
+The class diagram below showcases the relationships between the `MealPlanDatabase` class and its various components.
+
+![](diagrams/MealPlanDatabase_Classes.png)
 
 
 --- 

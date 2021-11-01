@@ -1,0 +1,37 @@
+@startuml
+hide member
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class FitNus
+package parser {
+    class Parser
+}
+
+package tracker {
+    class Food
+    class MealPlan
+}
+
+package database {
+    class MealPlanDatabase
+}
+
+package storage {
+    class Storage
+}
+
+package utility {
+    class Ui
+}
+
+FitNus *-> MealPlanDatabase
+Parser ..> MealPlanDatabase
+MealPlanDatabase ..> Parser
+MealPlanDatabase ..> Ui
+Storage ..> MealPlanDatabase
+MealPlanDatabase *-> Food
+MealPlanDatabase *-> MealPlan
+
+@enduml

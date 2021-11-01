@@ -11,6 +11,6 @@ class MealPlanDatabase {
 + getMealAtIndex(int):MealPlan
 + convertDatabaseToString():String
 + preloadDatabase(BufferedReader):void
-+ convertDatabaseToString():String
++ listMealPlan():String
 }
 @enduml
