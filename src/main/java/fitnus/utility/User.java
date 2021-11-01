@@ -29,7 +29,7 @@ public class User {
     private static final float MAXIMUM_WEEKLY_CHANGE = (float) 1.0;
     private static final int ALL_MONTHS = 0;
     private static final String[] monthStrings = {"January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"};
+        "July", "August", "September", "October", "November", "December"};
 
     public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;
@@ -258,7 +258,7 @@ public class User {
     }
 
     /**
-     * Gets the relevant weight tracker entries according to timeframe
+     * Gets the relevant weight tracker entries according to timeframe.
      *
      * @param month The integer representation of the month or 0 to represent "all time".
      * @return The relevant weight tracker entries.
@@ -315,7 +315,7 @@ public class User {
 
         int calDeficitFor1KgWeekly = 1000;
 
-        int bmr = calculateBMR(); //basal metabolic rate i.e. calories needed to maintain weight
+        int bmr = calculateBasalMetabolicRate(); //basal metabolic rate i.e. calories needed to maintain weight
         int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
         int newGoal = 0;
 
@@ -333,7 +333,7 @@ public class User {
      *
      * @return The calculated BMR.
      */
-    public int calculateBMR() {
+    public int calculateBasalMetabolicRate() {
         int bmr;
         if (this.gender == Gender.MALE) {
             bmr = (int) Math.round(((655.1 + (9.563 * this.weight)
