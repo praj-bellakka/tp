@@ -234,7 +234,36 @@ Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-`list /weight /all` or `list /weight /month 12`
+1. `list /weight /all` 
+
+Sample output:
+
+```
+Your weight progress since the start of your FitNUS journey: 
+2001-03-12: 51.5kg
+2001-03-13: 51.7kg
+2001-03-14: 51.8kg
+2001-03-15: 51.9kg
+2001-04-12: 54.2kg
+2021-10-27: 63.3kg
+2021-10-31: 54.0kg
+
+You have gained 2.5 kg since the start of your FitNUS Journey!
+```
+
+2.`list /weight /month 3`
+
+Sample output:
+
+```
+Your weight progress in March: 
+2001-03-12: 51.5kg
+2001-03-13: 51.7kg
+2001-03-14: 51.8kg
+2001-03-15: 51.9kg
+
+You have gained 0.4 kg during the month of March!
+```
 
 <p>&nbsp;</p>
 
