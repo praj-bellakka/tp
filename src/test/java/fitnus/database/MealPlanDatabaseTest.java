@@ -50,7 +50,7 @@ public class MealPlanDatabaseTest {
     @Test
     void addMealPlan_emptyMealPlan_planAddedUnsuccessfully() throws FitNusException {
         Exception exception1 = assertThrows(FitNusException.class, () -> md.addMealPlan(emptyPlan));
-        assertEquals("Unable to add Meal plan as no food detected.", exception1.getMessage());
+        assertEquals("Unable to add meal plan as no food detected.", exception1.getMessage());
     }
 
 

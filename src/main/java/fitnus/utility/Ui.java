@@ -1,6 +1,7 @@
 package fitnus.utility;
 
 import fitnus.command.FindFoodCommand;
+import fitnus.database.FoodDatabase;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
@@ -58,6 +59,16 @@ public class Ui {
         } while (userInput.equals(""));
         assert !userInput.trim().equals("") : "input cannot be empty";
         return userInput.split(" ");
+    }
+
+    public static void printMealPlanCreation(FoodDatabase fd) {
+        System.out.println("We will now create a mealplan! To create a Meal plan, "
+                + "enter the indexes of the foods below with spaces in between each index.");
+        System.out.println("For example: 1 2 8 4");
+        System.out.println("Indexes that are not present/invalid will be ignored. "
+                + "Duplicates are allowed, but try to not eat so much food :)");
+        System.out.println("Here is a list of all foods present in the database:");
+        System.out.println(fd.listFoods());
     }
 
     private static void printNoMatchingResults() {

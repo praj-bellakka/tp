@@ -94,6 +94,7 @@ public class Parser {
     private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
     private static final String OTHERS_STRING = "others";
+    private static final String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
 
     //Parse suggest command error message
     private static final String PARSE_SUGGEST_ERROR = "Oops! Please double check your command format! Please try:"
@@ -253,15 +254,13 @@ public class Parser {
 
         //step 2: search database if food exists
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
-
         Ui newUi = new Ui();
         Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
-            //TODO: Beautify the print statement
-            System.out.println("Select the food you want by entering the number below. "
+            System.out.println(" Select the food you want by entering the number below. "
                     + "If the food doesn't exist, enter 0 to create a new custom food!");
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
         } else if (tempFoodDb.size() == 0) {
@@ -307,15 +306,9 @@ public class Parser {
                     .strip().replaceAll("\\|", "");
         }
 
-        //display all current foods TODO: refactor
-        System.out.println("We will now create a mealplan! To create a Meal plan, "
-                + "enter the indexes of the foods below with spaces in between each index.");
-        System.out.println("For example: 1 2 8 4");
-        System.out.println("Indexes that are not present/invalid will be ignored. "
-                + "Duplicates are allowed, but try to not eat so much food :)");
-        System.out.println("Here is a list of all foods present in the database:");
-        System.out.println(fd.listFoods());
+        //display all current foods
         Ui newUi = new Ui();
+        newUi.printMealPlanCreation(fd);
         ArrayList<Food> tempMealFoods = new ArrayList<Food>();
 
         String[] userInputIndexes = newUi.readIndexesInput();
@@ -372,7 +365,6 @@ public class Parser {
             Food.FoodType type = null;
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
-                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
                 String foodType = newUi.readInput();
                 if (Arrays.asList(possibleFoodType).contains(foodType)) {
                     type = parseFoodType(foodType);
@@ -525,7 +517,6 @@ public class Parser {
                 System.out.println("Calories can only be between 1 and 5000!");
             }
         } catch (NumberFormatException e) {
-            //TODO: add proper Ui print message;
             System.out.println("Please enter an integer value!");
         }
         isLoopFlagOn = true;
