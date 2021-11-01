@@ -2,7 +2,6 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
-import fitnus.parser.Parser;
 import fitnus.tracker.Gender;
 import fitnus.tracker.WeightProgressEntry;
 
@@ -23,8 +22,7 @@ public class User {
     private float weight;
     private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
 
-    private static final int MALE = 0;
-    private static final int FEMALE = 1;
+    //constants
     private static final String DELIMITER = " | ";
     private static final String GAIN_STRING = "gain";
     private static final String LOSE_STRING = "lose";
@@ -45,12 +43,17 @@ public class User {
         return calorieGoal;
     }
 
+    /**
+     * Sets the user's calorie goal.
+     *
+     * @param newGoal New calorie goal to be set.
+     * @throws FitNusException when the goal is negative or same as before.
+     */
     public void setCalorieGoal(int newGoal) throws FitNusException {
         if (newGoal < 0) {
-            // logger.log(Level.INFO, "Calorie goal entered was negative");
+            logger.log(Level.INFO, "Calorie goal entered was negative");
             throw new FitNusException("Calorie Goal cannot be negative! Please try again!");
         } else if (newGoal == this.calorieGoal) {
-            // logger.log(Level.INFO, "Calorie goal entered was same as before");
             throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
         }
         assert newGoal >= 0 : "calorie goal cannot be negative";
@@ -105,41 +108,24 @@ public class User {
      * @return The outcome message.
      */
     public String updateWeightAndWeightTracker(float newWeight) {
-        //  logger.log(Level.INFO, "Begin attempt to update weight and weight tracker");
-
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
         if (weightProgressEntries.size() == 0) {
-            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
-            //logger.log(Level.INFO, "New weight entry added to weight tracker");
+            updateWeightTrackerIfNoPreviousEntries(newWeight, currDate);
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
 
-        WeightProgressEntry latestEntry = weightProgressEntries.get(weightProgressEntries.size() - 1);
-        if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight progress entry
-            latestEntry.setWeight(newWeight);
-            weightProgressEntries.set(weightProgressEntries.size() - 1, latestEntry);
-            //logger.log(Level.INFO, "Latest weight tracker entry updated (No new entry added)");
-        } else {
-            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
-            //logger.log(Level.INFO, "New weight entry added to weight tracker");
-        }
+        updateWeightTrackerIfHavePreviousEntries(newWeight, currDate);
 
-        //logger.log(Level.INFO, "Update weight and weight tracker completed");
-
-        if (weightProgressEntries.size() >= 2) { //If weight tracker has
-            // more than 2 entries after updating the weight accordingly
+        if (weightProgressEntries.size() >= 2) { //If weight tracker has more than 2 entries after updating
             WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
-            float weightDifference = previousEntry.getWeight() - newWeight;
-            weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
-            String weightChange = weightDifference < 0 ? "gained" : "lost";
-            if (weightDifference < 0) {
-                weightDifference = Math.abs(weightDifference);
-            }
+            float weightDifference = getWeightDifference(newWeight, previousEntry);
+            String changeType = getChangeType(weightDifference);
+            weightDifference = Math.abs(weightDifference);
 
             return "You have updated your weight for today to " + newWeight
-                    + " kg! You have " + weightChange + " " + weightDifference
+                    + " kg! You have " + changeType + " " + weightDifference
                     + " kg from the previous weight entry of "
                     + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
         } else {
@@ -147,6 +133,56 @@ public class User {
         }
     }
 
+    /**
+     * Updates the daily weight tracker for the case where the weight tracker does not have any
+     * existing entries.
+     *
+     * @param newWeight New weight to be set.
+     * @param currDate  The current date.
+     */
+    public void updateWeightTrackerIfNoPreviousEntries(float newWeight, LocalDate currDate) {
+        weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+    }
+
+    /**
+     * Updates the daily weight tracker for the case where the weight tracker
+     * has existing entries.
+     *
+     * @param newWeight New weight to be set.
+     * @param currDate  The current date.
+     */
+    public void updateWeightTrackerIfHavePreviousEntries(float newWeight, LocalDate currDate) {
+        WeightProgressEntry latestEntry = weightProgressEntries.get(weightProgressEntries.size() - 1);
+        if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight progress entry
+            latestEntry.setWeight(newWeight);
+            weightProgressEntries.set(weightProgressEntries.size() - 1, latestEntry);
+        } else {
+            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+        }
+    }
+
+    /**
+     * Gets the difference in weight between the new weight and the previous entry in the weight tracker.
+     * The difference is positive if the user lost weight and negative if the user gained weight.
+     *
+     * @param newWeight New weight to be set.
+     * @return The weight difference.
+     */
+    public float getWeightDifference(float newWeight, WeightProgressEntry previousEntry) {
+        float weightDifference = previousEntry.getWeight() - newWeight;
+        weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
+        return weightDifference;
+    }
+
+    /**
+     * Gets the correct weight change type string depending on whether weight was gained or lost.
+     *
+     * @param weightDifference The difference in weight.
+     * @return The change type string.
+     */
+    public String getChangeType(float weightDifference) {
+        return weightDifference < 0 ? "gained" : "lost";
+    }
 
     /**
      * Converts the weightProgressEntries ArrayList into a String of the list of weight records.
@@ -177,19 +213,10 @@ public class User {
      * @return The weight tracker display.
      * @throws FitNusException if weightProgressEntries is empty.
      */
-
     public String getWeightProgressDisplay(int month) throws FitNusException {
         ArrayList<WeightProgressEntry> relevantEntries = new ArrayList<>();
 
-        if (month == ALL_MONTHS) {
-            relevantEntries = weightProgressEntries;
-        } else {
-            for (WeightProgressEntry e : weightProgressEntries) {
-                if (e.getDate().getMonthValue() == month) {
-                    relevantEntries.add(e);
-                }
-            }
-        }
+        relevantEntries = getRelevantWeightEntries(month);
 
         if (relevantEntries.size() == 0) {
             if (month == ALL_MONTHS) {
@@ -207,29 +234,47 @@ public class User {
                         + convertWeightRecordsToStringForUi(relevantEntries);
             }
         } else {
-            float startingWeight = relevantEntries.get(0).getWeight();
+            WeightProgressEntry previousEntry = relevantEntries.get(0);
             float currentWeight = relevantEntries.get(relevantEntries.size() - 1).getWeight();
 
-            float weightChange = startingWeight - currentWeight;
-            String changeType = weightChange < 0 ? "gained" : "lost";
-
-            weightChange = Math.abs(weightChange);
-            weightChange = (float) (Math.round(weightChange * 10.0) / 10.0);
+            float weightDifference = getWeightDifference(currentWeight, previousEntry);
+            String changeType = getChangeType(weightDifference);
+            weightDifference = Math.abs(weightDifference);
 
             if (month == ALL_MONTHS) {
                 return "Your weight progress since the start of your FitNUS journey: \n"
                         + convertWeightRecordsToStringForUi(relevantEntries)
                         + "\n"
-                        + "You have " + changeType + " " + weightChange
+                        + "You have " + changeType + " " + weightDifference
                         + " kg since the start of your FitNUS Journey!";
             } else {
                 return "Your weight progress in " + monthStrings[month - 1] + ": \n"
                         + convertWeightRecordsToStringForUi(relevantEntries)
                         + "\n"
-                        + "You have " + changeType + " " + weightChange + " kg during the month of "
+                        + "You have " + changeType + " " + weightDifference + " kg during the month of "
                         + monthStrings[month - 1] + "!";
             }
         }
+    }
+
+    /**
+     * Gets the relevant weight tracker entries according to timeframe.
+     *
+     * @param month The integer representation of the month or 0 to represent "all time".
+     * @return The relevant weight tracker entries.
+     */
+    public ArrayList<WeightProgressEntry> getRelevantWeightEntries(int month) {
+        ArrayList<WeightProgressEntry> relevantEntries = new ArrayList<>();
+        if (month == ALL_MONTHS) {
+            relevantEntries = weightProgressEntries;
+        } else {
+            for (WeightProgressEntry e : weightProgressEntries) {
+                if (e.getDate().getMonthValue() == month) {
+                    relevantEntries.add(e);
+                }
+            }
+        }
+        return relevantEntries;
     }
 
     /**
@@ -270,18 +315,9 @@ public class User {
 
         int calDeficitFor1KgWeekly = 1000;
 
-        int bmr; //basal metabolic rate i.e. calories needed to maintain weight
+        int bmr = calculateBasalMetabolicRate(); //basal metabolic rate i.e. calories needed to maintain weight
         int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
         int newGoal = 0;
-        if (this.gender == Gender.MALE) {
-            bmr = (int) Math.round(((655.1 + (9.563 * this.weight)
-                    + (1.850 * this.height)
-                    - (4.676 * this.age)) * 1.55));
-        } else {
-            bmr = (int) Math.round(((66.47 + (13.75 * this.weight)
-                    + (5.003 * this.height)
-                    - (6.755 * this.age)) * 1.55));
-        }
 
         if (changeType == GAIN_STRING) {
             newGoal = bmr + calDiff;
@@ -293,11 +329,29 @@ public class User {
     }
 
     /**
+     * Calculate the basal metabolic rate (BMR).
+     *
+     * @return The calculated BMR.
+     */
+    public int calculateBasalMetabolicRate() {
+        int bmr;
+        if (this.gender == Gender.MALE) {
+            bmr = (int) Math.round(((655.1 + (9.563 * this.weight)
+                    + (1.850 * this.height)
+                    - (4.676 * this.age)) * 1.55));
+        } else {
+            bmr = (int) Math.round(((66.47 + (13.75 * this.weight)
+                    + (5.003 * this.height)
+                    - (6.755 * this.age)) * 1.55));
+        }
+        return bmr;
+    }
+
+    /**
      * Loads the user data from the storage file to the User object.
      *
      * @param reader BufferedReader reading the user data storage file.
      * @return Integer representing if the user data was preloaded successfully
-     *     (1 for success, 0 for failure)
      * @throws IOException if any I/O operations failed or were interrupted.
      */
     public int preloadUserData(BufferedReader reader) throws IOException {
