@@ -1,0 +1,6 @@
+chicken rice | 213 | SNACK
+duck rice | 20 | SNACK
+-------- | test
+chicken rice | 213 | SNACK
+duck rice | 20 | SNACK
+-------- | test 2
