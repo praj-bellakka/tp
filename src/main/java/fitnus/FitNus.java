@@ -3,6 +3,7 @@ package fitnus;
 import fitnus.command.HelpCommand;
 import fitnus.command.ExitCommand;
 import fitnus.command.Command;
+import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
@@ -12,8 +13,6 @@ import fitnus.storage.Storage;
 import fitnus.tracker.Gender;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -76,7 +75,10 @@ public class FitNus {
                 String commandString = commandStringFront + requiredInput;
                 //ui.println(commandString);
                 Command c = parser.parseCommandType(commandString, fd, ed, md);
-                Ui.println(c.execute(ed, fd, md, user));
+                String msg = c.execute(ed, fd, md, user);
+                if (!(c instanceof ViewWeekSummaryCommand)) {
+                    Ui.println(msg);
+                }
                 attributeInitialised = true;
             } catch (FitNusException e) {
                 attributeInitialised = false;
@@ -163,18 +165,9 @@ public class FitNus {
         initialiseFitNus();
         printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
-    
 
-    private static void disableCrtlC() {
-        SignalHandler handler = sig -> {
-            System.out.println("\nprogram cannot be terminated via ctrl+c."
-                    + "Please type exit if you want to quit");
-        };
-        Signal.handle(new Signal("INT"), handler);
-    }
 
     public static void main(String[] args) {
-        disableCrtlC();
         new FitNus().run();
     }
 }
