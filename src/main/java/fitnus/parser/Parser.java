@@ -95,6 +95,7 @@ public class Parser {
     private static final String OTHERS = "/others";
     private static final String OTHERS_STRING = "others";
     private static final String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
+    private static final String[] possibleFoodCategories = {"/bfast", "/lunch", "/dinner", "/snack"};
 
     //Parse suggest command error message
     private static final String PARSE_SUGGEST_ERROR = "Oops! Please double check your command format! Please try:"
@@ -245,10 +246,11 @@ public class Parser {
 
         //if mealType is null, user didn't specify the command -> auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
-            //TODO: Add a print statement that tells user that food category has been auto added
             mealType = mealType.findMealTypeTiming();
+            Ui.printAutoAddedFoodCategory(mealType.name(), true);
             foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
         } else {
+            Ui.printAutoAddedFoodCategory(mealType.name(), false);
             foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");;
         }
 
@@ -443,7 +445,7 @@ public class Parser {
      * @param databaseRequest Boolean representing if method is being called for the database.
      * @return MealType if a match is found; UNDEFINED MealType otherwise.
      */
-    public static MealType parseMealType(String input, boolean databaseRequest) {
+    public static MealType parseMealType(String input, boolean databaseRequest) throws FitNusException {
         if (databaseRequest) {
             switch (input) {
             case "Breakfast":
@@ -458,6 +460,11 @@ public class Parser {
                 return MealType.UNDEFINED;
             }
         } else {
+            ArrayList<String> strList = new ArrayList<String>(Arrays.asList(possibleFoodCategories));
+            if (input.startsWith(BACKSLASH_CHARACTER) && !strList.contains(input)) {
+                throw new FitNusException("Invalid food category entered. " +
+                        "Avoid using the backslash character if food category is not specified.");
+            }
             switch (input) {
             case "/bfast":
                 return MealType.BREAKFAST;
