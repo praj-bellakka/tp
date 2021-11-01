@@ -462,8 +462,8 @@ public class Parser {
         } else {
             ArrayList<String> strList = new ArrayList<String>(Arrays.asList(possibleFoodCategories));
             if (input.startsWith(BACKSLASH_CHARACTER) && !strList.contains(input)) {
-                throw new FitNusException("Invalid food category entered. " +
-                        "Avoid using the backslash character if food category is not specified.");
+                throw new FitNusException("Invalid food category entered. "
+                        + "Avoid using the backslash character if food category is not specified.");
             }
             switch (input) {
             case "/bfast":
