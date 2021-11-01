@@ -241,9 +241,12 @@ Sets the user's gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
 
-Example of usage:
+Example of usage: `gender /set m`
 
-`gender /set m`
+Sample output:
+```
+You have set your gender to Male
+```
 
 <p>&nbsp;</p>
 
@@ -253,9 +256,12 @@ Sets the user's height in centimeters.
 
 Format: `height /set HEIGHT`
 
-Example of usage:
+Example of usage:`height /set 180`
 
-`height /set 180`
+Sample output:
+```
+You have set your height to 180 cm!
+```
 
 <p>&nbsp;</p>
 
@@ -265,9 +271,12 @@ Sets the user's age in years.
 
 Format: `age /set AGE`
 
-Example of usage:
+Example of usage:`age /set 18`
 
-`age /set 18`
+Sample output:
+```
+You have set your age to 18 years old!
+```
 
 <p>&nbsp;</p>
 
@@ -276,9 +285,12 @@ Sets the user's calorie goal in kcal.
 
 Format: `calorie /set CALORIE_GOAL`
 
-Example of usage:
+Example of usage:`calorie /set 2000`
 
-`calorie /set 2000`
+Sample output:
+```
+The calorie goal has been set to 2000
+```
 
 <p>&nbsp;</p>
 
@@ -290,9 +302,12 @@ Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
   * `lose` - to denote aiming to lose weight
   * `gain` - to denote aiming to gain weight
 
-Example of usage:
+Example of usage:`calorie /generate /gain 0.5`
 
-`calorie /generate /gain 0.5`
+Sample output:
+```
+Your new calorie goal to gain 0.5 kg per week is 2702 kcal daily!
+```
 
 <p>&nbsp;</p>
 

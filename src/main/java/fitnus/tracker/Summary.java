@@ -2,6 +2,9 @@ package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.time.Period;
 
 import java.time.LocalDate;
@@ -21,7 +24,7 @@ public class Summary {
         if (entries.size() == 0) {
             days = 1;
         } else {
-            LocalDate firstUseDate = entries.get(1).getRawDate();
+            LocalDate firstUseDate = entries.get(0).getRawDate();
             int period = firstUseDate.until(LocalDate.now()).getDays() + 1;
             if (period >= days) {
                 this.days = days;
@@ -151,7 +154,15 @@ public class Summary {
                 + "Average Daily Calorie Intake: %s %d\n"
                 + getMostAndLeastEatenFood(), drawGraphSquares(averageCalories, UNIT_PER_SQUARE), averageCalories
         );
-        return output;
+
+        try {
+            PrintStream out = new PrintStream(System.out, true, "UTF-8");
+            out.println(output);
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        return "";
     }
 
     /**

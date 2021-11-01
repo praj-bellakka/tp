@@ -4,6 +4,8 @@ import fitnus.command.FindFoodCommand;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 

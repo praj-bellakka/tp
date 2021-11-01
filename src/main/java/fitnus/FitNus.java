@@ -3,6 +3,7 @@ package fitnus;
 import fitnus.command.HelpCommand;
 import fitnus.command.ExitCommand;
 import fitnus.command.Command;
+import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
@@ -74,7 +75,10 @@ public class FitNus {
                 String commandString = commandStringFront + requiredInput;
                 //ui.println(commandString);
                 Command c = parser.parseCommandType(commandString, fd, ed, md);
-                Ui.println(c.execute(ed, fd, md, user));
+                String msg = c.execute(ed, fd, md, user);
+                if (!(c instanceof ViewWeekSummaryCommand)) {
+                    Ui.println(msg);
+                }
                 attributeInitialised = true;
             } catch (FitNusException e) {
                 attributeInitialised = false;
@@ -161,6 +165,7 @@ public class FitNus {
         initialiseFitNus();
         printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
+
 
     public static void main(String[] args) {
         new FitNus().run();
