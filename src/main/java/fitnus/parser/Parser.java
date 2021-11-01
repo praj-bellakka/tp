@@ -246,9 +246,9 @@ public class Parser {
         if (mealType.equals(MealType.UNDEFINED)) {
             //TODO: Add a print statement that tells user that food category has been auto added
             mealType = mealType.findMealTypeTiming();
-            foodName = input.strip();
+            foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
         } else {
-            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");;
         }
 
         //step 2: search database if food exists
@@ -303,7 +303,8 @@ public class Parser {
         if (spaceCharacterIndex == -1) {
             throw new FitNusException("Meal plan name cannot be empty!");
         } else {
-            mealNameString = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+            mealNameString = input.substring(input.indexOf(SPACE_CHARACTER))
+                    .strip().replaceAll("\\|", "");
         }
 
         //display all current foods TODO: refactor
