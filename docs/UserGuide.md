@@ -45,6 +45,7 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 > **⚠️ Notes to Windows user**
+> 
 > We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
 > please type `chcp.com 65001`
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
