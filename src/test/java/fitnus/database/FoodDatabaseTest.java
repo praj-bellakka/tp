@@ -7,16 +7,19 @@ import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FoodDatabaseTest {
-
     @Test
     void addFood_validCalorieInt_success() throws FitNusException {
         FoodDatabase fd = new FoodDatabase();
@@ -55,7 +58,7 @@ class FoodDatabaseTest {
     void getFoodAtIndex_outOfBoundsIndex_exceptionThrown() throws FitNusException {
         FoodDatabase fd = new FoodDatabase();
         fd.addFood("food1", 100, Food.FoodType.MEAL);
-        assertThrows(IndexOutOfBoundsException.class, () -> fd.getFoodAtIndex(2));
+        assertThrows(FitNusException.class, () -> fd.getFoodAtIndex(2));
     }
 
 
@@ -80,13 +83,24 @@ class FoodDatabaseTest {
     @Test
     void preLoadDatabase_validInput_SuccessfullyPreloadDatabase()
             throws FitNusException, IOException {
-        FoodDatabase fd = new FoodDatabase();
+        FoodDatabase database = new FoodDatabase();
         String initialString = "food1 | 100 | MEAL" + System.lineSeparator() + "food2 | 200 | MEAL";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        fd.preloadDatabase(reader);
+        database.preloadDatabase(reader);
         assertEquals(" 1.food1 (100 Kcal) Type: MEAL" + System.lineSeparator()
-                + " 2.food2 (200 Kcal) Type: MEAL" + System.lineSeparator(), fd.listFoods());
+                + " 2.food2 (200 Kcal) Type: MEAL" + System.lineSeparator(), database.listFoods());
+    }
+
+    @Test
+    void preLoadDatabase_invalidInput_throwsFitNusException()
+            throws IOException {
+        FoodDatabase database = new FoodDatabase();
+        String initialString = "food1 | 100 | MAL" + System.lineSeparator() + "food2 | | MEAL";
+        InputStream stream = new ByteArrayInputStream(initialString.getBytes());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        assertThrows(FitNusException.class, () -> database.preloadDatabase(reader));
+        reader.close();
     }
 
     @Test

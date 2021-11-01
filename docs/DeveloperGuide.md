@@ -1,7 +1,6 @@
-#Developer Guide
+# Developer Guide
 
-##Content
-
+## Content
 
 1. [Product Scope](##Product-Scope)
 2. [Quick Start](##quick-start)
@@ -42,7 +41,8 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 2. Download the latest fitnus.jar from here (no link for now). 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS Tracker 
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `wellnus.jar` file is located or provide the absolute path of `wellnus.jar`).
-5. Some example commands you can try: 
+5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
+6. Some example commands you can try: 
    - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your food tracker and food database. 
    - `list food`: Lists all foods in database 
    - `list intake /DAY`: Lists all entries in the food tracker for the day. 
@@ -52,7 +52,10 @@ Refer to the User Guide (no link for now) for details of each command.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...| |--------|----------|---------------|------------------| |v1.0|new user|see usage instructions|refer to them when I forget how to use the application| |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|Version| As a ... | I want to ... | So that I can ...| 
+|--------|----------|---------------|------------------| 
+|v1.0|new user|see usage instructions|refer to them when I forget how to use the application| 
+|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
 ## Architecture
 
@@ -74,7 +77,7 @@ The primary components of the app are listed below:
 - `FoodDatabase`: For handling all functionality regarding food database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
-####How the overall architecture works
+#### How the overall architecture works
 
 1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
@@ -299,7 +302,7 @@ The `Command` component
     
 - Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds a food tracker entry to the food tracker.) 
 
-####Add Food Entry Feature
+#### Add Food Entry Feature
 
 The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -309,7 +312,7 @@ Additionally, it implements the following operations:
 
 ![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
-####Edit Food Entry Feature
+#### Edit Food Entry Feature
 
 The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -319,7 +322,7 @@ Additionally, it implements the following operations:
   
 ![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
 
-####List Food Entry Feature
+#### List Food Entry Feature
 
 The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
 
@@ -454,7 +457,8 @@ It then returns a <code>Command</code> object that represents the type of comman
 The <code>Parser</code> is invoked through the <code>parseCommandType()</code> method. The input is first split up by identifying a space character.
 If no space character is detected, and the <code>help</code> or <code>exit</code> method was not called, a <code>FitNusException</code> is thrown. The first string element is 
 then compared with default list of commands to determine the type of method called using if-else statements.
-</li></ul></li></ol>
+</li></ul></li>
+
 
 <h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
 

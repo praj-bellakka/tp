@@ -29,6 +29,7 @@ Here is the list of sections we will be covering in this User Guide.
     - Setting age: `age /set`
     - Setting calorie goal: `calorie /set`
     - Generate and set calorie goal: `calorie /generate`
+    - View personal data: `list /user`
   - Other
     - Viewing statistics: `summary`
     - Viewing help: `help`
@@ -42,11 +43,18 @@ Here is the list of sections we will be covering in this User Guide.
 1. Ensure that you have Java 11 installed in your computer. 
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program: 
-```java -jar fitnus.jar```
-5. If you have successfully run the programme, you should see the following message as follows:
+4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
+```
+Welcome to FitNUS Tracker!
+Successfully preloaded 0 foods
+Successfully preloaded 0 entries
+Successfully preloaded weight data
+Please enter your gender (m/f):
+```
 
-## Features 
+
+## Features
 > **⚠️ Notes about command format**
 > 
 > - Words in **UPPER_CASE** are the parameters to be input by the user!
@@ -216,13 +224,13 @@ Example of usage:
 
 
 #### Listing weight records: `list`
-Lists out all past records of weight entered by the user.
+Lists out all past records or the past month of weight entered by the user.
 
-Format: `list /weight`
+Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-`list /weight`
+`list /weight /all` or `list /weight /month 12`
 
 <p>&nbsp;</p>
 
@@ -233,9 +241,12 @@ Sets the user's gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
 
-Example of usage:
+Example of usage: `gender /set m`
 
-`gender /set m`
+Sample output:
+```
+You have set your gender to Male
+```
 
 <p>&nbsp;</p>
 
@@ -245,9 +256,12 @@ Sets the user's height in centimeters.
 
 Format: `height /set HEIGHT`
 
-Example of usage:
+Example of usage:`height /set 180`
 
-`height /set 180`
+Sample output:
+```
+You have set your height to 180 cm!
+```
 
 <p>&nbsp;</p>
 
@@ -257,9 +271,12 @@ Sets the user's age in years.
 
 Format: `age /set AGE`
 
-Example of usage:
+Example of usage:`age /set 18`
 
-`age /set 18`
+Sample output:
+```
+You have set your age to 18 years old!
+```
 
 <p>&nbsp;</p>
 
@@ -268,9 +285,12 @@ Sets the user's calorie goal in kcal.
 
 Format: `calorie /set CALORIE_GOAL`
 
-Example of usage:
+Example of usage:`calorie /set 2000`
 
-`calorie /set 2000`
+Sample output:
+```
+The calorie goal has been set to 2000
+```
 
 <p>&nbsp;</p>
 
@@ -282,11 +302,28 @@ Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
   * `lose` - to denote aiming to lose weight
   * `gain` - to denote aiming to gain weight
 
-Example of usage:
+Example of usage:`calorie /generate /gain 0.5`
 
-`calorie /generate /gain 0.5`
+Sample output:
+```
+Your new calorie goal to gain 0.5 kg per week is 2702 kcal daily!
+```
 
 <p>&nbsp;</p>
+
+#### View personal data: `list /user`
+View all the personal body measurements including gender, age, weight, height and calorie goal.
+Format: `list /user`
+
+Sample output:
+```
+Here are the matching foods in your database:
+Calorie Goal: 2365 
+Gender: m
+Age: 18
+Weight: 63.3
+Height: 180
+```
 
 ### Other
 

@@ -1,8 +1,14 @@
 package fitnus;
 
-import fitnus.command.*;
+import fitnus.command.ExitCommand;
+import fitnus.command.HelpCommand;
+import fitnus.command.ListFoodDatabaseCommand;
+import fitnus.command.ListFoodEntryCustomCommand;
+import fitnus.command.ListWeightProgressCommand;
+import fitnus.command.SetWeightCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
 import fitnus.tracker.MealType;
@@ -17,19 +23,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ParserTest {
-
     Parser parser = new Parser();
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
     EntryDatabase ed = new EntryDatabase();
     FoodDatabase fd = new FoodDatabase();
+    MealPlanDatabase md = new MealPlanDatabase();
 
     @Test
     void parseCommandType_correctInput_parsedCorrectly() throws FitNusException {
         assertTrue(parser.parseCommandType("help", null, null, null) instanceof HelpCommand);
         assertTrue(parser.parseCommandType("exit", null, null, null) instanceof ExitCommand);
         assertTrue(parser.parseCommandType("list /food", null, null, null) instanceof ListFoodDatabaseCommand);
-        assertTrue(parser.parseCommandType("list /entry /day", null, null, null) instanceof ListFoodEntryCustomCommand);
-        assertTrue(parser.parseCommandType("list /weight", null, null, null) instanceof ListWeightProgressCommand);
         assertTrue(parser.parseCommandType("weight /set 120", null, null, null) instanceof SetWeightCommand);
 
     }
@@ -37,20 +41,14 @@ public class ParserTest {
 
     @Test
     void parseCommandType_wrongInput_invalidCommand() {
-    //    Exception exception1 = assertThrows(FitNusException.class, () -> parser.parseCommandType("add food1 | 21"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception1.getMessage());
-    //
-    //    Exception exception2 = assertThrows(FitNusException.class, () -> parser.parseCommandType("genderr /set M/F"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception2.getMessage());
-    //
-    //    Exception exception3 = assertThrows(FitNusException.class, () -> parser.parseCommandType("remove/food 2"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception3.getMessage());
-    //
-    //    Exception exception4 = assertThrows(FitNusException.class, () -> parser.parseCommandType("calorie/set GOAL"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception4.getMessage());
-    //
-    //    Exception exception5 = assertThrows(FitNusException.class, () -> parser.parseCommandType("calories /remain"));
-    //    assertEquals(INVALID_COMMAND_MESSAGE, exception5.getMessage());
+        Exception exception1 = assertThrows(FitNusException.class, () -> parser.parseCommandType(
+                "add", fd, ed, md)); //test for invalid input
+        assertEquals(INVALID_COMMAND_MESSAGE, exception1.getMessage());
+
+        Exception exception2 = assertThrows(FitNusException.class, () -> parser.parseCommandType(
+                "invalid command 123", fd, ed, md));
+        assertEquals(INVALID_COMMAND_MESSAGE, exception2.getMessage());
+
     }
 
     @Test
@@ -71,7 +69,7 @@ public class ParserTest {
         Exception exception4 = assertThrows(FitNusException.class, () -> Parser.getDate(localDateInput4));
         assertEquals("Error parsing date!!", exception4.getMessage());
 
-        String localDateInput5 = "dkfjvghkjdfs"; //nonsense values
+        String localDateInput5 = "nonsensevalues"; //nonsense values
         Exception exception5 = assertThrows(FitNusException.class, () -> Parser.getDate(localDateInput5));
         assertEquals("Error parsing date!!", exception5.getMessage());
 
@@ -82,7 +80,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseMealType_validInput_returnMealType() {
+    void parseMealType_validInput_returnMealType() throws FitNusException {
         String input1 = "Breakfast";
         String input2 = "/bfast";
         assertEquals(MealType.BREAKFAST, Parser.parseMealType(input1, true));
@@ -105,21 +103,28 @@ public class ParserTest {
     }
 
     @Test
-    void parseMealType_invalidInput_returnUndefinedMealType() {
+    void parseMealType_invalidInput_returnUndefinedMealType() throws FitNusException {
         String input1 = "breakfast";
-        String input2 = "/bfas";
+        String input2 = "bfas";
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input1, true));
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input2, false));
 
         String input3 = "random words";
-        String input4 = "random words";
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input3, true));
-        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input4, false));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input3, false));
 
-         String input5 = "";
-        String input6 = "";
+        String input5 = "";
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input5, true));
-        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input6, false));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input5, false));
+    }
+
+    @Test
+    void parseMealType_invalidInput_throwFitNusException() throws FitNusException {
+        String input1 = "/bfastt";
+        Exception exception1 = assertThrows(FitNusException.class, () -> Parser.parseMealType(input1, false));
+        assertEquals("Invalid food category entered. "
+                + "Avoid using the backslash character if food category is not specified.", exception1.getMessage());
+
     }
 
     @Test

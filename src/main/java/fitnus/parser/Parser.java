@@ -14,12 +14,13 @@ import fitnus.command.GenerateCalorieGoalCommand;
 import fitnus.command.HelpCommand;
 import fitnus.command.ListFoodDatabaseCommand;
 import fitnus.command.ListFoodEntryAllCommand;
+import fitnus.command.ListUserDataCommand;
 import fitnus.command.ListWeightProgressCommand;
+import fitnus.command.ListMealPlanDatabaseCommand;
 import fitnus.command.SetAgeCommand;
 import fitnus.command.SetCalorieGoalCommand;
 import fitnus.command.SetGenderCommand;
 import fitnus.command.ListFoodEntryCustomCommand;
-
 import fitnus.command.SetHeightCommand;
 import fitnus.command.SetWeightCommand;
 import fitnus.command.ViewMonthSummaryCommand;
@@ -38,6 +39,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,9 +48,8 @@ import java.util.logging.Logger;
  * Handles the extraction of user inputs into relevant components.
  */
 public class Parser {
-
     //Logger object
-    private static final Logger logger = Logger.getLogger(Parser.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
     private static final String SPACE_CHARACTER = " ";
     private static final String BACKSLASH_CHARACTER = "/";
@@ -75,6 +76,7 @@ public class Parser {
     private static final String DESCRIPTOR_FOOD = "/food";
     private static final String DESCRIPTOR_INTAKE = "/entry";
     private static final String DESCRIPTOR_WEIGHT = "/weight";
+    private static final String DESCRIPTOR_USER = "/user";
     private static final String DESCRIPTOR_DEFAULT = "/def";
     private static final String DESCRIPTOR_REMAIN = "/remain";
     private static final String DESCRIPTOR_GENERATE = "/generate";
@@ -85,13 +87,26 @@ public class Parser {
 
     // FoodType related strings
     private static final String MEAL = "/meal";
+    private static final String MEAL_STRING = "meal";
     private static final String BEVERAGE = "/beverage";
+    private static final String BEVERAGE_STRING = "beverage";
     private static final String SNACK = "/snack";
+    private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
+    private static final String OTHERS_STRING = "others";
+    private static final String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
+    private static final String[] possibleFoodCategories = {"/bfast", "/lunch", "/dinner", "/snack"};
 
-    // Summary related strings
+    //Parse suggest command error message
+    private static final String PARSE_SUGGEST_ERROR = "Oops! Please double check your command format! Please try:"
+            + System.lineSeparator() + "suggest /FOODTYPE (/meal, /beverage, /snack, /others) /sort (optional)";
+
+    // time frame related strings
     private static final String WEEK = "/week";
     private static final String MONTH = "/month";
+    private static final String ALL_TIME = "/all";
+    private static final int FIRST_MONTH = 1;
+    private static final int LAST_MONTH = 12;
 
     //calorie goal generation related strings
     private static final String GAIN = "/gain";
@@ -99,7 +114,12 @@ public class Parser {
 
     public static final int CALORIE_LIMIT = 5000;
     private static final int MINIMUM_AGE = 12;
+    private static final int MAXIMUM_AGE = 100;
     private static final int MINIMUM_HEIGHT = 40;
+    private static final int MAXIMUM_HEIGHT = 300;
+    private static final float MINIMUM_WEIGHT = 40;
+    private static final int MAXIMUM_WEIGHT = 500;
+
 
     // Timeframe
     private static final int DAYS_IN_DAY = 1;
@@ -171,7 +191,7 @@ public class Parser {
             }
 
             if (inputCommandType.equals(COMMAND_SUGGEST)) {
-                return parseSuggestTypeCommand(subString);
+                return parseSuggestCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_SUMMARY)) { //summary type command
@@ -226,24 +246,23 @@ public class Parser {
 
         //if mealType is null, user didn't specify the command -> auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
-            //TODO: Add a print statement that tells user that food category has been auto added
             mealType = mealType.findMealTypeTiming();
-            foodName = input.strip();
+            Ui.printAutoAddedFoodCategory(mealType.name(), true);
+            foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
         } else {
-            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+            Ui.printAutoAddedFoodCategory(mealType.name(), false);
+            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");;
         }
 
         //step 2: search database if food exists
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
-
         Ui newUi = new Ui();
-        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
-            //TODO: Beautify the print statement
-            System.out.println("Select the food you want by entering the number below. "
+            System.out.println(" Select the food you want by entering the number below. "
                     + "If the food doesn't exist, enter 0 to create a new custom food!");
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
         } else if (tempFoodDb.size() == 0) {
@@ -285,18 +304,13 @@ public class Parser {
         if (spaceCharacterIndex == -1) {
             throw new FitNusException("Meal plan name cannot be empty!");
         } else {
-            mealNameString = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+            mealNameString = input.substring(input.indexOf(SPACE_CHARACTER))
+                    .strip().replaceAll("\\|", "");
         }
 
-        //display all current foods TODO: refactor
-        System.out.println("We will now create a mealplan! To create a Meal plan, "
-                + "enter the indexes of the foods below with spaces in between each index.");
-        System.out.println("For example: 1 2 8 4");
-        System.out.println("Indexes that are not present/invalid will be ignored. "
-                + "Duplicates are allowed, but try to not eat so much food :)");
-        System.out.println("Here is a list of all foods present in the database:");
-        System.out.println(fd.listFoods());
+        //display all current foods
         Ui newUi = new Ui();
+        newUi.printMealPlanCreation(fd);
         ArrayList<Food> tempMealFoods = new ArrayList<Food>();
 
         String[] userInputIndexes = newUi.readIndexesInput();
@@ -353,7 +367,13 @@ public class Parser {
             Food.FoodType type = null;
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
-                type = parseFoodType(newUi.readInput());
+                String foodType = newUi.readInput();
+                if (Arrays.asList(possibleFoodType).contains(foodType)) {
+                    type = parseFoodType(foodType);
+                } else {
+                    type = null;
+                    Ui.println("The food type is not correct! Please try again");
+                }
             } while (type == null);
 
             return new AddFoodEntryCommand(mealType, foodName, userInput, type);
@@ -382,9 +402,17 @@ public class Parser {
             } while (isLoopFlagOn);
 
             Food.FoodType type = null;
+
             do {
                 System.out.println("Enter food type (meal, snack, beverage, others):");
-                type = parseFoodType(newUi.readInput());
+                String foodType = newUi.readInput();
+                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
+                if (Arrays.asList(possibleFoodType).contains(foodType)) {
+                    type = parseFoodType(foodType);
+                } else {
+                    type = null;
+                    Ui.println("The food type is not correct! Please try again");
+                }
             } while (type == null);
 
             return new EditFoodEntryCommand(index, foodName, userInput, type);
@@ -395,13 +423,13 @@ public class Parser {
     public static Food.FoodType parseFoodType(String type) throws FitNusException {
         String typeString = type.toLowerCase(Locale.ROOT);
         switch (typeString) {
-        case "snack":
+        case SNACK_STRING:
             return Food.FoodType.SNACK;
-        case "beverage":
+        case BEVERAGE_STRING:
             return Food.FoodType.BEVERAGE;
-        case "meal":
+        case MEAL_STRING:
             return Food.FoodType.MEAL;
-        case "others":
+        case OTHERS_STRING:
             return Food.FoodType.OTHERS;
         default:
             throw new FitNusException("Unable to parse Food type");
@@ -417,7 +445,7 @@ public class Parser {
      * @param databaseRequest Boolean representing if method is being called for the database.
      * @return MealType if a match is found; UNDEFINED MealType otherwise.
      */
-    public static MealType parseMealType(String input, boolean databaseRequest) {
+    public static MealType parseMealType(String input, boolean databaseRequest) throws FitNusException {
         if (databaseRequest) {
             switch (input) {
             case "Breakfast":
@@ -432,6 +460,11 @@ public class Parser {
                 return MealType.UNDEFINED;
             }
         } else {
+            ArrayList<String> strList = new ArrayList<String>(Arrays.asList(possibleFoodCategories));
+            if (input.startsWith(BACKSLASH_CHARACTER) && !strList.contains(input)) {
+                throw new FitNusException("Invalid food category entered. "
+                        + "Avoid using the backslash character if food category is not specified.");
+            }
             switch (input) {
             case "/bfast":
                 return MealType.BREAKFAST;
@@ -488,10 +521,9 @@ public class Parser {
                 isLoopFlagOn = false;
                 return val;
             } else {
-                System.out.println("Calories can only be between 0 and 5000!");
+                System.out.println("Calories can only be between 1 and 5000!");
             }
         } catch (NumberFormatException e) {
-            //TODO: add proper Ui print message;
             System.out.println("Please enter an integer value!");
         }
         isLoopFlagOn = true;
@@ -502,12 +534,12 @@ public class Parser {
         int typeDescriptorIndex = input.indexOf(" ");
         String removeType = input.substring(0, typeDescriptorIndex);
         try {
+            int index = Integer.parseInt(input
+                    .substring(typeDescriptorIndex).trim());
             if (removeType.equals(DESCRIPTOR_FOOD)) {
-                return new DeleteFoodCommand(Integer.parseInt(input
-                        .substring(typeDescriptorIndex).trim()));
+                return new DeleteFoodCommand(index);
             } else if (removeType.equals(DESCRIPTOR_INTAKE)) {
-                return new DeleteEntryCommand(Integer.parseInt(input
-                        .substring(typeDescriptorIndex).trim()));
+                return new DeleteEntryCommand(index);
             }
             throw new FitNusException("Invalid remove command!");
         } catch (NumberFormatException e) {
@@ -522,8 +554,10 @@ public class Parser {
                 return new ListFoodDatabaseCommand();
             } else if (input.equals(DESCRIPTOR_INTAKE)) {
                 return new ListFoodEntryAllCommand();
-            } else if (input.equals(DESCRIPTOR_WEIGHT)) {
-                return new ListWeightProgressCommand();
+            } else if (input.equals(DESCRIPTOR_USER)) {
+                return new ListUserDataCommand();
+            } else if (input.equals(DESCRIPTOR_MEALPLAN)) {
+                return new ListMealPlanDatabaseCommand();
             }
         }
 
@@ -537,6 +571,36 @@ public class Parser {
                 return new ListFoodEntryCustomCommand(DAYS_IN_WEEK);
             default:
                 throw new FitNusException("Invalid timeframe! (/day, /week)");
+            }
+        } else if (input.contains(DESCRIPTOR_WEIGHT)) {
+            int listWeightInputsIndex = input.indexOf(DESCRIPTOR_WEIGHT) + DESCRIPTOR_WEIGHT.length();
+            String listWeightInputsString = input.substring(listWeightInputsIndex);
+            String[] listWeightInputs = listWeightInputsString.split("\\s+");
+            String timeFrame;
+            try {
+                timeFrame = listWeightInputs[1].strip();
+            } catch (IndexOutOfBoundsException e) {
+                throw new FitNusException("Invalid list weight command! It is supposed to be "
+                        + "list /weight /all or list /weight /month MONTH_INTEGER");
+            }
+            switch (timeFrame) {
+            case ALL_TIME:
+                return new ListWeightProgressCommand(0);
+            case MONTH:
+                int month;
+                try {
+                    month = Integer.parseInt(listWeightInputs[2].strip());
+
+                    if (month < FIRST_MONTH || month > LAST_MONTH) {
+                        throw new FitNusException("Please enter an integer from 1 to 12 for the month!");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new FitNusException("Please enter the month as an integer! e.g. 1 for January");
+                }
+                return new ListWeightProgressCommand(month);
+            default:
+                throw new FitNusException("Invalid timeframe! Timeframe format is either /all "
+                        + "or /month MONTH_INTEGER (e.g. /month 1)");
             }
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
@@ -600,6 +664,9 @@ public class Parser {
                 if (age < MINIMUM_AGE) {
                     throw new FitNusException("Users of FitNUS must be " + MINIMUM_AGE
                             + " years old and above!");
+                } else if (age > MAXIMUM_AGE) {
+                    throw new FitNusException("Users of FitNUS cannot be older than " + MAXIMUM_AGE
+                            + " years old!");
                 }
 
                 return new SetAgeCommand(age);
@@ -619,6 +686,9 @@ public class Parser {
                 if (height < MINIMUM_HEIGHT) {
                     throw new FitNusException("Please enter a height of " + MINIMUM_HEIGHT
                             + " cm and above!");
+                } else if (height > MAXIMUM_HEIGHT) {
+                    throw new FitNusException("Please enter a height of " + MAXIMUM_HEIGHT
+                            + " cm and below!");
                 }
                 return new SetHeightCommand(height);
             }
@@ -634,8 +704,11 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 float weight = Float.parseFloat(input.substring(typeDescriptorIndex).trim());
-                if (weight <= 0) {
+
+                if (weight <= MINIMUM_WEIGHT) {
                     throw new FitNusException("Please enter a positive number for your weight!");
+                } else if (weight > MAXIMUM_WEIGHT) {
+                    throw new FitNusException("Please enter a weight of " + MAXIMUM_WEIGHT + " kg and below!");
                 }
                 return new SetWeightCommand(weight);
             }
@@ -655,10 +728,11 @@ public class Parser {
             String keyword = input.substring(typeDescriptorIndex + 7);
             return new FindEntryCommand(keyword);
         }
-        throw new FitNusException("parse find error");
+        throw new FitNusException("find command format is wrong. It is supposed to be:\n"
+                + "find /food KEYWORD or find /entry KEYWORD");
     }
 
-    private Command parseSuggestTypeCommand(String input) throws FitNusException {
+    private Command parseSuggestCommand(String input) throws FitNusException {
         boolean isSort = false;
         if (input.contains("/sort")) {
             isSort = true;
@@ -675,7 +749,7 @@ public class Parser {
         case OTHERS:
             return new ViewSuggestionsCommand(Food.FoodType.OTHERS, isSort);
         default:
-            throw new FitNusException("Parse suggest error");
+            throw new FitNusException(PARSE_SUGGEST_ERROR);
         }
     }
 
@@ -704,7 +778,7 @@ public class Parser {
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoods(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
@@ -749,7 +823,7 @@ public class Parser {
                 return date;
             }
         }
-        logger.log(Level.INFO, "Could not parse date");
+        LOGGER.log(Level.INFO, "Could not parse date");
         throw new FitNusException("Error parsing date!!");
     }
 

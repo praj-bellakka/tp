@@ -6,15 +6,12 @@ import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
-public class ListWeightProgressCommand extends Command {
-    int month;
-
-    public ListWeightProgressCommand(int month) {
-        this.month = month;
+public class ListUserDataCommand extends Command {
+    public ListUserDataCommand() {
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        return us.getWeightProgressDisplay(month);
+        return us.getUserDataDisplay();
     }
 }
