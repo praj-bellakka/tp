@@ -36,11 +36,13 @@ public class Storage {
         createFile(FILE_PATH_FOOD_DATA.toString());
         createFile(FILE_PATH_USER_DATA.toString());
         createFile(FILE_PATH_ENTRY_DATA.toString());
+        createFile(FILE_PATH_WEIGHT_DATA.toString());
         createFile(FILE_PATH_MEALPLAN_DATA.toString());
         assert Files.exists(DIRECTORY_PATH);
         assert Files.exists(FILE_PATH_FOOD_DATA);
         assert Files.exists(FILE_PATH_USER_DATA);
         assert Files.exists(FILE_PATH_ENTRY_DATA);
+        assert Files.exists(FILE_PATH_WEIGHT_DATA);
         assert Files.exists(FILE_PATH_MEALPLAN_DATA);
     }
 
