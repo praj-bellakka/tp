@@ -80,7 +80,7 @@ public class ParserTest {
     }
 
     @Test
-    void parseMealType_validInput_returnMealType() {
+    void parseMealType_validInput_returnMealType() throws FitNusException {
         String input1 = "Breakfast";
         String input2 = "/bfast";
         assertEquals(MealType.BREAKFAST, Parser.parseMealType(input1, true));
@@ -103,21 +103,28 @@ public class ParserTest {
     }
 
     @Test
-    void parseMealType_invalidInput_returnUndefinedMealType() {
+    void parseMealType_invalidInput_returnUndefinedMealType() throws FitNusException {
         String input1 = "breakfast";
-        String input2 = "/bfas";
+        String input2 = "bfas";
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input1, true));
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input2, false));
 
         String input3 = "random words";
-        String input4 = "random words";
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input3, true));
-        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input4, false));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input3, false));
 
         String input5 = "";
-        String input6 = "";
         assertEquals(MealType.UNDEFINED, Parser.parseMealType(input5, true));
-        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input6, false));
+        assertEquals(MealType.UNDEFINED, Parser.parseMealType(input5, false));
+    }
+
+    @Test
+    void parseMealType_invalidInput_throwFitNusException() throws FitNusException {
+        String input1 = "/bfastt";
+        Exception exception1 = assertThrows(FitNusException.class, () -> Parser.parseMealType(input1, false));
+        assertEquals("Invalid food category entered. "
+                + "Avoid using the backslash character if food category is not specified.", exception1.getMessage());
+
     }
 
     @Test
