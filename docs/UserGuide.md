@@ -224,6 +224,12 @@ Example of usage:
 
 `weight /set 55.6`
 
+Sample Output:
+
+```
+You have updated your weight for today to 55.6 kg! You have gained 1.6 kg from the previous weight entry of 54.0 kg on 2021-10-31
+```
+
 <p>&nbsp;</p>
 
 
@@ -234,7 +240,7 @@ Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-1. `list /weight /all` 
+1. List the weight progress since the start of using FitNus: `list /weight /all` 
 
 Sample output:
 
@@ -247,11 +253,12 @@ Your weight progress since the start of your FitNUS journey:
 2021-04-12: 54.2kg
 2021-10-27: 63.3kg
 2021-10-31: 54.0kg
+2021-11-01: 55.6kg
 
-You have gained 2.5 kg since the start of your FitNUS Journey!
+You have gained 4.1 kg since the start of your FitNUS Journey!
 ```
 
-2.`list /weight /month 3`
+2. List the weight progress of a certain month:`list /weight /month 3`
 
 Sample output:
 
