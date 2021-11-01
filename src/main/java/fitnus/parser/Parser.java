@@ -517,7 +517,7 @@ public class Parser {
                 System.out.println("Calories can only be between 1 and 5000!");
             }
         } catch (NumberFormatException e) {
-             System.out.println("Please enter an integer value!");
+            System.out.println("Please enter an integer value!");
         }
         isLoopFlagOn = true;
         return -1;
