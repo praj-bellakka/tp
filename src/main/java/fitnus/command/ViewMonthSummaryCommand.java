@@ -12,6 +12,7 @@ import java.time.Month;
 
 public class ViewMonthSummaryCommand extends Command {
     private Month month;
+    
     public ViewMonthSummaryCommand(int month) {
         this.month = Month.of(month);
     }
