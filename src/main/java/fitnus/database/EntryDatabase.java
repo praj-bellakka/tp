@@ -154,23 +154,16 @@ public class EntryDatabase {
     }
 
     public EntryDatabase getPastMonthEntryDatabase() {
-        return getPastMonthEntryDatabase(LocalDate.now().getMonth());
-    }
-
-
-    public EntryDatabase getPastMonthEntryDatabase(Month monthPointer) {
         sortDatabase();
         ArrayList<Entry> totalEntries = getEntries();
         EntryDatabase pastMonthEntries = new EntryDatabase();
 
+        Month monthPointer = LocalDate.now().getMonth();
         int count = totalEntries.size() - 1;
-        int i = 0;
 
-        while (i <= count) {
-            if (totalEntries.get(i).getRawDate().getMonth().equals(monthPointer)) {
-                pastMonthEntries.addEntry(totalEntries.get(i));
-            }
-            i++;
+        while (count >= 0 && totalEntries.get(count).getRawDate().getMonth().equals(monthPointer)) {
+            pastMonthEntries.addEntry(totalEntries.get(count));
+            count--;
         }
 
         return pastMonthEntries;
