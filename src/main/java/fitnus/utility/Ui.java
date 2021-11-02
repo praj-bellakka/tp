@@ -126,7 +126,7 @@ public class Ui {
             printNoMatchingResults();
             return;
         }
-        System.out.println(" Here are some suggestions:");
+        System.out.println("Here are some suggestions:");
         for (int i = 1; i <= matchingFoods.size(); i++) {
             System.out.println(" " + i + "."
                     + matchingFoods.get(i - 1).toString());
