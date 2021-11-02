@@ -386,6 +386,16 @@ The Storage class reads and writes data to and from the text file.
     `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
     For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
 
+#### Implementation considerations
+
+1. The `Path` of each storage text file is hardcoded within the `Storage` class. This eliminates
+the need to pass the `Path` of the destination file each time. For example, to save the `FoodDatabase`
+contents, the method call is `saveFoodDatabase()` rather than `saveFoodDatabase(PATH)`.
+2. All public methods are declared as `static` methods. This allows various methods within the
+`Storage` class to be called without having to instantiate a `Storage` object.
+
+
+
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
