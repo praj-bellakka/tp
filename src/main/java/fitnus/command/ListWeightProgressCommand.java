@@ -9,8 +9,6 @@ import fitnus.utility.User;
 public class ListWeightProgressCommand extends Command {
     int month;
 
-    private static final int ALL_MONTHS = 0;
-
     public ListWeightProgressCommand(int month) {
         this.month = month;
     }
