@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class MealPlanDatabase {
+- databaseMealPlans:ArrayList<MealPlan>
+- convertFoodToString(ArrayList<Food>):String
++ addMealPlan(MealPlan):void
++ getMealAtIndex(int):MealPlan
++ convertDatabaseToString():String
++ preloadDatabase(BufferedReader):void
++ listMealPlan():String
+}
+@enduml
