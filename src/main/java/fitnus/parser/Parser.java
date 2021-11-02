@@ -759,10 +759,33 @@ public class Parser {
     private Command parseSummaryTypeCommand(String input) throws FitNusException {
         if (input.equals(WEEK)) {
             return new ViewWeekSummaryCommand();
-        } else if (input.equals(MONTH)) {
-            return new ViewMonthSummaryCommand();
+        } else if (input.contains(MONTH)) {
+            int monthInputsIndex = input.indexOf(MONTH) + MONTH.length();
+            String monthString;
+            try {
+                monthString = input.substring(monthInputsIndex).strip();
+            } catch (IndexOutOfBoundsException e) {
+                throw new FitNusException("Invalid list weight command! It is supposed to be "
+                        + "summary /week or summary /month MONTH_INTEGER");
+            }
+
+            int month;
+            if (monthString.length() == 0) {
+                return new ViewMonthSummaryCommand();
+            }
+            try {
+                month = Integer.parseInt(monthString);
+            } catch (NumberFormatException e) {
+                throw new FitNusException("Please enter the month as an integer! e.g. 1 for January");
+            }
+
+            if (month < FIRST_MONTH || month > LAST_MONTH) {
+                throw new FitNusException("Please enter an integer from 1 to 12 for the month!");
+            }
+            return new ViewMonthSummaryCommand(month);
         }
-        throw new FitNusException("That is an invalid summary timeframe (/week or /month)");
+
+        throw new FitNusException("That is an invalid summary timeframe (/week or /month MONTH_INTEGER)");
     }
 
     private Command parseEditTypeCommand(String input, FoodDatabase fd, EntryDatabase ed) throws FitNusException {
