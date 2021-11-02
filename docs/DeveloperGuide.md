@@ -147,6 +147,7 @@ experience as they do not have to input all details when adding an `Entry` to th
 ![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
+- ArrayList of `Food` objects to store `Food` objects.
 - `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
