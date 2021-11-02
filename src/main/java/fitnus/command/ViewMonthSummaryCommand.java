@@ -10,14 +10,16 @@ import fitnus.utility.User;
 import java.time.LocalDate;
 
 public class ViewMonthSummaryCommand extends Command {
-    public ViewMonthSummaryCommand() {
+    private int month;
+    public ViewMonthSummaryCommand(int month) {
+        this.month = month;
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         // Retrieves all entries that fall in the past week
         EntryDatabase pastMonthEntries = ed.getPastMonthEntryDatabase();
-        Summary sum = new Summary(pastMonthEntries, LocalDate.now().getDayOfMonth());
+        Summary sum = new Summary(pastMonthEntries, month);
 
         return sum.generateMonthSummaryReport();
     }
