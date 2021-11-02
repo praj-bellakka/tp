@@ -140,9 +140,14 @@ The diagram below showcases the relationships between EntryDatabase object and v
 
 ### Food Database
 
+The `FoodDatabase` is used to keep a record of all the various types of `Food` objects.
+Keeping a record of all types of `Food` allows users to have a more seamless
+experience as they do not have to input all details when adding an `Entry` to the `EntryDatabase`.
+
 ![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
+- ArrayList of `Food` objects to store `Food` objects.
 - `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
@@ -152,16 +157,16 @@ The `FoodDatabase` component consists of:
 and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
 matching Food objects.
 ```
-    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
-        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
-                .filter(t -> t.getType().equals(type))
-                .filter(c -> c.getCalories() < calories)
-                .collect(Collectors.toList());
-        if (isSort) {
-            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
-        }
-        return matchingSuggestions;
+public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
+    ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
+            .filter(t -> t.getType().equals(type))
+            .filter(c -> c.getCalories() < calories)
+            .collect(Collectors.toList());
+    if (isSort) {
+        matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
     }
+    return matchingSuggestions;
+}
 ```
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
@@ -372,14 +377,24 @@ The Storage class reads and writes data to and from the text file.
 
 #### Implementation
 
-1.  **Saving to file**
+1.  **Saving to text file**
 
     `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
     For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
-2.  **Loading from file**
+2.  **Loading from text file**
 
     `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
     For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
+
+#### Implementation considerations
+
+1. The `Path` of each text file is hardcoded within the `Storage` class. This eliminates
+the need to pass the `Path` of the destination file each time. For example, to save the `FoodDatabase`
+contents, the method call is `saveFoodDatabase()` rather than `saveFoodDatabase(PATH)`.
+2. All public methods are declared as `static` methods. This allows various methods within the
+`Storage` class to be called without having to instantiate a `Storage` object.
+
+
 
 #### UML Sequence Diagram
 
