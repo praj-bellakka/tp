@@ -160,20 +160,8 @@ Example of usage:
 `edit 2 fish`
 
 Sample output:
-```
-Searching for "fish"...
- [X] Select your desired food from the list below:
- 1.fish n chips (600 Kcal) Type: MEAL
- 2.steamed fish (200 Kcal) Type: MEAL
-Don't see what you're looking for? Enter 0 to create your own food!
-0
-Adding "fish"...
-[X] Enter calories of "fish":
-120
-[X] Enter food type (meal, snack, beverage, others):
-meal
-Entry successfully edited to fish (120 Kcal) Type: MEAL
-```
+
+![img.png](diagrams-UG/EditEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -200,10 +188,10 @@ Format: `list /entry [/TIMEFRAME]`
 >
 > Command will list out **ALL** available food entries.
 
-Example of usage: 
-
+Example of usage:
 `list /entry /week`
-- lists out all food entries logged in for the past week.
+
+![img.png](diagrams-UG/ListWeekEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -482,6 +470,10 @@ Height: 180
 Lists out available commands and additional information regarding each command.
 
 Format: `help`
+
+Sample Output:
+![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
+
 
 <p>&nbsp;</p>
 
