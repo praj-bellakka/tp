@@ -767,6 +767,9 @@ public class Parser {
             }
 
             int month;
+            if (monthString.length() == 0) {
+                return new ViewMonthSummaryCommand();
+            }
             try {
                 month = Integer.parseInt(monthString);
             } catch (NumberFormatException e) {
