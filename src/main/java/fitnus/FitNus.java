@@ -3,6 +3,7 @@ package fitnus;
 import fitnus.command.HelpCommand;
 import fitnus.command.ExitCommand;
 import fitnus.command.Command;
+import fitnus.command.ViewWeekSummaryCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
@@ -41,13 +42,13 @@ public class FitNus {
                 Ui ui = new Ui();
 
                 ui.println("Please enter your gender (m/f):");
-                initialiseGender(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "gender /set ");
                 ui.println("Please enter your age in years:");
-                initialiseAge(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "age /set ");
                 ui.println("Please enter your height in cm:");
-                initialiseHeight(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "height /set ");
                 ui.println("Please enter your weight in kg:");
-                initialiseWeight(ui, entryDatabase, foodDatabase, mealPlanDatabase, user);
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "weight /set ");
                 ui.println("Generated your daily calorie needs accordingly.");
                 int calorieGoal = user.generateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
@@ -72,35 +73,17 @@ public class FitNus {
             try {
                 String requiredInput = ui.readInput().strip();
                 String commandString = commandStringFront + requiredInput;
-                //ui.println(commandString);
                 Command c = parser.parseCommandType(commandString, fd, ed, md);
-                Ui.println(c.execute(ed, fd, md, user));
+                String msg = c.execute(ed, fd, md, user);
+                if (!(c instanceof ViewWeekSummaryCommand)) {
+                    Ui.println(msg);
+                }
                 attributeInitialised = true;
             } catch (FitNusException e) {
                 attributeInitialised = false;
                 Ui.println(e.getMessage());
             }
         }
-    }
-
-    private static void initialiseGender(Ui ui, EntryDatabase ed, FoodDatabase fd,
-                                         MealPlanDatabase md, User user) {
-        initialiseAttribute(ui, ed, fd, md, user, "gender /set ");
-    }
-
-    private static void initialiseAge(Ui ui, EntryDatabase ed, FoodDatabase fd,
-                                      MealPlanDatabase md, User user) {
-        initialiseAttribute(ui, ed, fd, md, user, "age /set ");
-    }
-
-    private static void initialiseHeight(Ui ui, EntryDatabase ed, FoodDatabase fd,
-                                         MealPlanDatabase md, User user) {
-        initialiseAttribute(ui, ed, fd, md, user, "height /set ");
-    }
-
-    private static void initialiseWeight(Ui ui, EntryDatabase ed, FoodDatabase fd,
-                                         MealPlanDatabase md, User user) {
-        initialiseAttribute(ui, ed, fd, md, user, "weight /set ");
     }
 
     private void saveFitNus() {
@@ -134,6 +117,7 @@ public class FitNus {
             } catch (FitNusException e) {
                 Ui.println(e.getMessage());
             }
+            Ui.println("-------------------------");
         }
     }
 
@@ -151,8 +135,7 @@ public class FitNus {
         foodDatabase = new FoodDatabase();
         entryDatabase = new EntryDatabase();
         mealPlanDatabase = new MealPlanDatabase();
-        user = new User(2000, Gender.MALE, 18, 180, 65); //placeholder values,
-        // to be replaced by user data saved in storage
+        user = new User(2000, Gender.MALE, 18, 180, 65);
         ui = new Ui();
         parser = new Parser();
 
@@ -161,6 +144,7 @@ public class FitNus {
         initialiseFitNus();
         printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
+
 
     public static void main(String[] args) {
         new FitNus().run();

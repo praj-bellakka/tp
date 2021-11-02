@@ -28,12 +28,16 @@ public class MealPlanDatabase {
         if (plan.getMealFoods().size() > 0) {
             databaseMealPlans.add(plan);
         } else {
-            throw new FitNusException("Unable to add Meal plan as no food detected.");
+            throw new FitNusException("Unable to add meal plan as no food detected.");
         }
     }
 
     public String listMealPlan() {
         StringBuilder list = new StringBuilder();
+        if (databaseMealPlans.size() == 0) {
+            System.out.println("There are no meal plans in the database...");
+            return "";
+        }
         for (int i = 1; i <= databaseMealPlans.size(); i++) {
             MealPlan plan = this.databaseMealPlans.get(i - 1);
             String mealPlanName = plan.getMealPlanName();

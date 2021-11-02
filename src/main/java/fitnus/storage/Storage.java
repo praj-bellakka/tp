@@ -26,19 +26,34 @@ public class Storage {
     private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data", "weight.txt");
     private static final Path FILE_PATH_MEALPLAN_DATA = Paths.get(ROOT, "data", "mealplan.txt");
 
+    /**
+     * Creates the required directory and files if they do not exist.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public static void createDirectoryAndFiles() throws IOException {
         createDirectory(DIRECTORY_PATH.toString());
         createFile(FILE_PATH_FOOD_DATA.toString());
         createFile(FILE_PATH_USER_DATA.toString());
         createFile(FILE_PATH_ENTRY_DATA.toString());
+        createFile(FILE_PATH_WEIGHT_DATA.toString());
         createFile(FILE_PATH_MEALPLAN_DATA.toString());
         assert Files.exists(DIRECTORY_PATH);
         assert Files.exists(FILE_PATH_FOOD_DATA);
         assert Files.exists(FILE_PATH_USER_DATA);
         assert Files.exists(FILE_PATH_ENTRY_DATA);
+        assert Files.exists(FILE_PATH_WEIGHT_DATA);
         assert Files.exists(FILE_PATH_MEALPLAN_DATA);
     }
 
+    /**
+     * Reads the file content and calls preloadDatabase to preload the
+     * FoodDatabase with data from the file.
+     *
+     * @param database FoodDatabase object to preload.
+     * @throws IOException If an I/O error occurs.
+     * @throws FitNusException If an error occurs while preloading.
+     */
     public static void initialiseFoodDatabase(FoodDatabase database) throws IOException, FitNusException {
         assert Files.exists(FILE_PATH_FOOD_DATA);
         FileInputStream stream;
@@ -48,6 +63,13 @@ public class Storage {
         reader.close();
     }
 
+    /**
+     * Reads the file content and calls preloadDatabase to preload the
+     * EntryDatabase with data from the file.
+     *
+     * @param database EntryDatabase object to preload.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void initialiseEntryDatabase(EntryDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_ENTRY_DATA);
         FileInputStream stream;
@@ -57,6 +79,13 @@ public class Storage {
         reader.close();
     }
 
+    /**
+     * Reads the file content and calls preloadDatabase to preload the
+     * MealPlanDatabase with data from the file.
+     *
+     * @param database MealPlanDatabase object to preload.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void initialiseMealPlanDatabase(MealPlanDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_MEALPLAN_DATA);
         FileInputStream stream;
@@ -66,6 +95,14 @@ public class Storage {
         reader.close();
     }
 
+    /**
+     * Reads the file content and calls preloadUserData to preload
+     * the User data with data from the file.
+     *
+     * @param user User object to preload.
+     * @return Returns 1 if data is valid, 0 otherwise.
+     * @throws IOException If an I/O error occurs.
+     */
     public static int initialiseUser(User user) throws IOException {
         assert Files.exists(FILE_PATH_USER_DATA);
         FileInputStream stream;
@@ -80,6 +117,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the file content and calls preloadWeightData to preload
+     * the user's weight data with data from the file.
+     *
+     * @param user User object to preload.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void initialiseWeightProgress(User user) throws IOException {
         assert Files.exists(FILE_PATH_WEIGHT_DATA);
         FileInputStream stream;
@@ -89,36 +133,73 @@ public class Storage {
         reader.close();
     }
 
+    /**
+     * Saves all the FoodDatabase data to file.
+     *
+     * @param database FoodDatabase object to save.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void saveFoodDatabase(FoodDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_FOOD_DATA);
         String data = database.convertDatabaseToString();
         saveData(FILE_PATH_FOOD_DATA.toString(), data);
     }
 
+    /**
+     * Saves all the EntryDatabase data to file.
+     *
+     * @param database EntryDatabase object to save.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void saveEntryDatabase(EntryDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_ENTRY_DATA);
         String data = database.convertDatabaseToString();
         saveData(FILE_PATH_ENTRY_DATA.toString(), data);
     }
 
+    /**
+     * Saves all the MealPlanDatabase data to file.
+     *
+     * @param database MealPlanDatabase object to save.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void saveMealPlanDatabase(MealPlanDatabase database) throws IOException {
         assert Files.exists(FILE_PATH_MEALPLAN_DATA);
         String data = database.convertDatabaseToString();
         saveData(FILE_PATH_MEALPLAN_DATA.toString(), data);
     }
 
+    /**
+     * Saves all the User data to file.
+     *
+     * @param user User object to save.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void saveUserData(User user) throws IOException {
         assert Files.exists(FILE_PATH_USER_DATA);
         String userData = user.convertUserDataToString();
         saveData(FILE_PATH_USER_DATA.toString(), userData);
     }
 
+    /**
+     * Saves all weight data to file.
+     *
+     * @param user User object to save.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void saveWeightData(User user) throws IOException {
         assert Files.exists(FILE_PATH_WEIGHT_DATA);
         String weightData = user.convertWeightDataToString();
         saveData(FILE_PATH_WEIGHT_DATA.toString(), weightData);
     }
 
+    /**
+     * Writes the String content provided to the file at the specified filePath.
+     *
+     * @param filePath The filePath of the file to be written to.
+     * @param content String content to be written to the file.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void saveData(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fw;

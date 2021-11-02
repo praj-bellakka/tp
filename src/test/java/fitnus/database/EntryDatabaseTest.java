@@ -9,13 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -178,15 +179,27 @@ class EntryDatabaseTest {
 
     @Test
     void preLoadDatabase_validInput_SuccessfullyPreloadDatabase() throws IOException {
-        EntryDatabase ed = new EntryDatabase();
+        EntryDatabase database = new EntryDatabase();
         String initialString = "Breakfast | food1 | 100 | 2021-10-12 | MEAL" + System.lineSeparator()
                 + "Lunch | food2 | 200 | 2021-10-12 | MEAL";
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        ed.preloadDatabase(reader);
+        database.preloadDatabase(reader);
         assertEquals(" 1.[2021-10-12] Breakfast: food1 (100 Kcal) Type: MEAL"
                 + System.lineSeparator() + " 2.[2021-10-12] Lunch: food2 (200 Kcal) Type: MEAL"
-                + System.lineSeparator(), ed.listEntries());
+                + System.lineSeparator(), database.listEntries());
+    }
+
+    @Test
+    void preLoadDatabase_invalidInput_nothingPreloaded()
+            throws IOException {
+        EntryDatabase database = new EntryDatabase();
+        String initialString = "Breakfast | food1  | 2021-10-12 | MEAL" + System.lineSeparator()
+                + "Lunch | food2 | 200 | 2021-10-12 | ";
+        InputStream stream = new ByteArrayInputStream(initialString.getBytes());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        database.preloadDatabase(reader);
+        assertEquals("Sorry, there is not any record stored", database.listEntries());
     }
 
     @Test
@@ -228,7 +241,7 @@ class EntryDatabaseTest {
         // Test
         EntryDatabase edbPastDay = edb.getPastDaysEntryDatabase(1);
 
-        assertEquals("", edbPastDay.listEntries());
+        assertEquals("Sorry, there is not any record stored", edbPastDay.listEntries());
     }
 
     @Test
@@ -259,7 +272,7 @@ class EntryDatabaseTest {
         // Test
         EntryDatabase edbPastMonth = edb.getPastMonthEntryDatabase();
 
-        assertEquals("", edbPastMonth.listEntries());
+        assertEquals("Sorry, there is not any record stored", edbPastMonth.listEntries());
     }
 
     @Test
@@ -331,7 +344,7 @@ class EntryDatabaseTest {
         EntryDatabase edb = new EntryDatabase();
 
         // Test
-        assertEquals("", edb.listEntries());
+        assertEquals("Sorry, there is not any record stored", edb.listEntries());
     }
 
     @Test

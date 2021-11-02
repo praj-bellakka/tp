@@ -1,6 +1,11 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
+import fitnus.exception.FitNusException;
+
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.time.Period;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,12 +16,22 @@ public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
     private static final String SQUARE = "■";
     private final ArrayList<Entry> entries;
-    private final int days;
+    private int days;
 
     public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
-        this.days = days;
         this.entries = ed.getEntries();
+        if (entries.size() == 0) {
+            days = 1;
+        } else {
+            LocalDate firstUseDate = entries.get(0).getRawDate();
+            int period = firstUseDate.until(LocalDate.now()).getDays() + 1;
+            if (period >= days) {
+                this.days = days;
+            } else {
+                this.days = period;
+            }
+        }
     }
 
     private String getMostAndLeastEatenFood() {
@@ -89,7 +104,13 @@ public class Summary {
 
     private String getWeekCalorieTrendGraph() {
         StringBuilder output = new StringBuilder();
-        LocalDate date = LocalDate.now().minusDays(6);
+        LocalDate date;
+        if (this.days < 6) {
+            date = LocalDate.now().minusDays(this.days - 1);
+        } else {
+            date = LocalDate.now().minusDays(6);
+        }
+
 
         int calories = 0;
         int j = 0;
@@ -115,6 +136,14 @@ public class Summary {
         return output.toString();
     }
 
+
+    /**
+     * This function generates a report based on the calorie intake over the past seven days.
+     * Report includes the calorie intake trend graph, weekly average calorie intake and the
+     * most/least frequently eaten food.
+     *
+     * @return String a report of weekly calorie intake
+     */
     public String generateWeekSummaryReport() {
         if (entries.size() < 1) {
             return "No entries found!";
@@ -125,9 +154,23 @@ public class Summary {
                 + "Average Daily Calorie Intake: %s %d\n"
                 + getMostAndLeastEatenFood(), drawGraphSquares(averageCalories, UNIT_PER_SQUARE), averageCalories
         );
-        return output;
+
+        try {
+            PrintStream out = new PrintStream(System.out, true, "UTF-8");
+            out.println(output);
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
+
+        return "";
     }
 
+    /**
+     * This function generates a report based on the calorie intake over current month.
+     * Report includes monthly average calorie intake and the most/least frequently eaten food.
+     *
+     * @return String a report of monthly calorie intake
+     */
     public String generateMonthSummaryReport() {
         if (entries.size() < 1) {
             return "No entries found!";
