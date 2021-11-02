@@ -96,13 +96,15 @@ Examples of usage: `add /bfast chocolate`
 
 Sample output:
 ```
-Here are the matching foods in your database:
+The following food category has been tagged: BREAKFAST
+Searching for "chocolate"...
+ [X] Select your desired food from the list below:
  1.chocolate bar (125 Kcal) Type: SNACK
  2.chocolate cake (300 Kcal) Type: SNACK
  3.chocolate croissant (120 Kcal) Type: MEAL
  4.chocolate rolls (110 Kcal) Type: SNACK
-Select the food you want by entering the number below. If the food doesn't exist, enter 0 to create a new custom food!
-User Input: 4
+Don't see what you're looking for? Enter 0 to create your own food!
+4
 You have successfully added chocolate rolls (110 Kcal) Type: SNACK
 ```
 
@@ -118,11 +120,29 @@ Format: `edit INDEX_OF_ENTRY FOOD_NAME`
 >
 > INDEX_OF_ENTRY refers to the index of the entry shown when command `list /entry` is used.
 
+* If there are any pre-set food that matches `FOOD_NAME`:
+  * You can do one of the following:
+    * Select which food you would like to add
+    * Create your own custom food
 
 Example of usage:
-`edit 2 fish n chips`
+`edit 2 fish`
 
-- Edits whatever food is in index 2 to "fish n chips"
+Sample output:
+```
+Searching for "fish"...
+ [X] Select your desired food from the list below:
+ 1.fish n chips (600 Kcal) Type: MEAL
+ 2.steamed fish (200 Kcal) Type: MEAL
+Don't see what you're looking for? Enter 0 to create your own food!
+0
+Adding "fish"...
+[X] Enter calories of "fish":
+120
+[X] Enter food type (meal, snack, beverage, others):
+meal
+Entry successfully edited to fish (120 Kcal) Type: MEAL
+```
 
 <p>&nbsp;</p>
 
