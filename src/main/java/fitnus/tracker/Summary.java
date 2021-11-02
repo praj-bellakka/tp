@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.time.Period;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class Summary {
             days = 1;
         } else {
             LocalDate firstUseDate = entries.get(0).getRawDate();
-            int period = (int) firstUseDate.until(LocalDate.now(), ChronoUnit.DAYS) + 1;
+            int period = firstUseDate.until(LocalDate.now()).getDays() + 1;
             if (period >= days) {
                 this.days = days;
             } else {
