@@ -6,18 +6,18 @@ activate ":FoodDatabase"
 
 loop For every Food object in FoodDatabase
 
-    ":FoodDatabase" -> ":Food": getName()
+    ":FoodDatabase" -> ":Food": convertToStringForStorage()
+    activate ":Food"
+    ":Food" -> ":Food": getName()
     activate ":Food"
     return name
-
-    ":FoodDatabase" -> ":Food": getCalories()
+    ":Food" -> ":Food": getCalories()
     activate ":Food"
     return calories
-
-    ":FoodDatabase" -> ":Food": getType()
+    ":Food" -> ":Food": getType()
     activate ":Food"
     return type
-
+    return Food object as String
 end
 
 return content as String

@@ -14,3 +14,7 @@ chicken rice | 213 | SNACK
 -------- | supper plan
 rice | 1234 | MEAL
 -------- | asd
+ramen | 600 | MEAL
+rice | 800 | MEAL
+rice | 400 | MEAL
+-------- | x
