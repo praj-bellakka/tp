@@ -44,6 +44,10 @@ Here is the list of sections we will be covering in this User Guide.
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+> **⚠️ Notes to Windows user**
+> 
+> We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
+> please type `chcp.com 65001`
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
 Welcome to FitNUS Tracker!
@@ -240,6 +244,12 @@ Example of usage:
 
 `weight /set 55.6`
 
+Sample Output:
+
+```
+You have updated your weight for today to 55.6 kg! You have gained 1.6 kg from the previous weight entry of 54.0 kg on 2021-10-31
+```
+
 <p>&nbsp;</p>
 
 
@@ -250,7 +260,37 @@ Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-`list /weight /all` or `list /weight /month 12`
+1. List the weight progress since the start of using FitNus: `list /weight /all` 
+
+Sample output:
+
+```
+Your weight progress since the start of your FitNUS journey: 
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+2021-03-14: 51.8kg
+2021-03-15: 51.9kg
+2021-04-12: 54.2kg
+2021-10-27: 63.3kg
+2021-10-31: 54.0kg
+2021-11-01: 55.6kg
+
+You have gained 4.1 kg since the start of your FitNUS Journey!
+```
+
+2. List the weight progress of a certain month:`list /weight /month 3`
+
+Sample output:
+
+```
+Your weight progress in March: 
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+2021-03-14: 51.8kg
+2021-03-15: 51.9kg
+
+You have gained 0.4 kg during the month of March!
+```
 
 <p>&nbsp;</p>
 
