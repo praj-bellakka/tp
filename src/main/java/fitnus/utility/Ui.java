@@ -102,7 +102,6 @@ public class Ui {
         if (matchingFoods.size() == 0) {
             return;
         }
-//        System.out.println(" Here are the matching foods in your database:");
         System.out.println(" [X] Select your desired food from the list below:");
         for (int i = 1; i <= matchingFoods.size(); i++) {
             System.out.println(" " + i + "."
