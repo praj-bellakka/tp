@@ -73,7 +73,7 @@ public class Ui {
     }
 
     private static void printNoMatchingResults() {
-        String message = " Sorry, no matching results found!";
+        String message = "Sorry, no matching results found!";
         System.out.println(message);
     }
 
