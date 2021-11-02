@@ -91,7 +91,7 @@ public class Ui {
             printNoMatchingResults();
             return;
         }
-        System.out.println(" Here are the matching foods in your database:");
+        System.out.println("Here are the matching foods in your database:");
         for (int i = 1; i <= matchingFoods.size(); i++) {
             System.out.println(" " + i + "."
                     + matchingFoods.get(i - 1).toString());
@@ -114,7 +114,7 @@ public class Ui {
             printNoMatchingResults();
             return;
         }
-        System.out.println(" Here are the matching entries in your database:");
+        System.out.println("Here are the matching entries in your database:");
         for (int i = 1; i <= matchingEntries.size(); i++) {
             System.out.println(" " + i + "."
                     + matchingEntries.get(i - 1).toString());
