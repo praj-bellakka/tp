@@ -51,7 +51,7 @@ Here is the list of sections we will be covering in this User Guide.
 > **⚠️ Notes to Windows user**
 > 
 > We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
-> please type `chcp.com 65001`. You should see the following:
+> please type `chcp 65001`. You should see the following:
 > ```
 > C:\Users\USER>chcp 65001
 > Active code page: 65001
