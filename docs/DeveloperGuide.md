@@ -61,7 +61,7 @@ Refer to the User Guide (no link for now) for details of each command.
 
 ### Overall Architecture
 
-![Overall Architecture Diagram](diagrams/overall%20architecture.png)  
+![Overall Architecture Diagram](diagrams-DG/overall%20architecture.png)  
 The Architecture Diagram given above explains the high-level design of the App.  
 
 Given below is a quick overview of main components and how they interact with each other.
@@ -88,13 +88,13 @@ The primary components of the app are listed below:
 
 ### Food Tracker
 
-![tracker class diagram](diagrams/tracker%20class%20diagram.png)
+![tracker class diagram](diagrams-DG/tracker%20class%20diagram.png)
 
 ---
 
 ### Food Tracker Database
 
-![Food Tracker Class Diagram](diagrams/FoodTrackerDatabase_Class.png)
+![Food Tracker Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
 The `FoodTrackerDatabase` component consists of:
 - `addEntry()` Adds a FoodTracker object to the database.
@@ -103,11 +103,11 @@ The `FoodTrackerDatabase` component consists of:
 - `getTotalDailyCalorie()` Returns the total calorie intake for the day.
 - `convertDatabaseToString()` Returns a String representation of all FoodTracker objects in the database.
   
-  ![convertDatabaseToString Sequence Diagram](diagrams/EntryDatabase_convertDatabaseToString_Seq.png)
+  ![convertDatabaseToString Sequence Diagram](diagrams-DG/EntryDatabase_convertDatabaseToString_Seq.png)
 
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file.
 
-  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preLoadDatabase_Seq.png)
+  ![preloadDatabase Sequence Diagram](diagrams-DG/EntryDatabase_preLoadDatabase_Seq.png)
 
 - `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
 - `getEntryAtIndex(int)` Returns the FoodTracker object at the specified index.
@@ -115,29 +115,29 @@ The `FoodTrackerDatabase` component consists of:
 - `findEntries(String)` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
 - `getPastDaysEntryDatabase(int)` Returns a subset of the original database consisting of FoodTracker objects added in the current day
 
-  ![getPastDaysEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
+  ![getPastDaysEntryDatabase Sequence Diagram](diagrams-DG/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
 
 - `getPastMonthsEntryDatabase()` Returns a subset of the original database consisting of FoodTracker objects added in the current month
 
-  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
+  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams-DG/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
 
 - `editEntryAtIndex(int, Food)` Edits the FoodTracker object at the specified index to the new specified Food object
 
 The diagram below showcases the relationships between FoodTrackerDatabase object and various components.
 
-![Food Tracker Class Architecture](diagrams/FoodTrackerDatabase_Classes.png)
+![Food Tracker Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
 
 
 ---
 
 ### Food Database
 
-![](diagrams/FoodDatabase_Class.png)  
+![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
 - `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
-![](diagrams/FoodDatabase_convertDatabaseToString_Seq.png)
+![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
 - `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType 
@@ -158,11 +158,11 @@ matching Food objects.
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file.
-   <br /> ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
+   <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
-![](diagrams/FoodDatabase_Classes.png)  
+![](diagrams-DG/FoodDatabase_Classes.png)  
 
 
 ---
@@ -181,7 +181,7 @@ The `User` component:
 The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
 
 The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
-![SetWeightSeqDiagram](./diagrams/SetWeightCommand.png "Set Weight Sequence Diagram")
+![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
 
 How updating the weight tracker works:
 
@@ -199,14 +199,14 @@ The weight tracker can also perform the following operations:
 
 The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
 
-![ViewRemainingCalorieSeqDiagram](./diagrams/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
+![ViewRemainingCalorieSeqDiagram](diagrams-DG/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
 
 #### Generate and set calorie goal feature
 
 The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
 
 This is performed as shown in the following sequence diagram:
-![GenerateGoalSeqDiagram](./diagrams/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
+![GenerateGoalSeqDiagram](diagrams-DG/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
 
 - The following formulas are used to generate the calorie goal:
   - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
@@ -221,7 +221,7 @@ This is performed as shown in the following sequence diagram:
 The user is able to change their personal data at any point while using the app. 
 
 Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
-![SetHeightSeqDiagram](./diagrams/SetHeightCommand.png "Set Height Sequence Diagram")
+![SetHeightSeqDiagram](diagrams-DG/SetHeightCommand.png "Set Height Sequence Diagram")
 
 > ⚠️ Notes about the setting user data feature:
 > - The age (in years) can only be set to an integer within the range of 12 to 100
@@ -247,9 +247,9 @@ The Summary class provides an overview of user's diet over the past week/month.
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `generateWeekSummary()`.  
-![](diagrams/weekly-report.png)  
+![](diagrams-DG/weekly-report.png)  
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
-![](diagrams/monthly-report.png)
+![](diagrams-DG/monthly-report.png)
 
 ---
 ### View Food Suggestions
@@ -257,7 +257,7 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
-![](diagrams/SuggestCommandSequence.png) 
+![](diagrams-DG/SuggestCommandSequence.png) 
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
 1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
@@ -272,7 +272,7 @@ in ascending order of calories. This is indicated by the boolean `isSort` variab
 
 ### Command
 
-![command class diagram](diagrams/command%20class%20diagram.drawio.png)
+![command class diagram](diagrams-DG/command%20class%20diagram.drawio.png)
 
 The `Command` class is an abstract class that all other specific command classes (eg AddFoodEntryCommand, DeleteEntryCommand) inherit from. 
 
@@ -288,7 +288,7 @@ Additionally, it implements the following operations:
 - `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
 - `FoodDatabase#addFood` -- Adds a new food into the food database
 
-![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+![AddFoodEntrySeqDiagram](diagrams-DG/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
 
 #### Edit Food Entry Feature
 
@@ -298,7 +298,7 @@ Additionally, it implements the following operations:
 - `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
 - `FoodDatabase#addFood` -- Adds a new food into the food database
   
-![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+![EditFoodEntrySeqDiagram](diagrams-DG/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
 
 #### List Food Entry Feature
 
@@ -308,8 +308,8 @@ Additionally, they implement the following operations:
 - `EntryDatabase#listEntries()` -- Lists all entries within the entry database
 - `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
 
-![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -344,7 +344,7 @@ The Storage class reads and writes data to and from the text file.
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-![](diagrams/Storage_sequence.png)
+![](diagrams-DG/Storage_sequence.png)
 
 ---
 
