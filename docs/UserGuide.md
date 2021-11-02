@@ -51,7 +51,11 @@ Here is the list of sections we will be covering in this User Guide.
 > **⚠️ Notes to Windows user**
 > 
 > We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
-> please type `chcp.com 65001`
+> please type `chcp.com 65001`. You should see the following:
+> ```
+> C:\Users\USER>chcp 65001
+> Active code page: 65001
+> ```
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
 Welcome to FitNUS Tracker!
