@@ -4,6 +4,7 @@ public class Food {
     private final String name;
     private final Integer calories;
     private final FoodType type;
+    private static final String DELIMITER = " | ";
 
     public enum FoodType {
         SNACK,
@@ -49,7 +50,13 @@ public class Food {
     }
 
     public String convertToStringForStorage() {
+        StringBuilder lines = new StringBuilder();
         assert calories > 0 : "calorie of food should not be less than or equal to 0";
-        return String.format("%s | %s", this.name, this.calories);
+        String name = this.getName();
+        Integer calories = this.getCalories();
+        String type = this.getType().toString();
+        lines.append(name).append(DELIMITER).append(calories)
+                .append(DELIMITER).append(type).append(System.lineSeparator());
+        return lines.toString();
     }
 }

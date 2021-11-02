@@ -64,11 +64,7 @@ public class MealPlanDatabase {
     private String convertFoodToString(ArrayList<Food> foodList) {
         StringBuilder lines = new StringBuilder();
         for (Food food: foodList) {
-            String name = food.getName();
-            Integer calories = food.getCalories();
-            String type = food.getType().toString();
-            lines.append(name).append(DELIMITER).append(calories)
-                    .append(DELIMITER).append(type).append(System.lineSeparator());
+            lines.append(food.convertToStringForStorage());
         }
         return lines.toString();
     }
@@ -91,7 +87,7 @@ public class MealPlanDatabase {
                 }
                 String name = description[0].strip();
                 String caloriesString = description[1].strip();
-                assert caloriesString.equals("") == false : "calories field cannot only contain white spaces";
+                assert !caloriesString.equals("") : "calories field cannot only contain white spaces";
                 Food.FoodType type = Parser.parseFoodType(description[2]);
                 Integer calories = Integer.parseInt(caloriesString);
                 tempArray.add(new Food(name, calories, type));
