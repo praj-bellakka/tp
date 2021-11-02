@@ -140,6 +140,10 @@ The diagram below showcases the relationships between EntryDatabase object and v
 
 ### Food Database
 
+The `FoodDatabase` is used to keep a record of all the various types of `Food` objects.
+Keeping a record of all types of `Food` allows users to have a more seamless
+experience as they do not have to input all details when adding an `Entry` to the `EntryDatabase`.
+
 ![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
@@ -152,16 +156,16 @@ The `FoodDatabase` component consists of:
 and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
 matching Food objects.
 ```
-    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
-        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
-                .filter(t -> t.getType().equals(type))
-                .filter(c -> c.getCalories() < calories)
-                .collect(Collectors.toList());
-        if (isSort) {
-            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
-        }
-        return matchingSuggestions;
+public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
+    ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
+            .filter(t -> t.getType().equals(type))
+            .filter(c -> c.getCalories() < calories)
+            .collect(Collectors.toList());
+    if (isSort) {
+        matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
     }
+    return matchingSuggestions;
+}
 ```
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
