@@ -1,16 +1,15 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
-
 -> ":EntryDatabase": getPastDaysEntryDatabase(int days)
 activate ":EntryDatabase"
 
 ":EntryDatabase" -> ":EntryDatabase": sortDatabase()
 
 ":EntryDatabase" -> ":EntryDatabase": getEntries()
+activate ":EntryDatabase"
 ":EntryDatabase" --> ":EntryDatabase": totalEntries:ArrayList<FoodTracker>
-
+deactivate ":EntryDatabase"
 create "pastDaysEntries:EntryDatabase"
 ":EntryDatabase" -> "pastDaysEntries:EntryDatabase": new
 activate "pastDaysEntries:EntryDatabase"
