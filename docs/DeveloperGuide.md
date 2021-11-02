@@ -97,6 +97,9 @@ The primary components of the app are listed below:
 
 ![Food Tracker Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
+The `FoodTrackerDatabase` class consists of an ArrayList of FoodTrackers. It handles all functionalities 
+that uses/amends the Food Tracker Database. 
+
 The `FoodTrackerDatabase` component consists of:
 - `addEntry()` Adds a FoodTracker object to the database.
 - `sortDatabase()` Sorts the database by date.

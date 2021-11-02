@@ -1,8 +1,6 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
-
 -> ":EditFoodEntryCommand": execute()
 activate ":EditFoodEntryCommand"
 alt Food does not exist in database

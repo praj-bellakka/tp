@@ -1,15 +1,15 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
 
 -> ":FoodDatabase": preloadDatabase()
+participant Parser << Class >>
 activate ":FoodDatabase"
 
 loop While there are still unread lines
 
-    ":FoodDatabase" -> ":Parser": parseFoodType()
-    activate ":Parser"
+    ":FoodDatabase" -> Parser: parseFoodType()
+    activate Parser
     return type
 
     ":FoodDatabase" -> ":FoodDatabase": addFood(name, calories, type)
