@@ -6,8 +6,8 @@ activate ":FoodDatabase"
 
 loop While there are still unread lines
 
-    ":FoodDatabase" -> ":Parser": parseFoodType()
-    activate ":Parser"
+    ":FoodDatabase" -> "<<Class>>\nParser": parseFoodType()
+    activate "<<Class>>\nParser"
     return type
 
     ":FoodDatabase" -> ":FoodDatabase": addFood(name, calories, type)
