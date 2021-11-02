@@ -1,0 +1,16 @@
+chicken rice | 213 | SNACK
+duck rice | 20 | SNACK
+rice | 1234 | MEAL
+-------- | testing
+chicken rice | 213 | SNACK
+duck rice | 20 | SNACK
+rice | 1234 | MEAL
+-------- | testing
+chicken rice | 213 | SNACK
+cookies | 100 | SNACK
+ice lemon tea | 50 | BEVERAGE
+-------- | dinner plan
+chicken rice | 213 | SNACK
+-------- | supper plan
+rice | 1234 | MEAL
+-------- | asd

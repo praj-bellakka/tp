@@ -12,6 +12,7 @@ Here is the list of sections we will be covering in this User Guide.
 - Features
   - Food Tracker
     - Adding food tracker entry: `add`
+    - Adding meal plan entry: `add /mealplan`
     - Editing existing food tracker entry: `edit`
     - Deleting food tracker entry: `remove /entry`
     - Listing tracker entries: `list /entry`
@@ -20,6 +21,9 @@ Here is the list of sections we will be covering in this User Guide.
     - Deleting food from food database: `remove /food`
     - Searching for foods with keyword: `find /food`
     - Listing foods in food database: `list /food`
+  - Meal Plan Database
+    - Creating new meal plan: `create /mealplan`
+    - Listing meal plan entries: `list /mealplan`
   - Weight Tracker
     - Recording weight: `weight /set`
     - Listing weight records: `list /weight`
@@ -88,7 +92,10 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 >- Lunch: 11am to 2pm
 >- Dinner: 6pm to 9pm
 >- Snack: Remaining time
-
+> 
+> **If a backslash character ("/") is written as the first character of the food name when omitting the `MEALTYPE`, the app will reject the input!**
+>
+> Eg. The input `add /rice noodles` will be rejected, whereas the input `add /bfast /rice noodles` will be accepted.
 * If there are any pre-set food that matches `FOOD_NAME`:
   * You can do one of the following:
     * Select which food you would like to add
@@ -112,8 +119,28 @@ Don't see what you're looking for? Enter 0 to create your own food!
 You have successfully added chocolate rolls (110 Kcal) Type: SNACK
 ```
 
-
 <p>&nbsp;</p>
+
+#### Adding meal plan entry: `add /mealplan`
+Adds a meal plan consisting of existing food items. To create a meal plan, there needs to be at least 1 food item inside the food database.  
+
+Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
+
+
+
+> **⚠️ Notes about `INDEX_OF_MEALPLAN`**
+>
+> INDEX_OF_MEALPLAN refers to the index of the meal plan(s) shown when command `list /mealplan` is used.
+>
+> INDEX_OF_MEALPLAN must be an integer value and within the range shown above.
+
+
+Examples of usage: `add /mealplan /dinner 1`
+
+Sample output:
+
+![img.png](diagrams-UG/img.png)
+
 
 #### Editing existing food tracker entry: `edit`
 Edits an existing food entry's food information. FitNUS will search for FOOD_NAME in the food database 
@@ -193,6 +220,8 @@ Example of usage:
 
 <p>&nbsp;</p>
 
+----
+
 ### Food Database
 
 #### Deleting food from food database: `remove`
@@ -232,6 +261,68 @@ Example of usage:
 
 <p>&nbsp;</p>
 
+---- 
+
+### Meal Plan Database
+
+#### Creating meal plan by adding food: `create`
+Creates a custom meal plan by adding existing food items inside the food database to the meal plan.
+
+Format: `create /mealplan NAME_OF_MEALPLAN`
+
+Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside the database and will be prompted to input the indexes of the foods you want to include inside the meal plan.
+
+> **⚠️ Notes about `NAME_OF_MEALPLAN`**
+>
+> `NAME_OF_MEALPLAN` must be at least 1 character in length. Pipe Characters will be automatically be replaced with a space character if included
+
+> **⚠️ Notes about adding food items to meal plan**
+>
+> Only valid indexes entered will be parsed. The `index` MUST be an integer value and within the range of food items displayed. Invalid indexes will be ignored as shown below.
+
+Example of usage:
+
+`create /mealplan dinner plan`
+
+`1 4 5` 
+
+- All input indexes are valid
+
+Sample output:
+
+![img.png](diagrams-UG/create_dinnerplan.png)
+
+
+`create /mealplan supper plan`
+
+`1 9 abc` 
+
+- Input index `9` is not valid as it is outside the range of the food database.
+- Input `abc` is not valid as it is not an integer.
+
+
+Sample output:
+
+![img_1.png](diagrams-UG/create_mealplan_wrongindex.png)
+
+
+#### Listing meal plan entries: `list`
+Lists out all meal plans entered. A list of meal plans and its associated food items is displayed as shown below.
+
+Format: `list /mealplan`
+
+
+Example of usage:
+
+`list /mealplan`
+
+Sample output: 
+
+![img.png](diagrams-UG/list_mealplan.png)
+
+<p>&nbsp;</p>
+
+---- 
 
 ### Weight Tracker
 
@@ -441,13 +532,16 @@ Example of usage:
 
 Action | Command Format | Example
 --- | --- | --- | 
-Add | add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
+Add food| add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
+Add meal plan| add /mealplan /MEALTYPE MEALPLAN_INDEX | `add /mealplan /bfast 1`
+Create meal plan| create /mealplan MEALPLAN_NAME | `create /mealplan bulking`
 Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1 burger`
 Remove entry | remove /entry INDEX_OF_FOOD | `remove /entry 2`
 Remove food | remove /food INDEX_OF_FOOD | `remove /food 12`
 Find food | find /food KEYWORD | `find /food rice`
 Find entry | find /entry KEYWORD | `find /entry rice`
 List food | list /food | `list /food`
+List meal plan | list /mealplan | `list /mealplan`
 List all entries | list /entry | `list /entry`
 List daily entry | list /entry | `list /entry /day`
 List weekly entry | list /entry | `list /entry /week`
