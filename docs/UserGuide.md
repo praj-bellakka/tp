@@ -47,11 +47,11 @@ Here is the list of sections we will be covering in this User Guide.
 1. Ensure that you have Java 11 installed in your computer. 
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+4. Type the following command in your terminal to run this program (for Mac or Linux user):`java -jar FitNus.jar`
 > **⚠️ Notes to Windows user**
 > 
-> We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
-> please type `chcp.com 65001`
+> Before running the program, please type `chcp.com 65001`
+> 
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
 Welcome to FitNUS Tracker!
