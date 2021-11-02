@@ -10,7 +10,7 @@ fo = open("entry.txt", "w",encoding='utf-8')
 def generate_random_entry():
     outputList = []
     start = datetime.date(2021,9,1)
-    end = datetime.date(2021, 10, 31)
+    end = datetime.date(2021, 11, 3)
     time_between_dates = (end - start).days
  
     for i in range(0, time_between_dates):
