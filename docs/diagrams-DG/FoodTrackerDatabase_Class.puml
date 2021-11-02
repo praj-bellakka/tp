@@ -4,21 +4,21 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-class FoodTrackerDatabase {
-- databaseFoodTrackers:ArrayList<FoodTracker>
+class EntryDatabase {
+- entries:ArrayList<Entry>
 + addEntry(MealType, Food):void
-+ addEntry(FoodTracker):void
++ addEntry(Entry):void
 + sortDatabase():void
 + deleteEntry(int):void
 + getTotalDailyCalorie():int
 + convertDatabaseToString():String
 + preloadDatabase(BufferedReader):void
-+ getEntries():ArrayList<FoodTracker>
++ getEntries():ArrayList<Entry>
 + getEntryAtIndex(int):void
 + listEntries():String
-+ findEntries(String):ArrayList<FoodTracker>
-+ getPastDaysEntryDatabase(int):FoodTrackerDatabase
-+ getPastMonthEntryDatabase():FoodTrackerDatabase
++ findEntries(String):ArrayList<Entry>
++ getPastDaysEntryDatabase(int):EntryDatabase
++ getPastMonthEntryDatabase():EntryDatabase
 + editEntryAtIndex(int, Food):void
 }
 

@@ -76,7 +76,7 @@ Please enter your gender (m/f):
 ### Food Tracker
 
 #### Adding food tracker entry: `add`
-Adds a food entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
+Adds a food tracker entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -144,7 +144,7 @@ Sample output:
 
 
 #### Editing existing food tracker entry: `edit`
-Edits an existing food entry's food information. FitNUS will search for FOOD_NAME in the food database 
+Edits an existing food tracker entry's food information. FitNUS will search for FOOD_NAME in the food database 
 and update the specified entry's food details accordingly.
 
 Format: `edit INDEX_OF_ENTRY FOOD_NAME`
@@ -167,7 +167,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Deleting food tracker entry: `remove`
-Deletes a food entry from the food tracker.
+Deletes a food tracker entry from the food tracker.
 
 Format: `remove /entry INDEX_OF_FOOD`
 

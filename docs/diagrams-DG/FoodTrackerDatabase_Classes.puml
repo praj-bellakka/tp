@@ -14,7 +14,7 @@ package command {
 }
 
 package database {
-    class FoodTrackerDatabase
+    class EntryDatabase
 }
 
 package storage {
@@ -22,7 +22,7 @@ package storage {
 }
 
 package tracker {
-    class FoodTracker
+    class Entry
     class Food
 }
 
@@ -30,12 +30,12 @@ package utility {
     class Ui
 }
 
-Storage ..> FoodTrackerDatabase
-FitNus *-> FoodTrackerDatabase
-"{Abstract}\nCommand" ..> FoodTrackerDatabase
-Parser ..> FoodTrackerDatabase
-FoodTrackerDatabase ..> Parser
-FoodTrackerDatabase *-> FoodTracker
-FoodTrackerDatabase ..> Food
-FoodTrackerDatabase ..> Ui
+Storage ..> EntryDatabase
+FitNus *-> EntryDatabase
+"{Abstract}\nCommand" ..> EntryDatabase
+Parser ..> EntryDatabase
+EntryDatabase ..> Parser
+EntryDatabase *-> Entry
+EntryDatabase ..> Food
+EntryDatabase ..> Ui
 @enduml
