@@ -7,15 +7,18 @@ activate "<<class>>\n Storage"
 "<<class>>\n Storage" -> ":FoodDatabase" : convertDatabaseToString()
 activate ":FoodDatabase"
 loop for all food objects
-":FoodDatabase" -> ":Food" : getName()
-activate ":Food"
-return name
-":FoodDatabase" -> ":Food" : getCalories()
-activate ":Food"
-return calories
-":FoodDatabase" -> ":Food" : getType()
-activate ":Food"
-return type
+    ":FoodDatabase" -> ":Food": convertToStringForStorage()
+    activate ":Food"
+    ":Food" -> ":Food": getName()
+    activate ":Food"
+    return name
+    ":Food" -> ":Food": getCalories()
+    activate ":Food"
+    return calories
+    ":Food" -> ":Food": getType()
+    activate ":Food"
+    return type
+    return Food object as String
 end
 return content as String
 "<<class>>\n Storage" -> "<<class>>\n Storage" : saveData(filePath, content)
