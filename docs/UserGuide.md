@@ -48,7 +48,7 @@ Here is the list of sections we will be covering in this User Guide.
 1. Ensure that you have Java 11 installed in your computer. 
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+4. Type the following command in your terminal to run this program (for Mac or Linux user):`java -jar FitNus.jar`
 > **⚠️ Notes to Windows user**
 > 
 > We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
@@ -496,6 +496,22 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 
 Format: `summary /week`
 
+Sample Output:
+
+```
+2021-10-27: ■■■■■■■■■■■■■ 1366
+2021-10-28: ■■■■■■■■■■■■■■■■■■■ 1989
+2021-10-29: ■■■■■■■■■■■■■ 1310
+2021-10-30: ■■■■■■■■■ 934
+2021-10-31: ■■■■■■■■■■■■ 1269
+2021-11-01: ■■■■■■■■■■■■■■■ 1547
+2021-11-02: ■■■■■■■■■■■■■■ 1444
+Average Daily Calorie Intake: ■■■■■■■■■■■■■■ 1408
+Food eaten most: [southern meats, cranberry juice] [3 time(s)]
+Food eaten least: [onion rings, spinach, tuna, onions, peaches, vitamin b6, milk, beef, bananas, best choice sugar, pork, cheese, mushrooms, egg yolks, pears, ham, fish, apples] [1 time(s)]
+
+```
+
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes:
 - Average calorie intake
@@ -503,6 +519,14 @@ Monthly report gives you an overview of your diet over this month, which include
 - Least frequently eaten foods
 
 Format: `summary /month`
+
+Sample Output:
+
+```
+Average Daily Calorie Intake: 1495
+Food eaten most: [bacon, vitamin b6, bananas, beef, southern meats, pork, cranberry juice, cheese] [1 time(s)]
+Food eaten least: [bacon, vitamin b6, bananas, beef, southern meats, pork, cranberry juice, cheese] [1 time(s)]
+```
 
 <p>&nbsp;</p>
 
