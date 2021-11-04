@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":ListFoodEntryCustomCommand": execute()
+activate ":ListFoodEntryCustomCommand"
+
+    create ":EntryDatabase"
+    ":ListFoodEntryCustomCommand" -> ":EntryDatabase" : getPastDaysEntryDatabase(int)
+    activate ":EntryDatabase"
+    return CustomDayEntryDatabase: EntryDatabase
+    ":ListFoodEntryCustomCommand" -> ":EntryDatabase" : listEntries
+    activate ":EntryDatabase"
+    return entries
+
+return output
+
+@enduml

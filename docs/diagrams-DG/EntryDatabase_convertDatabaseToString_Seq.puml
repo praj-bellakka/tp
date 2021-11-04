@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":EntryDatabase": convertDatabaseToString()
+activate ":EntryDatabase"
+
+loop For every FoodTracker object in EntryDatabase
+
+    ":EntryDatabase" -> ":Entry": getFood()
+    activate ":Entry"
+    return food:Food
+
+    ":EntryDatabase" -> ":Entry": getDate()
+    activate ":Entry"
+    return date:String
+
+    ":EntryDatabase" -> ":Food": getName()
+    activate ":Food"
+    return name:String
+
+    ":EntryDatabase" -> ":Food": getCalories()
+    activate ":Food"
+    return calories:Integer
+
+    ":EntryDatabase" -> ":Food": getType()
+    activate ":Food"
+    return type:String
+
+    ":EntryDatabase" -> ":EntryDatabase": append info onto String
+    
+end
+
+return String
+@enduml

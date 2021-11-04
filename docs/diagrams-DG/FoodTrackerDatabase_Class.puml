@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class EntryDatabase {
+- entries:ArrayList<Entry>
++ addEntry(MealType, Food):void
++ addEntry(Entry):void
++ sortDatabase():void
++ deleteEntry(int):void
++ getTotalDailyCalorie():int
++ convertDatabaseToString():String
++ preloadDatabase(BufferedReader):void
++ getEntries():ArrayList<Entry>
++ getEntryAtIndex(int):void
++ listEntries():String
++ findEntries(String):ArrayList<Entry>
++ getPastDaysEntryDatabase(int):EntryDatabase
++ getPastMonthEntryDatabase():EntryDatabase
++ editEntryAtIndex(int, Food):void
+}
+
+
+@enduml

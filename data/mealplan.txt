@@ -1,6 +1,20 @@
 chicken rice | 213 | SNACK
 duck rice | 20 | SNACK
--------- | test
+rice | 1234 | MEAL
+-------- | testing
 chicken rice | 213 | SNACK
 duck rice | 20 | SNACK
--------- | test 2
+rice | 1234 | MEAL
+-------- | testing
+chicken rice | 213 | SNACK
+cookies | 100 | SNACK
+ice lemon tea | 50 | BEVERAGE
+-------- | dinner plan
+chicken rice | 213 | SNACK
+-------- | supper plan
+rice | 1234 | MEAL
+-------- | asd
+ramen | 600 | MEAL
+rice | 800 | MEAL
+rice | 400 | MEAL
+-------- | x

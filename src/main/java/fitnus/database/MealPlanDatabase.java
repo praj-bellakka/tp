@@ -28,12 +28,16 @@ public class MealPlanDatabase {
         if (plan.getMealFoods().size() > 0) {
             databaseMealPlans.add(plan);
         } else {
-            throw new FitNusException("Unable to add Meal plan as no food detected.");
+            throw new FitNusException("Unable to add meal plan as no food detected.");
         }
     }
 
     public String listMealPlan() {
         StringBuilder list = new StringBuilder();
+        if (databaseMealPlans.size() == 0) {
+            System.out.println("There are no meal plans in the database...");
+            return "";
+        }
         for (int i = 1; i <= databaseMealPlans.size(); i++) {
             MealPlan plan = this.databaseMealPlans.get(i - 1);
             String mealPlanName = plan.getMealPlanName();
@@ -60,11 +64,7 @@ public class MealPlanDatabase {
     private String convertFoodToString(ArrayList<Food> foodList) {
         StringBuilder lines = new StringBuilder();
         for (Food food: foodList) {
-            String name = food.getName();
-            Integer calories = food.getCalories();
-            String type = food.getType().toString();
-            lines.append(name).append(DELIMITER).append(calories)
-                    .append(DELIMITER).append(type).append(System.lineSeparator());
+            lines.append(food.convertToStringForStorage());
         }
         return lines.toString();
     }
@@ -87,7 +87,7 @@ public class MealPlanDatabase {
                 }
                 String name = description[0].strip();
                 String caloriesString = description[1].strip();
-                assert caloriesString.equals("") == false : "calories field cannot only contain white spaces";
+                assert !caloriesString.equals("") : "calories field cannot only contain white spaces";
                 Food.FoodType type = Parser.parseFoodType(description[2]);
                 Integer calories = Integer.parseInt(caloriesString);
                 tempArray.add(new Food(name, calories, type));

@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+-> ":EntryDatabase": getPastMonthEntryDatabase()
+activate ":EntryDatabase"
+
+":EntryDatabase" -> ":EntryDatabase": sortDatabase()
+
+":EntryDatabase" -> ":EntryDatabase": getEntries()
+activate ":EntryDatabase"
+":EntryDatabase" --> ":EntryDatabase": totalEntries:ArrayList<FoodTracker>
+deactivate ":EntryDatabase"
+
+create "pastMonthsEntries:EntryDatabase"
+":EntryDatabase" -> "pastMonthsEntries:EntryDatabase": new
+activate "pastMonthsEntries:EntryDatabase"
+return
+
+loop Until current entry month does not equal to current month or has iterated through all entries
+
+    ":EntryDatabase" -> "pastMonthsEntries:EntryDatabase": addEntry()
+    activate "pastMonthsEntries:EntryDatabase"
+    return
+
+    ":EntryDatabase" -> ":EntryDatabase": decrement counter
+
+end
+
+return pastMonthsEntries
+@enduml

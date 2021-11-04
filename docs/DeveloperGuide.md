@@ -7,7 +7,7 @@
 3. [User Story](##user-story)
 4. [Application Architecture](##Architecture)
    - [Overall Architecture](###Overall Architecture)
-   - [Food Tracker](###Food Tracker)
+   - [Food Tracker Entry](###Food Tracker Entry)
    - [Food Tracker Database](###Food Tracker Database)
    - [Food Database](###Food Database)
    - [User](###User)
@@ -61,7 +61,7 @@ Refer to the User Guide (no link for now) for details of each command.
 
 ### Overall Architecture
 
-![Overall Architecture Diagram](diagrams/overall%20architecture.png)  
+![Overall Architecture Diagram](diagrams-DG/overall%20architecture.png)  
 The Architecture Diagram given above explains the high-level design of the App.  
 
 Given below is a quick overview of main components and how they interact with each other.
@@ -75,6 +75,7 @@ The primary components of the app are listed below:
 - `Ui`: For displaying information to the user.
 - `EntryDatabase`: For handling all functionality regarding food tracker entries.
 - `FoodDatabase`: For handling all functionality regarding food database entries.
+- `MealPlanDatabase`: For handling all functionality regarding meal plan database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
 
 #### How the overall architecture works
@@ -86,86 +87,130 @@ The primary components of the app are listed below:
 4. The `execute` method returns a `String` object that contains the outcome message of the command that was executed, which is displayed to the user by the `Ui` component.
 ---
 
-### Food Tracker
+### Food Tracker Entry
 
-![tracker class diagram](diagrams/tracker%20class%20diagram.png)
+The Food Tracker Entry is represented by the class `Entry`.
+
+![tracker class diagram](diagrams-DG/tracker%20class%20diagram.png)
 
 ---
 
-### Food Tracker Database
+### Food Tracker
 
-![Food Tracker Class Diagram](diagrams/FoodTrackerDatabase_Class.png)
+The Food Tracker is represented by the class `EntryDatabase`.
 
-The `FoodTrackerDatabase` component consists of:
-- `addEntry()` Adds a FoodTracker object to the database.
+![Food Tracker Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
+
+The `EntryDatabase` class consists of an ArrayList of Entry. It handles all functionalities 
+that uses/amends the Food Tracker. 
+
+The `EntryDatabase` component consists of:
+- `addEntry()` Adds an Entry object to the database.
 - `sortDatabase()` Sorts the database by date.
-- `deleteEntry(int)` Removes a specified FoodTracker object from the database.
+- `deleteEntry(int)` Removes a specified Entry object from the database.
 - `getTotalDailyCalorie()` Returns the total calorie intake for the day.
-- `convertDatabaseToString()` Returns a String representation of all FoodTracker objects in the database.
-  
-  ![convertDatabaseToString Sequence Diagram](diagrams/EntryDatabase_convertDatabaseToString_Seq.png)
+- `convertDatabaseToString()` Returns a String representation of all Entry objects in the database.
+
+  ![convertDatabaseToString Sequence Diagram](diagrams-DG/EntryDatabase_convertDatabaseToString_Seq.png)
 
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file.
 
-  ![preloadDatabase Sequence Diagram](diagrams/EntryDatabase_preLoadDatabase_Seq.png)
+  ![preloadDatabase Sequence Diagram](diagrams-DG/EntryDatabase_preLoadDatabase_Seq.png)
 
-- `getEntries()` Returns an ArrayList of all FoodTracker objects within the database.
-- `getEntryAtIndex(int)` Returns the FoodTracker object at the specified index.
+- `getEntries()` Returns an ArrayList of all Entry objects within the database.
+- `getEntryAtIndex(int)` Returns the Entry object at the specified index.
 - `listEntries()` Returns a formatted String of all Food objects to be printed.
-- `findEntries(String)` Returns an ArrayList containing matching FoodTracker objects based on a keyword.
-- `getPastDaysEntryDatabase(int)` Returns a subset of the original database consisting of FoodTracker objects added in the current day
+- `findEntries(String)` Returns an ArrayList containing matching Entry objects based on a keyword.
+- `getPastDaysEntryDatabase(int)` Returns a subset of the original database consisting of Entry objects added in the current day
 
-  ![getPastDaysEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
+  ![getPastDaysEntryDatabase Sequence Diagram](diagrams-DG/EntryDatabase_getPastDaysEntryDatabase_Seq.png)
 
-- `getPastMonthsEntryDatabase()` Returns a subset of the original database consisting of FoodTracker objects added in the current month
+- `getPastMonthsEntryDatabase()` Returns a subset of the original database consisting of Entry objects added in the current month
 
-  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
+  ![getPastMonthsEntryDatabase Sequence Diagram](diagrams-DG/EntryDatabase_getPastMonthsEntryDatabase_Seq.png) 
 
-- `editEntryAtIndex(int, Food)` Edits the FoodTracker object at the specified index to the new specified Food object
+- `editEntryAtIndex(int, Food)` Edits the Entry object at the specified index to the new specified Food object
 
-The diagram below showcases the relationships between FoodTrackerDatabase object and various components.
+The diagram below showcases the relationships between EntryDatabase object and various components.
 
-![Food Tracker Class Architecture](diagrams/FoodTrackerDatabase_Classes.png)
+![Food Tracker Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
 
 
 ---
 
 ### Food Database
 
-![](diagrams/FoodDatabase_Class.png)  
+The `FoodDatabase` is used to keep a record of all the various types of `Food` objects.
+Keeping a record of all types of `Food` allows users to have a more seamless
+experience as they do not have to input all details when adding an `Entry` to the `EntryDatabase`.
+
+![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
+- ArrayList of `Food` objects to store `Food` objects.
 - `addFood()` Adds a Food object to the database. 
 - `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
-![](diagrams/FoodDatabase_convertDatabaseToString_Seq.png)
+![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
 - `deleteFood()` Removes a specified Food object from the database. 
 - `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
 - `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType 
 and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
 matching Food objects.
 ```
-    public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
-        ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
-                .filter(t -> t.getType().equals(type))
-                .filter(c -> c.getCalories() < calories)
-                .collect(Collectors.toList());
-        if (isSort) {
-            matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
-        }
-        return matchingSuggestions;
+public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
+    ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
+            .filter(t -> t.getType().equals(type))
+            .filter(c -> c.getCalories() < calories)
+            .collect(Collectors.toList());
+    if (isSort) {
+        matchingSuggestions.sort(Comparator.comparing(Food::getCalories));
     }
+    return matchingSuggestions;
+}
 ```
 - `getFoodAtIndex()` Returns the Food object at the specified index. 
 - `listFoods()` Returns a formatted String of all Food objects to be printed. 
 - `preloadDatabase()` Preloads the database using data from the text file.
-   <br /> ![](diagrams/FoodDatabase_preloadDatabase_Seq.png)
+   <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
-![](diagrams/FoodDatabase_Classes.png)  
+![](diagrams-DG/FoodDatabase_Classes.png)  
 
 
 ---
+
+### Meal Plan Database
+
+![](diagrams/MealPlanDatabase_Class.png)
+
+The `MealPlanDatabase` component consists of:
+- `convertFoodToString(ArrayList<Food>)` Returns a string representation of all MealPlan objects in the database.
+- `addMealPlan(MealPlan)` Adds a MealPlan object to the database.
+- `getMealAtIndex(int)` Returns the MealPlan object at that index inside the database. 
+- `convertDatabaseToString()` Returns a string presentation of the MealPlanDatabase object.
+- `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
+- `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
+  
+#### Implementation
+`MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
+It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
+- Automatically detect the name of an individual meal plan.
+- Converts string representation of `Food` items under each meal plan into an `ArrayList` of`Food` objects.
+- Detects when all the `Food` items under each meal plan has been added and start parsing the next meal plan if it exists.
+- Add `MealPlan` object into `databaseMealPlans`, which is an `ArrayList` of `MealPlan` objects.
+
+Given below is a sequence diagram of the `preloadDatabase()` method used to populate `databaseMealPlans` once the app is first launched.
+![SetWeightSeqDiagram](./diagrams/MealPlanDatabase_preLoadDatabase_Seq.png "Set MealPlan Database Sequence Diagram")
+
+
+
+The class diagram below showcases the relationships between the `MealPlanDatabase` class and its various components.
+
+![](diagrams/MealPlanDatabase_Classes.png)
+
+
+--- 
 
 ### User component
 
@@ -181,7 +226,7 @@ The `User` component:
 The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
 
 The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
-![SetWeightSeqDiagram](./diagrams/SetWeightCommand.png "Set Weight Sequence Diagram")
+![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
 
 How updating the weight tracker works:
 
@@ -199,14 +244,14 @@ The weight tracker can also perform the following operations:
 
 The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
 
-![ViewRemainingCalorieSeqDiagram](./diagrams/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
+![ViewRemainingCalorieSeqDiagram](diagrams-DG/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
 
 #### Generate and set calorie goal feature
 
 The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
 
 This is performed as shown in the following sequence diagram:
-![GenerateGoalSeqDiagram](./diagrams/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
+![GenerateGoalSeqDiagram](diagrams-DG/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
 
 - The following formulas are used to generate the calorie goal:
   - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
@@ -221,7 +266,7 @@ This is performed as shown in the following sequence diagram:
 The user is able to change their personal data at any point while using the app. 
 
 Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
-![SetHeightSeqDiagram](./diagrams/SetHeightCommand.png "Set Height Sequence Diagram")
+![SetHeightSeqDiagram](diagrams-DG/SetHeightCommand.png "Set Height Sequence Diagram")
 
 > ⚠️ Notes about the setting user data feature:
 > - The age (in years) can only be set to an integer within the range of 12 to 100
@@ -247,9 +292,9 @@ The Summary class provides an overview of user's diet over the past week/month.
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `generateWeekSummary()`.  
-![](diagrams/weekly-report.png)  
+![](diagrams-DG/weekly-report.png)  
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
-![](diagrams/monthly-report.png)
+![](diagrams-DG/monthly-report.png)
 
 ---
 ### View Food Suggestions
@@ -257,7 +302,7 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
-![](diagrams/SuggestCommandSequence.png) 
+![](diagrams-DG/SuggestCommandSequence.png) 
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
 1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
@@ -272,7 +317,7 @@ in ascending order of calories. This is indicated by the boolean `isSort` variab
 
 ### Command
 
-![command class diagram](diagrams/command%20class%20diagram.drawio.png)
+![command class diagram](diagrams-DG/command%20class%20diagram.drawio.png)
 
 The `Command` class is an abstract class that all other specific command classes (eg AddFoodEntryCommand, DeleteEntryCommand) inherit from. 
 
@@ -288,7 +333,7 @@ Additionally, it implements the following operations:
 - `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
 - `FoodDatabase#addFood` -- Adds a new food into the food database
 
-![AddFoodEntrySeqDiagram](./diagrams/AddFoodEntry.png "AddFoodEntry Sequence Diagram")
+![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
 
 #### Edit Food Entry Feature
 
@@ -298,7 +343,7 @@ Additionally, it implements the following operations:
 - `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
 - `FoodDatabase#addFood` -- Adds a new food into the food database
   
-![EditFoodEntrySeqDiagram](./diagrams/EditFoodEntry.png "EditFoodEntry Sequence Diagram")
+![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
 
 #### List Food Entry Feature
 
@@ -308,8 +353,8 @@ Additionally, they implement the following operations:
 - `EntryDatabase#listEntries()` -- Lists all entries within the entry database
 - `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
 
-![ListFoodEntryAllSeqDiagram](./diagrams/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](./diagrams/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -332,19 +377,29 @@ The Storage class reads and writes data to and from the text file.
 
 #### Implementation
 
-1.  **Saving to file**
+1.  **Saving to text file**
 
     `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
     For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
-2.  **Loading from file**
+2.  **Loading from text file**
 
     `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
     For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
 
+#### Implementation considerations
+
+1. The `Path` of each text file is hardcoded within the `Storage` class. This eliminates
+the need to pass the `Path` of the destination file each time. For example, to save the `FoodDatabase`
+contents, the method call is `saveFoodDatabase()` rather than `saveFoodDatabase(PATH)`.
+2. All public methods are declared as `static` methods. This allows various methods within the
+`Storage` class to be called without having to instantiate a `Storage` object.
+
+
+
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-![](diagrams/Storage_sequence.png)
+![](diagrams-DG/Storage_sequence.png)
 
 ---
 

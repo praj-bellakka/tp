@@ -14,6 +14,7 @@ import fitnus.tracker.Gender;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
+import javax.swing.text.View;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

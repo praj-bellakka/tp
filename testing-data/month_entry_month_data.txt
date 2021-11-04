@@ -1,0 +1,18 @@
+Breakfast | bananas  | 188 | 2021-11-01 |  others 
+Lunch | spinach  | 465 | 2021-11-01 |  meal 
+Dinner | chick  | 640 | 2021-11-01 |  meal 
+Breakfast | best choice sugar  | 165 | 2021-11-02 |  beverage 
+Lunch | lunchmeat  | 547 | 2021-11-02 |  meal 
+Dinner | beef  | 680 | 2021-11-02 |  meal 
+Snack | butter  | 143 | 2021-11-02 |  others 
+Snack | sausage  | 221 | 2021-11-02 |  snack 
+Snack | peanut butter  | 121 | 2021-11-02 |  snack 
+Breakfast | cantaloupe  | 76 | 2021-11-03 |  others 
+Lunch | chick  | 640 | 2021-11-03 |  meal 
+Dinner | turkey  | 522 | 2021-11-03 |  meal 
+Breakfast | pickles  | 160 | 2021-11-04 |  others 
+Lunch | broccoli  | 674 | 2021-11-04 |  meal 
+Dinner | ham  | 487 | 2021-11-04 |  meal 
+Snack | milk  | 198 | 2021-11-04 |  beverage 
+Snack | protein  | 141 | 2021-11-04 |  others 
+Snack | cantaloupe  | 76 | 2021-11-04 |  others 

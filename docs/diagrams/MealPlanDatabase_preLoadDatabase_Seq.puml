@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+-> ":MealPlanDatabase": preloadDatabase()
+activate ":MealPlanDatabase"
+
+loop While there are still unread lines
+
+    alt If end of meal plan
+        create ":MealPlan"
+        ":MealPlanDatabase" -> ":MealPlan": new MealPlan(mealPlanName, tempArray)
+        activate ":MealPlan"
+        return tempMealPlan:MealPlan
+
+        ":MealPlanDatabase" -> ":MealPlanDatabase": addMealPlan(tempMealPlan)
+        activate ":MealPlanDatabase"
+        return
+    end
+
+    ":MealPlanDatabase" -> ":Parser": parseFoodType()
+    activate ":Parser"
+    return type:FoodType
+
+    create ":Food"
+    ":MealPlanDatabase" -> ":Food": new Food(name, calories, type)
+    activate ":Food"
+    return food:Food
+
+    ":MealPlanDatabase" -> ":MealPlanDatabase": add(food)
+    activate ":MealPlanDatabase"
+    return
+
+end
+
+return
+@enduml

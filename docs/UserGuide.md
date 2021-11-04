@@ -2,7 +2,8 @@
 
 ## Introduction
 
-FitNUS Tracker is a desktop app for tracking daily food intake to keep a healthy lifestyle. 
+FitNUS Tracker is a desktop app for tracking daily food intake to keep a healthy lifestyle. FitNUS is specially made for Computing Students
+living in University Town, with features and functionalities taylor made for them.
 It is based on a Command Line Interface (CLI) and has rich functionality in order to cater to the needs of potential users.
 
 Here is the list of sections we will be covering in this User Guide.
@@ -12,6 +13,7 @@ Here is the list of sections we will be covering in this User Guide.
 - Features
   - Food Tracker
     - Adding food tracker entry: `add`
+    - Adding meal plan entry: `add /mealplan`
     - Editing existing food tracker entry: `edit`
     - Deleting food tracker entry: `remove /entry`
     - Listing tracker entries: `list /entry`
@@ -20,6 +22,9 @@ Here is the list of sections we will be covering in this User Guide.
     - Deleting food from food database: `remove /food`
     - Searching for foods with keyword: `find /food`
     - Listing foods in food database: `list /food`
+  - Meal Plan Database
+    - Creating new meal plan: `create /mealplan`
+    - Listing meal plan entries: `list /mealplan`
   - Weight Tracker
     - Recording weight: `weight /set`
     - Listing weight records: `list /weight`
@@ -43,7 +48,15 @@ Here is the list of sections we will be covering in this User Guide.
 1. Ensure that you have Java 11 installed in your computer. 
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+4. Type the following command in your terminal to run this program (for Mac or Linux user):`java -jar FitNus.jar`
+> **⚠️ Notes to Windows user**
+> 
+> We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
+> please type `chcp 65001`. You should see the following:
+> ```
+> C:\Users\USER>chcp 65001
+> Active code page: 65001
+> ```
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
 Welcome to FitNUS Tracker!
@@ -67,7 +80,7 @@ Please enter your gender (m/f):
 ### Food Tracker
 
 #### Adding food tracker entry: `add`
-Adds a food entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
+Adds a food tracker entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -84,7 +97,10 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 >- Lunch: 11am to 2pm
 >- Dinner: 6pm to 9pm
 >- Snack: Remaining time
-
+> 
+> **If a backslash character ("/") is written as the first character of the food name when omitting the `MEALTYPE`, the app will reject the input!**
+>
+> Eg. The input `add /rice noodles` will be rejected, whereas the input `add /bfast /rice noodles` will be accepted.
 * If there are any pre-set food that matches `FOOD_NAME`:
   * You can do one of the following:
     * Select which food you would like to add
@@ -96,21 +112,43 @@ Examples of usage: `add /bfast chocolate`
 
 Sample output:
 ```
-Here are the matching foods in your database:
+The following food category has been tagged: BREAKFAST
+Searching for "chocolate"...
+ [X] Select your desired food from the list below:
  1.chocolate bar (125 Kcal) Type: SNACK
  2.chocolate cake (300 Kcal) Type: SNACK
  3.chocolate croissant (120 Kcal) Type: MEAL
  4.chocolate rolls (110 Kcal) Type: SNACK
-Select the food you want by entering the number below. If the food doesn't exist, enter 0 to create a new custom food!
-User Input: 4
+Don't see what you're looking for? Enter 0 to create your own food!
+4
 You have successfully added chocolate rolls (110 Kcal) Type: SNACK
 ```
 
-
 <p>&nbsp;</p>
 
+#### Adding meal plan entry: `add /mealplan`
+Adds a meal plan consisting of existing food items. To create a meal plan, there needs to be at least 1 food item inside the food database.  
+
+Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
+
+
+
+> **⚠️ Notes about `INDEX_OF_MEALPLAN`**
+>
+> INDEX_OF_MEALPLAN refers to the index of the meal plan(s) shown when command `list /mealplan` is used.
+>
+> INDEX_OF_MEALPLAN must be an integer value and within the range shown above.
+
+
+Examples of usage: `add /mealplan /dinner 1`
+
+Sample output:
+
+![img.png](diagrams-UG/img.png)
+
+
 #### Editing existing food tracker entry: `edit`
-Edits an existing food entry's food information. FitNUS will search for FOOD_NAME in the food database 
+Edits an existing food tracker entry's food information. FitNUS will search for FOOD_NAME in the food database 
 and update the specified entry's food details accordingly.
 
 Format: `edit INDEX_OF_ENTRY FOOD_NAME`
@@ -118,16 +156,22 @@ Format: `edit INDEX_OF_ENTRY FOOD_NAME`
 >
 > INDEX_OF_ENTRY refers to the index of the entry shown when command `list /entry` is used.
 
+* If there are any pre-set food that matches `FOOD_NAME`:
+  * You can do one of the following:
+    * Select which food you would like to add
+    * Create your own custom food
 
 Example of usage:
-`edit 2 fish n chips`
+`edit 2 fish`
 
-- Edits whatever food is in index 2 to "fish n chips"
+Sample output:
+
+![img.png](diagrams-UG/EditEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
 #### Deleting food tracker entry: `remove`
-Deletes a food entry from the food tracker.
+Deletes a food tracker entry from the food tracker.
 
 Format: `remove /entry INDEX_OF_FOOD`
 
@@ -149,10 +193,10 @@ Format: `list /entry [/TIMEFRAME]`
 >
 > Command will list out **ALL** available food entries.
 
-Example of usage: 
-
+Example of usage:
 `list /entry /week`
-- lists out all food entries logged in for the past week.
+
+![img.png](diagrams-UG/ListWeekEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -168,6 +212,8 @@ Example of usage:
 - Prints out all food entries that contains "rice".
 
 <p>&nbsp;</p>
+
+----
 
 ### Food Database
 
@@ -208,6 +254,68 @@ Example of usage:
 
 <p>&nbsp;</p>
 
+---- 
+
+### Meal Plan Database
+
+#### Creating meal plan by adding food: `create`
+Creates a custom meal plan by adding existing food items inside the food database to the meal plan.
+
+Format: `create /mealplan NAME_OF_MEALPLAN`
+
+Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside the database and will be prompted to input the indexes of the foods you want to include inside the meal plan.
+
+> **⚠️ Notes about `NAME_OF_MEALPLAN`**
+>
+> `NAME_OF_MEALPLAN` must be at least 1 character in length. Pipe Characters will be automatically be replaced with a space character if included
+
+> **⚠️ Notes about adding food items to meal plan**
+>
+> Only valid indexes entered will be parsed. The `index` MUST be an integer value and within the range of food items displayed. Invalid indexes will be ignored as shown below.
+
+Example of usage:
+
+`create /mealplan dinner plan`
+
+`1 4 5` 
+
+- All input indexes are valid
+
+Sample output:
+
+![img.png](diagrams-UG/create_dinnerplan.png)
+
+
+`create /mealplan supper plan`
+
+`1 9 abc` 
+
+- Input index `9` is not valid as it is outside the range of the food database.
+- Input `abc` is not valid as it is not an integer.
+
+
+Sample output:
+
+![img_1.png](diagrams-UG/create_mealplan_wrongindex.png)
+
+
+#### Listing meal plan entries: `list`
+Lists out all meal plans entered. A list of meal plans and its associated food items is displayed as shown below.
+
+Format: `list /mealplan`
+
+
+Example of usage:
+
+`list /mealplan`
+
+Sample output: 
+
+![img.png](diagrams-UG/list_mealplan.png)
+
+<p>&nbsp;</p>
+
+---- 
 
 ### Weight Tracker
 
@@ -220,6 +328,12 @@ Example of usage:
 
 `weight /set 55.6`
 
+Sample Output:
+
+```
+You have updated your weight for today to 55.6 kg! You have gained 1.6 kg from the previous weight entry of 54.0 kg on 2021-10-31
+```
+
 <p>&nbsp;</p>
 
 
@@ -230,7 +344,37 @@ Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
 
 Example of usage:
 
-`list /weight /all` or `list /weight /month 12`
+1. List the weight progress since the start of using FitNus: `list /weight /all` 
+
+Sample output:
+
+```
+Your weight progress since the start of your FitNUS journey: 
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+2021-03-14: 51.8kg
+2021-03-15: 51.9kg
+2021-04-12: 54.2kg
+2021-10-27: 63.3kg
+2021-10-31: 54.0kg
+2021-11-01: 55.6kg
+
+You have gained 4.1 kg since the start of your FitNUS Journey!
+```
+
+2. List the weight progress of a certain month:`list /weight /month 3`
+
+Sample output:
+
+```
+Your weight progress in March: 
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+2021-03-14: 51.8kg
+2021-03-15: 51.9kg
+
+You have gained 0.4 kg during the month of March!
+```
 
 <p>&nbsp;</p>
 
@@ -332,6 +476,10 @@ Lists out available commands and additional information regarding each command.
 
 Format: `help`
 
+Sample Output:
+![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
+
+
 <p>&nbsp;</p>
 
 #### View statistics: `summary`
@@ -348,6 +496,21 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 
 Format: `summary /week`
 
+Sample Output:
+
+```
+2021-10-29: ############### 1562
+2021-10-30: ################# 1747
+2021-10-31: ############### 1561
+2021-11-01: ############# 1340
+2021-11-02: ############# 1389
+2021-11-03:  0
+2021-11-04:  0
+Average Daily Calorie Intake: ########## 1085
+Food eaten most: [oranges] [3 time(s)]
+Food eaten least: [bananas, bartlett pears, bread, butter, chick, chicken rice, cranberry juice, flour, grape juice, lunchmeat, mushrooms, orange juice, peaches, pickles, southern meats, strawberries, turkey] [1 time(s)]
+```
+
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes:
 - Average calorie intake
@@ -355,6 +518,14 @@ Monthly report gives you an overview of your diet over this month, which include
 - Least frequently eaten foods
 
 Format: `summary /month`
+
+Sample Output:
+
+```
+Average Daily Calorie Intake: 1495
+Food eaten most: [bacon, vitamin b6, bananas, beef, southern meats, pork, cranberry juice, cheese] [1 time(s)]
+Food eaten least: [bacon, vitamin b6, bananas, beef, southern meats, pork, cranberry juice, cheese] [1 time(s)]
+```
 
 <p>&nbsp;</p>
 
@@ -381,13 +552,16 @@ Example of usage:
 
 Action | Command Format | Example
 --- | --- | --- | 
-Add | add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
+Add food| add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
+Add meal plan| add /mealplan /MEALTYPE MEALPLAN_INDEX | `add /mealplan /bfast 1`
+Create meal plan| create /mealplan MEALPLAN_NAME | `create /mealplan bulking`
 Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1 burger`
 Remove entry | remove /entry INDEX_OF_FOOD | `remove /entry 2`
 Remove food | remove /food INDEX_OF_FOOD | `remove /food 12`
 Find food | find /food KEYWORD | `find /food rice`
 Find entry | find /entry KEYWORD | `find /entry rice`
 List food | list /food | `list /food`
+List meal plan | list /mealplan | `list /mealplan`
 List all entries | list /entry | `list /entry`
 List daily entry | list /entry | `list /entry /day`
 List weekly entry | list /entry | `list /entry /week`

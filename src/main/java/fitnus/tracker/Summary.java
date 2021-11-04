@@ -1,3 +1,5 @@
+// @@author siyuancheng178
+
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
@@ -14,7 +16,7 @@ import java.util.Map;
 
 public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
-    private static final String SQUARE = "■";
+    private static final String SQUARE = "#";
     private final ArrayList<Entry> entries;
     private int days;
 
@@ -76,7 +78,8 @@ public class Summary {
                 leastFrequentFoods.add(e.getKey());
             }
         }
-
+        mostFrequentFoods.sort(String::compareTo);
+        leastFrequentFoods.sort(String::compareTo);
         return String.format("Food eaten most: %s [%d time(s)]\n"
                         + "Food eaten least: %s [%d time(s)]",
                 mostFrequentFoods, maxOccurrence,
@@ -155,14 +158,7 @@ public class Summary {
                 + getMostAndLeastEatenFood(), drawGraphSquares(averageCalories, UNIT_PER_SQUARE), averageCalories
         );
 
-        try {
-            PrintStream out = new PrintStream(System.out, true, "UTF-8");
-            out.println(output);
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("Caught exception: " + e.getMessage());
-        }
-
-        return "";
+        return output;
     }
 
     /**

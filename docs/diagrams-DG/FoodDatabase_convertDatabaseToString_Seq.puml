@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":FoodDatabase": convertDatabaseToString()
+activate ":FoodDatabase"
+
+loop For every Food object in FoodDatabase
+
+    ":FoodDatabase" -> ":Food": convertToStringForStorage()
+    activate ":Food"
+    ":Food" -> ":Food": getName()
+    activate ":Food"
+    return name
+    ":Food" -> ":Food": getCalories()
+    activate ":Food"
+    return calories
+    ":Food" -> ":Food": getType()
+    activate ":Food"
+    return type
+    return Food object as String
+end
+
+return content as String
+@enduml
