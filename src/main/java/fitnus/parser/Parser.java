@@ -260,11 +260,14 @@ public class Parser {
         MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
 
-        foodName = removePipeCharacterFoodName(input, mealType);
 
         //if mealType is null, user didn't specify the command; auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
+            foodName = removePipeCharacterFoodName(input, mealType);
             mealType = mealType.findMealTypeTiming();
+            Ui.printAutoAddedFoodCategory(mealType.name(), true);
+        } else {
+            foodName = removePipeCharacterFoodName(input, mealType);
         }
 
         //search database if food exists
@@ -297,7 +300,6 @@ public class Parser {
     private String removePipeCharacterFoodName(String input, MealType mealType) {
         String foodName;
         if (mealType.equals(MealType.UNDEFINED)) {
-            Ui.printAutoAddedFoodCategory(mealType.name(), true);
             foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
         } else {
             Ui.printAutoAddedFoodCategory(mealType.name(), false);
@@ -306,6 +308,15 @@ public class Parser {
         return foodName;
     }
 
+    /**
+     * Returns AddMealPlanEntryCommand to add meal plans currently in mealplan database.
+     * Meal plan must exist inside database or FitNusException will be thrown.
+     *
+     * @param md Meal plan database containing existing meal plans.
+     * @param input String input entered by the user.
+     * @return AddMealPlanEntryCommand AddMealPlanEntryCommand with set parameters.
+     * @throws FitNusException Thrown when mealplan does not exist.
+     */
     private AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input)
             throws FitNusException {
         int spaceIndex = input.indexOf(SPACE_CHARACTER);
@@ -314,12 +325,23 @@ public class Parser {
         }
         String remainingString = input.substring(spaceIndex).strip();
         int spaceRemainingIndex = remainingString.indexOf(SPACE_CHARACTER);
+        MealType mealType = MealType.UNDEFINED;
+        //mealType has not been specified by the user
         if (spaceRemainingIndex == -1) {
-            throw new FitNusException("Invalid format");
+            mealType = mealType.findMealTypeTiming();
+            //throw new FitNusException("Invalid format");
+        } else {
+            mealType = parseMealType(remainingString.substring(0, spaceRemainingIndex), false);
         }
-        MealType mealType = parseMealType(remainingString.substring(0, spaceRemainingIndex), false);
         try {
-            int index = Integer.parseInt(remainingString.substring(spaceRemainingIndex).strip());
+            int index;
+            if (spaceRemainingIndex == -1) {
+                index = Integer.parseInt(remainingString.strip());
+            } else if (!remainingString.substring(0,spaceRemainingIndex).contains(BACKSLASH_CHARACTER)) {
+                throw new FitNusException("Recheck command format!");
+            } else {
+                index = Integer.parseInt(remainingString.substring(spaceRemainingIndex).strip());
+            }
             return new AddMealPlanEntryCommand(md.getMealAtIndex(index), mealType);
         } catch (NumberFormatException e) {
             throw new FitNusException("Integer index could not be parsed. Check format again!");
@@ -495,7 +517,7 @@ public class Parser {
         } else {
             ArrayList<String> listStrs = new ArrayList<String>(Arrays.asList(possibleFoodCategories));
             if (input.startsWith(BACKSLASH_CHARACTER) && !listStrs.contains(input)) {
-                throw new FitNusException("Invalid food category entered. "
+                throw new FitNusException(input + " is an invalid food category. "
                         + "Avoid using the backslash character if food category is not specified.");
             }
             switch (input) {
