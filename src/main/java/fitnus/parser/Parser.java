@@ -94,7 +94,7 @@ public class Parser {
     private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
     private static final String OTHERS_STRING = "others";
-    private static final String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
+    private static final String[] possibleFoodTypes = {"meal", "snack", "beverage", "others"};
     private static final String[] possibleFoodCategories = {"/bfast", "/lunch", "/dinner", "/snack"};
 
     //Parse suggest command error message
@@ -227,7 +227,7 @@ public class Parser {
      * @throws FitNusException Thrown when foodname is empty.
      */
     private Command parseAddTypeCommand(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
-        //step 1: find meal category and food name
+        //find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
         if (spaceCharacterIndex == -1) {
@@ -241,35 +241,36 @@ public class Parser {
             return parseAddMealPlanFoodCommand(md, input);
         }
 
+        //find mealType
         MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
 
-        //if mealType is null, user didn't specify the command -> auto tag the meal type
+        //if mealType is null, user didn't specify the command; auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
             mealType = mealType.findMealTypeTiming();
             Ui.printAutoAddedFoodCategory(mealType.name(), true);
             foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
         } else {
             Ui.printAutoAddedFoodCategory(mealType.name(), false);
-            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");;
+            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");
         }
 
-        //step 2: search database if food exists
+        //search database if food exists
         System.out.println("Searching for \"" + foodName + "\"...");
-        ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
+        ArrayList<Food> tempDbFoods = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempDbFoods); //search database for match
         int userInputLoop;
 
-        //step 3a: prompt the user the suggestions if matches are found
-        if (tempFoodDb.size() > 0) {
+        //prompt the user the suggestions if matches are found
+        if (tempDbFoods.size() > 0) {
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
-            return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
-        } else if (tempFoodDb.size() == 0) {
+            return returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
+        } else if (tempDbFoods.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
             System.out.println("Oops! \"" + foodName + "\" does not exist in the database!\n");
-            return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
+            return returnUserInput(mealType, foodName, tempDbFoods, newUi, false);
         }
         return null;
     }
@@ -332,31 +333,31 @@ public class Parser {
     }
 
     /**
-     * Function is responsible for receiving input from the user again during the adding of food phase.
+     * Function receives input from the user when adding food.
      * If the user inputs an invalid entry for calorie, i.e. negative or non-integers, the function continues looping.
      * If the user inputs an invalid entry for selecting choice, i.e. out of range, negative or non-integer,
-     * the function wll continue looping.
+     * the function will continue looping.
      * {@link #isLoopFlagOn} breakLoopFlag is set to false when user prompt loop is not needed, else loop continues.
      *
      * @param mealType        Type of meal.
      * @param foodName        String name of food.
-     * @param tempFoodDb      An arraylist containing Food items matching user entry.
+     * @param tempDbFoods      An arraylist containing Food items matching user entry.
      * @param newUi           Ui element responsible for receiving user input through CLI.
-     * @param multipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
+     * @param hasMultipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
      * @return AddFoodEntryCommand Command object containing relevant details.
      */
-    private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName, ArrayList<Food> tempFoodDb,
-                                                Ui newUi, boolean multipleEntries) throws FitNusException {
+    private AddFoodEntryCommand returnUserInput(MealType mealType, String foodName, ArrayList<Food> tempDbFoods,
+                                                Ui newUi, boolean hasMultipleEntries) throws FitNusException {
         int userInput = 0;
-        if (multipleEntries) {
+        if (hasMultipleEntries) {
             do {
-                userInput = parseInteger(newUi.readInput(), tempFoodDb.size());
+                userInput = parseInteger(newUi.readInput(), tempDbFoods.size());
             } while (isLoopFlagOn);
         }
 
         /**
          * If user input is 0, the user specified his input to a be a custom food.
-         * Thus the new loop below will prompt the user to input the calories.
+         * New loop below will prompt the user to input the calories.
          */
         if (userInput == 0) {
             System.out.println("Adding \"" + foodName + "\"...");
@@ -370,7 +371,7 @@ public class Parser {
             do {
                 System.out.println("[X] Enter food type (meal, snack, beverage, others):");
                 String foodType = newUi.readInput();
-                if (Arrays.asList(possibleFoodType).contains(foodType)) {
+                if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
                     type = parseFoodType(foodType);
                 } else {
                     type = null;
@@ -380,15 +381,15 @@ public class Parser {
 
             return new AddFoodEntryCommand(mealType, foodName, userInput, type);
         }
-        return new AddFoodEntryCommand(mealType, tempFoodDb.get(userInput - 1));
+        return new AddFoodEntryCommand(mealType, tempDbFoods.get(userInput - 1));
     }
 
-    private EditFoodEntryCommand returnUserInput(int index, String foodName, ArrayList<Food> tempFoodDb,
-                                                 Ui newUi, boolean multipleEntries) throws FitNusException {
+    private EditFoodEntryCommand returnUserInput(int index, String foodName, ArrayList<Food> tempDbFoods,
+                                                 Ui newUi, boolean hasMultipleEntries) throws FitNusException {
         int userInput = 0;
-        if (multipleEntries) {
+        if (hasMultipleEntries) {
             do {
-                userInput = parseInteger(newUi.readInput(), tempFoodDb.size());
+                userInput = parseInteger(newUi.readInput(), tempDbFoods.size());
             } while (isLoopFlagOn);
         }
 
@@ -409,8 +410,7 @@ public class Parser {
             do {
                 System.out.println("[X] Enter food type (meal, snack, beverage, others):");
                 String foodType = newUi.readInput();
-                String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
-                if (Arrays.asList(possibleFoodType).contains(foodType)) {
+                if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
                     type = parseFoodType(foodType);
                 } else {
                     type = null;
@@ -420,7 +420,7 @@ public class Parser {
 
             return new EditFoodEntryCommand(index, foodName, userInput, type);
         }
-        return new EditFoodEntryCommand(index, tempFoodDb.get(userInput - 1));
+        return new EditFoodEntryCommand(index, tempDbFoods.get(userInput - 1));
     }
 
     public static Food.FoodType parseFoodType(String type) throws FitNusException {
@@ -440,16 +440,16 @@ public class Parser {
     }
 
     /**
-     * Function takes in an input that may contain the meal type and a boolean databaseRequest.
+     * Function takes in an input that may contain the meal type and a boolean isDatabaseRequest.
      * If the meal type matches the predefined MealType enum, the matching MealType is returned.
      * Otherwise, UNDEFINED is returned.
      *
      * @param input           Input that may contain the meal type.
-     * @param databaseRequest Boolean representing if method is being called for the database.
+     * @param isDatabaseRequest Boolean representing if method is being called for the database.
      * @return MealType if a match is found; UNDEFINED MealType otherwise.
      */
-    public static MealType parseMealType(String input, boolean databaseRequest) throws FitNusException {
-        if (databaseRequest) {
+    public static MealType parseMealType(String input, boolean isDatabaseRequest) throws FitNusException {
+        if (isDatabaseRequest) {
             switch (input) {
             case "Breakfast":
                 return MealType.BREAKFAST;
@@ -463,8 +463,8 @@ public class Parser {
                 return MealType.UNDEFINED;
             }
         } else {
-            ArrayList<String> strList = new ArrayList<String>(Arrays.asList(possibleFoodCategories));
-            if (input.startsWith(BACKSLASH_CHARACTER) && !strList.contains(input)) {
+            ArrayList<String> listStrs = new ArrayList<String>(Arrays.asList(possibleFoodCategories));
+            if (input.startsWith(BACKSLASH_CHARACTER) && !listStrs.contains(input)) {
                 throw new FitNusException("Invalid food category entered. "
                         + "Avoid using the backslash character if food category is not specified.");
             }
@@ -779,20 +779,20 @@ public class Parser {
 
         //step 2: search database if food exists
         System.out.println("Searching for \"" + foodName + "\"...");
-        ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
+        ArrayList<Food> tempDbFoods = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoodsSilenced(tempFoodDb); //search database for match
+        Ui.printMatchingFoodsSilenced(tempDbFoods); //search database for match
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found
-        if (tempFoodDb.size() > 0) {
+        if (tempDbFoods.size() > 0) {
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
-            return returnUserInput(entryIndex, foodName, tempFoodDb, newUi, true);
-        } else if (tempFoodDb.size() == 0) {
+            return returnUserInput(entryIndex, foodName, tempDbFoods, newUi, true);
+        } else if (tempDbFoods.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
             System.out.println("Oops! \"" + foodName + "\" does not exist in the database!\n");
-            return returnUserInput(entryIndex, foodName, tempFoodDb, newUi, false);
+            return returnUserInput(entryIndex, foodName, tempDbFoods, newUi, false);
         }
         throw new FitNusException("Edit Parser Error");
     }
