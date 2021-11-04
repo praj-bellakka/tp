@@ -1,0 +1,130 @@
+Breakfast | apple juice  | 55 | 2021-11-01 |  beverage 
+Lunch | egg yolks  | 499 | 2021-11-01 |  meal 
+Dinner | mixed rice  | 640 | 2021-11-01 |  meal 
+Snack | bread  | 265 | 2021-11-01 |  snack 
+Breakfast | oranges  | 134 | 2021-11-02 |  others 
+Lunch | bartlett pears  | 589 | 2021-11-02 |  meal 
+Dinner | turkey  | 522 | 2021-11-02 |  meal 
+Snack | best choice sugar  | 165 | 2021-11-02 |  beverage 
+Breakfast | hot dogs  | 185 | 2021-11-03 |  snack 
+Lunch | beans  | 454 | 2021-11-03 |  meal 
+Dinner | chicken  | 578 | 2021-11-03 |  meal 
+Breakfast | pickles  | 160 | 2021-11-04 |  others 
+Lunch | ham  | 487 | 2021-11-04 |  meal 
+Dinner | fish  | 404 | 2021-11-04 |  meal 
+Snack | sausage  | 221 | 2021-11-04 |  snack 
+Breakfast | strawberries  | 167 | 2021-11-05 |  others 
+Lunch | beef  | 680 | 2021-11-05 |  meal 
+Dinner | lunchmeat  | 547 | 2021-11-05 |  meal 
+Breakfast | strawberries  | 167 | 2021-11-06 |  others 
+Lunch | egg  | 502 | 2021-11-06 |  meal 
+Dinner | bacon  | 608 | 2021-11-06 |  meal 
+Snack | bread  | 265 | 2021-11-06 |  snack 
+Snack | peaches  | 64 | 2021-11-06 |  others 
+Snack | hot dogs  | 185 | 2021-11-06 |  snack 
+Breakfast | cranberry juice  | 65 | 2021-11-07 |  beverage 
+Lunch | mixed rice  | 640 | 2021-11-07 |  meal 
+Dinner | tamale  | 689 | 2021-11-07 |  meal 
+Breakfast | apples  | 66 | 2021-11-08 |  others 
+Lunch | egg  | 502 | 2021-11-08 |  meal 
+Dinner | beef  | 680 | 2021-11-08 |  meal 
+Snack | cheese  | 109 | 2021-11-08 |  others 
+Snack | protein  | 141 | 2021-11-08 |  others 
+Breakfast | best choice sugar  | 165 | 2021-11-09 |  beverage 
+Lunch | egg yolks  | 499 | 2021-11-09 |  meal 
+Dinner | bartlett pears  | 589 | 2021-11-09 |  meal 
+Snack | orange juice  | 27 | 2021-11-09 |  beverage 
+Snack | best choice sugar  | 165 | 2021-11-09 |  beverage 
+Breakfast | apple juice  | 55 | 2021-11-10 |  beverage 
+Lunch | mixed rice  | 640 | 2021-11-10 |  meal 
+Dinner | mixed rice  | 640 | 2021-11-10 |  meal 
+Snack | apples  | 66 | 2021-11-10 |  others 
+Snack | hot dogs  | 185 | 2021-11-10 |  snack 
+Snack | best choice sugar  | 165 | 2021-11-10 |  beverage 
+Breakfast | carotenoids  | 264 | 2021-11-11 |  snack 
+Lunch | flour  | 647 | 2021-11-11 |  meal 
+Dinner | chicken  | 578 | 2021-11-11 |  meal 
+Snack | cheese  | 109 | 2021-11-11 |  others 
+Snack | cheese  | 109 | 2021-11-11 |  others 
+Snack | grape juice  | 31 | 2021-11-11 |  beverage 
+Breakfast | apple juice  | 55 | 2021-11-12 |  beverage 
+Lunch | chick  | 640 | 2021-11-12 |  meal 
+Dinner | chicken rice  | 649 | 2021-11-12 |  meal 
+Snack | onion rings  | 295 | 2021-11-12 |  snack 
+Snack | apple juice  | 55 | 2021-11-12 |  beverage 
+Snack | bread  | 265 | 2021-11-12 |  snack 
+Breakfast | best choice sugar  | 165 | 2021-11-13 |  beverage 
+Lunch | southern meats  | 588 | 2021-11-13 |  meal 
+Dinner | broccoli  | 674 | 2021-11-13 |  meal 
+Snack | cantaloupe  | 76 | 2021-11-13 |  others 
+Breakfast | pickles  | 160 | 2021-11-14 |  others 
+Lunch | egg  | 502 | 2021-11-14 |  meal 
+Dinner | lunchmeat  | 547 | 2021-11-14 |  meal 
+Snack | carotenoids  | 264 | 2021-11-14 |  snack 
+Snack | apple juice  | 55 | 2021-11-14 |  beverage 
+Breakfast | best choice sugar  | 165 | 2021-11-15 |  beverage 
+Lunch | pork  | 576 | 2021-11-15 |  meal 
+Dinner | tamale  | 689 | 2021-11-15 |  meal 
+Snack | peanut butter  | 121 | 2021-11-15 |  snack 
+Snack | cheese  | 109 | 2021-11-15 |  others 
+Snack | protein  | 141 | 2021-11-15 |  others 
+Breakfast | oranges  | 134 | 2021-11-16 |  others 
+Lunch | flour  | 647 | 2021-11-16 |  meal 
+Dinner | pollock  | 465 | 2021-11-16 |  meal 
+Breakfast | onion rings  | 295 | 2021-11-17 |  snack 
+Lunch | turkey  | 522 | 2021-11-17 |  meal 
+Dinner | lunchmeat  | 547 | 2021-11-17 |  meal 
+Snack | butter  | 143 | 2021-11-17 |  others 
+Snack | strawberries  | 167 | 2021-11-17 |  others 
+Breakfast | bananas  | 188 | 2021-11-18 |  others 
+Lunch | southern meats  | 588 | 2021-11-18 |  meal 
+Dinner | beef  | 680 | 2021-11-18 |  meal 
+Snack | cranberry juice  | 65 | 2021-11-18 |  beverage 
+Breakfast | milk  | 198 | 2021-11-19 |  beverage 
+Lunch | mixed rice  | 640 | 2021-11-19 |  meal 
+Dinner | mixed rice  | 640 | 2021-11-19 |  meal 
+Snack | cookies  | 146 | 2021-11-19 |  snack 
+Breakfast | cantaloupe  | 76 | 2021-11-20 |  others 
+Lunch | chicken rice  | 649 | 2021-11-20 |  meal 
+Dinner | mushrooms  | 689 | 2021-11-20 |  meal 
+Snack | carotenoids  | 264 | 2021-11-20 |  snack 
+Snack | apples  | 66 | 2021-11-20 |  others 
+Snack | orange juice  | 27 | 2021-11-20 |  beverage 
+Breakfast | apples  | 66 | 2021-11-21 |  others 
+Lunch | carrots  | 430 | 2021-11-21 |  meal 
+Dinner | broccoli  | 674 | 2021-11-21 |  meal 
+Snack | pears  | 153 | 2021-11-21 |  others 
+Snack | peaches  | 64 | 2021-11-21 |  others 
+Breakfast | soy milk  | 112 | 2021-11-22 |  beverage 
+Lunch | tuna  | 538 | 2021-11-22 |  meal 
+Dinner | mushrooms  | 689 | 2021-11-22 |  meal 
+Snack | hot dogs  | 185 | 2021-11-22 |  snack 
+Snack | hot dogs  | 185 | 2021-11-22 |  snack 
+Breakfast | cookies  | 146 | 2021-11-23 |  snack 
+Lunch | beans  | 454 | 2021-11-23 |  meal 
+Dinner | chick  | 640 | 2021-11-23 |  meal 
+Snack | bananas  | 188 | 2021-11-23 |  others 
+Breakfast | cranberry juice  | 65 | 2021-11-24 |  beverage 
+Lunch | mixed rice  | 640 | 2021-11-24 |  meal 
+Dinner | chicken rice  | 649 | 2021-11-24 |  meal 
+Snack | protein  | 141 | 2021-11-24 |  others 
+Breakfast | sausage  | 221 | 2021-11-25 |  snack 
+Lunch | turkey  | 522 | 2021-11-25 |  meal 
+Dinner | bacon  | 608 | 2021-11-25 |  meal 
+Breakfast | cheese  | 109 | 2021-11-26 |  others 
+Lunch | chicken rice  | 649 | 2021-11-26 |  meal 
+Dinner | onions  | 501 | 2021-11-26 |  meal 
+Snack | butter  | 143 | 2021-11-26 |  others 
+Snack | hot dogs  | 185 | 2021-11-26 |  snack 
+Breakfast | apple juice  | 55 | 2021-11-27 |  beverage 
+Lunch | turkey  | 522 | 2021-11-27 |  meal 
+Dinner | mushrooms  | 689 | 2021-11-27 |  meal 
+Snack | apples  | 66 | 2021-11-27 |  others 
+Snack | grape juice  | 31 | 2021-11-27 |  beverage 
+Breakfast | cantaloupe  | 76 | 2021-11-28 |  others 
+Lunch | pollock  | 465 | 2021-11-28 |  meal 
+Dinner | ham  | 487 | 2021-11-28 |  meal 
+Snack | protein  | 141 | 2021-11-28 |  others 
+Breakfast | pickles  | 160 | 2021-11-29 |  others 
+Lunch | onions  | 501 | 2021-11-29 |  meal 
+Dinner | beef  | 680 | 2021-11-29 |  meal 

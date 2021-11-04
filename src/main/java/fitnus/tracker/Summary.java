@@ -76,7 +76,8 @@ public class Summary {
                 leastFrequentFoods.add(e.getKey());
             }
         }
-
+        mostFrequentFoods.sort(String::compareTo);
+        leastFrequentFoods.sort(String::compareTo);
         return String.format("Food eaten most: %s [%d time(s)]\n"
                         + "Food eaten least: %s [%d time(s)]",
                 mostFrequentFoods, maxOccurrence,
@@ -162,7 +163,7 @@ public class Summary {
             System.out.println("Caught exception: " + e.getMessage());
         }
 
-        return "";
+        return output;
     }
 
     /**

@@ -14,6 +14,7 @@ import fitnus.tracker.Gender;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
+import javax.swing.text.View;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,7 +109,11 @@ public class FitNus {
                 Command inputType;
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
-                Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
+                if (!(inputType instanceof ViewWeekSummaryCommand)) {
+                    Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
+                } else {
+                    inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user);
+                }
                 entryDatabase.sortDatabase();
                 saveFitNus();
                 if (inputType instanceof ExitCommand) {
