@@ -23,7 +23,7 @@ class ViewMonthSummaryCommandTest {
 
 
     @Test
-    public void TestMothReport_CurrentMonthData_validMonthSummary () throws FitNusException{
+    public void testMothReport_currentMonthData_validMonthSummary() throws FitNusException {
         EntryDatabase database = new EntryDatabase();
         try {
             FileInputStream stream;
@@ -38,12 +38,14 @@ class ViewMonthSummaryCommandTest {
         String output = String.format("Average Daily Calorie Intake: 1536\n");
 
         output += String.format("Food eaten most: [cantaloupe, chick] [2 time(s)]\n");
-        output += String.format("Food eaten least: [bananas, beef, best choice sugar, broccoli, butter, ham, lunchmeat, milk, peanut butter, pickles, protein, sausage, spinach, turkey] [1 time(s)]");
-        assertEquals(output, new ViewMonthSummaryCommand().execute(database, new FoodDatabase(), new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
+        output += String.format("Food eaten least: [bananas, beef, best choice sugar, broccoli, butter, "
+                + "ham, lunchmeat, milk, peanut butter, pickles, protein, sausage, spinach, turkey] [1 time(s)]");
+        assertEquals(output, new ViewMonthSummaryCommand().execute(database, new FoodDatabase(),
+                new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
     }
 
     @Test
-    public void TestMonthSummary_EmptyData_warning() throws FitNusException{
+    public void testMonthSummary_emptyData_warning() throws FitNusException {
         EntryDatabase database = new EntryDatabase();
         try {
             FileInputStream stream;
@@ -54,6 +56,7 @@ class ViewMonthSummaryCommandTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals("No entries found!", new ViewMonthSummaryCommand().execute(database, new FoodDatabase(), new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
+        assertEquals("No entries found!", new ViewMonthSummaryCommand().execute(database, new FoodDatabase(),
+                new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
     }
 }
