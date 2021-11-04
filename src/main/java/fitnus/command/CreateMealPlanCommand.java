@@ -22,9 +22,8 @@ public class CreateMealPlanCommand extends Command {
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         MealPlan newMealPlan = new MealPlan(mealPlanName, mealFood);
+        System.out.println("Adding items to meal plan...");
         md.addMealPlan(newMealPlan);
-        //        ed.addEntry(mealType, customFood);
-        //        fd.addFood(customFood);
         newMealPlan.toString();
         return "You have successfully added the following Meal plan: " + newMealPlan.getMealPlanName();
 
