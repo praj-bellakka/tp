@@ -499,17 +499,16 @@ Format: `summary /week`
 Sample Output:
 
 ```
-2021-10-27: ■■■■■■■■■■■■■ 1366
-2021-10-28: ■■■■■■■■■■■■■■■■■■■ 1989
-2021-10-29: ■■■■■■■■■■■■■ 1310
-2021-10-30: ■■■■■■■■■ 934
-2021-10-31: ■■■■■■■■■■■■ 1269
-2021-11-01: ■■■■■■■■■■■■■■■ 1547
-2021-11-02: ■■■■■■■■■■■■■■ 1444
-Average Daily Calorie Intake: ■■■■■■■■■■■■■■ 1408
-Food eaten most: [southern meats, cranberry juice] [3 time(s)]
-Food eaten least: [onion rings, spinach, tuna, onions, peaches, vitamin b6, milk, beef, bananas, best choice sugar, pork, cheese, mushrooms, egg yolks, pears, ham, fish, apples] [1 time(s)]
-
+2021-10-29: ############### 1562
+2021-10-30: ################# 1747
+2021-10-31: ############### 1561
+2021-11-01: ############# 1340
+2021-11-02: ############# 1389
+2021-11-03:  0
+2021-11-04:  0
+Average Daily Calorie Intake: ########## 1085
+Food eaten most: [oranges] [3 time(s)]
+Food eaten least: [bananas, bartlett pears, bread, butter, chick, chicken rice, cranberry juice, flour, grape juice, lunchmeat, mushrooms, orange juice, peaches, pickles, southern meats, strawberries, turkey] [1 time(s)]
 ```
 
 ##### Monthly report

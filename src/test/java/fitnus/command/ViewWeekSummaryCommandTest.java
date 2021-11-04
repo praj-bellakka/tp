@@ -102,13 +102,13 @@ class ViewWeekSummaryCommandTest {
         database.addEntry(new Entry(MealType.SNACK, new Food("bread", 265, Food.FoodType.SNACK),
                 today.minusDays(6)));
 
-        String output = String.format("%s: ■■■■■■■■■■■■■ 1325\n%s: ■■■■■■■■■■■■■■■■ 1617\n"
-                        + "%s: ■■■■■■■■■■■■ 1255\n%s: ■■■■■■■■■■■■■■■■ 1694\n"
-                        + "%s: ■■■■■■■■■■■■■■■■■■■ 1971\n%s: ■■■■■■■■■■■■■■■■■■■ 1906\n"
-                        + "%s: ■■■■■■■■■■■■■■■■ 1601\n",today.minusDays(6),
+        String output = String.format("%s: ############# 1325\n%s: ################ 1617\n"
+                        + "%s: ############ 1255\n%s: ################ 1694\n"
+                        + "%s: ################### 1971\n%s: ################### 1906\n"
+                        + "%s: ################ 1601\n",today.minusDays(6),
                         today.minusDays(5), today.minusDays(4), today.minusDays(3), today.minusDays(2),
                 today.minusDays(1), today);
-        output += String.format("Average Daily Calorie Intake: ■■■■■■■■■■■■■■■■ 1624\n");
+        output += String.format("Average Daily Calorie Intake: ################ 1624\n");
 
         output += String.format("Food eaten most: [beef, milk] [3 time(s)]\n");
         output += String.format("Food eaten least: [apples, bananas, beans, best choice sugar, "
@@ -169,9 +169,9 @@ class ViewWeekSummaryCommandTest {
         database.addEntry(new Entry(MealType.SNACK, new Food("sausage", 221, Food.FoodType.SNACK),
                 today.minusDays(2)));
 
-        String output = String.format("%s: ■■■■■■■■■■■■■■■■■■■ 1971\n%s: ■■■■■■■■■■■■■■■■■■■ 1906\n"
-                + "%s: ■■■■■■■■■■■■■■■■ 1601\n", today.minusDays(2), today.minusDays(1), today);
-        output += String.format("Average Daily Calorie Intake: ■■■■■■■■■■■■■■■■■■ 1826\n");
+        String output = String.format("%s: ################### 1971\n%s: ################### 1906\n"
+                + "%s: ################ 1601\n", today.minusDays(2), today.minusDays(1), today);
+        output += String.format("Average Daily Calorie Intake: ################## 1826\n");
 
         output += String.format("Food eaten most: [milk] [2 time(s)]\n");
         output += String.format("Food eaten least: [bacon, beans, beef, best choice sugar, bread, "
@@ -201,8 +201,8 @@ class ViewWeekSummaryCommandTest {
                 today));
         database.addEntry(new Entry(MealType.SNACK, new Food("milk", 198, Food.FoodType.BEVERAGE),
                 today));
-        String output = String.format("%s: ■■■■■■■■■■■■■■■■ 1601\n", today);
-        output += String.format("Average Daily Calorie Intake: ■■■■■■■■■■■■■■■■ 1601\n");
+        String output = String.format("%s: ################ 1601\n", today);
+        output += String.format("Average Daily Calorie Intake: ################ 1601\n");
 
         output += String.format("Food eaten most: [milk] [2 time(s)]\n");
         output += String.format("Food eaten least: [bacon, beans, butter] [1 time(s)]");
