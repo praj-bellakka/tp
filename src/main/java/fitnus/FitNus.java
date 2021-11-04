@@ -109,11 +109,7 @@ public class FitNus {
                 Command inputType;
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
-                if (!(inputType instanceof ViewWeekSummaryCommand)) {
-                    Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
-                } else {
-                    inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user);
-                }
+                Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
                 entryDatabase.sortDatabase();
                 saveFitNus();
                 if (inputType instanceof ExitCommand) {
