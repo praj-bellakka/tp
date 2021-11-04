@@ -31,7 +31,7 @@ class EntryDatabaseTest {
 
 
     @Test
-    public void convertDatabaseToStringTest_list_stringRepresentation() {
+    public void convertDatabaseToStringTest_validList_stringRepresentation() {
         EntryDatabase edb = new EntryDatabase();
         LocalDate date = null;
         try {

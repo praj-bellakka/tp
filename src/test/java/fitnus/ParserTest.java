@@ -122,7 +122,7 @@ public class ParserTest {
     void parseMealType_invalidInput_throwFitNusException() throws FitNusException {
         String input1 = "/bfastt";
         Exception exception1 = assertThrows(FitNusException.class, () -> Parser.parseMealType(input1, false));
-        assertEquals("Invalid food category entered. "
+        assertEquals(input1 + " is an invalid food category. "
                 + "Avoid using the backslash character if food category is not specified.", exception1.getMessage());
 
     }
