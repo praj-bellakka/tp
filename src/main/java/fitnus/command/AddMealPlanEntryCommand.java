@@ -26,14 +26,12 @@ public class AddMealPlanEntryCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
+        System.out.println("Adding items from the meal plan: \"" + mealPlan.getMealPlanName() + "\"...");
         ArrayList<Food> allFoodItems = mealPlan.getMealFoods();
         for (Food food: allFoodItems) {
             ed.addEntry(new Entry(mealType,food));
         }
-        //  md.addMealPlan(newMealPlan);
-        //  ed.addEntry(mealType, customFood);
-        //  fd.addFood(customFood);
-        return "The following meal plan: " + mealPlan;
+        return "The following meal plan: \"" + mealPlan + "\" has been added.";
 
     }
 }

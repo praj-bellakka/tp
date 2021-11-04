@@ -107,6 +107,23 @@ public class Ui {
         }
     }
 
+    public static void printPromptUserFoodInput(String foodName) {
+        System.out.println("Oops! \"" + foodName + "\" does not exist in the database!\n");
+    }
+
+    public static void printOutOfRangeInputInteger(int num) {
+        System.out.println("Input " + num + " was out of range. Ignoring Input");
+    }
+
+    public static void printInvalidInputInteger(String input) {
+        System.out.println("Input " + input + " was not an integer. Ignoring input.");
+    }
+
+    public static void printAddCalorieToFood(String foodName) {
+        System.out.println("Adding \"" + foodName + "\"...");
+        System.out.println("[X] Enter calories of \"" + foodName + "\":");
+    }
+
     public static void printMatchingEntries(ArrayList<Entry> matchingEntries) {
         if (matchingEntries.size() == 0) {
             printNoMatchingResults();
