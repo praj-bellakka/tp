@@ -216,15 +216,9 @@ public class Parser {
     /**
      * Function parses type of add method called and returns a Command object representing the type.
      *
-     * The function finds the MealType of the food using {@link #parseMealType(String, boolean)}.
-     * If no meal type was added by the user, it will be automatically allocated based on time of day.
-     * The food is then searched thorugh the database using FoodDatabase. If food match exists, user will be prompted to
-     * either select from an existing foodlist by entering its index, or create a custom food by entering <0>.
-     * If no food match exists, the user will be prompted to enter the food's calorie between 0 to 5000.
-     *
      * @param input String containing food name and mealtype (optional).
      * @param fd    FoodDatabase object passed from Main(), containing food in database.
-     * @return Command object
+     * @return Command object.
      * @throws FitNusException Thrown when foodname is empty.
      */
     private Command parseAddTypeCommand(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
