@@ -281,9 +281,9 @@ public class Parser {
         } else if (tempDbFoods.size() == 0) {
             //prompt the user to input calorie if not match
             //TODO check if its here
-//             System.out.println("Oops! \"" + foodName + "\" does not exist in the database!");
-//             Ui.print(Ui.DIVIDER);
-//             Ui.print(Ui.USER_INPUT);
+            //System.out.println("Oops! \"" + foodName + "\" does not exist in the database!");
+            //Ui.print(Ui.DIVIDER);
+            //Ui.print(Ui.USER_INPUT);
             newUi.printPromptUserFoodInput(foodName);
             return returnUserInput(mealType, foodName, tempDbFoods, newUi, false);
         }
@@ -415,9 +415,9 @@ public class Parser {
          */
         if (userInput == 0) {
             //TODO Check if is there
-//             System.out.println("Adding \"" + foodName + "\"...");
-//             System.out.println("[X] Enter calories of \"" + foodName + "\":");
-//             Ui.print(Ui.USER_INPUT);
+            //System.out.println("Adding \"" + foodName + "\"...");
+            //System.out.println("[X] Enter calories of \"" + foodName + "\":");
+            //Ui.print(Ui.USER_INPUT);
             newUi.printAddCalorieToFood(foodName);
             isLoopFlagOn = false;
             do {
