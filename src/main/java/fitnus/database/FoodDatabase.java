@@ -90,7 +90,7 @@ public class FoodDatabase {
      */
     public String listFoods() {
         if (databaseFoods.size() < 1) {
-            return "Sorry, there is not any record stored";
+            return "Oops, there are no records found!";
         }
         String result = "";
         for (int i = 1; i <= databaseFoods.size(); i++) {

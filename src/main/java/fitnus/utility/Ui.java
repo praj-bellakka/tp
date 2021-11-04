@@ -10,7 +10,9 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
-    public static final String WELCOME_MESSAGE = "------------------ \n"
+    public static final String DIVIDER = "------------------\n";
+    public static final String USER_INPUT = "You: ";
+    public static final String WELCOME_MESSAGE = DIVIDER
             + "Welcome to FitNUS Tracker!";
 
     public static void printWelcomeMessage() {

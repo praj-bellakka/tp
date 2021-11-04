@@ -255,6 +255,7 @@ public class Parser {
         }
 
         //step 2: search database if food exists
+        Ui.print(Ui.DIVIDER);
         System.out.println("Searching for \"" + foodName + "\"...");
         ArrayList<Food> tempFoodDb = fd.findFoods(foodName);
 
@@ -264,11 +265,15 @@ public class Parser {
 
         //step 3a: prompt the user the suggestions if matches are found
         if (tempFoodDb.size() > 0) {
+            Ui.print(Ui.DIVIDER);
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
+            Ui.print(Ui.USER_INPUT);
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, true);
         } else if (tempFoodDb.size() == 0) {
             //step 3b: prompt the user to input calorie if not match
-            System.out.println("Oops! \"" + foodName + "\" does not exist in the database!\n");
+            System.out.println("Oops! \"" + foodName + "\" does not exist in the database!");
+            Ui.print(Ui.DIVIDER);
+            Ui.print(Ui.USER_INPUT);
             return returnUserInput(mealType, foodName, tempFoodDb, newUi, false);
         }
         return null;
@@ -361,6 +366,7 @@ public class Parser {
         if (userInput == 0) {
             System.out.println("Adding \"" + foodName + "\"...");
             System.out.println("[X] Enter calories of \"" + foodName + "\":");
+            Ui.print(Ui.USER_INPUT);
             isLoopFlagOn = false;
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
@@ -369,6 +375,7 @@ public class Parser {
             Food.FoodType type = null;
             do {
                 System.out.println("[X] Enter food type (meal, snack, beverage, others):");
+                Ui.print(Ui.USER_INPUT);
                 String foodType = newUi.readInput();
                 if (Arrays.asList(possibleFoodType).contains(foodType)) {
                     type = parseFoodType(foodType);
@@ -399,6 +406,7 @@ public class Parser {
         if (userInput == 0) {
             System.out.println("Adding \"" + foodName + "\"...");
             System.out.println("[X] Enter calories of \"" + foodName + "\":");
+            Ui.print(Ui.USER_INPUT);
             isLoopFlagOn = false;
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
@@ -408,6 +416,7 @@ public class Parser {
 
             do {
                 System.out.println("[X] Enter food type (meal, snack, beverage, others):");
+                Ui.print(Ui.USER_INPUT);
                 String foodType = newUi.readInput();
                 String[] possibleFoodType = {"meal", "snack", "beverage", "others"};
                 if (Arrays.asList(possibleFoodType).contains(foodType)) {

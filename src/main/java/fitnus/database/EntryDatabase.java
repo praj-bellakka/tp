@@ -115,7 +115,7 @@ public class EntryDatabase {
 
     public String listEntries() {
         if (entries.size() == 0) {
-            return "Sorry, there is not any record stored";
+            return "Oops, there are no records found!";
         }
         String result = "";
         for (int i = 1; i <= entries.size(); i++) {
