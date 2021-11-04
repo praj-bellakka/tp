@@ -10,10 +10,10 @@ import fitnus.utility.User;
 
 import java.util.ArrayList;
 
-public class FindEntryCommand extends Command {
+public class FindEntriesCommand extends Command {
     private final String keyword;
 
-    public FindEntryCommand(String keyword) {
+    public FindEntriesCommand(String keyword) {
         this.keyword = keyword;
     }
 

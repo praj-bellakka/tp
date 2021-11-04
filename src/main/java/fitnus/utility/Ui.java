@@ -1,13 +1,9 @@
 package fitnus.utility;
 
-import fitnus.command.FindFoodCommand;
 import fitnus.database.FoodDatabase;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
-import fitnus.tracker.MealType;
 
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 

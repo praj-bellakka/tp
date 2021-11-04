@@ -8,8 +8,8 @@ import fitnus.command.DeleteEntryCommand;
 import fitnus.command.DeleteFoodCommand;
 import fitnus.command.EditFoodEntryCommand;
 import fitnus.command.ExitCommand;
-import fitnus.command.FindEntryCommand;
-import fitnus.command.FindFoodCommand;
+import fitnus.command.FindEntriesCommand;
+import fitnus.command.FindFoodsCommand;
 import fitnus.command.GenerateCalorieGoalCommand;
 import fitnus.command.HelpCommand;
 import fitnus.command.ListFoodDatabaseCommand;
@@ -725,11 +725,11 @@ public class Parser {
         if (input.contains("/food")) {
             int typeDescriptorIndex = input.indexOf("/food");
             String keyword = input.substring(typeDescriptorIndex + 6);
-            return new FindFoodCommand(keyword);
+            return new FindFoodsCommand(keyword);
         } else if (input.contains("/entry")) {
             int typeDescriptorIndex = input.indexOf("/entry");
             String keyword = input.substring(typeDescriptorIndex + 7);
-            return new FindEntryCommand(keyword);
+            return new FindEntriesCommand(keyword);
         }
         throw new FitNusException("find command format is wrong. It is supposed to be:\n"
                 + "find /food KEYWORD or find /entry KEYWORD");
