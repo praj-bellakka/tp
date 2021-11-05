@@ -141,9 +141,8 @@ public class EntryDatabase {
 
         LocalDate datePointer = LocalDate.now();
         int count = totalEntries.size() - 1;
-        boolean isWithinRange = totalEntries.get(count).getRawDate().equals(datePointer);
         for (int i = 0; count >= 0 && i < days; i++) {
-            while (count >= 0 && isWithinRange) {
+            while (count >= 0 && totalEntries.get(count).getRawDate().equals(datePointer)) {
                 pastDaysEntries.addEntry(totalEntries.get(count));
                 count--;
             }
@@ -160,8 +159,7 @@ public class EntryDatabase {
 
         Month monthPointer = LocalDate.now().getMonth();
         int count = totalEntries.size() - 1;
-        boolean isWithinMonth = totalEntries.get(count).getRawDate().getMonth().equals(monthPointer);
-        while (count >= 0 && isWithinMonth) {
+        while (count >= 0 && totalEntries.get(count).getRawDate().getMonth().equals(monthPointer)) {
             pastMonthEntries.addEntry(totalEntries.get(count));
             count--;
         }
