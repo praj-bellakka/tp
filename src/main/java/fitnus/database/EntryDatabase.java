@@ -34,7 +34,7 @@ public class EntryDatabase {
      * Adds an Entry object to the database.
      *
      * @param mealType MealType of this Entry (e.g. dinner / lunch).
-     * @param food Food object of this Entry.
+     * @param food     Food object of this Entry.
      */
     public void addEntry(MealType mealType, Food food) {
         this.entries.add(new Entry(mealType, food));
@@ -249,7 +249,7 @@ public class EntryDatabase {
      * with a new Food object.
      *
      * @param index The index of the Entry object to modify.
-     * @param food The new Food object to associate with the specified Entry.
+     * @param food  The new Food object to associate with the specified Entry.
      * @throws FitNusException If the index provided is invalid.
      */
     public void editEntryAtIndex(int index, Food food) throws FitNusException {

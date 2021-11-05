@@ -51,7 +51,7 @@ public class Storage {
      * FoodDatabase with data from the file.
      *
      * @param database FoodDatabase object to preload.
-     * @throws IOException If an I/O error occurs.
+     * @throws IOException     If an I/O error occurs.
      * @throws FitNusException If an error occurs while preloading.
      */
     public static void initialiseFoodDatabase(FoodDatabase database) throws IOException, FitNusException {
@@ -197,7 +197,7 @@ public class Storage {
      * Writes the String content provided to the file at the specified filePath.
      *
      * @param filePath The filePath of the file to be written to.
-     * @param content String content to be written to the file.
+     * @param content  String content to be written to the file.
      * @throws IOException If an I/O error occurs.
      */
     private static void saveData(String filePath, String content) throws IOException {

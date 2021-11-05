@@ -18,9 +18,9 @@ public class FoodDatabase {
     /**
      * Adds a Food object to the ArrayList databaseFoods.
      *
-     * @param name Name of the Food object to be added.
+     * @param name     Name of the Food object to be added.
      * @param calories Calorie value of the Food object to be added.
-     * @param type Food type of the Food object to be added.
+     * @param type     Food type of the Food object to be added.
      * @throws FitNusException If the calorie value provided is <= 0.
      */
     public void addFood(String name, Integer calories, Food.FoodType type) throws FitNusException {
@@ -117,7 +117,7 @@ public class FoodDatabase {
      * Preloads the database.
      *
      * @param reader Reads from the file.
-     * @throws IOException If an I/O error occurs.
+     * @throws IOException     If an I/O error occurs.
      * @throws FitNusException If unable to parse Food type.
      */
     public void preloadDatabase(BufferedReader reader) throws IOException, FitNusException {
@@ -166,9 +166,9 @@ public class FoodDatabase {
      * Finds matching Food objects (suggestions) based on the specified Food type and
      * calories. Then returns an ArrayList containing suggestions.
      *
-     * @param type The Food type specified by the user.
+     * @param type     The Food type specified by the user.
      * @param calories The calorie value used to filter Food objects.
-     * @param isSort A boolean indicating whether to sort the resultant ArrayList.
+     * @param isSort   A boolean indicating whether to sort the resultant ArrayList.
      * @return An ArrayList containing suggestions.
      */
     public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {

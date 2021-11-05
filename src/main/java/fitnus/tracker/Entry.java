@@ -12,7 +12,7 @@ public class Entry {
      * Constructor.
      *
      * @param mealType MealType of this Entry (e.g. dinner / lunch).
-     * @param food Food object of this Entry.
+     * @param food     Food object of this Entry.
      */
     public Entry(MealType mealType, Food food) {
         this.mealType = mealType;
@@ -24,8 +24,8 @@ public class Entry {
      * Constructor.
      *
      * @param mealType MealType of this Entry (e.g. dinner / lunch).
-     * @param food Food object of this Entry.
-     * @param date Date of this Entry.
+     * @param food     Food object of this Entry.
+     * @param date     Date of this Entry.
      */
     public Entry(MealType mealType, Food food, LocalDate date) {
         this.mealType = mealType;
@@ -47,7 +47,7 @@ public class Entry {
     /**
      * Sets the Food object of this Entry.
      *
-     * @param food The Food object to be set.
+     * @param food The Food object to set.
      */
     public void setFood(Food food) {
         this.food = food;
