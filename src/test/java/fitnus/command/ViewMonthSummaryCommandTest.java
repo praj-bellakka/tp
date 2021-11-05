@@ -41,7 +41,7 @@ class ViewMonthSummaryCommandTest {
         output += String.format("Food eaten least: [bananas, beef, best choice sugar, broccoli, butter, "
                 + "ham, lunchmeat, milk, peanut butter, pickles, protein, sausage, spinach, turkey] [1 time(s)]");
         assertEquals(output, new ViewMonthSummaryCommand().execute(database, new FoodDatabase(),
-                new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
+                new MealPlanDatabase(),new User(1228, Gender.MALE, 25, 185, 80)));
     }
 
     @Test
