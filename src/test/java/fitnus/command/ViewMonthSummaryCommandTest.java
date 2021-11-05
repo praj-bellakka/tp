@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,7 +36,8 @@ class ViewMonthSummaryCommandTest {
             e.printStackTrace();
         }
 
-        String output = String.format("Average Daily Calorie Intake: 1536\n");
+
+        String output = String.format("Average Daily Calorie Intake: %d\n", 6144 / LocalDate.now().getDayOfMonth());
 
         output += String.format("Food eaten most: [cantaloupe, chick] [2 time(s)]\n");
         output += String.format("Food eaten least: [bananas, beef, best choice sugar, broccoli, butter, "
