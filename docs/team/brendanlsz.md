@@ -102,5 +102,5 @@ The Storage class reads and writes data to and from the text file.
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-![](diagrams-DG/Storage_sequence.png)
+![](./../diagrams-DG/Storage_sequence.png)
 
