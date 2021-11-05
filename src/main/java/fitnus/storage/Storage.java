@@ -100,7 +100,7 @@ public class Storage {
      * the User data with data from the file.
      *
      * @param user User object to preload.
-     * @return Returns 1 if data is valid, 0 otherwise.
+     * @return 1 if data is valid, 0 otherwise.
      * @throws IOException If an I/O error occurs.
      */
     public static int initialiseUser(User user) throws IOException {

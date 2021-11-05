@@ -60,10 +60,10 @@ public class FoodDatabase {
     }
 
     /**
-     * Gets the Food object at the specified index.
+     * Returns the Food object at the specified index.
      *
      * @param index Index of the Food object.
-     * @return Returns the Food object at the specified index.
+     * @return The Food object at the specified index.
      * @throws FitNusException If the index provided is invalid.
      */
     public Food getFoodAtIndex(int index) throws FitNusException {
@@ -75,9 +75,9 @@ public class FoodDatabase {
     }
 
     /**
-     * Gets the whole databaseFoods ArrayList.
+     * Returns the whole databaseFoods ArrayList.
      *
-     * @return Returns the databaseFoods ArrayList.
+     * @return The databaseFoods ArrayList.
      */
     public ArrayList<Food> getFoodDatabase() {
         return databaseFoods;
@@ -103,7 +103,7 @@ public class FoodDatabase {
     /**
      * Converts the database content to String form for storage.
      *
-     * @return Returns the database content as String.
+     * @return The database content as String.
      */
     public String convertDatabaseToString() {
         StringBuilder lines = new StringBuilder();
@@ -150,7 +150,7 @@ public class FoodDatabase {
      * matching Food objects in an ArrayList.
      *
      * @param keyword The keyword used to filter Food objects.
-     * @return Returns an ArrayList containing matching Food objects.
+     * @return An ArrayList containing matching Food objects.
      * @throws FitNusException If the keyword provided is an empty String.
      */
     public ArrayList<Food> findFoods(String keyword) throws FitNusException {
@@ -169,7 +169,7 @@ public class FoodDatabase {
      * @param type The Food type specified by the user.
      * @param calories The calorie value used to filter Food objects.
      * @param isSort A boolean indicating whether to sort the resultant ArrayList.
-     * @return Returns an ArrayList containing suggestions.
+     * @return An ArrayList containing suggestions.
      */
     public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean isSort) {
         ArrayList<Food> matchingSuggestions = (ArrayList<Food>) databaseFoods.stream()
