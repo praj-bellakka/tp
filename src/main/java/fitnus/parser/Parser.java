@@ -435,7 +435,7 @@ public class Parser {
     /**
      * Prompts user to enter calories between 1 and 5000 when called.
      * Prompt continues in infinite loop until a valid calorie is inputted.
-     * 
+     *
      * @param index Index if EditFoodEntryCommand is called.
      * @param mealType MealType of food item.
      * @param foodName String name of food.
@@ -478,7 +478,7 @@ public class Parser {
      * @param mealType MealType of food.
      * @return foodName String without pipe characters.
      */
-    private String removePipeCharacterFoodName(String input, MealType mealType) {
+    public String removePipeCharacterFoodName(String input, MealType mealType) {
         String foodName;
         if (mealType.equals(MealType.UNDEFINED)) {
             foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing

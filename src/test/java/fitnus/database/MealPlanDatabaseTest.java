@@ -5,6 +5,11 @@ import fitnus.tracker.Food;
 import fitnus.tracker.MealPlan;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +22,10 @@ public class MealPlanDatabaseTest {
     ArrayList<Food> foodArray = new ArrayList<>();
     MealPlan plan = new MealPlan("test", foodArray);
     MealPlan emptyPlan = new MealPlan("test", new ArrayList<>());
+    String initialString = "chicken rice | 213 | SNACK" + System.lineSeparator()
+            + "duck rice | 20 | SNACK" + System.lineSeparator()
+            + "rice | 1234 | MEAL" + System.lineSeparator() + "-------- | testing";
+
 
     MealPlanDatabaseTest() throws FitNusException {
         foodArray.add(new Food("food1", 100, Food.FoodType.BEVERAGE));
@@ -53,5 +62,17 @@ public class MealPlanDatabaseTest {
         assertEquals("Unable to add meal plan as no food detected.", exception1.getMessage());
     }
 
+    @Test
+    void preLoadDatabase_validInput_SuccessfullyPreloadDatabase() throws IOException {
+        InputStream stream = new ByteArrayInputStream(initialString.getBytes());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        MealPlanDatabase newMd = new MealPlanDatabase();
+        newMd.preloadDatabase(reader);
+        assertEquals("1. Meal plan: testing" + System.lineSeparator()
+                + "chicken rice (213 Kcal) Type: SNACK" + System.lineSeparator()
+                + "duck rice (20 Kcal) Type: SNACK" + System.lineSeparator()
+                + "rice (1234 Kcal) Type: MEAL" + System.lineSeparator()
+                + System.lineSeparator(), newMd.listMealPlan());
+    }
 
 }
