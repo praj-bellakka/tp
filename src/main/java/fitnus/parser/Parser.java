@@ -276,6 +276,7 @@ public class Parser {
         }
 
         //search database if food exists
+        Ui.print(Ui.DIVIDER);
         System.out.println("Searching for \"" + foodName + "\"...");
         ArrayList<Food> tempDbFoods = fd.findFoods(foodName);
         Ui newUi = new Ui();
@@ -284,7 +285,9 @@ public class Parser {
 
         //prompt the user the suggestions if matches are found
         if (tempDbFoods.size() > 0) {
+            Ui.print(Ui.DIVIDER);
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
+            Ui.print(Ui.USER_INPUT);
             return (AddFoodEntryCommand) returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
         } else if (tempDbFoods.size() == 0) {
             //prompt the user to input calorie if not match
@@ -462,7 +465,7 @@ public class Parser {
                 Ui.println("The food type provided is invalid! Please try again");
             }
         } while (type == null);
-
+      
         //check type of Command object to return
         if (mealType == null) {
             return new EditFoodEntryCommand(index, foodName, userInput, type);
