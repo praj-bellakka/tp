@@ -39,11 +39,12 @@ class ViewMonthSummaryCommandTest {
 
         String output = String.format("Average Daily Calorie Intake: %d\n", 6144 / LocalDate.now().getDayOfMonth());
 
+
         output += String.format("Food eaten most: [cantaloupe, chick] [2 time(s)]\n");
         output += String.format("Food eaten least: [bananas, beef, best choice sugar, broccoli, butter, "
                 + "ham, lunchmeat, milk, peanut butter, pickles, protein, sausage, spinach, turkey] [1 time(s)]");
         assertEquals(output, new ViewMonthSummaryCommand().execute(database, new FoodDatabase(),
-                new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
+                new MealPlanDatabase(), new User(2500, Gender.MALE, 25, 185, 80)));
     }
 
     @Test
@@ -59,6 +60,6 @@ class ViewMonthSummaryCommandTest {
             e.printStackTrace();
         }
         assertEquals("No entries found!", new ViewMonthSummaryCommand().execute(database, new FoodDatabase(),
-                new MealPlanDatabase(),new User(2500, Gender.MALE, 25, 185, 80)));
+                new MealPlanDatabase(), new User(2500, Gender.MALE, 25, 185, 80)));
     }
 }
