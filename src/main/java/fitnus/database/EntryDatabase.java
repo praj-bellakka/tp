@@ -171,7 +171,7 @@ public class EntryDatabase {
      */
     public String listEntries() {
         if (entries.size() == 0) {
-            return "Sorry, there is not any record stored";
+            return "Oops, there are no records found!";
         }
         String result = "";
         for (int i = 1; i <= entries.size(); i++) {
@@ -211,7 +211,6 @@ public class EntryDatabase {
 
         LocalDate datePointer = LocalDate.now();
         int count = totalEntries.size() - 1;
-
         for (int i = 0; count >= 0 && i < days; i++) {
             while (count >= 0 && totalEntries.get(count).getRawDate().equals(datePointer)) {
                 pastDaysEntries.addEntry(totalEntries.get(count));
@@ -235,7 +234,6 @@ public class EntryDatabase {
 
         Month monthPointer = LocalDate.now().getMonth();
         int count = totalEntries.size() - 1;
-
         while (count >= 0 && totalEntries.get(count).getRawDate().getMonth().equals(monthPointer)) {
             pastMonthEntries.addEntry(totalEntries.get(count));
             count--;

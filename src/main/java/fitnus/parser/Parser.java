@@ -265,6 +265,7 @@ public class Parser {
         }
 
         //search database if food exists
+        Ui.print(Ui.DIVIDER);
         System.out.println("Searching for \"" + foodName + "\"...");
         ArrayList<Food> tempDbFoods = fd.findFoods(foodName);
         Ui newUi = new Ui();
@@ -273,7 +274,9 @@ public class Parser {
 
         //prompt the user the suggestions if matches are found
         if (tempDbFoods.size() > 0) {
+            Ui.print(Ui.DIVIDER);
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
+            Ui.print(Ui.USER_INPUT);
             return returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
         } else if (tempDbFoods.size() == 0) {
             //prompt the user to input calorie if not match
@@ -407,6 +410,7 @@ public class Parser {
          * New loop below will prompt the user to input the calories.
          */
         if (userInput == 0) {
+
             newUi.printAddCalorieToFood(foodName);
             isLoopFlagOn = false;
             do {
@@ -416,6 +420,7 @@ public class Parser {
             Food.FoodType type = null;
             do {
                 System.out.println("[X] Enter food type (meal, snack, beverage, others):");
+                Ui.print(Ui.USER_INPUT);
                 String foodType = newUi.readInput();
                 if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
                     type = parseFoodType(foodType);
@@ -446,6 +451,7 @@ public class Parser {
         if (userInput == 0) {
             System.out.println("Adding \"" + foodName + "\"...");
             System.out.println("[X] Enter calories of \"" + foodName + "\":");
+            Ui.print(Ui.USER_INPUT);
             isLoopFlagOn = false;
             do {
                 userInput = parseInteger(newUi.readInput()); //getting calories
@@ -455,6 +461,7 @@ public class Parser {
 
             do {
                 System.out.println("[X] Enter food type (meal, snack, beverage, others):");
+                Ui.print(Ui.USER_INPUT);
                 String foodType = newUi.readInput();
                 if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
                     type = parseFoodType(foodType);
