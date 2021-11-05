@@ -41,7 +41,7 @@ public class EntryDatabase {
     }
 
     /**
-     * Adds an Entry to the database.
+     * Adds an Entry object to the database.
      *
      * @param entry The Entry object to be added.
      */
@@ -50,7 +50,7 @@ public class EntryDatabase {
     }
 
     /**
-     * Sorts the Entry objects in the database in ascending order of date.
+     * Sorts the Entry objects in the database in ascending order by date.
      */
     public void sortDatabase() {
         entries.sort(Comparator.comparing(Entry::getDate));
@@ -108,7 +108,7 @@ public class EntryDatabase {
     }
 
     /**
-     * Preloads the database.
+     * Preloads the database from data text file.
      *
      * @param reader Reads from the file.
      * @throws IOException If an I/O error occurs.
@@ -199,10 +199,10 @@ public class EntryDatabase {
     }
 
     /**
-     * Returns the Entry objects from the specified number of past days.
+     * Returns an EntryDatabase with all Entry objects added in the past specified number of days.
      *
      * @param days The specified number of past days.
-     * @return An ArrayList containing Entry objects from the specified number of past days.
+     * @return An EntryDatabase containing Entry objects from the specified number of past days.
      */
     public EntryDatabase getPastDaysEntryDatabase(int days) {
         sortDatabase();
@@ -223,9 +223,9 @@ public class EntryDatabase {
     }
 
     /**
-     * Returns the Entry objects from within the current month.
+     * Returns an EntryDatabase with all Entry objects added in the current month.
      *
-     * @return An ArrayList containing Entry objects from the current month.
+     * @return An EntryDatabase containing Entry objects from the current month.
      */
     public EntryDatabase getPastMonthEntryDatabase() {
         sortDatabase();
