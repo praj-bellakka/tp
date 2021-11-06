@@ -56,14 +56,14 @@ public class MealPlanDatabase {
         for (MealPlan plan : databaseMealPlans) {
             String mealPlanName = plan.getMealPlanName();
             lines.append(convertFoodToString(plan.getMealFoods()));
-            lines.append(this.MEAL_PLAN_DECODER).append(DELIMITER).append(mealPlanName).append(System.lineSeparator());
+            lines.append(MEAL_PLAN_DECODER).append(DELIMITER).append(mealPlanName).append(System.lineSeparator());
         }
         return lines.toString();
     }
 
     private String convertFoodToString(ArrayList<Food> foodList) {
         StringBuilder lines = new StringBuilder();
-        for (Food food: foodList) {
+        for (Food food : foodList) {
             lines.append(food.convertToStringForStorage());
         }
         return lines.toString();
@@ -77,7 +77,7 @@ public class MealPlanDatabase {
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
-                if (description[0].equals(this.MEAL_PLAN_DECODER)) {
+                if (description[0].equals(MEAL_PLAN_DECODER)) {
                     mealPlanName = description[1];
                     MealPlan tempMealPlan = new MealPlan(mealPlanName, tempArray);
                     this.addMealPlan(tempMealPlan);

@@ -72,6 +72,12 @@ class FoodDatabaseTest {
     }
 
     @Test
+    void listFoods_databaseWithoutFoods_noRecordsFound() throws FitNusException {
+        FoodDatabase fd = new FoodDatabase();
+        assertEquals("Oops, there are no records found!", fd.listFoods());
+    }
+
+    @Test
     void convertDatabaseToString_databaseWithFoods_foodsAsString() throws FitNusException {
         FoodDatabase fd = new FoodDatabase();
         fd.addFood("food1", 100, Food.FoodType.MEAL);
