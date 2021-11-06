@@ -9,17 +9,17 @@ import fitnus.tracker.Gender;
 import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViewSuggestionsCommandTest {
 
     @Test
     void testViewSuggestionsCommand_hasMatchingSuggestions_viewSuggestionsSuccess()
             throws FitNusException {
-        User user = new User(2000, Gender.MALE, 18, 180, 65);
-        FoodDatabase fd = new FoodDatabase();
-        EntryDatabase ed = new EntryDatabase();
-        MealPlanDatabase md = new MealPlanDatabase();
+        final User user = new User(2000, Gender.MALE, 18, 180, 65);
+        final FoodDatabase fd = new FoodDatabase();
+        final EntryDatabase ed = new EntryDatabase();
+        final MealPlanDatabase md = new MealPlanDatabase();
 
         fd.addFood(new Food("food1", 100, Food.FoodType.OTHERS));
         assertEquals(100, fd.getFoodAtIndex(1).getCalories());
@@ -36,10 +36,10 @@ class ViewSuggestionsCommandTest {
     @Test
     void testViewSuggestionsCommand_hasNoMatchingSuggestions_viewSuggestionsSuccess()
             throws FitNusException {
-        User user = new User(2000, Gender.MALE, 18, 180, 65);
-        FoodDatabase fd = new FoodDatabase();
-        EntryDatabase ed = new EntryDatabase();
-        MealPlanDatabase md = new MealPlanDatabase();
+        final User user = new User(2000, Gender.MALE, 18, 180, 65);
+        final FoodDatabase fd = new FoodDatabase();
+        final EntryDatabase ed = new EntryDatabase();
+        final MealPlanDatabase md = new MealPlanDatabase();
 
         fd.addFood(new Food("food1", 100, Food.FoodType.OTHERS));
         assertEquals(100, fd.getFoodAtIndex(1).getCalories());
