@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Keeps a record of Food objects and handles functionalities related to Food objects.
+ */
 public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";

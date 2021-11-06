@@ -3,6 +3,9 @@ package fitnus.tracker;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Food Tracker Entry.
+ */
 public class Entry {
     private final MealType mealType;
     private Food food;

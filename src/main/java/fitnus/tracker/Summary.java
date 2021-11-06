@@ -28,7 +28,7 @@ public class Summary {
             days = 1;
         } else {
             LocalDate firstUseDate = entries.get(0).getRawDate();
-            int period = (int)firstUseDate.until(LocalDate.now(), ChronoUnit.DAYS) + 1;
+            int period = (int) firstUseDate.until(LocalDate.now(), ChronoUnit.DAYS) + 1;
             if (period >= days) {
                 this.days = days;
             } else {
