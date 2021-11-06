@@ -19,7 +19,7 @@ public class Summary {
     private int days;
 
     /**
-     * Constructor for a Summary object.
+     * Constructs a Summary object.
      *
      * @param ed EntryDatabase used to give summary
      * @param days range of days to covered in summary
@@ -96,9 +96,9 @@ public class Summary {
     }
 
     /**
-     * Calculate the user's average calorie intake
+     * Calculates the user's average calorie intake.
      *
-     * @return the average caloire intake
+     * @return the average calorie intake
      */
     private int getAverageCalories() {
         int totalCalories = 0;
@@ -112,7 +112,7 @@ public class Summary {
     }
 
     /**
-     * Draw a horizontal calorie graph based on the calorie intake
+     * Draws a horizontal calorie graph based on the calorie intake.
      *
      * @param calorie Total calorie intake on someday
      * @param unit the unit for each #
@@ -127,7 +127,7 @@ public class Summary {
     }
 
     /**
-     * Draw a horizontal calorie intake trend graph over the past week
+     * Draw a horizontal calorie intake trend graph over the past week.
      *
      * @return convert the calorie intake over the past week to a graph.
      */
@@ -167,7 +167,7 @@ public class Summary {
 
 
     /**
-     * This function generates a report based on the calorie intake over the past seven days.
+     * Generates a report based on the calorie intake over the past seven days.
      * Report includes the calorie intake trend graph, weekly average calorie intake and the
      * most/least frequently eaten food.
      *
@@ -188,7 +188,7 @@ public class Summary {
     }
 
     /**
-     * This function generates a report based on the calorie intake over current month.
+     * Generates a report based on the calorie intake over current month.
      * Report includes monthly average calorie intake and the most/least frequently eaten food.
      *
      * @return String a report of monthly calorie intake
