@@ -15,6 +15,6 @@ public class ListWeightProgressCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        return us.getWeightProgressDisplay(month);
+        return us.getWeightTrackerDisplay(month);
     }
 }

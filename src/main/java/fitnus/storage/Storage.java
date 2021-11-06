@@ -16,6 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Handles dealing with the files and directory used to save data.
+ */
 public class Storage {
 
     private static final String ROOT = System.getProperty("user.dir");
@@ -25,6 +28,7 @@ public class Storage {
     private static final Path FILE_PATH_ENTRY_DATA = Paths.get(ROOT, "data", "entry.txt");
     private static final Path FILE_PATH_WEIGHT_DATA = Paths.get(ROOT, "data", "weight.txt");
     private static final Path FILE_PATH_MEALPLAN_DATA = Paths.get(ROOT, "data", "mealplan.txt");
+
 
     /**
      * Creates the required directory and files if they do not exist.

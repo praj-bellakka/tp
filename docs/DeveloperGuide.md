@@ -7,8 +7,8 @@
 3. [User Story](#user-stories)
 4. [Application Architecture](#architecture)
    - [Overall Architecture](#overall-architecture)
-   - [Food Tracker Entry](#food-tracker-entry)
-   - [Food Tracker Database](#food-tracker-database)
+   - [Entry](#entry)
+   - [Entry Database](#entry-database)
    - [Food Database](#food-database)
    - [User](#user)
    - [Summary](#summary)
@@ -16,8 +16,14 @@
    - [Command](#command)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Instruction for manual testing](#instructions-for-manual-testing)
-6. [Non-functional Requirement](#nf-requirements)
+5. [Implementation](#implementation)
+   - [Add Food Entry](#add-food-entry)
+   - [Edit Food Entry](#edit-food-entry)
+   - [List Food Entry](#list-food-entry)
+   - [Delete Food Entry](#delete-food-entry)
+6. [Instruction for manual testing](#instructions-for-manual-testing)
+    - [Add Food Entry](#add-food-entry-instructions)
+7. [Non-functional Requirement](#nf-requirements)
 
 ## Product scope
 
@@ -37,9 +43,9 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `wellnus.jar` file is located or provide the absolute path of `wellnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
-   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your food tracker and food database. 
+   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your EntryDatabase and food database. 
    - `list food`: Lists all foods in database 
-   - `list intake /DAY`: Lists all entries in the food tracker for the day. 
+   - `list intake /DAY`: Lists all entries in the EntryDatabase for the day. 
    - `exit`: Exits the app.  
 
 Refer to the User Guide (no link for now) for details of each command.
@@ -67,7 +73,7 @@ The primary components of the app are listed below:
 - `Parser`: For parsing user input.
 - `Command`: The abstract class that all other command classes inherit from
 - `Ui`: For displaying information to the user.
-- `EntryDatabase`: For handling all functionality regarding food tracker entries.
+- `EntryDatabase`: For handling all functionality regarding entries.
 - `FoodDatabase`: For handling all functionality regarding food database entries.
 - `MealPlanDatabase`: For handling all functionality regarding meal plan database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
@@ -77,26 +83,24 @@ The primary components of the app are listed below:
 1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
 3. The `Command` object calls its `execute` method which performs the function required.
-   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add a food tracker entry).
+   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add an entry).
 4. The `execute` method returns a `String` object that contains the outcome message of the command that was executed, which is displayed to the user by the `Ui` component.
 ---
 
-### Food Tracker Entry
-
-The Food Tracker Entry is represented by the class `Entry`.
+### Entry
 
 ![tracker class diagram](diagrams-DG/tracker%20class%20diagram.png)
 
 ---
 
-### Food Tracker Database
+### EntryDatabase
 
-The Food Tracker is represented by the class `EntryDatabase`.
+The EntryDatabase is represented by the class `EntryDatabase`.
 
-![Food Tracker Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
+![EntryDatabase Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
 The `EntryDatabase` class consists of an ArrayList of Entry. It handles all functionalities 
-that uses/amends the Food Tracker. 
+that uses/amends the EntryDatabase. 
 
 The `EntryDatabase` component consists of:
 - `addEntry()` Adds an Entry object to the database.
@@ -127,7 +131,7 @@ The `EntryDatabase` component consists of:
 
 The diagram below showcases the relationships between EntryDatabase object and various components.
 
-![Food Tracker Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
+![EntryDatabase Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
 
 
 ---
@@ -176,16 +180,30 @@ The class diagram below showcases the relationships between the `FoodDatabase` c
 
 ### Meal Plan Database
 
-![](diagrams/MealPlanDatabase_Class.png)
+The meal plan database is responsible for storing custom meal plans created by the user. 
+Each meal plan consists of a name, and a list of `Food` items linked to the meal plan.
+The class diagram of the `MealPlanDatabase` is shown below.
+
+![](diagrams-DG/MealPlanDatabase_Class.png)
 
 The `MealPlanDatabase` component consists of:
 - `convertFoodToString(ArrayList<Food>)` Returns a string representation of all MealPlan objects in the database.
 - `addMealPlan(MealPlan)` Adds a MealPlan object to the database.
 - `getMealAtIndex(int)` Returns the MealPlan object at that index inside the database. 
 - `convertDatabaseToString()` Returns a string presentation of the MealPlanDatabase object.
+
+![](diagrams-DG/MealPlanDatabase_convertDatabaseToString_Seq.png)
+
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
+  
+The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNus is first launched.
+
+![](diagrams-DG/MealPlanDatabase_preLoadDatabase_Seq.png)
+
 - `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
   
+![](diagrams-DG/MealPlanDatabase_listMealPlan_Seq.png)
+
 #### Implementation
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
@@ -194,80 +212,44 @@ It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class
 - Detects when all the `Food` items under each meal plan has been added and start parsing the next meal plan if it exists.
 - Add `MealPlan` object into `databaseMealPlans`, which is an `ArrayList` of `MealPlan` objects.
 
-Given below is a sequence diagram of the `preloadDatabase()` method used to populate `databaseMealPlans` once the app is first launched.
-![SetWeightSeqDiagram](./diagrams/MealPlanDatabase_preLoadDatabase_Seq.png "Set MealPlan Database Sequence Diagram")
-
-
-
 The class diagram below showcases the relationships between the `MealPlanDatabase` class and its various components.
 
-![](diagrams/MealPlanDatabase_Classes.png)
+![](diagrams-DG/MealPlanDatabase_Classes.png)
 
 
 --- 
 
 ### User component
 
-(put class diagram here)
+![User Class Diagram](diagrams-DG/User_Class.png)
 
 The `User` component:
 - Stores the user's personal data eg gender, age, height, weight
-- Stores the user's weight progress data i.e. all `WeightProgressEntry` objects (which are contained in an `ArrayList` as an attribute in `User`)
-- Performs functions related to the user's calorie goal such as setting and generating the calorie goal
+- Stores the user's weight tracker data
+  (i.e. `WeightRecord` objects which are contained in an `ArrayList` as an attribute in `User`)
+- Performs functions related to the user's daily calorie goal such as 
+generating and setting the calorie goal, and displaying remaining calories
+for the day
 
-#### Weight tracker feature
+The `User` component consists of the following main methods (helper functions were omitted):
+- `updateWeightAndWeightTracker(float)` - Sets the user's weight and updates the weight tracker.
+- `getWeightTrackerDisplay(int)` - Displays `weightRecords` (the `ArrayList` containing
+`WeightRecord` objects) in the form of a weight tracker. 
+- `getCaloriesRemaining(EntryDatabase)` - Returns the remaining number of calories that the user
+can consume for the day according to their daily calorie goal.
+- `handleGenerateCalorieGoalCommand(float, String)` - Generates and returns a calorie goal according
+to the user's body type and their desired weekly weight change.
+- `preloadUserData(BufferedReader)` - Loads the user's data from storage to the User object.
+- `preloadWeightData(BufferedReader)` - Loads the user's weight tracker data from storage to the User object.
+- `getUserDataDisplay()` - Returns a string displaying the user's data.
+- `convertUserDataToString()` - Returns user data converted to the correct format for storage.
+- `convertWeightDataToString()` - Returns weight tracker data converted 
+to the correct format for storage.
 
-The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
+The class diagram below showcases the relationships between the 
+User class and its various components.
 
-The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
-![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
-
-How updating the weight tracker works:
-
-1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
-2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
-3. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the `ArrayList` with the current date and new weight.
-
-The weight tracker can also perform the following operations:
-- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. Weight progress entries are stored in a text file in the following format:  
-  `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
-- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightProgressEntry` objects
-- `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
-
-#### Calories remaining feature
-
-The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
-
-![ViewRemainingCalorieSeqDiagram](diagrams-DG/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
-
-#### Generate and set calorie goal feature
-
-The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
-
-This is performed as shown in the following sequence diagram:
-![GenerateGoalSeqDiagram](diagrams-DG/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
-
-- The following formulas are used to generate the calorie goal:
-  - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-  - For males: calorieGoal = [[66.47 + (13.75 x weight in kg) + (5.003 x height in cm) - (6.755 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-
-
-> ⚠️ Notes about the generate and set calorie goal feature:
->- The weekly change is the absolute value of the weekly change in weight. It cannot be greater than 1.0, which is the upper bound for the recommended healthy weight change per week.
-
-#### Setting user data feature
-
-The user is able to change their personal data at any point while using the app. 
-
-Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
-![SetHeightSeqDiagram](diagrams-DG/SetHeightCommand.png "Set Height Sequence Diagram")
-
-> ⚠️ Notes about the setting user data feature:
-> - The age (in years) can only be set to an integer within the range of 12 to 100
-> - The height (in cm) can only be set to an integer within the range of 40 to 300
-> - The weight (in kg) can only be set to a number within the range of 0 to 500
-
-
+![](diagrams-DG/User_Classes.png)
 
 ---
 
@@ -317,38 +299,8 @@ The `Command` class is an abstract class that all other specific command classes
 
 The `Command` component
     
-- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds a food tracker entry to the food tracker.) 
+- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds an entry to the EntryDatabase.) 
 
-#### Add Food Entry Feature
-
-The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
-
-Additionally, it implements the following operations:
-- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-
-![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
-
-#### Edit Food Entry Feature
-
-The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
-
-Additionally, it implements the following operations:
-- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  
-![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
-
-#### List Food Entry Feature
-
-The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
-
-Additionally, they implement the following operations:
-- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
-- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
-
-![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -399,18 +351,308 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 
 ### Parser
 
-The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
+The parser component makes use of the user input String from the `FitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
 
-*   determines the type of `Command` object and returns it.
-*   handles input exceptions and returns relevant `FitNusException` command.
+##### Identifying type of method called
 
-#### Implementation
+  The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
+  If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
-*   ##### Identifying type of method called
+#### How it works
 
-    The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
+
+- `parseAddFoodCommand(input, fd, mealTypeString)`
+
+    `parseAddFoodCommand` checks whether the user is calling to add a new `Food` or a `MealPlan` and returns the corresponding `parseAddMealPlanFoodCommand` or `parseAddFoodCommand` methods. 
+This decision is done via a simple if-else check as shown in the code snippet below. `DESCRIPTOR_MEALPLAN` is defined as the String `"/mealplan"`. 
+
+     ```
+    if (mealTypeString.equals(DESCRIPTOR_MEALPLAN)) {
+    return parseAddMealPlanFoodCommand(md, input);
+    } else {
+    return parseAddFoodCommand(input, fd, mealTypeString);
+    }
+    ```
+
+- `parseAddFoodCommand(input, fd, mealTypeString)`
+
+    - `parseAddFoodCommand` returns a `AddFoodEntryCommand` object when called. The method first finds the `MealType` of the food by calling the `parseMealType` command.  
+    - The food name input by the user is then compared to the `FoodDatabase` and `tempDbFoods`, an ArrayList containing matching Food objects, is displayed
+    - If there are no matching food, a new food object will be created. `returnUserInput` will be returned and the user will be directly prompted to enter the calories and meal type of the new food.
+    - If there are matching foods, `returnUserInput` will be returned and the user will be  prompted to choose the food from the matching list. 
+
+> ⚠️ Notes about matching foods:
+>- The user is allowed to create a new `Food` object when being prompted to selected matching foods. However, the scenario has not been displayed below for the sake of clarity.
+
+
+![](diagrams-DG/Parser_parseAddFoodCommand_Seq.png)
+
+
+- `parseCreateCommand(input, fd)`
+
+    - `parseCreateCommand` creates custom meal plans when called. The method is responsible for handling all meal plan creation requests.
+    - The method calls the `readIndexesInput` from the `Ui` class and returns an ArrayList of inputs.
+    - For each valid input, the relevant Food object from the `FoodDatabase` is extracted and stored in a temporary list of Food items.
+    - Once all inputs have been parsed, a `CreateMealPlanCommand` is returned.
+
+> ⚠️ Notes about inputs:
+>-  All non-integer inputs and inputs outside the range of the database will be ignored.
+> 
+
+
+![](diagrams-DG/Parser_parseCreateCommand_Seq.png)
+
+
+- `promptUserCalories(index, mealType, foodName, newUi)`
+  - `promptUserCalories` prompts the user for extra inputs when called.
+  - The method uses 2 do-while loops to receive inputs for calories and foodType variables as shown below. An internal boolean flag, `isLoopFlagOn`, is used to handle the loop logic. The flag is set to true until a valid calorie input is entered.
+  ```
+    do {
+        userInput = parseInteger(newUi.readInput(System.in, System.out)); //getting calories
+    } while (isLoopFlagOn);
+
+    ```
+
+![](diagrams-DG/Parser_promptUserCalories_Seq.png)
+
+
+## Implementation
+
+#### Add Food Entry Feature
+
+The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+
+Given below is an example usage scenario and how the add food entry mechanism behaves at each step.
+
+1. The user executes the `add soft boiled eggs` command to add a food entry to the Entry Database. 
+2. Since the meal type was not specified, the `Parser` will automatically select the meal type based on the current timing.
+3. The `add` command calls `AddFoodEntryCommand#execute()`, which checks whether the specified food, "soft boiled eggs",
+exists in the current Food Database. 
+4. Assuming there are no such food found in the Food Database, the user will be prompted to add "soft boiled eggs" as a 
+new custom food. The user then inputs the relevant details required to add the new food. 
+5. `AddFoodEntryCommand#execute()` will create a new Food object which corresponds to the specified food. It then calls
+both `EntryDatabase#addEntry(Entry)` and `FoodDatabase#addFood()` and passes in the newly created food into these methods 
+to add "soft boiled eggs" to both the Entry Database and Food Database.
+
+The following Sequence Diagram shows how the add food entry feature works:
+
+![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
+
+#### Edit Food Entry Feature
+
+The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+
+Given below is an example usage scenario and how the edit food entry mechanism behaves at each step.
+
+1. The user executes the `edit 1 chicken cutlet` command to edit the first entry's food to "chicken cutlet".
+2. The `edit` command calls `EditFoodEntryCommand#execute()`, which checks whether the specified food, "chicken cutlet",
+   exists in the current Food Database. In this case, fortunately, there were multiple foods that were found in FitNUS's 
+Food Database. 
+3. The user is then prompted to select one of the foods found in the Food Database, the user then selects the first option, 
+"salted egg chicken cutlet".
+4. `EditFoodEntryCommand#execute()` calls `EntryDatabase#editEntryAtIndex(int, Entry)` which proceeds to change the food
+at the first entry to "salted egg chicken cutlet".
+
+The following Sequence Diagram shows how the edit food entry feature works:
+
+![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
+
+#### List Food Entry Feature
+
+The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
+- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+
+Given below is an example usage scenario and how the list food entry mechanism behaves at each step.
+
+1. The user executes the `list /entry /week` command to list out all entries in the past week. 
+2. This calls `ListFoodEntryWeekCommand#execute()`, which creates a temporary EntryDatabase by calling
+`EntryDatabase#getPastDaysEntryDatabase(int)` with '7' as its parameter (Since there are 7 days a week).
+3. `EntryDatabase#getPastDaysEntryDatabase(int)` then returns a EntryDatabase with entries of the past 7 days.
+4. With the new temporary EntryDatabase, `EntryDatabase#listEntries()` then displays the past week's entries
+to the user.
+
+The following Sequence Diagrams shows how the list food entry feature works:
+
+![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+
+#### Delete Food Entry Feature
+
+The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from EntryDatabase.
+
+Given below is an example usage scenario and how the delete food entry mechanism behaves at each step.
+
+1. The user executes the `delete /entry 2` command to delete the second entry from the EntryDatabase.
+2. This calls `DeleteEntryCommand#execute()`, which then calls `EntryDatabase#deleteEntry(int)` with '2' as its parameter
+   (Since the user wishes to delete the second entry).
+3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
 
 ## Instructions for manual testing
+
+### User Profile Setup and Editing
+
+This feature allows the user to set up and
+edit various attributes of their user profile such as their
+gender, height, weight, age and daily calorie goal.
+Given below is an example usage scenario and
+how the user profile setup and editing
+mechanism behaves at each step respectively.
+
+#### User Profile Setup
+
+1. The user launches the application, causing `FitNUS#initialiseFitNUS`
+to be called. Since this is the first time the user is using the app,
+the `user.txt` file containing the user data does not exist yet,
+prompting FitNUS to create an empty text file storing the user data
+(user.txt). 
+
+2. Since the text file is empty, the check for whether
+the user data in the storage is valid returns false, causing FitNUS to
+begin the user profile setup process.
+
+    > ⚠️ Note: If `user.txt` is not empty but the user data is
+    in an invalid or incomplete format, 
+    the user profile setup process is continued. 
+
+3. FitNUS begins the gender setting process by calling 
+`FitNUS#initialiseAttribute` for the gender. This prompts the user to 
+enter the character indicating their gender. 
+The entered character is appended to a string 
+"gender /set " (eg if the user entered "m", the string becomes
+ "gender /set m"). This string is passed into `Parser#parseCommandType`.
+
+4. If the user input for the character indicating the gender is valid,
+`Parser#parseCommandType` returns the corresponding `SetGenderCommand` object.
+The `execute` method of the `SetGenderCommand` object is called, which
+sets the `gender` attribute of the `User` object. This terminates the 
+gender initialisation process.
+
+5. If any `FitNUSException` was thrown in steps 4 and 5 due to invalid user
+input, steps 4 and 5 are repeated until no exception is thrown (i.e. valid
+user input was received).
+
+6. Steps 3 to 6 are repeated for `age`, `height` and `weight` attributes.
+
+7. A daily calorie goal that allows the user to maintain their current weight
+is generated by calling `User#calculateCalorieGoal`
+and the `calorieGoal` attribute is set to the generated goal. 
+
+#### User Profile Editing
+
+1. The user executes the `height /set 180` command to set their height to 180cm. 
+`SetHeightCommand#execute` is called, which sets the `height` attribute
+of the `User` object to 180 by calling `User#setHeight`.
+
+### Record Weight
+
+This feature allows the user to record their weight for the day in the
+weight tracker and also update their weight in their user profile.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `weight /set 65.5` command to set their weight to 65.5 kg.
+`SetWeightCommand#execute` is called, which calls `User#updateWeightAndWeightTracker`.
+2. The `weight` attribute of the `User` object is set to 65.5.
+3. If a weight record for the current day already exists in the weight tracker,
+that record is replaced with another record with the updated weight. Otherwise, a
+new weight record with the updated weight is created and added to the weight tracker.
+
+### Generate Calorie Goal
+This feature allows the user to generate a daily calorie goal
+according to their body type and their desired weekly weight change
+and set that as their daily goal.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `calorie /generate /lose 0.1` command to 
+generate a calorie goal that allows them to lose 0.1 kg per week
+and set that as their daily goal. `GenerateCalorieGoalCommand#execute` is called, 
+which calls `User#handleGenerateCalorieGoalCommand`. 
+2. If no exceptions were thrown, `User#calculateCalorieGoal` is called, which 
+calculates the calorie goal accordingly and returns it.
+3. `User#setCalorieGoal` is called to set the user's calorie goal to the generated
+goal.
+
+### View Remaining Calories
+
+This feature allows the user to view how many calories they have remaining
+for the day before they hit their daily calorie goal. 
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `calorie /remain` command to view their remaining calories
+for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#getCaloriesRemaining`.
+2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
+entries in the food tracker. This is subtracted from the user's daily calorie goal. 
+The resulting calories remaining is then displayed to the user. 
+
+### Add Food Entry
+
+**Add from existing database**
+
+Test case: `add /bfast chicken cutlet`
+
+Expected: User to be able to choose from a list of food from existing database which includes "chicken cutlet"
+
+**Add a custom food entry**
+
+Test case: `add /snack vanilla icecream`
+
+Expected: User to be able to add a new food entry "vanilla icecream" since it does not exist in the existing database
+
+### Edit Food Entry
+
+Prerequisite: User must have **1 or more** existing food entries
+
+Test case: `edit 1 chicken rice`
+
+Expected: User to be able to choose from a list of food from existing database to edit the first entry to
+
+### List Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries
+
+**List entries for the day**
+
+Test case: `list /entry /day`
+
+Expected: User should be able to see all food entries that was logged in today
+
+**List entries for the past week**
+
+Test case: `list /entry /week`
+
+Expected: User should be able to see all food entries that was logged in the past week
+
+### Delete Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries
+
+Test case: `remove /entry 1`
+
+Expected: The first entry is deleted
+
+### Find Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries consisting of the keyword "chicken"
+
+Test case: `find /entry chicken`
+
+Expected: User should be able to see all entries consisting of the keyword "chicken"
 
 =======
 <h4>Storage format</h4>
@@ -487,11 +729,33 @@ then compared with default list of commands to determine the type of method call
 </li></ul></li>
 
 
-<h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
+## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Delete food
+1. Delete food inside the food database at certain index.
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `remove /food 2`
+Expected: delete the 2nd food at the food database successfully.
+4. Other incorrect commands to try:
+  - `remove /food` (the index for food is mandatory)
+  - `remove /food a` (the index is supposed to be an integer)
+
+### Find food
+1. find food inside the food database according to keywords.
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `remove /food rice`
+   Expected: returns all the foods inside the food database contain the keyword "rice".
+4. Other incorrect commands to try:
+- `remove /food` (the keyword for searching is mandatory)
+
+### List foods
+1. List all foods inside food database
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `list /food`
+   Expected: returns all the foods inside the food database.
 
 ## NF Requirements
 
-1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
-2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
+2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
+3. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.

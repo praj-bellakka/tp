@@ -30,7 +30,6 @@ class StorageTest {
     private static final String ENTRY_DATA = "Lunch | ramen | 600 | 2021-10-25 | MEAL\n"
             + "Lunch | rice | 800 | 2021-10-25 | MEAL\n";
 
-
     //Utility method
     private static void saveData(String filePath, String content) throws IOException {
         File file = new File(filePath);
