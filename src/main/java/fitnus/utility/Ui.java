@@ -104,7 +104,6 @@ public class Ui {
     public static void printPromptUserFoodInput(String foodName) {
         System.out.println("Oops! \"" + foodName + "\" does not exist in the database!");
         Ui.print(Ui.DIVIDER);
-        Ui.print(Ui.USER_INPUT);
     }
 
     public static void printOutOfRangeInputInteger(int num) {
