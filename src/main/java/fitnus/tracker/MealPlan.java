@@ -6,6 +6,12 @@ public class MealPlan {
     private final String mealPlanName;
     private final ArrayList<Food> mealFoods;
 
+    /**
+     * Constructor.
+     *
+     * @param mealPlanName     Name of the meal plan object.
+     * @param mealFoods ArrayList of Food objects.
+     */
     public MealPlan(String mealPlanName, ArrayList<Food> mealFoods) {
         this.mealPlanName = mealPlanName;
         this.mealFoods = mealFoods;
@@ -19,6 +25,12 @@ public class MealPlan {
         return this.mealFoods;
     }
 
+    /**
+     * Returns a string representation of all Food objects inside mealFoods.
+     * Returns empty string if mealFoods is empty.
+     *
+     * @return String representation of all Food objects inside mealFoods.
+     */
     public String getFoodString() {
         String str = "";
         for (Food item : mealFoods) {

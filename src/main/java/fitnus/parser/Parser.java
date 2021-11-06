@@ -497,6 +497,14 @@ public class Parser {
         return foodName;
     }
 
+    /**
+     * Returns a FoodType based on input string.
+     * Throws FitNusException if input does not match pre-defined FoodTypes.
+     *
+     * @param type String containing FoodType.
+     * @return FoodType object related to input.
+     * @throws FitNusException Thrown when specified FoodType input does not exist.
+     */
     public static Food.FoodType parseFoodType(String type) throws FitNusException {
         String typeString = type.toLowerCase(Locale.ROOT);
         switch (typeString) {
@@ -922,6 +930,12 @@ public class Parser {
         throw new FitNusException("Edit Parser Error");
     }
 
+    /**
+     * Returns LocalDate object based on input description.
+     *
+     * @param description String containing date.
+     * @return LocalDate representing description.
+     */
     private static LocalDate parseDate(String description) {
         LocalDate date;
         try {

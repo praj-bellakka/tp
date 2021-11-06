@@ -15,6 +15,14 @@ public class MealPlanDatabase {
     private static final String MEAL_PLAN_DECODER = "--------";
     private static final String DELIMITER = " | ";
 
+    /**
+     * Returns the MealPlan object at the index specified inside databaseMealPlans.
+     * Throws FitNusException if index specified is either below 1 or outside the range of the database.
+     *
+     * @param index Integer specified.
+     * @return MealPlan object at the index specified inside databaseMealPlans.
+     * @throws FitNusException Thrown when no MealPlan is found at that index.
+     */
     public MealPlan getMealAtIndex(int index) throws FitNusException {
         if (index > 0 && index <= databaseMealPlans.size()) {
             return databaseMealPlans.get(index - 1);
@@ -24,6 +32,12 @@ public class MealPlanDatabase {
         }
     }
 
+    /**
+     * Adds MealPlan object into databaseMealPlans.
+     *
+     * @param plan MealPlan object to be added.
+     * @throws FitNusException Thrown when MealPlan does not contain any Food objects.
+     */
     public void addMealPlan(MealPlan plan) throws FitNusException {
         if (plan.getMealFoods().size() > 0) {
             databaseMealPlans.add(plan);
@@ -32,6 +46,12 @@ public class MealPlanDatabase {
         }
     }
 
+    /**
+     * Returns String representation of all meal plan objects inside databaseMealPlans.
+     * Each meal plan is listed by its name, followed by all its Food items associated with it.
+     *
+     * @return String representation of all MealPlan objects in database.
+     */
     public String listMealPlan() {
         StringBuilder list = new StringBuilder();
         if (databaseMealPlans.size() == 0) {
@@ -51,6 +71,11 @@ public class MealPlanDatabase {
         return list.toString();
     }
 
+    /**
+     * Converts the database content to String form.
+     *
+     * @return The database content as String.
+     */
     public String convertDatabaseToString() {
         StringBuilder lines = new StringBuilder();
         for (MealPlan plan : databaseMealPlans) {
@@ -61,6 +86,11 @@ public class MealPlanDatabase {
         return lines.toString();
     }
 
+    /**
+     * Converts an ArrayList of Food items to String.
+     *
+     * @return The Food ArrayList as String.
+     */
     private String convertFoodToString(ArrayList<Food> foodList) {
         StringBuilder lines = new StringBuilder();
         for (Food food : foodList) {
@@ -69,6 +99,12 @@ public class MealPlanDatabase {
         return lines.toString();
     }
 
+    /**
+     * Preloads meal plans from meal plan database.
+     *
+     * @param reader Reads from the file.
+     * @throws IOException If an I/O error occurs.
+     */
     public void preloadDatabase(BufferedReader reader) throws IOException {
         int preloadMealPlanCount = 0;
         String line;
