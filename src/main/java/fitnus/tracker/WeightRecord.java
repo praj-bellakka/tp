@@ -2,12 +2,12 @@ package fitnus.tracker;
 
 import java.time.LocalDate;
 
-public class WeightProgressEntry {
+public class WeightRecord {
 
     private float weight;
     private LocalDate date;
 
-    public WeightProgressEntry(float weight, LocalDate date) {
+    public WeightRecord(float weight, LocalDate date) {
         this.weight = weight;
         this.date = date;
     }

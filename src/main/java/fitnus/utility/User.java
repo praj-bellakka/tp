@@ -3,7 +3,7 @@ package fitnus.utility;
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.tracker.Gender;
-import fitnus.tracker.WeightProgressEntry;
+import fitnus.tracker.WeightRecord;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class User {
     private int age;
     private int height;
     private float weight;
-    private final ArrayList<WeightProgressEntry> weightProgressEntries = new ArrayList<>();
+    private final ArrayList<WeightRecord> weightRecords = new ArrayList<>();
 
     //constants
     private static final String DELIMITER = " | ";
@@ -102,12 +102,12 @@ public class User {
         this.age = age;
     }
 
-    public ArrayList<WeightProgressEntry> getWeightProgressEntries() {
-        return weightProgressEntries;
+    public ArrayList<WeightRecord> getWeightRecords() {
+        return weightRecords;
     }
 
-    public void addToWeightProgressEntries(WeightProgressEntry entry) {
-        weightProgressEntries.add(entry);
+    public void addToWeightRecords(WeightRecord entry) {
+        weightRecords.add(entry);
     }
 
     /**
@@ -122,15 +122,15 @@ public class User {
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
-        if (weightProgressEntries.size() == 0) {
-            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+        if (weightRecords.size() == 0) {
+            weightRecords.add(new WeightRecord(newWeight, currDate));
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
 
         updateWeightTrackerIfHavePreviousEntries(newWeight, currDate);
 
-        if (weightProgressEntries.size() >= 2) { //If weight tracker has more than 2 entries after updating
-            WeightProgressEntry previousEntry = weightProgressEntries.get(weightProgressEntries.size() - 2);
+        if (weightRecords.size() >= 2) { //If weight tracker has more than 2 entries after updating
+            WeightRecord previousEntry = weightRecords.get(weightRecords.size() - 2);
             float weightDifference = getWeightDifference(newWeight, previousEntry);
             String changeType = getChangeType(weightDifference);
             weightDifference = Math.abs(weightDifference);
@@ -153,12 +153,12 @@ public class User {
      * @param currDate  The current date.
      */
     public void updateWeightTrackerIfHavePreviousEntries(float newWeight, LocalDate currDate) {
-        WeightProgressEntry latestEntry = weightProgressEntries.get(weightProgressEntries.size() - 1);
-        if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight progress entry
+        WeightRecord latestEntry = weightRecords.get(weightRecords.size() - 1);
+        if (latestEntry.getDate().toString().equals(currDate.toString())) { //Update today's weight record
             latestEntry.setWeight(newWeight);
-            weightProgressEntries.set(weightProgressEntries.size() - 1, latestEntry);
+            weightRecords.set(weightRecords.size() - 1, latestEntry);
         } else {
-            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
+            weightRecords.add(new WeightRecord(newWeight, currDate));
         }
     }
 
@@ -169,7 +169,7 @@ public class User {
      * @param newWeight New weight to be set.
      * @return The weight difference.
      */
-    public float getWeightDifference(float newWeight, WeightProgressEntry previousEntry) {
+    public float getWeightDifference(float newWeight, WeightRecord previousEntry) {
         float weightDifference = previousEntry.getWeight() - newWeight;
         weightDifference = (float) (Math.round(weightDifference * 10.0) / 10.0);
         return weightDifference;
@@ -186,12 +186,12 @@ public class User {
     }
 
     /**
-     * Converts the weightProgressEntries ArrayList into a String of the list of weight records.
+     * Converts the weightRecords ArrayList into a String of the list of weight records.
      *
      * @return The list of weight records.
-     * @throws FitNusException if weightProgressEntries is empty.
+     * @throws FitNusException if weightRecords is empty.
      */
-    public String convertWeightRecordsToStringForUi(ArrayList<WeightProgressEntry> relevantEntries)
+    public String convertWeightRecordsToStringForUi(ArrayList<WeightRecord> relevantEntries)
             throws FitNusException {
         StringBuilder lines = new StringBuilder();
 
@@ -200,7 +200,7 @@ public class User {
         }
 
         boolean isFirstEntry = true;
-        for (WeightProgressEntry e : relevantEntries) {
+        for (WeightRecord e : relevantEntries) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
             String date = e.getDate().toString();
@@ -218,10 +218,10 @@ public class User {
      * Creates a String that displays the weight tracker for the UI.
      *
      * @return The weight tracker display.
-     * @throws FitNusException if weightProgressEntries is empty.
+     * @throws FitNusException if weightRecords is empty.
      */
-    public String getWeightProgressDisplay(int month) throws FitNusException {
-        ArrayList<WeightProgressEntry> relevantEntries = new ArrayList<>();
+    public String getWeightTrackerDisplay(int month) throws FitNusException {
+        ArrayList<WeightRecord> relevantEntries = new ArrayList<>();
 
         relevantEntries = getRelevantWeightEntries(month);
 
@@ -241,7 +241,7 @@ public class User {
                         + convertWeightRecordsToStringForUi(relevantEntries);
             }
         } else {
-            WeightProgressEntry previousEntry = relevantEntries.get(0);
+            WeightRecord previousEntry = relevantEntries.get(0);
             float currentWeight = relevantEntries.get(relevantEntries.size() - 1).getWeight();
 
             float weightDifference = getWeightDifference(currentWeight, previousEntry);
@@ -270,13 +270,16 @@ public class User {
      * @param month The integer representation of the month or 0 to represent "all time".
      * @return The relevant weight tracker entries.
      */
-    public ArrayList<WeightProgressEntry> getRelevantWeightEntries(int month) {
-        ArrayList<WeightProgressEntry> relevantEntries = new ArrayList<>();
+    public ArrayList<WeightRecord> getRelevantWeightEntries(int month) {
+        ArrayList<WeightRecord> relevantEntries = new ArrayList<>();
         if (month == ALL_MONTHS) {
-            relevantEntries = weightProgressEntries;
+            relevantEntries = weightRecords;
         } else {
-            for (WeightProgressEntry e : weightProgressEntries) {
-                if (e.getDate().getMonthValue() == month) {
+            int currYear = LocalDate.now().getYear();
+
+            for (WeightRecord e : weightRecords) {
+                LocalDate date = e.getDate();
+                if (date.getMonthValue() == month && date.getYear() == currYear) {
                     relevantEntries.add(e);
                 }
             }
@@ -427,7 +430,7 @@ public class User {
             try {
                 float weight = Float.parseFloat(description[0]);
                 LocalDate date = LocalDate.parse(description[1]);
-                weightProgressEntries.add(new WeightProgressEntry(weight, date));
+                weightRecords.add(new WeightRecord(weight, date));
             } catch (IndexOutOfBoundsException e) {
                 logger.log(Level.WARNING, "Error processing weight data (missing inputs)");
                 Ui.printPreloadDatabaseError();
@@ -449,7 +452,7 @@ public class User {
                 + "Gender: " + this.gender.toString() + System.lineSeparator()
                 + "Age: " + this.age + System.lineSeparator()
                 + "Weight: " + this.weight + System.lineSeparator()
-                + "Height: " + this.height + System.lineSeparator();
+                + "Height: " + this.height;
     }
 
     /**
@@ -472,7 +475,7 @@ public class User {
      */
     public String convertWeightDataToString() {
         StringBuilder lines = new StringBuilder();
-        for (WeightProgressEntry e : weightProgressEntries) {
+        for (WeightRecord e : weightRecords) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
             String date = e.getDate().toString();

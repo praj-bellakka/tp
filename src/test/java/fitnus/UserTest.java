@@ -6,7 +6,7 @@ import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 import fitnus.tracker.Gender;
 import fitnus.tracker.MealType;
-import fitnus.tracker.WeightProgressEntry;
+import fitnus.tracker.WeightRecord;
 import fitnus.utility.User;
 import org.junit.jupiter.api.Test;
 
@@ -42,10 +42,10 @@ class UserTest {
         assertEquals((float) 55.5, user.getWeight());
 
         LocalDate currDate = LocalDate.now();
-        ArrayList<WeightProgressEntry> weightProgressEntries = user.getWeightProgressEntries();
-        int weightTrackerSize = weightProgressEntries.size();
-        assertEquals(currDate.toString(), weightProgressEntries.get(weightTrackerSize - 1).getDate().toString());
-        assertEquals((float) 55.5, weightProgressEntries.get(weightTrackerSize - 1).getWeight());
+        ArrayList<WeightRecord> weightRecords = user.getWeightRecords();
+        int weightTrackerSize = weightRecords.size();
+        assertEquals(currDate.toString(), weightRecords.get(weightTrackerSize - 1).getDate().toString());
+        assertEquals((float) 55.5, weightRecords.get(weightTrackerSize - 1).getWeight());
     }
 
     @Test
@@ -57,16 +57,16 @@ class UserTest {
         assertEquals((float) 55.5, user.getWeight());
 
         LocalDate currDate = LocalDate.now();
-        ArrayList<WeightProgressEntry> weightProgressEntries = user.getWeightProgressEntries();
-        int weightTrackerSize = weightProgressEntries.size();
-        assertEquals(currDate.toString(), weightProgressEntries.get(weightTrackerSize - 1).getDate().toString());
-        assertEquals((float) 55.5, weightProgressEntries.get(weightTrackerSize - 1).getWeight());
+        ArrayList<WeightRecord> weightRecords = user.getWeightRecords();
+        int weightTrackerSize = weightRecords.size();
+        assertEquals(currDate.toString(), weightRecords.get(weightTrackerSize - 1).getDate().toString());
+        assertEquals((float) 55.5, weightRecords.get(weightTrackerSize - 1).getWeight());
     }
 
     @Test
     void updateWeightAndWeightTracker_multipleEntriesExistIncludingCurrentDay_success() throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));
+        user.addToWeightRecords(new WeightRecord(70, LocalDate.parse("2001-10-03")));
         user.updateWeightAndWeightTracker((float) 65.5);
         String message = user.updateWeightAndWeightTracker((float) 55.5);
         assertEquals("You have updated your weight for today to 55.5 kg!\nYou have lost 14.5 kg "
@@ -74,26 +74,26 @@ class UserTest {
         assertEquals((float) 55.5, user.getWeight());
 
         LocalDate currDate = LocalDate.now();
-        ArrayList<WeightProgressEntry> weightProgressEntries = user.getWeightProgressEntries();
-        int weightTrackerSize = weightProgressEntries.size();
-        assertEquals(currDate.toString(), weightProgressEntries.get(weightTrackerSize - 1).getDate().toString());
-        assertEquals((float) 55.5, weightProgressEntries.get(weightTrackerSize - 1).getWeight());
+        ArrayList<WeightRecord> weightRecords = user.getWeightRecords();
+        int weightTrackerSize = weightRecords.size();
+        assertEquals(currDate.toString(), weightRecords.get(weightTrackerSize - 1).getDate().toString());
+        assertEquals((float) 55.5, weightRecords.get(weightTrackerSize - 1).getWeight());
     }
 
     @Test
     void updateWeightAndWeightTracker_multipleEntriesExistExcludingCurrentDay_success() throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));
+        user.addToWeightRecords(new WeightRecord(70, LocalDate.parse("2001-10-03")));
         String message = user.updateWeightAndWeightTracker((float) 55.5);
         assertEquals("You have updated your weight for today to 55.5 kg!\nYou have lost 14.5 kg "
                 + "from the previous weight entry of 70.0 kg on 2001-10-03", message);
         assertEquals((float) 55.5, user.getWeight());
 
         LocalDate currDate = LocalDate.now();
-        ArrayList<WeightProgressEntry> weightProgressEntries = user.getWeightProgressEntries();
-        int weightTrackerSize = weightProgressEntries.size();
-        assertEquals(currDate.toString(), weightProgressEntries.get(weightTrackerSize - 1).getDate().toString());
-        assertEquals((float) 55.5, weightProgressEntries.get(weightTrackerSize - 1).getWeight());
+        ArrayList<WeightRecord> weightRecords = user.getWeightRecords();
+        int weightTrackerSize = weightRecords.size();
+        assertEquals(currDate.toString(), weightRecords.get(weightTrackerSize - 1).getDate().toString());
+        assertEquals((float) 55.5, weightRecords.get(weightTrackerSize - 1).getWeight());
     }
 
     @Test
@@ -106,18 +106,18 @@ class UserTest {
     @Test
     void convertWeightRecordsToStringForUi_oneOrMoreWeightEntries_success() throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));
+        user.addToWeightRecords(new WeightRecord(70, LocalDate.parse("2001-10-03")));
         user.updateWeightAndWeightTracker((float) 55.5);
         assertEquals("2001-10-03: 70.0kg" + System.lineSeparator()
                         + LocalDate.now().toString() + ": 55.5kg",
-                user.convertWeightRecordsToStringForUi(user.getWeightProgressEntries()));
+                user.convertWeightRecordsToStringForUi(user.getWeightRecords()));
     }
 
     @Test
     void convertWeightRecordsToStringForUi_noWeightEntries_exceptionThrown() {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
         Exception exception = assertThrows(FitNusException.class,
-            () -> user.convertWeightRecordsToStringForUi(user.getWeightProgressEntries()));
+            () -> user.convertWeightRecordsToStringForUi(user.getWeightRecords()));
         assertEquals("An error has occurred! No weight records found.", exception.getMessage());
     }
 
@@ -185,8 +185,8 @@ class UserTest {
     @Test
     void convertWeightDataToString_weightEntriesExist_success() {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        user.addToWeightProgressEntries(new WeightProgressEntry(70, LocalDate.parse("2001-10-03")));
-        user.addToWeightProgressEntries(new WeightProgressEntry(65, LocalDate.parse("2001-10-04")));
+        user.addToWeightRecords(new WeightRecord(70, LocalDate.parse("2001-10-03")));
+        user.addToWeightRecords(new WeightRecord(65, LocalDate.parse("2001-10-04")));
         assertEquals("70.0 | 2001-10-03" + System.lineSeparator()
                 + "65.0 | 2001-10-04" + System.lineSeparator(), user.convertWeightDataToString());
     }
