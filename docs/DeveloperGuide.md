@@ -224,12 +224,12 @@ The class diagram below showcases the relationships between the `MealPlanDatabas
 
 The `User` component:
 - Stores the user's personal data eg gender, age, height, weight
-- Stores the user's weight progress data i.e. all `WeightProgressEntry` objects (which are contained in an `ArrayList` as an attribute in `User`)
+- Stores the user's weight progress data i.e. all `WeightRecord` objects (which are contained in an `ArrayList` as an attribute in `User`)
 - Performs functions related to the user's calorie goal such as setting and generating the calorie goal
 
 #### Weight tracker feature
 
-The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
+The weight tracker consists of the `ArrayList` of `WeightRecord` objects. Each `WeightRecord` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
 
 The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
 ![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
@@ -238,12 +238,14 @@ How updating the weight tracker works:
 
 1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
 2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
-3. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the `ArrayList` with the current date and new weight.
+3. If the latest weight record was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). 
+Otherwise, a new weight record is created in the `ArrayList` with the current date and new weight.
 
 The weight tracker can also perform the following operations:
-- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. Weight progress entries are stored in a text file in the following format:  
+- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. 
+Weight records are stored in a text file in the following format:  
   `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
-- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightProgressEntry` objects
+- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightRecord` objects
 - `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
 
 #### Calories remaining feature
@@ -501,9 +503,20 @@ that record is replaced with another record with the updated weight. Otherwise, 
 new weight record with the updated weight is created and added to the weight tracker.
 
 ### Generate Calorie Goal
+This feature allows the user to generate a daily calorie goal
+according to their body type and their desired weekly weight change
+and set that as their daily goal.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
 
-1. The user executes the `weight /set 65.5` command to set their weight to 65.5 kg.
-   `SetWeightCommand#execute` is called, which calls `User#updateWeightAndWeightTracker`.
+1. The user executes the `calorie /generate /lose 0.1` command to 
+generate a calorie goal that allows them to lose 0.1 kg per week
+and set that as their daily goal. `GenerateCalorieGoalCommand#execute` is called, 
+which calls `User#handleGenerateCalorieGoalCommand`. 
+2. If no exceptions were thrown, `User#calculateCalorieGoal` is called, which 
+calculates the calorie goal accordingly and returns it.
+3. `User#setCalorieGoal` is called to set the user's calorie goal to the generated
+goal.
 
 ### View Remaining Calories
 
