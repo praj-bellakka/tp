@@ -1,4 +1,4 @@
-# Brendan Lau - Project Portfolio Page
+# Brendan Lau Siew Zhi (brendanlsz) - Project Portfolio Page
 
 ## Product Overview
 FitNUS Tracker is a desktop app for tracking daily food intake to help users keep a healthy lifestyle. 
@@ -49,7 +49,9 @@ the food type they specify.
 - Design and implementation: `Storage`
   - Added a UML sequence diagram demonstrating the process of saving the `FoodDatabase`
   data to text file.
-  - Provided explanation on the implementation as well as considerations taken into account.
+  - Added a UML sequence diagram demonstrating the process of preloading the `FoodDatabase`
+  data from text file.
+  - Provided explanation on the implementation as well as design considerations taken into account.
 - Design and implementation: `FoodDatabase`
   - Added a UML class diagram to highlight the relationships between the `FoodDatabase` 
   class and various components.
