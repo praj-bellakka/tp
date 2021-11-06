@@ -487,11 +487,33 @@ then compared with default list of commands to determine the type of method call
 </li></ul></li>
 
 
-<h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
+## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Delete food
+1. Delete food inside the food database at certain index.
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `remove /food 2`
+Expected: delete the 2nd food at the food database successfully.
+4. Other incorrect commands to try:
+  - `remove /food` (the index for food is mandatory)
+  - `remove /food a` (the index is supposed to be an integer)
+
+### Find food
+1. find food inside the food database according to keywords.
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `remove /food rice`
+   Expected: returns all the foods inside the food database contain the keyword "rice".
+4. Other incorrect commands to try:
+- `remove /food` (the keyword for searching is mandatory)
+
+### List foods
+1. List all foods inside food database
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `list /food`
+   Expected: returns all the foods inside the food database.
 
 ## NF Requirements
 
-1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
-2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
+2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
+3. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.

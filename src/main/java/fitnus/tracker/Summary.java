@@ -3,24 +3,27 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
-import fitnus.exception.FitNusException;
-
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.time.Period;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Summary class is responsible for generating a diet summary for users based on day ranges.
+ */
 public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
     private static final String SQUARE = "#";
     private final ArrayList<Entry> entries;
     private int days;
 
+    /**
+     * Constructor for a Summary object.
+     *
+     * @param ed EntryDatabase to use to give summary
+     * @param days the range of days to cover of summary
+     */
     public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
         this.entries = ed.getEntries();
@@ -37,6 +40,11 @@ public class Summary {
         }
     }
 
+    /**
+     * Gets the most and least frequently eaten food by the user based on certain day ranges.
+     *
+     * @return Returns the most and least frequently eaten foods and the corresponding times.
+     */
     private String getMostAndLeastEatenFood() {
         HashMap<String, Integer> occurrence = new HashMap<>();
 
@@ -98,6 +106,13 @@ public class Summary {
         return totalCalories / days;
     }
 
+    /**
+     * Draw a horizontal calorie graph based on the calorie intake
+     *
+     * @param calorie Total calorie intake on someday
+     * @param unit the unit for each #
+     * @return convert the calorie integer to a graph drawing
+     */
     private static String drawGraphSquares(int calorie, int unit) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < calorie / unit; i++) {
@@ -106,6 +121,11 @@ public class Summary {
         return builder.toString();
     }
 
+    /**
+     * Draw a horizontal calorie intake trend graph over the past week
+     *
+     * @return convert the calorie intake over the past week to a graph.
+     */
     private String getWeekCalorieTrendGraph() {
         StringBuilder output = new StringBuilder();
         LocalDate date;
