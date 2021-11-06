@@ -139,7 +139,7 @@ public class EntryDatabase {
                 Ui.println(e.getMessage());
             }
         }
-        Ui.println("Successfully preloaded " + preloadEntryCount + " entries");
+        Ui.println("Preloaded " + preloadEntryCount + " entries");
     }
 
     /**

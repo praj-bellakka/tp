@@ -213,7 +213,7 @@ public class FoodDatabase {
                 }
             }
         }
-        Ui.println("Successfully preloaded " + preloadFoodCount + " foods");
+        Ui.println("Preloaded " + preloadFoodCount + " foods");
     }
 
     /**
