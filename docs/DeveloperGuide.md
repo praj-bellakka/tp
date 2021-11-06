@@ -22,6 +22,7 @@
    - [List Food Entry](#list-food-entry)
    - [Delete Food Entry](#delete-food-entry)
 6. [Instruction for manual testing](#instructions-for-manual-testing)
+    - [Add Food Entry](#add-food-entry-instructions)
 7. [Non-functional Requirement](#nf-requirements)
 
 ## Product scope
@@ -436,6 +437,60 @@ The parser component makes use of the user input String from the `fitNus` class 
 ### 
 
 ## Instructions for manual testing
+
+### Add Food Entry
+
+**Add from existing database**
+
+Test case: `add /bfast chicken cutlet`
+
+Expected: User to be able to choose from a list of food from existing database which includes "chicken cutlet"
+
+**Add a custom food entry**
+
+Test case: `add /snack vanilla icecream`
+
+Expected: User to be able to add a new food entry "vanilla icecream" since it does not exist in the existing database
+
+### Edit Food Entry
+
+Prerequisite: User must have **1 or more** existing food entries
+
+Test case: `edit 1 chicken rice`
+
+Expected: User to be able to choose from a list of food from existing database to edit the first entry to
+
+### List Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries
+
+**List entries for the day**
+
+Test case: `list /entry /day`
+
+Expected: User should be able to see all food entries that was logged in today
+
+**List entries for the past week**
+
+Test case: `list /entry /week`
+
+Expected: User should be able to see all food entries that was logged in the past week
+
+### Delete Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries
+
+Test case: `remove /entry 1`
+
+Expected: The first entry is deleted
+
+### Find Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries consisting of the keyword "chicken"
+
+Test case: `find /entry chicken`
+
+Expected: User should be able to see all entries consisting of the keyword "chicken"
 
 =======
 <h4>Storage format</h4>
