@@ -22,6 +22,7 @@
    - [List Food Entry](#list-food-entry)
    - [Delete Food Entry](#delete-food-entry)
 6. [Instruction for manual testing](#instructions-for-manual-testing)
+    - [Add Food Entry](#add-food-entry-instructions)
 7. [Non-functional Requirement](#nf-requirements)
 
 ## Product scope
@@ -220,66 +221,35 @@ The class diagram below showcases the relationships between the `MealPlanDatabas
 
 ### User component
 
-(put class diagram here)
+![User Class Diagram](diagrams-DG/User_Class.png)
 
 The `User` component:
 - Stores the user's personal data eg gender, age, height, weight
-- Stores the user's weight progress data i.e. all `WeightProgressEntry` objects (which are contained in an `ArrayList` as an attribute in `User`)
-- Performs functions related to the user's calorie goal such as setting and generating the calorie goal
+- Stores the user's weight tracker data
+  (i.e. `WeightRecord` objects which are contained in an `ArrayList` as an attribute in `User`)
+- Performs functions related to the user's daily calorie goal such as 
+generating and setting the calorie goal, and displaying remaining calories
+for the day
 
-#### Weight tracker feature
+The `User` component consists of the following main methods (helper functions were omitted):
+- `updateWeightAndWeightTracker(float)` - Sets the user's weight and updates the weight tracker.
+- `getWeightTrackerDisplay(int)` - Displays `weightRecords` (the `ArrayList` containing
+`WeightRecord` objects) in the form of a weight tracker. 
+- `getCaloriesRemaining(EntryDatabase)` - Returns the remaining number of calories that the user
+can consume for the day according to their daily calorie goal.
+- `handleGenerateCalorieGoalCommand(float, String)` - Generates and returns a calorie goal according
+to the user's body type and their desired weekly weight change.
+- `preloadUserData(BufferedReader)` - Loads the user's data from storage to the User object.
+- `preloadWeightData(BufferedReader)` - Loads the user's weight tracker data from storage to the User object.
+- `getUserDataDisplay()` - Returns a string displaying the user's data.
+- `convertUserDataToString()` - Returns user data converted to the correct format for storage.
+- `convertWeightDataToString()` - Returns weight tracker data converted 
+to the correct format for storage.
 
-The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
+The class diagram below showcases the relationships between the 
+User class and its various components.
 
-The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
-![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
-
-How updating the weight tracker works:
-
-1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
-2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
-3. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the `ArrayList` with the current date and new weight.
-
-The weight tracker can also perform the following operations:
-- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. Weight progress entries are stored in a text file in the following format:  
-  `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
-- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightProgressEntry` objects
-- `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
-
-#### Calories remaining feature
-
-The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
-
-![ViewRemainingCalorieSeqDiagram](diagrams-DG/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
-
-#### Generate and set calorie goal feature
-
-The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
-
-This is performed as shown in the following sequence diagram:
-![GenerateGoalSeqDiagram](diagrams-DG/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
-
-- The following formulas are used to generate the calorie goal:
-  - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-  - For males: calorieGoal = [[66.47 + (13.75 x weight in kg) + (5.003 x height in cm) - (6.755 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-
-
-> ⚠️ Notes about the generate and set calorie goal feature:
->- The weekly change is the absolute value of the weekly change in weight. It cannot be greater than 1.0, which is the upper bound for the recommended healthy weight change per week.
-
-#### Setting user data feature
-
-The user is able to change their personal data at any point while using the app. 
-
-Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
-![SetHeightSeqDiagram](diagrams-DG/SetHeightCommand.png "Set Height Sequence Diagram")
-
-> ⚠️ Notes about the setting user data feature:
-> - The age (in years) can only be set to an integer within the range of 12 to 100
-> - The height (in cm) can only be set to an integer within the range of 40 to 300
-> - The weight (in kg) can only be set to a number within the range of 0 to 500
-
-
+![](diagrams-DG/User_Classes.png)
 
 ---
 
@@ -501,9 +471,20 @@ that record is replaced with another record with the updated weight. Otherwise, 
 new weight record with the updated weight is created and added to the weight tracker.
 
 ### Generate Calorie Goal
+This feature allows the user to generate a daily calorie goal
+according to their body type and their desired weekly weight change
+and set that as their daily goal.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
 
-1. The user executes the `weight /set 65.5` command to set their weight to 65.5 kg.
-   `SetWeightCommand#execute` is called, which calls `User#updateWeightAndWeightTracker`.
+1. The user executes the `calorie /generate /lose 0.1` command to 
+generate a calorie goal that allows them to lose 0.1 kg per week
+and set that as their daily goal. `GenerateCalorieGoalCommand#execute` is called, 
+which calls `User#handleGenerateCalorieGoalCommand`. 
+2. If no exceptions were thrown, `User#calculateCalorieGoal` is called, which 
+calculates the calorie goal accordingly and returns it.
+3. `User#setCalorieGoal` is called to set the user's calorie goal to the generated
+goal.
 
 ### View Remaining Calories
 
@@ -519,6 +500,60 @@ entries in the food tracker. This is subtracted from the user's daily calorie go
 The resulting calories remaining is then displayed to the user. 
 
 ## Instructions for manual testing
+
+### Add Food Entry
+
+**Add from existing database**
+
+Test case: `add /bfast chicken cutlet`
+
+Expected: User to be able to choose from a list of food from existing database which includes "chicken cutlet"
+
+**Add a custom food entry**
+
+Test case: `add /snack vanilla icecream`
+
+Expected: User to be able to add a new food entry "vanilla icecream" since it does not exist in the existing database
+
+### Edit Food Entry
+
+Prerequisite: User must have **1 or more** existing food entries
+
+Test case: `edit 1 chicken rice`
+
+Expected: User to be able to choose from a list of food from existing database to edit the first entry to
+
+### List Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries
+
+**List entries for the day**
+
+Test case: `list /entry /day`
+
+Expected: User should be able to see all food entries that was logged in today
+
+**List entries for the past week**
+
+Test case: `list /entry /week`
+
+Expected: User should be able to see all food entries that was logged in the past week
+
+### Delete Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries
+
+Test case: `remove /entry 1`
+
+Expected: The first entry is deleted
+
+### Find Food Entry
+
+Prerequisite: User should have **1 or more** existing food entries consisting of the keyword "chicken"
+
+Test case: `find /entry chicken`
+
+Expected: User should be able to see all entries consisting of the keyword "chicken"
 
 =======
 <h4>Storage format</h4>
@@ -595,11 +630,33 @@ then compared with default list of commands to determine the type of method call
 </li></ul></li>
 
 
-<h2 id="instruction-for-manual-testing"> Instructions for manual testing</h2>
+## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Delete food
+1. Delete food inside the food database at certain index.
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `remove /food 2`
+Expected: delete the 2nd food at the food database successfully.
+4. Other incorrect commands to try:
+  - `remove /food` (the index for food is mandatory)
+  - `remove /food a` (the index is supposed to be an integer)
+
+### Find food
+1. find food inside the food database according to keywords.
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `remove /food rice`
+   Expected: returns all the foods inside the food database contain the keyword "rice".
+4. Other incorrect commands to try:
+- `remove /food` (the keyword for searching is mandatory)
+
+### List foods
+1. List all foods inside food database
+2. Prerequisite: there must be at least one food inside the database
+3. Test case: `list /food`
+   Expected: returns all the foods inside the food database.
 
 ## NF Requirements
 
-1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
-2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
+2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
+3. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
