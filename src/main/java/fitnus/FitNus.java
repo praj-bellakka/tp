@@ -15,6 +15,8 @@ import fitnus.utility.Ui;
 import fitnus.utility.User;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,7 +76,7 @@ public class FitNus {
         boolean attributeInitialised = false;
         while (!attributeInitialised) {
             try {
-                String requiredInput = ui.readInput().strip();
+                String requiredInput = ui.readInput(System.in, System.out).strip();
                 String commandString = commandStringFront + requiredInput;
                 Command c = parser.parseCommandType(commandString, fd, ed, md);
                 String msg = c.execute(ed, fd, md, user);
@@ -110,7 +112,7 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 Ui.print(Ui.USER_INPUT);
-                userInput = ui.readInput();
+                userInput = ui.readInput(System.in, System.out);
                 inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
                 Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
                 entryDatabase.sortDatabase();
