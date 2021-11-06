@@ -465,6 +465,19 @@ The following Sequence Diagrams shows how the list food entry feature works:
 ![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
 ![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
+#### Delete Food Entry Feature
+
+The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from EntryDatabase.
+
+Given below is an example usage scenario and how the delete food entry mechanism behaves at each step.
+
+1. The user executes the `delete /entry 2` command to delete the second entry from the EntryDatabase.
+2. This calls `DeleteEntryCommand#execute()`, which then calls `EntryDatabase#deleteEntry(int)` with '2' as its parameter
+   (Since the user wishes to delete the second entry).
+3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
 
 ## Instructions for manual testing
 
