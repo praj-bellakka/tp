@@ -3,8 +3,8 @@ package fitnus.tracker;
 import java.util.ArrayList;
 
 public class MealPlan {
-    private String mealPlanName;
-    private ArrayList<Food> mealFoods;
+    private final String mealPlanName;
+    private final ArrayList<Food> mealFoods;
 
     public MealPlan(String mealPlanName, ArrayList<Food> mealFoods) {
         this.mealPlanName = mealPlanName;
@@ -29,11 +29,12 @@ public class MealPlan {
 
     /**
      * Returns String representation of MealPlan object, including all its food under it.
+     *
      * @return String representation of MealPlan object
      */
     @Override
     public String toString() {
-        for (Food item: mealFoods) {
+        for (Food item : mealFoods) {
             System.out.println(item.toString());
         }
         return this.mealPlanName;

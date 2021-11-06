@@ -28,8 +28,8 @@ public class AddMealPlanEntryCommand extends Command {
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         System.out.println("Adding items from the meal plan: \"" + mealPlan.getMealPlanName() + "\"...");
         ArrayList<Food> allFoodItems = mealPlan.getMealFoods();
-        for (Food food: allFoodItems) {
-            ed.addEntry(new Entry(mealType,food));
+        for (Food food : allFoodItems) {
+            ed.addEntry(new Entry(mealType, food));
         }
         return "The following meal plan: \"" + mealPlan + "\" has been added.";
 

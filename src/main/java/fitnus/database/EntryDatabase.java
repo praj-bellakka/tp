@@ -18,6 +18,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Keeps a record of Entry objects and handles functionalities related to Entry objects.
+ */
 public class EntryDatabase {
     private final ArrayList<Entry> entries;
     private static final String DELIMITER = " | ";

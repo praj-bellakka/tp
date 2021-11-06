@@ -25,7 +25,10 @@ public class ViewSuggestionsCommand extends Command {
             return "Sorry, you have exceeded your daily calorie goal already!";
         }
         ArrayList<Food> suggestions = fd.findSuggestions(type, remaining, isSort);
-        Ui.printMatchingSuggestions(suggestions);
+        if (suggestions.size() > 0) {
+            System.out.println("Here are some suggestions:");
+            Ui.printMatchingFoods(suggestions);
+        }
         return "Found " + suggestions.size() + " suggestions";
     }
 
