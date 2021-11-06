@@ -18,6 +18,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Keeps a record of Entry objects and handles functionalities related to Entry objects.
+ */
 public class EntryDatabase {
     private final ArrayList<Entry> entries;
     private static final String DELIMITER = " | ";
@@ -172,12 +175,12 @@ public class EntryDatabase {
         if (entries.size() == 0) {
             return "Oops, there are no records found!";
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 1; i <= entries.size(); i++) {
-            result += String.format(" %d.%s", i, entries.get(i - 1)
-                    + System.lineSeparator());
+            result.append(String.format(" %d.%s", i, entries.get(i - 1)
+                    + System.lineSeparator()));
         }
-        return result;
+        return result.toString();
     }
 
     /**

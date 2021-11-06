@@ -10,11 +10,11 @@ Here is the list of sections we will be covering in this User Guide.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Food Tracker](#food-tracker)
-    - [Adding food tracker entry: `add`](#adding-food-tracker-entry-add)
+  - [Entry Database](#food-tracker)
+    - [Adding food entry: `add`](#adding-food-tracker-entry-add)
     - [Adding meal plan entry: `add /mealplan`](#adding-meal-plan-entry-add-mealplan)
-    - [Editing existing food tracker entry: `edit`](#editing-existing-food-tracker-entry-edit)
-    - [Deleting food tracker entry: `remove /entry`](#deleting-food-tracker-entry-remove)
+    - [Editing existing food entry: `edit`](#editing-existing-food-tracker-entry-edit)
+    - [Deleting food entry: `remove /entry`](#deleting-food-tracker-entry-remove)
     - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list)
     - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find)
   - [Food Database](#food-database)
@@ -50,11 +50,16 @@ Here is the list of sections we will be covering in this User Guide.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
+------------------
 Welcome to FitNUS Tracker!
 Successfully preloaded 0 foods
 Successfully preloaded 0 entries
+Successfully preloaded 0 meal plans
 Successfully preloaded weight data
-Please enter your gender (m/f):
+------------------
+
+[X] Please enter your gender (m/f):
+
 ```
 
 
@@ -68,10 +73,10 @@ Please enter your gender (m/f):
 
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
 
-### Food Tracker
+### Entry Database
 
-#### Adding food tracker entry: `add`
-Adds a food tracker entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
+#### Adding food entry: `add`
+Adds an entry to the Entry Database and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -138,8 +143,8 @@ Sample output:
 ![img.png](diagrams-UG/img.png)
 
 
-#### Editing existing food tracker entry: `edit`
-Edits an existing food tracker entry's food information. FitNUS will search for FOOD_NAME in the food database 
+#### Editing existing food entry: `edit`
+Edits an existing entry's food information. FitNUS will search for FOOD_NAME in the food database 
 and update the specified entry's food details accordingly.
 
 Format: `edit INDEX_OF_ENTRY FOOD_NAME`
@@ -161,8 +166,8 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### Deleting food tracker entry: `remove`
-Deletes a food tracker entry from the food tracker.
+#### Deleting food entry: `remove`
+Deletes an entry from the EntryDatabase.
 
 Format: `remove /entry INDEX_OF_FOOD`
 
@@ -205,6 +210,16 @@ Example of usage:
 <p>&nbsp;</p>
 
 ----
+
+#### View remaining calories for the day: `calorie /remain`
+Shows the remaining number of calories the user can consume for the day to stay
+within their daily calorie goal.
+
+Format: `calorie /remain`
+
+Sample output:
+
+
 
 ### Food Database
 
@@ -311,9 +326,18 @@ Sample output:
 ### Weight Tracker
 
 #### Recording weight: `weight /set`
-Updates the user's current weight as well as their weight record for the day in the weight tracker.
+Updates the user's current weight as well as 
+their weight record for the day in the weight tracker.
 
 Format: `weight /set WEIGHT`
+
+- `WEIGHT` is a positive number with 1 decimal place and cannot be above 500.0
+
+> **⚠️ Notes about recording weight**
+>- If the user has already recorded their weight for the day, recording the weight again
+  will override the previous weight record for the day instead of creating a new record.
+>- If `WEIGHT` is entered as a number with more than 1 decimal place, the trailing decimals
+> will be cut off (no rounding will take place).
 
 Example of usage:
 
@@ -322,50 +346,53 @@ Example of usage:
 Sample Output:
 
 ```
-You have updated your weight for today to 55.6 kg! You have gained 1.6 kg from the previous weight entry of 54.0 kg on 2021-10-31
+You have updated your weight for today to 55.6 kg!
+You have lost 9.6 kg from the previous weight entry of 65.2 kg on 2021-11-07
 ```
 
 <p>&nbsp;</p>
 
 
 #### Listing weight records: `list`
-Lists out all past records or the past month of weight entered by the user.
+Lists weight records within a certain timeframe (either all time or a particular month in 
+the current year). 
 
-Format: `list /weight /all` or `list /weight /month MONTH_INTEGER`
+Format:
+`list /weight /all` OR `list /weight /month MONTH_INTEGER`
 
-Example of usage:
+- `MONTH_INTEGER` refers to the integer representation of a particular month.
+  (e.g. 1 represents January, 2 represents February etc.)
 
-1. List the weight progress since the start of using FitNus: `list /weight /all` 
+Examples of usage:
 
-Sample output:
+1. List weight progress since the start of using FitNus: `list /weight /all`
+   - Sample output:
+     
+   ``` 
+   Your weight progress since the start of your FitNUS journey: 
+   2021-03-12: 51.5kg
+   2021-03-13: 51.7kg
+   2021-03-14: 51.8kg
+   2021-03-15: 51.9kg
+   2021-04-12: 54.2kg
+   2021-10-27: 63.3kg
+   2021-10-31: 54.0kg
+   2021-11-01: 55.6kg      
+   You have gained 4.1 kg since the start of your FitNUS Journey!
+   ```
 
-```
-Your weight progress since the start of your FitNUS journey: 
-2021-03-12: 51.5kg
-2021-03-13: 51.7kg
-2021-03-14: 51.8kg
-2021-03-15: 51.9kg
-2021-04-12: 54.2kg
-2021-10-27: 63.3kg
-2021-10-31: 54.0kg
-2021-11-01: 55.6kg
+2. List weight progress in a certain month in the current year:`list /weight /month 3`
 
-You have gained 4.1 kg since the start of your FitNUS Journey!
-```
+   - Sample output:
 
-2. List the weight progress of a certain month:`list /weight /month 3`
-
-Sample output:
-
-```
-Your weight progress in March: 
-2021-03-12: 51.5kg
-2021-03-13: 51.7kg
-2021-03-14: 51.8kg
-2021-03-15: 51.9kg
-
-You have gained 0.4 kg during the month of March!
-```
+    ```
+    Your weight progress in March: 
+    2021-03-12: 51.5kg
+    2021-03-13: 51.7kg
+    2021-03-14: 51.8kg
+    2021-03-15: 51.9kg    
+    You have gained 0.4 kg during the month of March!
+    ```
 
 <p>&nbsp;</p>
 
@@ -375,6 +402,9 @@ You have gained 0.4 kg during the month of March!
 Sets the user's gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
+- The `GENDER_SYMBOL` can be of the following types:
+  - `M` or `m` - denotes Male 
+  - `F` or `f` - denotes Female
 
 Example of usage: `gender /set m`
 
@@ -390,6 +420,7 @@ You have set your gender to Male
 Sets the user's height in centimeters.
 
 Format: `height /set HEIGHT`
+- `HEIGHT` is an integer between 40 and 300
 
 Example of usage:`height /set 180`
 
@@ -405,6 +436,7 @@ You have set your height to 180 cm!
 Sets the user's age in years.
 
 Format: `age /set AGE`
+- `AGE` is an integer between 12 and 100
 
 Example of usage:`age /set 18`
 
@@ -419,21 +451,39 @@ Sets the user's calorie goal in kcal.
 
 Format: `calorie /set CALORIE_GOAL`
 
+> **⚠️ Notes about setting calorie goal**
+> - FitNUS calculates the minimum and maximum calorie goal according to the user's height,
+  weight, gender and age that is within the recommended healthy amount of weight loss or gain
+  per week. The user cannot set a goal that is not within the healthy range of daily calorie
+  intake for their body type.
+
 Example of usage:`calorie /set 2000`
 
 Sample output:
-
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
 <p>&nbsp;</p>
 
 ####  Generate and set calorie goal: `calorie /generate`
-Generates and sets a calorie goal based on the user's target weight loss/gain per week, age, height, weight and gender.
-Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
+Generates and sets a calorie goal based on the user's 
+target weight loss/gain per week, age, height, 
+weight and gender using the Harris-Benedict equation.
 
-* The `WEIGHT_CHANGE_TYPE` can be of the following 2 types: 
-  * `lose` - to denote aiming to lose weight
-  * `gain` - to denote aiming to gain weight
+Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
+
+* `CHANGE_TYPE` can be of the following 2 types: 
+  * `lose` - denotes aiming to lose weight
+  * `gain` - denotes aiming to gain weight
+* `WEEKLY_CHANGE_IN_KG` is a number between 0.01 and 1.0
+
+> **⚠️ Notes about calorie goal generation**
+>
+> * The weekly change must be less than 1.0 kg 
+> according to the recommended amount of weight that can be 
+> lost or gained per week in a safe and healthy manner. 
+> * If the weekly change entered is less than 0.01 kg, 
+> it will be treated as a negligible weekly change and instead generate 
+> a goal that allows the user to maintain their current weight.
 
 Example of usage:`calorie /generate /gain 0.5`
 
@@ -443,12 +493,12 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### View personal data: `list /user`
-View all the personal body measurements including gender, age, weight, height and calorie goal.
+#### View user data: `list /user`
+View user data including gender, age, weight, height and calorie goal.
+
 Format: `list /user`
 
 Sample output:
-
 ![img](diagrams-UG/list-user.png)
 
 ### Other

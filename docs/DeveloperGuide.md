@@ -7,8 +7,8 @@
 3. [User Story](#user-stories)
 4. [Application Architecture](#architecture)
    - [Overall Architecture](#overall-architecture)
-   - [Food Tracker Entry](#food-tracker-entry)
-   - [Food Tracker Database](#food-tracker-database)
+   - [Entry](#entry)
+   - [Entry Database](#entry-database)
    - [Food Database](#food-database)
    - [User](#user)
    - [Summary](#summary)
@@ -16,8 +16,13 @@
    - [Command](#command)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Instruction for manual testing](#instructions-for-manual-testing)
-6. [Non-functional Requirement](#nf-requirements)
+5. [Implementation](#implementation)
+   - [Add Food Entry](#add-food-entry)
+   - [Edit Food Entry](#edit-food-entry)
+   - [List Food Entry](#list-food-entry)
+   - [Delete Food Entry](#delete-food-entry)
+6. [Instruction for manual testing](#instructions-for-manual-testing)
+7. [Non-functional Requirement](#nf-requirements)
 
 ## Product scope
 
@@ -37,9 +42,9 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `wellnus.jar` file is located or provide the absolute path of `wellnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
-   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your food tracker and food database. 
+   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your EntryDatabase and food database. 
    - `list food`: Lists all foods in database 
-   - `list intake /DAY`: Lists all entries in the food tracker for the day. 
+   - `list intake /DAY`: Lists all entries in the EntryDatabase for the day. 
    - `exit`: Exits the app.  
 
 Refer to the User Guide (no link for now) for details of each command.
@@ -67,7 +72,7 @@ The primary components of the app are listed below:
 - `Parser`: For parsing user input.
 - `Command`: The abstract class that all other command classes inherit from
 - `Ui`: For displaying information to the user.
-- `EntryDatabase`: For handling all functionality regarding food tracker entries.
+- `EntryDatabase`: For handling all functionality regarding entries.
 - `FoodDatabase`: For handling all functionality regarding food database entries.
 - `MealPlanDatabase`: For handling all functionality regarding meal plan database entries.
 - `User`: For handling all functionality regarding personalisation of user experience.
@@ -77,26 +82,24 @@ The primary components of the app are listed below:
 1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
 3. The `Command` object calls its `execute` method which performs the function required.
-   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add a food tracker entry).
+   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add an entry).
 4. The `execute` method returns a `String` object that contains the outcome message of the command that was executed, which is displayed to the user by the `Ui` component.
 ---
 
-### Food Tracker Entry
-
-The Food Tracker Entry is represented by the class `Entry`.
+### Entry
 
 ![tracker class diagram](diagrams-DG/tracker%20class%20diagram.png)
 
 ---
 
-### Food Tracker Database
+### EntryDatabase
 
-The Food Tracker is represented by the class `EntryDatabase`.
+The EntryDatabase is represented by the class `EntryDatabase`.
 
-![Food Tracker Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
+![EntryDatabase Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
 The `EntryDatabase` class consists of an ArrayList of Entry. It handles all functionalities 
-that uses/amends the Food Tracker. 
+that uses/amends the EntryDatabase. 
 
 The `EntryDatabase` component consists of:
 - `addEntry()` Adds an Entry object to the database.
@@ -127,7 +130,7 @@ The `EntryDatabase` component consists of:
 
 The diagram below showcases the relationships between EntryDatabase object and various components.
 
-![Food Tracker Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
+![EntryDatabase Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
 
 
 ---
@@ -326,7 +329,7 @@ The `Command` class is an abstract class that all other specific command classes
 
 The `Command` component
     
-- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds a food tracker entry to the food tracker.) 
+- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds an entry to the EntryDatabase.) 
 
 #### Add Food Entry Feature
 
@@ -418,6 +421,19 @@ The parser component makes use of the user input String from the `fitNus` class 
 *   ##### Identifying type of method called
 
     The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
+
+
+## Implementation
+
+### Add Food Entry
+
+### Edit Food Entry
+
+### List Food Entry
+
+### Delete Food Entry
+
+### 
 
 ## Instructions for manual testing
 
