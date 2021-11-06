@@ -282,7 +282,10 @@ public class Parser {
         System.out.println("Searching for \"" + foodName + "\"...");
         ArrayList<Food> tempDbFoods = fd.findFoods(foodName);
         Ui newUi = new Ui();
-        Ui.printMatchingFoodsSilenced(tempDbFoods); //search database for match
+        if (tempDbFoods.size() > 0) {
+            System.out.println(" [X] Select your desired food from the list below:");
+            Ui.printMatchingFoods(tempDbFoods);
+        }
         int userInputLoop;
 
         //prompt the user the suggestions if matches are found
@@ -900,7 +903,10 @@ public class Parser {
         ArrayList<Food> tempDbFoods = fd.findFoods(foodName);
 
         Ui newUi = new Ui();
-        Ui.printMatchingFoodsSilenced(tempDbFoods); //search database for match
+        if (tempDbFoods.size() > 0) {
+            System.out.println(" [X] Select your desired food from the list below:");
+            Ui.printMatchingFoods(tempDbFoods);
+        }
         int userInputLoop;
 
         //step 3a: prompt the user the suggestions if matches are found

@@ -11,6 +11,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles interactions with the user.
+ */
 public class Ui {
     //private final Scanner sc = new Scanner(System.in);
 
@@ -24,27 +27,53 @@ public class Ui {
     public static final String WELCOME_MESSAGE = DIVIDER
             + "Welcome to FitNUS Tracker!";
 
+    /**
+     * Prints a welcome message.
+     */
     public static void printWelcomeMessage() {
         println(WELCOME_MESSAGE);
     }
 
+    /**
+     * Prints a message to the user with a new line.
+     *
+     * @param message The message to be printed.
+     */
     public static void println(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Prints a message to the user.
+     *
+     * @param message The message to be printed.
+     */
     public static void print(String message) {
         System.out.print(message);
     }
 
+    /**
+     * Prints a message informing the user that there were some problems
+     * when preloading the database data.
+     */
     public static void printPreloadDatabaseError() {
         System.out.println("Error encountered while preloading database :("
                 + " some data may have been lost");
     }
 
+    /**
+     * Prints a message informing the user that there were some problems
+     * when preloading the user data.
+     */
     public static void printPreloadUserError() {
         System.out.println("Error encountered while preloading user data :(");
     }
 
+    /**
+     * Reads the user's inputs.
+     *
+     * @return The user's inputs as a String.
+     */
     public String readInput(InputStream in, PrintStream out) {
         Scanner sc = new Scanner(in);
         String userInput = "";
@@ -71,6 +100,11 @@ public class Ui {
         return userInput.split(" ");
     }
 
+    /**
+     * Prints information regarding MealPlan creation.
+     *
+     * @param fd FoodDatabase object.
+     */
     public static void printMealPlanCreation(FoodDatabase fd) {
         System.out.println("We will now create a mealplan! To create a Meal plan, "
                 + "enter the indexes of the foods below with spaces in between each index.");
@@ -90,22 +124,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints to the user the content of the matchingFoods ArrayList.
+     *
+     * @param matchingFoods The ArrayList containing matching Food objects.
+     */
     public static void printMatchingFoods(ArrayList<Food> matchingFoods) {
-        if (matchingFoods.size() == 0) {
-            return;
-        }
-        System.out.println("Here are the matching foods in your database:");
-        for (int i = 1; i <= matchingFoods.size(); i++) {
-            System.out.println(" " + i + "."
-                    + matchingFoods.get(i - 1).toString());
-        }
-    }
-
-    public static void printMatchingFoodsSilenced(ArrayList<Food> matchingFoods) {
-        if (matchingFoods.size() == 0) {
-            return;
-        }
-        System.out.println(" [X] Select your desired food from the list below:");
         for (int i = 1; i <= matchingFoods.size(); i++) {
             System.out.println(" " + i + "."
                     + matchingFoods.get(i - 1).toString());
@@ -131,6 +155,11 @@ public class Ui {
         Ui.print(Ui.USER_INPUT);
     }
 
+    /**
+     * Prints to the user the content of the matchingEntries ArrayList.
+     *
+     * @param matchingEntries ArrayList containing matching Entry objects.
+     */
     public static void printMatchingEntries(ArrayList<Entry> matchingEntries) {
         if (matchingEntries.size() == 0) {
             return;
@@ -142,26 +171,30 @@ public class Ui {
         }
     }
 
-    public static void printMatchingSuggestions(ArrayList<Food> matchingFoods) {
-        if (matchingFoods.size() == 0) {
-            return;
-        }
-        System.out.println("Here are some suggestions:");
-        for (int i = 1; i <= matchingFoods.size(); i++) {
-            System.out.println(" " + i + "."
-                    + matchingFoods.get(i - 1).toString());
-        }
-    }
-
+    /**
+     * Prints the calorie goal.
+     *
+     * @param calorieGoal The calorie goal value.
+     */
     public static void printCalorieGoal(int calorieGoal) {
         println("Your daily calorie goal is " + calorieGoal + "kcal.");
     }
 
+    /**
+     * Prints to the user the information about the preloaded data.
+     *
+     * @param fd FoodDatabase object.
+     * @param ed EntryDatabase object.
+     * @param md MealPlanDatabase object.
+     * @param user User object.
+     */
     public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
         Ui.println("Food database:" + System.lineSeparator()
                 + fd.listFoods());
         Ui.println("Entry database:" + System.lineSeparator()
                 + ed.listEntries());
+        Ui.println("MealPlan database:" + System.lineSeparator()
+                + md.listMealPlan());
         Ui.println("User data:" + System.lineSeparator()
                 + user.getUserDataDisplay());
     }
