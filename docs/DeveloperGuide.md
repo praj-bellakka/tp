@@ -294,7 +294,7 @@ The Summary class provides an overview of user's diet over the past week/month.
 The following sequence diagram describes the operation of the `generateWeekSummary()`.  
 ![](diagrams-DG/weekly%20report.png)  
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
-![](diagrams-DG/monthly-report.png)
+![](diagrams-DG/monthly%20report.png)
 
 ---
 ### View Food Suggestions
