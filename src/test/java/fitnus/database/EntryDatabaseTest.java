@@ -31,7 +31,7 @@ class EntryDatabaseTest {
 
 
     @Test
-    public void convertDatabaseToStringTest_list_stringRepresentation() {
+    public void convertDatabaseToStringTest_validList_stringRepresentation() {
         EntryDatabase edb = new EntryDatabase();
         LocalDate date = null;
         try {
@@ -199,7 +199,7 @@ class EntryDatabaseTest {
         InputStream stream = new ByteArrayInputStream(initialString.getBytes());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         database.preloadDatabase(reader);
-        assertEquals("Sorry, there is not any record stored", database.listEntries());
+        assertEquals("Oops, there are no records found!", database.listEntries());
     }
 
     @Test
@@ -241,7 +241,7 @@ class EntryDatabaseTest {
         // Test
         EntryDatabase edbPastDay = edb.getPastDaysEntryDatabase(1);
 
-        assertEquals("Sorry, there is not any record stored", edbPastDay.listEntries());
+        assertEquals("Oops, there are no records found!", edbPastDay.listEntries());
     }
 
     @Test
@@ -272,7 +272,7 @@ class EntryDatabaseTest {
         // Test
         EntryDatabase edbPastMonth = edb.getPastMonthEntryDatabase();
 
-        assertEquals("Sorry, there is not any record stored", edbPastMonth.listEntries());
+        assertEquals("Oops, there are no records found!", edbPastMonth.listEntries());
     }
 
     @Test
@@ -344,7 +344,7 @@ class EntryDatabaseTest {
         EntryDatabase edb = new EntryDatabase();
 
         // Test
-        assertEquals("Sorry, there is not any record stored", edb.listEntries());
+        assertEquals("Oops, there are no records found!", edb.listEntries());
     }
 
     @Test

@@ -10,7 +10,9 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
-    public static final String WELCOME_MESSAGE = "------------------ \n"
+    public static final String DIVIDER = "------------------\n";
+    public static final String USER_INPUT = "You: ";
+    public static final String WELCOME_MESSAGE = DIVIDER
             + "Welcome to FitNUS Tracker!";
 
     public static void printWelcomeMessage() {
@@ -103,6 +105,26 @@ public class Ui {
             System.out.println(" " + i + "."
                     + matchingFoods.get(i - 1).toString());
         }
+    }
+
+    public static void printPromptUserFoodInput(String foodName) {
+        System.out.println("Oops! \"" + foodName + "\" does not exist in the database!");
+        Ui.print(Ui.DIVIDER);
+        Ui.print(Ui.USER_INPUT);
+    }
+
+    public static void printOutOfRangeInputInteger(int num) {
+        System.out.println("Input " + num + " was out of range. Ignoring Input");
+    }
+
+    public static void printInvalidInputInteger(String input) {
+        System.out.println("Input " + input + " was not an integer. Ignoring input.");
+    }
+
+    public static void printAddCalorieToFood(String foodName) {
+        System.out.println("Adding \"" + foodName + "\"...");
+        System.out.println("[X] Enter calories of \"" + foodName + "\":");
+        Ui.print(Ui.USER_INPUT);
     }
 
     public static void printMatchingEntries(ArrayList<Entry> matchingEntries) {
