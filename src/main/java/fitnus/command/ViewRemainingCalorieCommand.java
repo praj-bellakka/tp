@@ -14,9 +14,10 @@ public class ViewRemainingCalorieCommand extends Command {
         int calorieRemain = us.getCaloriesRemaining(ed);
         int calorieGoal = us.getCalorieGoal();
         if (calorieRemain < 0) {
-            return String.format("Oops! You have exceeded the daily calorie goal by %d", Math.abs(calorieRemain));
+            return String.format("Oops! You have exceeded the daily calorie goal by %d kcal", Math.abs(calorieRemain));
         }
-        return String.format("The remaining calories before reaching the daily goal of "
-                + calorieGoal + " kcal is " + calorieRemain + "kcal!");
+        return String.format("You have " + calorieRemain
+                + " calories remaining before reaching the daily goal of "
+                + calorieGoal + "kcal!");
     }
 }
