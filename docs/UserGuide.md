@@ -8,39 +8,38 @@ It is based on a Command Line Interface (CLI) and has rich functionality in orde
 
 Here is the list of sections we will be covering in this User Guide.
 
-- Quick Start
-
-- Features
-  - Food Tracker
-    - Adding food tracker entry: `add`
-    - Adding meal plan entry: `add /mealplan`
-    - Editing existing food tracker entry: `edit`
-    - Deleting food tracker entry: `remove /entry`
-    - Listing tracker entries: `list /entry`
-    - Searching for tracker entries with keyword: `find /entry`
-  - Food Database
-    - Deleting food from food database: `remove /food`
-    - Searching for foods with keyword: `find /food`
-    - Listing foods in food database: `list /food`
-  - Meal Plan Database
-    - Creating new meal plan: `create /mealplan`
-    - Listing meal plan entries: `list /mealplan`
-  - Weight Tracker
-    - Recording weight: `weight /set`
-    - Listing weight records: `list /weight`
-  - Personalisation
-    - Setting gender: `gender /set`
-    - Setting height: `height /set`
-    - Setting age: `age /set`
-    - Setting calorie goal: `calorie /set`
-    - Generate and set calorie goal: `calorie /generate`
-    - View personal data: `list /user`
-  - Other
-    - Viewing statistics: `summary`
-    - Viewing help: `help`
-    - Getting food recommendations: `suggest`
-    - Exiting FitNUS: `exit`
-- Command Summary
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Food Tracker](#food-tracker)
+    - [Adding food tracker entry: `add`](#adding-food-tracker-entry-add)
+    - [Adding meal plan entry: `add /mealplan`](#adding-meal-plan-entry-add-mealplan)
+    - [Editing existing food tracker entry: `edit`](#editing-existing-food-tracker-entry-edit)
+    - [Deleting food tracker entry: `remove /entry`](#deleting-food-tracker-entry-remove)
+    - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list)
+    - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find)
+  - [Food Database](#food-database)
+    - [Deleting food from food database: `remove /food`](#deleting-food-from-food-database-remove)
+    - [Searching for foods with keyword: `find /food`](#searching-for-foods-with-keyword-find)
+    - [Listing foods in food database: `list /food`](#listing-foods-in-food-database-list)
+  - [Meal Plan Database](#meal-plan-database)
+    - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create)
+    - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list)
+  - [Weight Tracker](#meal-plan-database)
+    - [Recording weight: `weight /set`](#recording-weight-weight-set)
+    - [Listing weight records: `list /weight`](#listing-weight-records-list)
+  - [Personalisation](#personalisation)
+    - [Setting gender: `gender /set`](#setting-gender-gender-set)
+    - [Setting height: `height /set`](#setting-height-height-set)
+    - [Setting age: `age /set`](#setting-age-age-set)
+    - [Setting calorie goal: `calorie /set`](#setting-calorie-goal-calorie-set)
+    - [Generate and set calorie goal: `calorie /generate`](#generate-and-set-calorie-goal-calorie-generate)
+    - [View personal data: `list /user`](#view-personal-data-list-user)
+  - [Other](#other)
+    - [Viewing statistics: `summary`](#view-statistics-summary)
+    - [Viewing help: `help`](#viewing-help-help)
+    - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
+    - [Exiting FitNUS: `exit`](#quit-fitnus)
+- [Command Summary](#command-summary)
 
 ---
 ## Quick Start
@@ -48,15 +47,7 @@ Here is the list of sections we will be covering in this User Guide.
 1. Ensure that you have Java 11 installed in your computer. 
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program (for Mac or Linux user):`java -jar FitNus.jar`
-> **⚠️ Notes to Windows user**
-> 
-> We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
-> please type `chcp 65001`. You should see the following:
-> ```
-> C:\Users\USER>chcp 65001
-> Active code page: 65001
-> ```
+4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
 Welcome to FitNUS Tracker!
@@ -544,6 +535,11 @@ Example of usage:
 
 `suggest /snack /sort`
 
+#### quit FitNus
+Exit FitNus program
+
+Format: `exit`
+
 
 ## FAQ
 
@@ -569,5 +565,6 @@ List weight record | list /weight | `list /weight`
 View weekly statistics | summary /week | `summary /week`
 View monthly statistics | summary /month | `summary /month`
 Suggest food | suggest /FOODTYPE <br /> suggest /FOODTYPE /sort | `suggest /meal` <br /> `suggest /snack /sort`
+Exit the program | exit |
 
 
