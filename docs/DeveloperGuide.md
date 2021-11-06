@@ -428,6 +428,25 @@ Given below is an example usage scenario and
 how the user profile setup and editing 
 mechanism behaves at each step.
 
+//user setup
+
+Step 1. The user launches the application for the first time. 
+FitNUS creates an empty text file storing the user data
+(user.txt). Since the text file is empty, the check for whether
+the user data exists in storage returns false, causing FitNUS to
+begin the user profile setup process. 
+
+Step 2. FitNUS prompts the user to enter the character indicating 
+their gender 
+
+The user executes delete 5 command to 
+delete the 5th person in the address book. The delete command 
+calls Model#commitAddressBook(), causing the modified state 
+of the address book after the delete 5 command executes 
+o be saved in the addressBookStateList, and the 
+currentStatePointer is shifted to the newly inserted address 
+book state.
+
 
 
 
