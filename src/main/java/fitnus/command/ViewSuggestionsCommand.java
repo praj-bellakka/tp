@@ -23,7 +23,7 @@ public class ViewSuggestionsCommand extends Command {
         int remaining = us.getCalorieGoal() - ed.getTotalDailyCalorie();
         ArrayList<Food> suggestions = fd.findSuggestions(type, remaining, isSort);
         Ui.printMatchingSuggestions(suggestions);
-        return "";
+        return "Found " + suggestions.size() + " suggestions";
     }
 
 }
