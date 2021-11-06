@@ -21,8 +21,8 @@ public class Summary {
     /**
      * Constructor for a Summary object.
      *
-     * @param ed EntryDatabase to use to give summary
-     * @param days the range of days to cover of summary
+     * @param ed EntryDatabase used to give summary
+     * @param days range of days to covered in summary
      */
     public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
@@ -41,7 +41,7 @@ public class Summary {
     }
 
     /**
-     * Gets the most and least frequently eaten food by the user based on certain day ranges.
+     * Gets the most and least frequently eaten food by the user over some days.
      *
      * @return Returns the most and least frequently eaten foods and the corresponding times.
      */
@@ -95,6 +95,11 @@ public class Summary {
                 leastFrequentFoods, minOccurrence);
     }
 
+    /**
+     * Calculate the user's average calorie intake
+     *
+     * @return the average caloire intake
+     */
     private int getAverageCalories() {
         int totalCalories = 0;
         int totalNumEntries = entries.size();
