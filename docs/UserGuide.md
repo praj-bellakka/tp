@@ -114,11 +114,18 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Adding meal plan entry: `add /mealplan`
-Adds a meal plan consisting of existing food items. To create a meal plan, there needs to be at least 1 food item inside the food database.  
+Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
+Click on [this link](#creating-meal-plan-by-adding-food-create) to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
+* The `MEALTYPE` can be of the following 4 types:
+  * `bfast` - to denote breakfast
+  * `lunch` - to denote lunch
+  * `dinner` - to denote dinner
+  * `snack` - to denote snacks
 
+If a MEALTYPE is not specified, FitNus will automatically tag the meal based on the current time.
 
 > **⚠️ Notes about `INDEX_OF_MEALPLAN`**
 >
@@ -131,8 +138,7 @@ Examples of usage: `add /mealplan /dinner 1`
 
 Sample output:
 
-![img.png](diagrams-UG/img.png)
-
+![img.png](diagrams-UG/addMealPlan.png)
 
 #### Editing existing food entry: `edit`
 Edits an existing entry's food information. FitNUS will search for FOOD_NAME in the food database 
@@ -258,59 +264,90 @@ Example of usage:
 ### Meal Plan Database
 
 #### Creating meal plan by adding food: `create`
-Creates a custom meal plan by adding existing food items inside the food database to the meal plan.
+Creates a custom meal plan by adding existing food items inside the food database to the meal plan. A meal plan consists of a name, and a list of Food items. 
+In order to create a meal plan, you must add at least 1 food item to the plan. 
 
 Format: `create /mealplan NAME_OF_MEALPLAN`
 
-Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside the database and will be prompted to input the indexes of the foods you want to include inside the meal plan.
+Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside the database and will be prompted to input the indexes of the foods you want to include inside the meal plan. A visual walkthrough has been shown below.
 
 > **⚠️ Notes about `NAME_OF_MEALPLAN`**
 >
-> `NAME_OF_MEALPLAN` must be at least 1 character in length. Pipe Characters will be automatically be replaced with a space character if included
+> `NAME_OF_MEALPLAN` must be at least 1 character in length. Pipe Characters will be automatically be removed if included.
 
 > **⚠️ Notes about adding food items to meal plan**
 >
 > Only valid indexes entered will be parsed. The `index` MUST be an integer value and within the range of food items displayed. Invalid indexes will be ignored as shown below.
 
-Example of usage:
+**Examples of usage:**
 
-`create /mealplan dinner plan`
+**Example 1 - All input indexes are valid**
 
-`1 4 5` 
+Input 1: `create /mealplan dinner plan`
 
-- All input indexes are valid
+Input 2: `1 4 5` 
+
 
 Sample output:
 
-![img.png](diagrams-UG/create_dinnerplan.png)
+![img.png](diagrams-UG/createMealPlan.png)
+
+![img_2.png](diagrams-UG/createMealPlanP3.png)
 
 
-`create /mealplan supper plan`
+**Example 2 - Some input indexes are invalid**
 
-`1 9 abc` 
 
-- Input index `9` is not valid as it is outside the range of the food database.
+Input 1: `create /mealplan supper plan`
+
+Input 2: `1 89 abc` 
+
+- Input index `89` is not valid as it is outside the range of the food database.
 - Input `abc` is not valid as it is not an integer.
 
 
 Sample output:
 
-![img_1.png](diagrams-UG/create_mealplan_wrongindex.png)
+![img_4.png](diagrams-UG/createMealPlanP4.png)
+
+![img_5.png](diagrams-UG/createMealPlanInvalidIndexes.png)
 
 
+**Example 3 - All input indexes are invalid**
+
+
+Input 1: `create /mealplan supper plan`
+
+Input 2: `blah -100`
+
+- Input `blah` is not valid as it is not an integer.
+- Input index `-100` is not valid as it is outside the range of the food database.
+
+
+Sample output:
+
+![img_4.png](diagrams-UG/createMealPlanP4.png)
+
+![img_6.png](diagrams-UG/createMealPlanInvalid.png)
+
+> **⚠️ Notes about duplicate meal plans**
+>
+> Duplicate meal plans are allowed as restricting either the name or the food added to a meal plan would not improve the usability of the app.
+
+---- 
 #### Listing meal plan entries: `list`
-Lists out all meal plans entered. A list of meal plans and its associated food items is displayed as shown below.
+Lists out all meal plans entered. Each individual meal plan along with its associated food items are listed as shown below.
 
 Format: `list /mealplan`
 
 
-Example of usage:
+**Example of usage:**
 
 `list /mealplan`
 
 Sample output: 
 
-![img.png](diagrams-UG/list_mealplan.png)
+![img_7.png](diagrams-UG/listMealPlan.png)
 
 <p>&nbsp;</p>
 

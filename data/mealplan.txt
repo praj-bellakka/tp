@@ -29,3 +29,13 @@ ramen | 600 | MEAL
 ramen | 600 | MEAL
 ramen | 600 | MEAL
 -------- | 2v1m caifan
+finefood - bbq beef set | 504 | MEAL
+finefood - bbq chicken set | 510 | MEAL
+finefood - black pepper beef bibimbap | 405 | MEAL
+-------- | testing
+finefood - bbq beef set | 504 | MEAL
+finefood - black pepper beef bibimbap | 405 | MEAL
+finefood - kimchi shin ramen | 280 | MEAL
+-------- | dinner plan
+finefood - bbq beef set | 504 | MEAL
+-------- | supper plan
