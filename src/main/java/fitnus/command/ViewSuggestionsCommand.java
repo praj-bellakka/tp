@@ -21,9 +21,12 @@ public class ViewSuggestionsCommand extends Command {
 
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         int remaining = us.getCalorieGoal() - ed.getTotalDailyCalorie();
+        if (remaining < 0) {
+            return "Sorry, you have exceeded your daily calorie goal already!";
+        }
         ArrayList<Food> suggestions = fd.findSuggestions(type, remaining, isSort);
         Ui.printMatchingSuggestions(suggestions);
-        return "";
+        return "Found " + suggestions.size() + " suggestions";
     }
 
 }

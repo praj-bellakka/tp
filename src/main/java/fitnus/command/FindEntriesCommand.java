@@ -20,7 +20,7 @@ public class FindEntriesCommand extends Command {
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         ArrayList<Entry> matchingEntries = ed.findEntries(keyword);
         Ui.printMatchingEntries(matchingEntries);
-        return "";
+        return "Found " + matchingEntries.size() + " matching entries";
     }
 
 }
