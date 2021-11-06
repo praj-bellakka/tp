@@ -410,15 +410,13 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 
 The parser component makes use of the user input String from the `FitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
 
-*   determines the type of `Command` object and returns it.
-*   handles input exceptions and returns relevant `FitNusException` command.
+##### Identifying type of method called
+
+  The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
+  If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
 #### How it works
 
-* ##### Identifying type of method called
-
-    The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. 
-If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
 - `parseAddFoodCommand(input, fd, mealTypeString)`
 
@@ -462,7 +460,7 @@ This decision is done via a simple if-else check as shown in the code snippet be
 ![](diagrams-DG/Parser_parseCreateCommand_Seq.png)
 
 
-- `promptUserCalories(index, mealType, foodName, newUi)
+- `promptUserCalories(index, mealType, foodName, newUi)`
   - `promptUserCalories` prompts the user for extra inputs when called.
   - The method uses 2 do-while loops to receive inputs for calories and foodType variables as shown below. An internal boolean flag, `isLoopFlagOn`, is used to handle the loop logic. The flag is set to true until a valid calorie input is entered.
   ```
