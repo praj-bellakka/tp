@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ViewSuggestionsCommandTest {
 
     @Test
-    void testViewSuggestionsCommand_validUser_viewSuggestionsSuccess() throws FitNusException {
+    void testViewSuggestionsCommand_hasMatchingSuggestions_viewSuggestionsSuccess()
+            throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
         FoodDatabase fd = new FoodDatabase();
         EntryDatabase ed = new EntryDatabase();
@@ -30,5 +31,25 @@ class ViewSuggestionsCommandTest {
 
         ViewSuggestionsCommand command = new ViewSuggestionsCommand(Food.FoodType.MEAL, true);
         assertEquals("Found " + 2 + " suggestions", command.execute(ed, fd, md, user));
+    }
+
+    @Test
+    void testViewSuggestionsCommand_hasNoMatchingSuggestions_viewSuggestionsSuccess()
+            throws FitNusException {
+        User user = new User(2000, Gender.MALE, 18, 180, 65);
+        FoodDatabase fd = new FoodDatabase();
+        EntryDatabase ed = new EntryDatabase();
+        MealPlanDatabase md = new MealPlanDatabase();
+
+        fd.addFood(new Food("food1", 100, Food.FoodType.OTHERS));
+        assertEquals(100, fd.getFoodAtIndex(1).getCalories());
+        assertEquals("food1", fd.getFoodAtIndex(1).getName());
+
+        fd.addFood("food2", 100, Food.FoodType.MEAL);
+
+        fd.addFood("food3", 200, Food.FoodType.MEAL);
+
+        ViewSuggestionsCommand command = new ViewSuggestionsCommand(Food.FoodType.SNACK, true);
+        assertEquals("Found " + 0 + " suggestions", command.execute(ed, fd, md, user));
     }
 }
