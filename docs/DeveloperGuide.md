@@ -18,11 +18,6 @@
    - [Parser](#parser)
 5. [Instruction for manual testing](#instructions-for-manual-testing)
 6. [Non-functional Requirement](#nf-requirements)
-7. [Glossary](#glossary)
-
-## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 ## Product scope
 
@@ -500,7 +495,3 @@ then compared with default list of commands to determine the type of method call
 
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
 2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
-
-## Glossary
-
-\*glossary item\* - Definition
