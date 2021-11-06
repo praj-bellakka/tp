@@ -134,9 +134,9 @@ public class Parser {
      * Throws FitNusException if noo corresponding command is found.
      *
      * @param input String containing a command call.
-     * @param fd Food database object.
-     * @param ed Entry database object.
-     * @param md MealPlan database object.
+     * @param fd    Food database object.
+     * @param ed    Entry database object.
+     * @param md    MealPlan database object.
      * @return Command object correspoonding to the input.
      * @throws FitNusException Thrown when no Command object found.
      */
@@ -257,8 +257,8 @@ public class Parser {
      * Method returns a prompt to user if food is already present in database or to enter calorie and meal type of food.
      * Calorie of food must be between 1 and 5000, or prompt continues in infinite loop.
      *
-     * @param input String containing user input.
-     * @param fd Food database containing existing food items.
+     * @param input          String containing user input.
+     * @param fd             Food database containing existing food items.
      * @param mealTypeString String describing the type of food.
      * @return AddFoodEntryCommand object.
      * @throws FitNusException Thrown when command format is not fulfilled.
@@ -293,11 +293,11 @@ public class Parser {
             Ui.print(Ui.DIVIDER);
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
             Ui.print(Ui.USER_INPUT);
-            return (AddFoodEntryCommand) returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
+            return returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
         } else if (tempDbFoods.size() == 0) {
             //prompt the user to input calorie if not match
-            newUi.printPromptUserFoodInput(foodName);
-            return (AddFoodEntryCommand) returnUserInput(mealType, foodName, tempDbFoods, newUi, false);
+            Ui.printPromptUserFoodInput(foodName);
+            return returnUserInput(mealType, foodName, tempDbFoods, newUi, false);
         }
         assert (tempDbFoods.size() >= 0);
         return null;
@@ -307,7 +307,7 @@ public class Parser {
      * Returns AddMealPlanEntryCommand to add meal plans currently in mealplan database.
      * Meal plan must exist inside database or FitNusException will be thrown.
      *
-     * @param md Meal plan database containing existing meal plans.
+     * @param md    Meal plan database containing existing meal plans.
      * @param input String input entered by the user.
      * @return AddMealPlanEntryCommand AddMealPlanEntryCommand with set parameters.
      * @throws FitNusException Thrown when mealplan does not exist.
@@ -332,7 +332,7 @@ public class Parser {
             int index;
             if (spaceRemainingIndex == -1) {
                 index = Integer.parseInt(remainingString.strip());
-            } else if (!remainingString.substring(0,spaceRemainingIndex).contains(BACKSLASH_CHARACTER)) {
+            } else if (!remainingString.substring(0, spaceRemainingIndex).contains(BACKSLASH_CHARACTER)) {
                 throw new FitNusException("Recheck command format!");
             } else {
                 index = Integer.parseInt(remainingString.substring(spaceRemainingIndex).strip());
@@ -347,7 +347,7 @@ public class Parser {
      * Returns CreateMealPlanCommand object when called and creates a custom meal plan.
      *
      * @param input String input containing meal plan name.
-     * @param fd FoodDatabase object.
+     * @param fd    FoodDatabase object.
      * @return CreateMealPlanCommand object.
      * @throws FitNusException Thrown when input format is invalid.
      */
@@ -368,7 +368,7 @@ public class Parser {
 
         //display all current foods
         Ui newUi = new Ui();
-        newUi.printMealPlanCreation(fd);
+        Ui.printMealPlanCreation(fd);
         ArrayList<Food> tempMealFoods = new ArrayList<Food>();
         String[] userInputIndexes = newUi.readIndexesInput(System.in, System.out);
 
@@ -377,12 +377,12 @@ public class Parser {
             try {
                 int inputInt = Integer.parseInt(i);
                 if (inputInt > fd.getFoodDatabase().size() || inputInt <= 0) {
-                    newUi.printOutOfRangeInputInteger(inputInt);
+                    Ui.printOutOfRangeInputInteger(inputInt);
                     continue;
                 }
                 tempMealFoods.add(fd.getFoodDatabase().get(inputInt - 1));
             } catch (NumberFormatException e) {
-                newUi.printInvalidInputInteger(i);
+                Ui.printInvalidInputInteger(i);
             }
         }
         return new CreateMealPlanCommand(tempMealFoods, mealNameString);
@@ -395,10 +395,10 @@ public class Parser {
      * the function will continue looping.
      * {@link #isLoopFlagOn} breakLoopFlag is set to false when user prompt loop is not needed, else loop continues.
      *
-     * @param mealType        Type of meal.
-     * @param foodName        String name of food.
-     * @param tempDbFoods      An arraylist containing Food items matching user entry.
-     * @param newUi           Ui element responsible for receiving user input through CLI.
+     * @param mealType           Type of meal.
+     * @param foodName           String name of food.
+     * @param tempDbFoods        An arraylist containing Food items matching user entry.
+     * @param newUi              Ui element responsible for receiving user input through CLI.
      * @param hasMultipleEntries Boolean variable to run custom food entry. If true, function uses existing food items.
      * @return AddFoodEntryCommand Command object containing relevant details.
      */
@@ -444,16 +444,16 @@ public class Parser {
      * Prompts user to enter calories between 1 and 5000 when called.
      * Prompt continues in infinite loop until a valid calorie is inputted.
      *
-     * @param index Index if EditFoodEntryCommand is called.
+     * @param index    Index if EditFoodEntryCommand is called.
      * @param mealType MealType of food item.
      * @param foodName String name of food.
-     * @param newUi Ui element handling reading of CLI.
+     * @param newUi    Ui element handling reading of CLI.
      * @return Command subobjects.
      * @throws FitNusException Thrown when invalid food type is detected.
      */
     private Command promptUserCalories(int index, MealType mealType, String foodName, Ui newUi) throws FitNusException {
         int userInput;
-        newUi.printAddCalorieToFood(foodName);
+        Ui.printAddCalorieToFood(foodName);
         isLoopFlagOn = false;
         do {
             userInput = parseInteger(newUi.readInput(System.in, System.out)); //getting calories
@@ -470,7 +470,7 @@ public class Parser {
                 Ui.println("The food type provided is invalid! Please try again");
             }
         } while (type == null);
-      
+
         //check type of Command object to return
         if (mealType == null) {
             return new EditFoodEntryCommand(index, foodName, userInput, type);
@@ -482,7 +482,7 @@ public class Parser {
     /**
      * Removes pipe character from food name and replaces it with a space chacrater.
      *
-     * @param input String that may contain pipe characters.
+     * @param input    String that may contain pipe characters.
      * @param mealType MealType of food.
      * @return foodName String without pipe characters.
      */
@@ -518,7 +518,7 @@ public class Parser {
      * If the meal type matches the predefined MealType enum, the matching MealType is returned.
      * Otherwise, UNDEFINED is returned.
      *
-     * @param input           Input that may contain the meal type.
+     * @param input             Input that may contain the meal type.
      * @param isDatabaseRequest Boolean representing if method is being called for the database.
      * @return MealType if a match is found; UNDEFINED MealType otherwise.
      */
@@ -764,7 +764,7 @@ public class Parser {
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
         if (typeDescriptor.equals(DESCRIPTOR_SET)) {
             String gender = input.substring(typeDescriptorIndex).trim();
-            if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("f")) {
+            if (gender.equalsIgnoreCase("m") || gender.equalsIgnoreCase("f")) {
                 return new SetGenderCommand(gender);
             }
             throw new FitNusException("Please input m for male or "

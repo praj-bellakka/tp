@@ -183,9 +183,9 @@ public class Ui {
     /**
      * Prints to the user the information about the preloaded data.
      *
-     * @param fd FoodDatabase object.
-     * @param ed EntryDatabase object.
-     * @param md MealPlanDatabase object.
+     * @param fd   FoodDatabase object.
+     * @param ed   EntryDatabase object.
+     * @param md   MealPlanDatabase object.
      * @param user User object.
      */
     public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {

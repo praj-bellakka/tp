@@ -30,7 +30,6 @@ public class Storage {
     private static final Path FILE_PATH_MEALPLAN_DATA = Paths.get(ROOT, "data", "mealplan.txt");
 
 
-
     /**
      * Creates the required directory and files if they do not exist.
      *

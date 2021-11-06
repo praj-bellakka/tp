@@ -7,7 +7,7 @@ import fitnus.exception.FitNusException;
 import fitnus.utility.User;
 
 public class SetHeightCommand extends Command {
-    private int height;
+    private final int height;
 
     public SetHeightCommand(int height) {
         this.height = height;
