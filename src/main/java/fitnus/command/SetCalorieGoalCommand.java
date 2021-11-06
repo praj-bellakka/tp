@@ -16,6 +16,6 @@ public class SetCalorieGoalCommand extends Command {
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         us.setCalorieGoal(calorieGoal);
-        return "The calorie goal has been set to " + this.calorieGoal;
+        return "Your calorie goal has been set to " + this.calorieGoal + " kcal!";
     }
 }

@@ -42,18 +42,23 @@ public class FitNus {
             if (successfullyInitialisedUser == 0) { //did not successfully initialise user data
                 Ui ui = new Ui();
 
-                ui.println("Please enter your gender (m/f):");
+                ui.println(Ui.DIVIDER);
+                ui.println("[X] Please enter your gender (m/f):");
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "gender /set ");
-                ui.println("Please enter your age in years:");
+                ui.println(Ui.DIVIDER);
+                ui.println("[X] Please enter your age in years:");
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "age /set ");
-                ui.println("Please enter your height in cm:");
+                ui.println(Ui.DIVIDER);
+                ui.println("\n[X] Please enter your height in cm:");
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "height /set ");
-                ui.println("Please enter your weight in kg:");
+                ui.println(Ui.DIVIDER);
+                ui.println("\n[X] Please enter your weight in kg:");
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "weight /set ");
                 ui.println("Generated your daily calorie needs accordingly.");
-                int calorieGoal = user.generateCalorieGoal(0, "gain");
+                int calorieGoal = user.calculateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
                 ui.println("Your daily calorie need is " + calorieGoal + " kcal.");
+                ui.println(Ui.DIVIDER);
                 saveFitNus();
             }
         } catch (IOException e) {
@@ -103,10 +108,12 @@ public class FitNus {
 
     private void run() {
         Ui.println(new HelpCommand().execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
+        Ui.print(Ui.DIVIDER);
         while (true) {
             try {
                 String userInput;
                 Command inputType;
+                Ui.print(Ui.USER_INPUT);
                 userInput = ui.readInput();
                 inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
                 Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
@@ -118,7 +125,7 @@ public class FitNus {
             } catch (FitNusException e) {
                 Ui.println(e.getMessage());
             }
-            Ui.println("-------------------------");
+            Ui.print(Ui.DIVIDER);
         }
     }
 

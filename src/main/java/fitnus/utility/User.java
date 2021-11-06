@@ -26,6 +26,7 @@ public class User {
     private static final String DELIMITER = " | ";
     private static final String GAIN_STRING = "gain";
     private static final String LOSE_STRING = "lose";
+    private static final float MINIMUM_WEEKLY_CHANGE = (float) 0.01;
     private static final float MAXIMUM_WEEKLY_CHANGE = (float) 1.0;
     private static final int ALL_MONTHS = 0;
     private static final String[] monthStrings = {"January", "February", "March", "April", "May", "June",
@@ -47,14 +48,22 @@ public class User {
      * Sets the user's calorie goal.
      *
      * @param newGoal New calorie goal to be set.
-     * @throws FitNusException when the goal is negative or same as before.
+     * @throws FitNusException when the calorie goal is out of the healthy range for the user.
      */
     public void setCalorieGoal(int newGoal) throws FitNusException {
-        if (newGoal < 0) {
-            logger.log(Level.INFO, "Calorie goal entered was negative");
-            throw new FitNusException("Calorie Goal cannot be negative! Please try again!");
-        } else if (newGoal == this.calorieGoal) {
-            throw new FitNusException("Calorie Goal cannot be the same as before! Please try again!");
+        int minimumCalorieGoal = calculateCalorieGoal(1, "lose");
+        int maximumCalorieGoal = calculateCalorieGoal(1, "gain");
+
+        if (newGoal < minimumCalorieGoal) {
+            throw new FitNusException("Your calorie goal cannot be lower than " + minimumCalorieGoal
+                    + " kcal as this would exceed the recommended healthy amount\n"
+                    + "of weight loss for your body type!\n"
+                    + "Please try again.");
+        } else if (newGoal > maximumCalorieGoal) {
+            throw new FitNusException("Your calorie goal cannot be higher than " + maximumCalorieGoal
+                    + " kcal as this would exceed the recommended healthy amount\n"
+                    + "of weight gain for your body type!\n"
+                    + "Please try again.");
         }
         assert newGoal >= 0 : "calorie goal cannot be negative";
         this.calorieGoal = newGoal;
@@ -108,11 +117,13 @@ public class User {
      * @return The outcome message.
      */
     public String updateWeightAndWeightTracker(float newWeight) {
+        assert newWeight > 0 : "newWeight should be greater than 0";
+
         this.setWeight(newWeight);
 
         LocalDate currDate = LocalDate.now();
         if (weightProgressEntries.size() == 0) {
-            updateWeightTrackerIfNoPreviousEntries(newWeight, currDate);
+            weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
 
@@ -123,25 +134,15 @@ public class User {
             float weightDifference = getWeightDifference(newWeight, previousEntry);
             String changeType = getChangeType(weightDifference);
             weightDifference = Math.abs(weightDifference);
+            assert weightDifference >= 0 : "weightDifference should not be negative";
 
             return "You have updated your weight for today to " + newWeight
-                    + " kg! You have " + changeType + " " + weightDifference
+                    + " kg!\nYou have " + changeType + " " + weightDifference
                     + " kg from the previous weight entry of "
                     + previousEntry.getWeight() + " kg on " + previousEntry.getDate().toString();
         } else {
             return "You have updated your weight for today to " + newWeight + " kg!";
         }
-    }
-
-    /**
-     * Updates the daily weight tracker for the case where the weight tracker does not have any
-     * existing entries.
-     *
-     * @param newWeight New weight to be set.
-     * @param currDate  The current date.
-     */
-    public void updateWeightTrackerIfNoPreviousEntries(float newWeight, LocalDate currDate) {
-        weightProgressEntries.add(new WeightProgressEntry(newWeight, currDate));
     }
 
     /**
@@ -198,11 +199,17 @@ public class User {
             throw new FitNusException("An error has occurred! No weight records found.");
         }
 
+        boolean isFirstEntry = true;
         for (WeightProgressEntry e : relevantEntries) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
             String date = e.getDate().toString();
-            lines.append(date).append(": ").append(weight).append("kg").append(System.lineSeparator());
+            if (isFirstEntry) {
+                lines.append(date).append(": ").append(weight).append("kg");
+                isFirstEntry = false;
+            } else {
+                lines.append(System.lineSeparator()).append(date).append(": ").append(weight).append("kg");
+            }
         }
         return lines.toString();
     }
@@ -289,7 +296,8 @@ public class User {
     }
 
     /**
-     * Generates a calorie goal according to the user's height,
+     * Handles the generate calorie goal command.
+     * It generates a calorie goal according to the user's height,
      * weight, gender and age, as well as the desired weekly change
      * in weight and type of change (gain or lose).
      *
@@ -300,21 +308,39 @@ public class User {
      *                         GAIN_STRING or LOSE_STRING or if the weekly change is greater than
      *                         MAXIMUM_WEEKLY_CHANGE or is a negative value
      */
-    public int generateCalorieGoal(float weeklyChange, String changeType) throws FitNusException {
+    public int handleGenerateCalorieGoalCommand(float weeklyChange, String changeType) throws FitNusException {
         if (!(changeType == GAIN_STRING || changeType == LOSE_STRING)) {
             throw new FitNusException("An error has occurred! The change type is invalid.");
         }
 
         if (weeklyChange < 0) {
             throw new FitNusException("Please enter a positive value for the weekly change!");
-        } else if (weeklyChange >= MAXIMUM_WEEKLY_CHANGE) {
+        } else if (weeklyChange > MAXIMUM_WEEKLY_CHANGE) {
             throw new FitNusException("In order to lose or gain weight in a safe and healthy way,\n"
                     + "FitNUS recommends a weekly change in weight of not more than\n"
-                    + "1 kg. Please try again with a lower weekly goal!");
+                    + MAXIMUM_WEEKLY_CHANGE + " kg. Please try again with a lower weekly goal!");
+        } else if (weeklyChange < MINIMUM_WEEKLY_CHANGE) {
+            System.out.println("ALERT: If you would like to lose or gain weight,\n"
+                    + "please enter a weekly change of "
+                    + MINIMUM_WEEKLY_CHANGE + " kg or more!\n"
+                    + "The new goal that has been generated will allow you to maintain your current weight.");
         }
 
-        int calDeficitFor1KgWeekly = 1000;
+        int newGoal = calculateCalorieGoal(weeklyChange, changeType);
+        return newGoal;
+    }
 
+    /**
+     * Calculate a calorie goal according to the user's height,
+     * weight, gender and age, as well as the desired weekly change
+     * in weight and type of change (gain or lose).
+     *
+     * @param weeklyChange The desired weekly change in weight in kg.
+     * @param changeType   The desired change type (gain or lose)
+     * @return The calculated calorie goal.
+     */
+    public int calculateCalorieGoal(float weeklyChange, String changeType) {
+        int calDeficitFor1KgWeekly = 1000;
         int bmr = calculateBasalMetabolicRate(); //basal metabolic rate i.e. calories needed to maintain weight
         int calDiff = Math.round(weeklyChange * calDeficitFor1KgWeekly);
         int newGoal = 0;
@@ -329,7 +355,8 @@ public class User {
     }
 
     /**
-     * Calculate the basal metabolic rate (BMR).
+     * Calculate the basal metabolic rate (BMR)
+     * according to the Harris-Benedict Equation.
      *
      * @return The calculated BMR.
      */
