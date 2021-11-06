@@ -602,61 +602,39 @@ Test case: `find /entry chicken`
 
 Expected: User should be able to see all entries consisting of the keyword "chicken"
 
-<h4>Storage format</h4>
-<div><strong>Every line in each text file represents one object / entry / item</strong></div>
-<ul>
-<li>
-FoodDatabase:<code>FOODNAME | CALORIE_VALUE</code> <br/>
-Example: <code>Nasi Lemak | 400</code> &nbsp; <code>Ramen | 600</code>
-</li>
+### View statistics
+#### Weekly report
+Prerequisite: Have at least one existing `Entry`
 
-<li>
-EntryDatabase:<code>MEALTYPE | FOODNAME | CALORIE_VALUE | DATE</code> <br/>
-Example: <code>Dinner | Ramen | 500 | 2021-10-20</code> &nbsp; <code>Lunch | Fried rice | 600 | 2021-10-20</code>
-</li>
+Test case: `summary /week`
 
-<li>
-User:<code>CALORIE_GOAL | GENDER</code> <br/>
-Example: <code>1000 | 0</code> &nbsp;
-</li>
+Expected Output: A weekly report is generated similar to the following:
+![img](diagrams-UG/week-summary.png)
 
+#### Monthly report
+Prerequisite: Have at least one existing `Entry`
 
-<li>
-User weight:<code>WEIGHT | DATE</code> <br/>
-Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &nbsp; <code>58.0 | 2021-09-20</code> &nbsp; <code>45.0 | 2021-10-21</code>
-</li>
+Test case: `summary /month`
 
-</ul>
+Expected Output: A monthly report is generated similar to the following:
 
-<h4>Implementation</h4>
-<ol>
-<li>
-<div><strong>Saving to file</strong></div>
-<code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
-its data to String format. This String is then saved to the text file. <br/>
-For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is then written to the text file.
-</li>
+![img](diagrams-UG/month-summary.png)
 
 
-<li>
-<div><strong>Loading from file </strong></div>
-<code>Storage</code> makes use of the <code>BufferedReader</code> and <code>FileInputStream</code> provided  by <code>java.io</code> to access 
-the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
+### View suggestions
+Prerequisite: 
+- User data (gender, age, weight, height) is set correctly to ensure the calorie
+goal is generated correctly
+- `FoodDatabase` has at least one `Food`
 
-For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
-and passes the file contents to the <code>preLoadDatabase()</code> method in <code>FoodDatabase</code> which populates
-the ArrayList in <code>FoodDatabase</code>.
-</li>
+Test cases: 
+- `suggest /FOODTYPE` (result unsorted)
+- `suggest /FOODTYPE /sort` (result sorted)
 
-</ol>
+> **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
 
-<h4>UML Sequence Diagram </h4>
-The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
-<img src="diagrams/Storage_sequence.png">
+Expected Output: Matching `Food` suggestions are shown.
 
-
-<li>
 <h3>Parser Component</h3>
 <div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
 It then returns a <code>Command</code> object that represents the type of command called through the input.</div>
