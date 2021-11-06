@@ -24,7 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
     Parser parser = new Parser();
-    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
+    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! "
+            + "Type 'help' for a list of commands\n"
+            + "and their command formats.";
     EntryDatabase ed = new EntryDatabase();
     FoodDatabase fd = new FoodDatabase();
     MealPlanDatabase md = new MealPlanDatabase();

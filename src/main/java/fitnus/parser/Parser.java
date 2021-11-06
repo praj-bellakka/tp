@@ -83,7 +83,9 @@ public class Parser {
     private static final String DESCRIPTOR_SET = "/set";
     private static final String DESCRIPTOR_MEALPLAN = "/mealplan";
     public static final int INVALID_INPUT = -1;
-    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! PLease try again!";
+    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! "
+            + "Type 'help' for a list of commands\n"
+            + "and their command formats.";
 
     // FoodType related strings
     private static final String MEAL = "/meal";
@@ -117,7 +119,7 @@ public class Parser {
     private static final int MAXIMUM_AGE = 100;
     private static final int MINIMUM_HEIGHT = 40;
     private static final int MAXIMUM_HEIGHT = 300;
-    private static final float MINIMUM_WEIGHT = 40;
+    private static final float MINIMUM_WEIGHT = 0;
     private static final int MAXIMUM_WEIGHT = 500;
 
 
@@ -212,14 +214,14 @@ public class Parser {
             if (inputCommandType.equals(COMMAND_CREATE)) { //summary type command
                 return parseCreateCommand(subString, fd);
             }
-
-
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new FitNusException("Input format is not correct. Follow the one stated!");
+            throw new FitNusException("Input format is not correct! Type 'help' for a list of commands\n"
+                    + "and their command formats.");
         } catch (NumberFormatException e) {
             throw new FitNusException("Input value is not an integer!");
         } catch (StringIndexOutOfBoundsException e) {
-            throw new FitNusException("Did you forget to write the full command? :)");
+            throw new FitNusException("Did you forget to write the full command? Type 'help' for a list of commands\n"
+                    + "and their command formats.");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
@@ -648,15 +650,28 @@ public class Parser {
             int listWeightInputsIndex = input.indexOf(DESCRIPTOR_WEIGHT) + DESCRIPTOR_WEIGHT.length();
             String listWeightInputsString = input.substring(listWeightInputsIndex);
             String[] listWeightInputs = listWeightInputsString.split("\\s+");
+
+            if (listWeightInputs.length > 3) {
+                throw new FitNusException("Additional inputs detected! Please follow the command format:\n"
+                        + "list /weight /TIMEFRAME (/month MONTH_INTEGER, /all)\n"
+                        + "(e.g.list /weight /all OR list /weight /month 1)");
+            }
+
             String timeFrame;
             try {
                 timeFrame = listWeightInputs[1].strip();
             } catch (IndexOutOfBoundsException e) {
-                throw new FitNusException("Invalid list weight command! It is supposed to be "
-                        + "list /weight /all or list /weight /month MONTH_INTEGER");
+                throw new FitNusException("Invalid list weight command! Please enter it as "
+                        + "list /weight /all or list /weight /month MONTH_INTEGER"
+                        + System.lineSeparator() + "e.g. list /weight /month 1 for January");
             }
             switch (timeFrame) {
             case ALL_TIME:
+                if (listWeightInputs.length > 2) {
+                    throw new FitNusException("Additional inputs detected! Please follow the command format:\n"
+                            + "list /weight /TIMEFRAME (/month MONTH_INTEGER, /all)\n"
+                            + "(e.g.list /weight /all OR list /weight /month 1)");
+                }
                 return new ListWeightProgressCommand(0);
             case MONTH:
                 int month;
@@ -668,6 +683,9 @@ public class Parser {
                     }
                 } catch (NumberFormatException e) {
                     throw new FitNusException("Please enter the month as an integer! e.g. 1 for January");
+                } catch (IndexOutOfBoundsException e) {
+                    throw new FitNusException("Please enter the month as an integer after entering /month!"
+                            + " e.g. 'list /weight /month 1' for January");
                 }
                 return new ListWeightProgressCommand(month);
             default:
@@ -689,14 +707,31 @@ public class Parser {
 
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
         if (DESCRIPTOR_SET.equals(typeDescriptor)) {
-            int calorieGoal = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
+            int calorieGoal;
+            try {
+                calorieGoal = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
+            } catch (NumberFormatException e) {
+                throw new FitNusException("Calorie goal entered must be an integer!\n"
+                        + "Did you enter an invalid input or any additional inputs by mistake?");
+            }
             return new SetCalorieGoalCommand(calorieGoal);
         }
+
         if (DESCRIPTOR_GENERATE.equals(typeDescriptor)) {
             int goalGenerationInputsIndex = input.indexOf(DESCRIPTOR_GENERATE) + DESCRIPTOR_GENERATE.length();
             String goalGenerationInputsString = input.substring(goalGenerationInputsIndex);
             String[] goalGenerationInputs = goalGenerationInputsString.split("\\s+");
-            String weightChangeInput = goalGenerationInputs[1].strip();
+
+            if (goalGenerationInputs.length > 3) {
+                throw new FitNusException("Additional inputs detected! Please follow the command format:\n"
+                        + "calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG\n"
+                        + "(e.g. calorie /generate /lose 0.1)");
+            }
+
+            String weightChangeInput;
+
+            weightChangeInput = goalGenerationInputs[1].strip();
+
             String weightChangeType;
             if (weightChangeInput.equals(GAIN)) {
                 weightChangeType = "gain";
@@ -706,7 +741,15 @@ public class Parser {
                 throw new FitNusException("Invalid change type! "
                         + "Please enter /gain or /lose as the change type parameter.");
             }
-            float weightChangeAmount = Float.parseFloat(goalGenerationInputs[2].strip());
+
+            float weightChangeAmount;
+            try {
+                weightChangeAmount = Float.parseFloat(goalGenerationInputs[2].strip());
+            } catch (NumberFormatException e) {
+                throw new FitNusException("Please enter a number between 0.01 and 1 for the weekly change!");
+            } catch (IndexOutOfBoundsException e) {
+                throw new FitNusException("Please enter the weekly change! e.g. calorie /generate /lose 0.1");
+            }
 
             return new GenerateCalorieGoalCommand(weightChangeAmount, weightChangeType);
         }
@@ -721,15 +764,18 @@ public class Parser {
             if (gender.toLowerCase().equals("m") || gender.toLowerCase().equals("f")) {
                 return new SetGenderCommand(gender);
             }
-            throw new FitNusException("Invalid input! Please input m for male or "
-                    + "f for female when setting your gender.");
+            throw new FitNusException("Please input m for male or "
+                    + "f for female when setting your gender!\n"
+                    + "Did you enter an invalid character or any additional inputs by mistake?");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
     private Command parseAgeTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
-        String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
+        String typeDescriptor;
+        typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
+
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 int age = Integer.parseInt(input.substring(typeDescriptorIndex).trim());
@@ -744,7 +790,8 @@ public class Parser {
                 return new SetAgeCommand(age);
             }
         } catch (NumberFormatException e) {
-            throw new FitNusException("The age must be an integer!");
+            throw new FitNusException("Age entered must be an integer!\n"
+                    + "Did you enter an invalid input or any additional inputs by mistake?");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
@@ -765,7 +812,8 @@ public class Parser {
                 return new SetHeightCommand(height);
             }
         } catch (NumberFormatException e) {
-            throw new FitNusException("The height must be an integer!");
+            throw new FitNusException("Height entered must be an integer!\n"
+                    + "Did you enter an invalid input or any additional inputs by mistake?");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
@@ -785,7 +833,8 @@ public class Parser {
                 return new SetWeightCommand(weight);
             }
         } catch (NumberFormatException e) {
-            throw new FitNusException("The height must be an integer!");
+            throw new FitNusException("Weight entered must be a positive number!\n"
+                    + "Did you enter an invalid input or any additional inputs by mistake?");
         }
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }

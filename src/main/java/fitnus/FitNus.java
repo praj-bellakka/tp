@@ -55,7 +55,7 @@ public class FitNus {
                 ui.println("\n[X] Please enter your weight in kg:");
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "weight /set ");
                 ui.println("Generated your daily calorie needs accordingly.");
-                int calorieGoal = user.generateCalorieGoal(0, "gain");
+                int calorieGoal = user.calculateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
                 ui.println("Your daily calorie need is " + calorieGoal + " kcal.");
                 ui.println(Ui.DIVIDER);
