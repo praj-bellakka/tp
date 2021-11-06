@@ -1,6 +1,8 @@
 package fitnus.utility;
 
+import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
+import fitnus.database.MealPlanDatabase;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
@@ -11,6 +13,11 @@ public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
     public static final String DIVIDER = "------------------\n";
+    public static final String INIT_GENDER = "[X] Please enter your gender (m/f):";
+    public static final String INIT_AGE = "[X] Please enter your age in years:";
+    public static final String INIT_HEIGHT = "[X] Please enter your height in cm:";
+    public static final String INIT_WEIGHT = "[X] Please enter your weight in kg:";
+    public static final String INIT_SUCCESS = "Generated your daily calorie needs accordingly.";
     public static final String USER_INPUT = "You: ";
     public static final String WELCOME_MESSAGE = DIVIDER
             + "Welcome to FitNUS Tracker!";
@@ -104,7 +111,6 @@ public class Ui {
     public static void printPromptUserFoodInput(String foodName) {
         System.out.println("Oops! \"" + foodName + "\" does not exist in the database!");
         Ui.print(Ui.DIVIDER);
-        Ui.print(Ui.USER_INPUT);
     }
 
     public static void printOutOfRangeInputInteger(int num) {
@@ -141,5 +147,18 @@ public class Ui {
             System.out.println(" " + i + "."
                     + matchingFoods.get(i - 1).toString());
         }
+    }
+
+    public static void printCalorieGoal(int calorieGoal) {
+        println("Your daily calorie goal is " + calorieGoal + "kcal.");
+    }
+
+    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
+        Ui.println("Food database:" + System.lineSeparator()
+                + fd.listFoods());
+        Ui.println("Entry database:" + System.lineSeparator()
+                + ed.listEntries());
+        Ui.println("User data:" + System.lineSeparator()
+                + user.getUserDataDisplay());
     }
 }
