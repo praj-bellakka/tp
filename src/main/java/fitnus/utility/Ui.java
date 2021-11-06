@@ -38,7 +38,7 @@ public class Ui {
         System.out.println("Error encountered while preloading user data :(");
     }
 
-    public String readInput(InputStream in , PrintStream out) {
+    public String readInput(InputStream in, PrintStream out) {
         Scanner sc = new Scanner(in);
         String userInput = "";
         do {
@@ -51,7 +51,7 @@ public class Ui {
         return userInput;
     }
 
-    public String[] readIndexesInput(InputStream in , PrintStream out) {
+    public String[] readIndexesInput(InputStream in, PrintStream out) {
         Scanner sc = new Scanner(in);
         String userInput = "";
         do {

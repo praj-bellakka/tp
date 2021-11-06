@@ -1,6 +1,10 @@
 package fitnus;
 
-import fitnus.command.*;
+import fitnus.command.AddFoodEntryCommand;
+import fitnus.command.ExitCommand;
+import fitnus.command.HelpCommand;
+import fitnus.command.ListFoodDatabaseCommand;
+import fitnus.command.SetWeightCommand;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
