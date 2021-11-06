@@ -121,7 +121,7 @@ class UserTest {
     void convertWeightRecordsToStringForUi_noWeightEntries_exceptionThrown() {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
         Exception exception = assertThrows(FitNusException.class,
-                () -> user.convertWeightRecordsToStringForUi(user.getWeightProgressEntries()));
+            () -> user.convertWeightRecordsToStringForUi(user.getWeightProgressEntries()));
         assertEquals("An error has occurred! No weight records found.", exception.getMessage());
     }
 
@@ -147,22 +147,24 @@ class UserTest {
     @Test
     void generateCalorieGoal_invalidChangeType_exceptionThrown() throws FitNusException {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        Exception exception = assertThrows(FitNusException.class, () -> user.handleGenerateCalorieGoalCommand((float) 0.1,
-                "invalid"));
+        Exception exception = assertThrows(FitNusException.class,
+            () -> user.handleGenerateCalorieGoalCommand((float) 0.1, "invalid"));
         assertEquals("An error has occurred! The change type is invalid.", exception.getMessage());
     }
 
     @Test
     void generateCalorieGoal_negativeWeeklyChangeValue_exceptionThrown() {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        Exception exception = assertThrows(FitNusException.class, () -> user.handleGenerateCalorieGoalCommand((float) -0.1, "lose"));
+        Exception exception = assertThrows(FitNusException.class,
+            () -> user.handleGenerateCalorieGoalCommand((float) -0.1, "lose"));
         assertEquals("Please enter a positive value for the weekly change!", exception.getMessage());
     }
 
     @Test
     void generateCalorieGoal_weeklyChangeValueTooHigh_exceptionThrown() {
         User user = new User(2000, Gender.MALE, 18, 180, 65);
-        Exception exception = assertThrows(FitNusException.class, () -> user.handleGenerateCalorieGoalCommand((float) 1.2, "lose"));
+        Exception exception = assertThrows(FitNusException.class,
+            () -> user.handleGenerateCalorieGoalCommand((float) 1.2, "lose"));
         assertEquals("In order to lose or gain weight in a safe and healthy way,\n"
                 + "FitNUS recommends a weekly change in weight of not more than\n"
                 + "1 kg. Please try again with a lower weekly goal!", exception.getMessage());
