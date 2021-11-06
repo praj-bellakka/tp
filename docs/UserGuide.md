@@ -8,39 +8,38 @@ It is based on a Command Line Interface (CLI) and has rich functionality in orde
 
 Here is the list of sections we will be covering in this User Guide.
 
-- Quick Start
-
-- Features
-  - Food Tracker
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Food Tracker](#food-tracker)
     - Adding food tracker entry: `add`
     - Adding meal plan entry: `add /mealplan`
     - Editing existing food tracker entry: `edit`
     - Deleting food tracker entry: `remove /entry`
     - Listing tracker entries: `list /entry`
     - Searching for tracker entries with keyword: `find /entry`
-  - Food Database
+  - [Food Database](#food-database)
     - Deleting food from food database: `remove /food`
     - Searching for foods with keyword: `find /food`
     - Listing foods in food database: `list /food`
-  - Meal Plan Database
+  - [Meal Plan Database](#meal-plan-database)
     - Creating new meal plan: `create /mealplan`
     - Listing meal plan entries: `list /mealplan`
-  - Weight Tracker
+  - [Weight Tracker](#meal-plan-database)
     - Recording weight: `weight /set`
     - Listing weight records: `list /weight`
-  - Personalisation
+  - [Personalisation](#personalisation)
     - Setting gender: `gender /set`
     - Setting height: `height /set`
     - Setting age: `age /set`
     - Setting calorie goal: `calorie /set`
     - Generate and set calorie goal: `calorie /generate`
     - View personal data: `list /user`
-  - Other
+  - [Other](#other)
     - Viewing statistics: `summary`
     - Viewing help: `help`
     - Getting food recommendations: `suggest`
     - Exiting FitNUS: `exit`
-- Command Summary
+- [Command Summary](#command-summary)
 
 ---
 ## Quick Start
@@ -48,15 +47,7 @@ Here is the list of sections we will be covering in this User Guide.
 1. Ensure that you have Java 11 installed in your computer. 
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program (for Mac or Linux user):`java -jar FitNus.jar`
-> **⚠️ Notes to Windows user**
-> 
-> We strongly recommend you using cmd to execute. If you are using git-bash, before running the program,
-> please type `chcp 65001`. You should see the following:
-> ```
-> C:\Users\USER>chcp 65001
-> Active code page: 65001
-> ```
+4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
 ```
 Welcome to FitNUS Tracker!
