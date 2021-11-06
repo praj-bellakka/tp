@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+-> ":Parser": parseAddFoodCommand(input, mealTypeString)
+activate ":Parser"
+
+create "<<enumeration>>\n:MealType"
+":Parser" -> "<<enumeration>>\n:MealType": parseMealType(mealTypeString)
+activate "<<enumeration>>\n:MealType"
+return mealType
+
+create ":FoodDatabase"
+":Parser" -> ":FoodDatabase": findFoods(foodName)
+activate ":FoodDatabase"
+return tempDbFoods:ArrayList<Food>
+
+alt If size of tempDbFoods is > 0
+    ":Parser" -> ":Parser": returnUserInput(mealType, foodName, tempDbFoods, newUi, true)
+    note right: User is prompted to pick food from database.\nMethod to prompt user to enter calorie/meal\ndetails is then called
+    activate ":Parser"
+    return AddFoodEntryCommand
+else size of tempDbFoods = 0
+    ":Parser" -> ":Parser": returnUserInput(mealType, foodName, tempDbFoods, newUi, false)
+    note right: Method to prompt user to enter calorie/meal\ndetails is called here
+    activate ":Parser"
+    return AddFoodEntryCommand
+end
+
+return AddFoodEntryCommand
+@enduml

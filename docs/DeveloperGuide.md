@@ -408,16 +408,72 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 
 ### Parser
 
-The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
+The parser component makes use of the user input String from the `FitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
 
 *   determines the type of `Command` object and returns it.
 *   handles input exceptions and returns relevant `FitNusException` command.
 
-#### Implementation
+#### How it works
 
-*   ##### Identifying type of method called
+* ##### Identifying type of method called
 
-    The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
+    The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. 
+If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
+
+- `parseAddFoodCommand(input, fd, mealTypeString)`
+
+    `parseAddFoodCommand` checks whether the user is calling to add a new `Food` or a `MealPlan` and returns the corresponding `parseAddMealPlanFoodCommand` or `parseAddFoodCommand` methods. 
+This decision is done via a simple if-else check as shown in the code snippet below. `DESCRIPTOR_MEALPLAN` is defined as the String `"/mealplan"`. 
+
+     ```
+    if (mealTypeString.equals(DESCRIPTOR_MEALPLAN)) {
+    return parseAddMealPlanFoodCommand(md, input);
+    } else {
+    return parseAddFoodCommand(input, fd, mealTypeString);
+    }
+    ```
+
+- `parseAddFoodCommand(input, fd, mealTypeString)`
+
+    - `parseAddFoodCommand` returns a `AddFoodEntryCommand` object when called. The method first finds the `MealType` of the food by calling the `parseMealType` command.  
+    - The food name input by the user is then compared to the `FoodDatabase` and `tempDbFoods`, an ArrayList containing matching Food objects, is displayed
+    - If there are no matching food, a new food object will be created. `returnUserInput` will be returned and the user will be directly prompted to enter the calories and meal type of the new food.
+    - If there are matching foods, `returnUserInput` will be returned and the user will be  prompted to choose the food from the matching list. 
+
+> ⚠️ Notes about matching foods:
+>- The user is allowed to create a new `Food` object when being prompted to selected matching foods. However, the scenario has not been displayed below for the sake of clarity.
+
+
+![](diagrams-DG/Parser_parseAddFoodCommand_Seq.png)
+
+
+- `parseCreateCommand(input, fd)`
+
+    - `parseCreateCommand` creates custom meal plans when called. The method is responsible for handling all meal plan creation requests.
+    - The method calls the `readIndexesInput` from the `Ui` class and returns an ArrayList of inputs.
+    - For each valid input, the relevant Food object from the `FoodDatabase` is extracted and stored in a temporary list of Food items.
+    - Once all inputs have been parsed, a `CreateMealPlanCommand` is returned.
+
+> ⚠️ Notes about inputs:
+>-  All non-integer inputs and inputs outside the range of the database will be ignored.
+> 
+
+
+![](diagrams-DG/Parser_parseCreateCommand_Seq.png)
+
+
+- `promptUserCalories(index, mealType, foodName, newUi)
+  - `promptUserCalories` prompts the user for extra inputs when called.
+  - The method uses 2 do-while loops to receive inputs for calories and foodType variables as shown below. An internal boolean flag, `isLoopFlagOn`, is used to handle the loop logic. The flag is set to true until a valid calorie input is entered.
+  ```
+    do {
+        userInput = parseInteger(newUi.readInput(System.in, System.out)); //getting calories
+    } while (isLoopFlagOn);
+
+    ```
+
+![](diagrams-DG/Parser_promptUserCalories_Seq.png)
+
 
 ## Instructions for manual testing
 
