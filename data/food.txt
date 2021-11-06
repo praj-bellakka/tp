@@ -66,5 +66,4 @@ hwang's - doeji bulgogi | 330 | MEAL
 hwang's - gulgogi | 395 | MEAL
 hwang's - kimchi jigae | 316 | MEAL
 hwang's - la myun | 470 | MEAL
-fried rice | 400 | MEAL
-ramen | 500 | MEAL
+
