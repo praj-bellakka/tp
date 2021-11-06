@@ -199,11 +199,17 @@ public class User {
             throw new FitNusException("An error has occurred! No weight records found.");
         }
 
+        boolean isFirstEntry = true;
         for (WeightProgressEntry e : relevantEntries) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
             String date = e.getDate().toString();
-            lines.append(date).append(": ").append(weight).append("kg").append(System.lineSeparator());
+            if (isFirstEntry) {
+                lines.append(date).append(": ").append(weight).append("kg");
+                isFirstEntry = false;
+            } else {
+                lines.append(System.lineSeparator()).append(date).append(": ").append(weight).append("kg");
+            }
         }
         return lines.toString();
     }
