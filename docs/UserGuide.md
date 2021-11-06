@@ -10,11 +10,11 @@ Here is the list of sections we will be covering in this User Guide.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Food Tracker](#food-tracker)
-    - [Adding food tracker entry: `add`](#adding-food-tracker-entry-add)
+  - [Entry Database](#food-tracker)
+    - [Adding food entry: `add`](#adding-food-tracker-entry-add)
     - [Adding meal plan entry: `add /mealplan`](#adding-meal-plan-entry-add-mealplan)
-    - [Editing existing food tracker entry: `edit`](#editing-existing-food-tracker-entry-edit)
-    - [Deleting food tracker entry: `remove /entry`](#deleting-food-tracker-entry-remove)
+    - [Editing existing food entry: `edit`](#editing-existing-food-tracker-entry-edit)
+    - [Deleting food entry: `remove /entry`](#deleting-food-tracker-entry-remove)
     - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list)
     - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find)
   - [Food Database](#food-database)
@@ -73,10 +73,10 @@ Successfully preloaded weight data
 
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
 
-### Food Tracker
+### Entry Database
 
-#### Adding food tracker entry: `add`
-Adds a food tracker entry to the food tracker and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
+#### Adding food entry: `add`
+Adds an entry to the Entry Database and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -143,8 +143,8 @@ Sample output:
 ![img.png](diagrams-UG/img.png)
 
 
-#### Editing existing food tracker entry: `edit`
-Edits an existing food tracker entry's food information. FitNUS will search for FOOD_NAME in the food database 
+#### Editing existing food entry: `edit`
+Edits an existing entry's food information. FitNUS will search for FOOD_NAME in the food database 
 and update the specified entry's food details accordingly.
 
 Format: `edit INDEX_OF_ENTRY FOOD_NAME`
@@ -166,8 +166,8 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### Deleting food tracker entry: `remove`
-Deletes a food tracker entry from the food tracker.
+#### Deleting food entry: `remove`
+Deletes an entry from the EntryDatabase.
 
 Format: `remove /entry INDEX_OF_FOOD`
 
