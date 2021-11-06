@@ -220,68 +220,35 @@ The class diagram below showcases the relationships between the `MealPlanDatabas
 
 ### User component
 
-(put class diagram here)
+![User Class Diagram](diagrams-DG/User_Class.png)
 
 The `User` component:
 - Stores the user's personal data eg gender, age, height, weight
-- Stores the user's weight progress data i.e. all `WeightRecord` objects (which are contained in an `ArrayList` as an attribute in `User`)
-- Performs functions related to the user's calorie goal such as setting and generating the calorie goal
+- Stores the user's weight tracker data
+  (i.e. `WeightRecord` objects which are contained in an `ArrayList` as an attribute in `User`)
+- Performs functions related to the user's daily calorie goal such as 
+generating and setting the calorie goal, and displaying remaining calories
+for the day
 
-#### Weight tracker feature
+The `User` component consists of the following main methods (helper functions were omitted):
+- `updateWeightAndWeightTracker(float)` - Sets the user's weight and updates the weight tracker.
+- `getWeightTrackerDisplay(int)` - Displays `weightRecords` (the `ArrayList` containing
+`WeightRecord` objects) in the form of a weight tracker. 
+- `getCaloriesRemaining(EntryDatabase)` - Returns the remaining number of calories that the user
+can consume for the day according to their daily calorie goal.
+- `handleGenerateCalorieGoalCommand(float, String)` - Generates and returns a calorie goal according
+to the user's body type and their desired weekly weight change.
+- `preloadUserData(BufferedReader)` - Loads the user's data from storage to the User object.
+- `preloadWeightData(BufferedReader)` - Loads the user's weight tracker data from storage to the User object.
+- `getUserDataDisplay()` - Returns a string displaying the user's data.
+- `convertUserDataToString()` - Returns user data converted to the correct format for storage.
+- `convertWeightDataToString()` - Returns weight tracker data converted 
+to the correct format for storage.
 
-The weight tracker consists of the `ArrayList` of `WeightRecord` objects. Each `WeightRecord` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
+The class diagram below showcases the relationships between the 
+User class and its various components.
 
-The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
-![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
-
-How updating the weight tracker works:
-
-1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
-2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
-3. If the latest weight record was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). 
-Otherwise, a new weight record is created in the `ArrayList` with the current date and new weight.
-
-The weight tracker can also perform the following operations:
-- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. 
-Weight records are stored in a text file in the following format:  
-  `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
-- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightRecord` objects
-- `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
-
-#### Calories remaining feature
-
-The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
-
-![ViewRemainingCalorieSeqDiagram](diagrams-DG/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
-
-#### Generate and set calorie goal feature
-
-The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
-
-This is performed as shown in the following sequence diagram:
-![GenerateGoalSeqDiagram](diagrams-DG/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
-
-- The following formulas are used to generate the calorie goal:
-  - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-  - For males: calorieGoal = [[66.47 + (13.75 x weight in kg) + (5.003 x height in cm) - (6.755 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-
-
-> ⚠️ Notes about the generate and set calorie goal feature:
->- The weekly change is the absolute value of the weekly change in weight. It cannot be greater than 1.0, which is the upper bound for the recommended healthy weight change per week.
-
-#### Setting user data feature
-
-The user is able to change their personal data at any point while using the app. 
-
-Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
-![SetHeightSeqDiagram](diagrams-DG/SetHeightCommand.png "Set Height Sequence Diagram")
-
-> ⚠️ Notes about the setting user data feature:
-> - The age (in years) can only be set to an integer within the range of 12 to 100
-> - The height (in cm) can only be set to an integer within the range of 40 to 300
-> - The weight (in kg) can only be set to a number within the range of 0 to 500
-
-
+![](diagrams-DG/User_Classes.png)
 
 ---
 
