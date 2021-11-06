@@ -1,14 +1,13 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
 
 -> ":MealPlanDatabase": preloadDatabase()
 activate ":MealPlanDatabase"
 
 loop While there are still unread lines
 
-    alt If end of meal plan
+    alt If MealPlan decoder is detected
         create ":MealPlan"
         ":MealPlanDatabase" -> ":MealPlan": new MealPlan(mealPlanName, tempArray)
         activate ":MealPlan"
@@ -19,16 +18,17 @@ loop While there are still unread lines
         return
     end
 
-    ":MealPlanDatabase" -> ":Parser": parseFoodType()
-    activate ":Parser"
-    return type:FoodType
+    ":MealPlanDatabase" -> "<<Class>>\nParser": parseFoodType()
+    activate "<<Class>>\nParser"
+    return type
 
     create ":Food"
     ":MealPlanDatabase" -> ":Food": new Food(name, calories, type)
     activate ":Food"
-    return food:Food
+    return food
 
-    ":MealPlanDatabase" -> ":MealPlanDatabase": add(food)
+    ":MealPlanDatabase" -> ":MealPlanDatabase": addFood(name, calories, type)
+    note right: Food is added into a temporary\narrayList until decoder is detected
     activate ":MealPlanDatabase"
     return
 

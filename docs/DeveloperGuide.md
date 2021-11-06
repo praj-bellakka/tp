@@ -176,16 +176,30 @@ The class diagram below showcases the relationships between the `FoodDatabase` c
 
 ### Meal Plan Database
 
-![](diagrams/MealPlanDatabase_Class.png)
+The meal plan database is responsible for storing custom meal plans created by the user. 
+Each meal plan consists of a name, and a list of `Food` items linked to the meal plan.
+The class diagram of the `MealPlanDatabase` is shown below.
+
+![](diagrams-DG/MealPlanDatabase_Class.png)
 
 The `MealPlanDatabase` component consists of:
 - `convertFoodToString(ArrayList<Food>)` Returns a string representation of all MealPlan objects in the database.
 - `addMealPlan(MealPlan)` Adds a MealPlan object to the database.
 - `getMealAtIndex(int)` Returns the MealPlan object at that index inside the database. 
 - `convertDatabaseToString()` Returns a string presentation of the MealPlanDatabase object.
+
+![](diagrams-DG/MealPlanDatabase_convertDatabaseToString_Seq.png)
+
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
+  
+The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNus is first launched.
+
+![](diagrams-DG/MealPlanDatabase_preLoadDatabase_Seq.png)
+
 - `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
   
+![](diagrams-DG/MealPlanDatabase_listMealPlan_Seq.png)
+
 #### Implementation
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
@@ -194,14 +208,9 @@ It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class
 - Detects when all the `Food` items under each meal plan has been added and start parsing the next meal plan if it exists.
 - Add `MealPlan` object into `databaseMealPlans`, which is an `ArrayList` of `MealPlan` objects.
 
-Given below is a sequence diagram of the `preloadDatabase()` method used to populate `databaseMealPlans` once the app is first launched.
-![SetWeightSeqDiagram](./diagrams/MealPlanDatabase_preLoadDatabase_Seq.png "Set MealPlan Database Sequence Diagram")
-
-
-
 The class diagram below showcases the relationships between the `MealPlanDatabase` class and its various components.
 
-![](diagrams/MealPlanDatabase_Classes.png)
+![](diagrams-DG/MealPlanDatabase_Classes.png)
 
 
 --- 
