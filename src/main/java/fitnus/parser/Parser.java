@@ -912,6 +912,7 @@ public class Parser {
         //step 3a: prompt the user the suggestions if matches are found
         if (tempDbFoods.size() > 0) {
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
+            Ui.print(Ui.USER_INPUT);
             return returnUserInput(entryIndex, foodName, tempDbFoods, newUi, true);
         } else if (tempDbFoods.size() == 0) {
             //step 3b: prompt the user to input calorie if not match

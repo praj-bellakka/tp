@@ -24,7 +24,7 @@ Here is the list of sections we will be covering in this User Guide.
   - [Meal Plan Database](#meal-plan-database)
     - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create)
     - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list)
-  - [Weight Tracker](#meal-plan-database)
+  - [Weight Tracker](#weight-tracker)
     - [Recording weight: `weight /set`](#recording-weight-weight-set)
     - [Listing weight records: `list /weight`](#listing-weight-records-list)
   - [Personalisation](#personalisation)
@@ -39,6 +39,7 @@ Here is the list of sections we will be covering in this User Guide.
     - [Viewing help: `help`](#viewing-help-help)
     - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
     - [Exiting FitNUS: `exit`](#quit-fitnus)
+- [User Stories](#user-stories)
 - [Command Summary](#command-summary)
 
 ---
@@ -107,18 +108,8 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 Examples of usage: `add /bfast chocolate`
 
 Sample output:
-```
-The following food category has been tagged: BREAKFAST
-Searching for "chocolate"...
- [X] Select your desired food from the list below:
- 1.chocolate bar (125 Kcal) Type: SNACK
- 2.chocolate cake (300 Kcal) Type: SNACK
- 3.chocolate croissant (120 Kcal) Type: MEAL
- 4.chocolate rolls (110 Kcal) Type: SNACK
-Don't see what you're looking for? Enter 0 to create your own food!
-4
-You have successfully added chocolate rolls (110 Kcal) Type: SNACK
-```
+
+![Add Entry Sample Output](diagrams-UG/AddEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -158,11 +149,11 @@ Format: `edit INDEX_OF_ENTRY FOOD_NAME`
     * Create your own custom food
 
 Example of usage:
-`edit 2 fish`
+`edit 1 chicken`
 
 Sample output:
 
-![img.png](diagrams-UG/EditEntrySampleOutput.PNG)
+![Edit Entry Sample Output](diagrams-UG/EditEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -173,7 +164,9 @@ Format: `remove /entry INDEX_OF_FOOD`
 
 Example of usage:
 
-`remove /entry 2`
+`remove /entry 1`
+
+![Delete Entry Sample Output](diagrams-UG/DeleteEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -203,9 +196,9 @@ Format: `find /entry KEYWORD`
 
 Example of usage:
 
-`find /entry rice`
+`find /entry chicken`
 
-- Prints out all food entries that contains "rice".
+![Find Entry Sample Output](diagrams-UG/FindEntrySampleOutput.PNG)
 
 <p>&nbsp;</p>
 
@@ -571,6 +564,26 @@ Sample Output:
 
 ## FAQ
 
+##User Stories
+
+| As a... | I can...                                 | So that I can...                                                    |
+|---------|------------------------------------------|---------------------------------------------------------------------|
+| User    | input entries every time I eat something | incorporate it seamlessly into my daily life                        |
+| User    | edit my entries                          | make changes to my food entries at a later time                     |
+| User    | delete entries in case I mistype         | -                                                                   |
+| User    | list all my entries                      | look back at what I ate in the past                                 |
+| User    | search food by a keyword                 | easily look for the food that I ate                                 |
+| User    | create meal plans                        | add multiple food entries at once                                   |
+| User    | record my current weight                 | look back and keep track of my weight in the future                 |
+| User    | list out previous weight records         | look at my progress of weight loss/gain                             |
+| User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
+| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
+| User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
+| User    | list my user details                     | see my current user details at a glance                             |
+| User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
+| User    | ask for help                             | see all the available commands at a glance                          |
+| User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
+| User    | exit FitNUS                              | -                                                                   |
 
 ## Command summary
 
