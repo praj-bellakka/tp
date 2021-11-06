@@ -2,28 +2,22 @@
 
 ## Content
 
-1. [Product Scope](##Product-Scope)
-2. [Quick Start](##quick-start)
-3. [User Story](##user-story)
-4. [Application Architecture](##Architecture)
-   - [Overall Architecture](###Overall Architecture)
-   - [Food Tracker Entry](###Food Tracker Entry)
-   - [Food Tracker Database](###Food Tracker Database)
-   - [Food Database](###Food Database)
-   - [User](###User)
-   - [Summary](###Summary)
-   - [Suggest](###Suggest)
-   - [Command](###Command)
-   - [Storage](###Storage)
-   - [Parser](###Parser)
-   - [Ui](###Ui)
-5. [Implementation](#Implementation)
-6. [Instruction for manual testing](#instruction-for-manual-testing)
-7. [Non-functional Requirement](#NF-Requirement)
-
-## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+1. [Product Scope](#product-scope)
+2. [Quick Start](#quick-start)
+3. [User Story](#user-stories)
+4. [Application Architecture](#architecture)
+   - [Overall Architecture](#overall-architecture)
+   - [Food Tracker Entry](#food-tracker-entry)
+   - [Food Tracker Database](#food-tracker-database)
+   - [Food Database](#food-database)
+   - [User](#user)
+   - [Summary](#summary)
+   - [Suggest](#view-food-suggestions)
+   - [Command](#command)
+   - [Storage](#storage)
+   - [Parser](#parser)
+5. [Instruction for manual testing](#instructions-for-manual-testing)
+6. [Non-functional Requirement](#nf-requirements)
 
 ## Product scope
 
@@ -95,7 +89,7 @@ The Food Tracker Entry is represented by the class `Entry`.
 
 ---
 
-### Food Tracker
+### Food Tracker Database
 
 The Food Tracker is represented by the class `EntryDatabase`.
 
@@ -182,16 +176,30 @@ The class diagram below showcases the relationships between the `FoodDatabase` c
 
 ### Meal Plan Database
 
-![](diagrams/MealPlanDatabase_Class.png)
+The meal plan database is responsible for storing custom meal plans created by the user. 
+Each meal plan consists of a name, and a list of `Food` items linked to the meal plan.
+The class diagram of the `MealPlanDatabase` is shown below.
+
+![](diagrams-DG/MealPlanDatabase_Class.png)
 
 The `MealPlanDatabase` component consists of:
 - `convertFoodToString(ArrayList<Food>)` Returns a string representation of all MealPlan objects in the database.
 - `addMealPlan(MealPlan)` Adds a MealPlan object to the database.
 - `getMealAtIndex(int)` Returns the MealPlan object at that index inside the database. 
 - `convertDatabaseToString()` Returns a string presentation of the MealPlanDatabase object.
+
+![](diagrams-DG/MealPlanDatabase_convertDatabaseToString_Seq.png)
+
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
+  
+The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNus is first launched.
+
+![](diagrams-DG/MealPlanDatabase_preLoadDatabase_Seq.png)
+
 - `listMealPlan()` Returns a String representation of all MealPlan objects saved in the database by stating its name and `Food` items under it.
   
+![](diagrams-DG/MealPlanDatabase_listMealPlan_Seq.png)
+
 #### Implementation
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
@@ -200,14 +208,9 @@ It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class
 - Detects when all the `Food` items under each meal plan has been added and start parsing the next meal plan if it exists.
 - Add `MealPlan` object into `databaseMealPlans`, which is an `ArrayList` of `MealPlan` objects.
 
-Given below is a sequence diagram of the `preloadDatabase()` method used to populate `databaseMealPlans` once the app is first launched.
-![SetWeightSeqDiagram](./diagrams/MealPlanDatabase_preLoadDatabase_Seq.png "Set MealPlan Database Sequence Diagram")
-
-
-
 The class diagram below showcases the relationships between the `MealPlanDatabase` class and its various components.
 
-![](diagrams/MealPlanDatabase_Classes.png)
+![](diagrams-DG/MealPlanDatabase_Classes.png)
 
 
 --- 
@@ -277,7 +280,7 @@ Setting gender, age and height operate in a similar way, as shown in the example
 
 ---
 
-### View Diet Summary
+### Summary
 
 The Summary class provides an overview of user's diet over the past week/month.
 
@@ -292,9 +295,9 @@ The Summary class provides an overview of user's diet over the past week/month.
 #### UML Sequence Diagram
 
 The following sequence diagram describes the operation of the `generateWeekSummary()`.  
-![](diagrams-DG/weekly-report.png)  
+![](diagrams-DG/weekly%20report.png)  
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
-![](diagrams-DG/monthly-report.png)
+![](diagrams-DG/monthly%20report.png)
 
 ---
 ### View Food Suggestions
@@ -403,7 +406,7 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 
 ---
 
-### Parser Component
+### Parser
 
 The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
 
@@ -416,8 +419,8 @@ The parser component makes use of the user input String from the `fitNus` class 
 
     The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
-Instructions for manual testing
--------------------------------
+## Instructions for manual testing
+
 =======
 <h4>Storage format</h4>
 <div><strong>Every line in each text file represents one object / entry / item</strong></div>
@@ -497,13 +500,7 @@ then compared with default list of commands to determine the type of method call
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
-Non-Functional Requirements
----------------------------
+## NF Requirements
 
 1. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
 2. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
-
-Glossary
---------
-
-\*glossary item\* - Definition

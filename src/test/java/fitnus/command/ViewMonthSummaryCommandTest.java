@@ -34,7 +34,7 @@ class ViewMonthSummaryCommandTest {
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } 
 
 
         String output = String.format("Average Daily Calorie Intake: %d\n", 6144 / LocalDate.now().getDayOfMonth());

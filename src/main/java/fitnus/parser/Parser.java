@@ -234,7 +234,7 @@ public class Parser {
      * @return Command object.
      * @throws FitNusException Thrown when foodname is empty.
      */
-    private Command parseAddTypeCommand(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
+    public Command parseAddTypeCommand(String input, FoodDatabase fd, MealPlanDatabase md) throws FitNusException {
         //find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
@@ -263,7 +263,7 @@ public class Parser {
      * @return AddFoodEntryCommand object.
      * @throws FitNusException Thrown when command format is not fulfilled.
      */
-    private AddFoodEntryCommand parseAddFoodCommand(String input, FoodDatabase fd, String mealTypeString)
+    public AddFoodEntryCommand parseAddFoodCommand(String input, FoodDatabase fd, String mealTypeString)
             throws FitNusException {
         MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
@@ -309,7 +309,7 @@ public class Parser {
      * @return AddMealPlanEntryCommand AddMealPlanEntryCommand with set parameters.
      * @throws FitNusException Thrown when mealplan does not exist.
      */
-    private AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input)
+    public AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input)
             throws FitNusException {
         int spaceIndex = input.indexOf(SPACE_CHARACTER);
         if (spaceIndex == -1) {
@@ -367,7 +367,7 @@ public class Parser {
         Ui newUi = new Ui();
         newUi.printMealPlanCreation(fd);
         ArrayList<Food> tempMealFoods = new ArrayList<Food>();
-        String[] userInputIndexes = newUi.readIndexesInput();
+        String[] userInputIndexes = newUi.readIndexesInput(System.in, System.out);
 
         //for each index, check if it is an integer and within range
         for (String i : userInputIndexes) {
@@ -404,7 +404,7 @@ public class Parser {
         int userInput = 0;
         if (hasMultipleEntries) {
             do {
-                userInput = parseInteger(newUi.readInput(), tempDbFoods.size());
+                userInput = parseInteger(newUi.readInput(System.in, System.out), tempDbFoods.size());
             } while (isLoopFlagOn);
         }
 
@@ -423,7 +423,7 @@ public class Parser {
         int userInput = 0;
         if (hasMultipleEntries) {
             do {
-                userInput = parseInteger(newUi.readInput(), tempDbFoods.size());
+                userInput = parseInteger(newUi.readInput(System.in, System.out), tempDbFoods.size());
             } while (isLoopFlagOn);
         }
 
@@ -453,13 +453,13 @@ public class Parser {
         newUi.printAddCalorieToFood(foodName);
         isLoopFlagOn = false;
         do {
-            userInput = parseInteger(newUi.readInput()); //getting calories
+            userInput = parseInteger(newUi.readInput(System.in, System.out)); //getting calories
         } while (isLoopFlagOn);
 
         Food.FoodType type = null;
         do {
             System.out.println("[X] Enter food type (meal, snack, beverage, others):");
-            String foodType = newUi.readInput();
+            String foodType = newUi.readInput(System.in, System.out);
             if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
                 type = parseFoodType(foodType);
             } else {
