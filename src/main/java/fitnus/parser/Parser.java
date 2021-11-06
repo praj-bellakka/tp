@@ -127,6 +127,17 @@ public class Parser {
 
     private static boolean isLoopFlagOn = true;
 
+    /**
+     * Takes in an input and returns a Command object corresponding to the input.
+     * Throws FitNusException if noo corresponding command is found.
+     *
+     * @param input String containing a command call.
+     * @param fd Food database object.
+     * @param ed Entry database object.
+     * @param md MealPlan database object.
+     * @return Command object correspoonding to the input.
+     * @throws FitNusException Thrown when no Command object found.
+     */
     public Command parseCommandType(String input, FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md)
             throws FitNusException {
         String[] splitString = input.strip().split(SPACE_CHARACTER);
@@ -243,6 +254,7 @@ public class Parser {
      * Parses add food command by returning AddFoodEntryCommand object with its parameters.
      * Method returns a prompt to user if food is already present in database or to enter calorie and meal type of food.
      * Calorie of food must be between 1 and 5000, or prompt continues in infinite loop.
+     *
      * @param input String containing user input.
      * @param fd Food database containing existing food items.
      * @param mealTypeString String describing the type of food.
@@ -253,7 +265,6 @@ public class Parser {
             throws FitNusException {
         MealType mealType = parseMealType(mealTypeString, false);
         String foodName = "";
-
 
         //if mealType is null, user didn't specify the command; auto tag the meal type
         if (mealType.equals(MealType.UNDEFINED)) {
@@ -277,32 +288,14 @@ public class Parser {
             Ui.print(Ui.DIVIDER);
             System.out.println("Don't see what you're looking for? Enter 0 to create your own food!");
             Ui.print(Ui.USER_INPUT);
-            return returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
+            return (AddFoodEntryCommand) returnUserInput(mealType, foodName, tempDbFoods, newUi, true);
         } else if (tempDbFoods.size() == 0) {
             //prompt the user to input calorie if not match
             newUi.printPromptUserFoodInput(foodName);
-            return returnUserInput(mealType, foodName, tempDbFoods, newUi, false);
+            return (AddFoodEntryCommand) returnUserInput(mealType, foodName, tempDbFoods, newUi, false);
         }
         assert (tempDbFoods.size() >= 0);
         return null;
-    }
-
-    /**
-     * Removes pipe character from food name and replaces it with a space chacrater.
-     *
-     * @param input String that may contain pipe characters.
-     * @param mealType MealType of food.
-     * @return foodName String without pipe characters.
-     */
-    private String removePipeCharacterFoodName(String input, MealType mealType) {
-        String foodName;
-        if (mealType.equals(MealType.UNDEFINED)) {
-            foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
-        } else {
-            Ui.printAutoAddedFoodCategory(mealType.name(), false);
-            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");
-        }
-        return foodName;
     }
 
     /**
@@ -345,6 +338,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns CreateMealPlanCommand object when called and creates a custom meal plan.
+     *
+     * @param input String input containing meal plan name.
+     * @param fd FoodDatabase object.
+     * @return CreateMealPlanCommand object.
+     * @throws FitNusException Thrown when input format is invalid.
+     */
     private CreateMealPlanCommand parseCreateCommand(String input, FoodDatabase fd) throws FitNusException {
         String[] arrayFormInput = input.split(SPACE_CHARACTER);
         if (!arrayFormInput[0].equals(DESCRIPTOR_MEALPLAN)) {
@@ -410,27 +411,7 @@ public class Parser {
          * New loop below will prompt the user to input the calories.
          */
         if (userInput == 0) {
-
-            newUi.printAddCalorieToFood(foodName);
-            isLoopFlagOn = false;
-            do {
-                userInput = parseInteger(newUi.readInput()); //getting calories
-            } while (isLoopFlagOn);
-
-            Food.FoodType type = null;
-            do {
-                System.out.println("[X] Enter food type (meal, snack, beverage, others):");
-                Ui.print(Ui.USER_INPUT);
-                String foodType = newUi.readInput();
-                if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
-                    type = parseFoodType(foodType);
-                } else {
-                    type = null;
-                    Ui.println("The food type provided is invalid! Please try again");
-                }
-            } while (type == null);
-
-            return new AddFoodEntryCommand(mealType, foodName, userInput, type);
+            return (AddFoodEntryCommand) promptUserCalories(0, mealType, foodName, newUi);
         }
         return new AddFoodEntryCommand(mealType, tempDbFoods.get(userInput - 1));
     }
@@ -445,35 +426,70 @@ public class Parser {
         }
 
         /**
-         * If user input is 0, the user specified his input to be a custom food.
-         * Thus the new loop below will prompt the user to input the calories.
+         * If user input is 0, the user specified his input to a be a custom food.
+         * New loop below will prompt the user to input the calories.
          */
         if (userInput == 0) {
-            System.out.println("Adding \"" + foodName + "\"...");
-            System.out.println("[X] Enter calories of \"" + foodName + "\":");
-            Ui.print(Ui.USER_INPUT);
-            isLoopFlagOn = false;
-            do {
-                userInput = parseInteger(newUi.readInput()); //getting calories
-            } while (isLoopFlagOn);
-
-            Food.FoodType type = null;
-
-            do {
-                System.out.println("[X] Enter food type (meal, snack, beverage, others):");
-                Ui.print(Ui.USER_INPUT);
-                String foodType = newUi.readInput();
-                if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
-                    type = parseFoodType(foodType);
-                } else {
-                    type = null;
-                    Ui.println("The food type provided is invalid! Please try again");
-                }
-            } while (type == null);
-
-            return new EditFoodEntryCommand(index, foodName, userInput, type);
+            return (EditFoodEntryCommand) promptUserCalories(index, null, foodName, newUi);
         }
         return new EditFoodEntryCommand(index, tempDbFoods.get(userInput - 1));
+    }
+
+    /**
+     * Prompts user to enter calories between 1 and 5000 when called.
+     * Prompt continues in infinite loop until a valid calorie is inputted.
+     *
+     * @param index Index if EditFoodEntryCommand is called.
+     * @param mealType MealType of food item.
+     * @param foodName String name of food.
+     * @param newUi Ui element handling reading of CLI.
+     * @return Command subobjects.
+     * @throws FitNusException Thrown when invalid food type is detected.
+     */
+    private Command promptUserCalories(int index, MealType mealType, String foodName, Ui newUi) throws FitNusException {
+        int userInput;
+        newUi.printAddCalorieToFood(foodName);
+        isLoopFlagOn = false;
+        do {
+            userInput = parseInteger(newUi.readInput()); //getting calories
+        } while (isLoopFlagOn);
+
+        Food.FoodType type = null;
+        do {
+            System.out.println("[X] Enter food type (meal, snack, beverage, others):");
+            String foodType = newUi.readInput();
+            if (Arrays.asList(possibleFoodTypes).contains(foodType)) {
+                type = parseFoodType(foodType);
+            } else {
+                type = null;
+                Ui.println("The food type provided is invalid! Please try again");
+            }
+        } while (type == null);
+      
+        //check type of Command object to return
+        if (mealType == null) {
+            return new EditFoodEntryCommand(index, foodName, userInput, type);
+        } else {
+            return new AddFoodEntryCommand(mealType, foodName, userInput, type);
+        }
+    }
+
+    /**
+     * Removes pipe character from food name and replaces it with a space chacrater.
+     *
+     * @param input String that may contain pipe characters.
+     * @param mealType MealType of food.
+     * @return foodName String without pipe characters.
+     */
+    public String removePipeCharacterFoodName(String input, MealType mealType) {
+        String foodName;
+        if (mealType.equals(MealType.UNDEFINED)) {
+            foodName = input.strip().replaceAll("\\|", ""); //replace pipe charcter with nothing
+        } else {
+            Ui.printAutoAddedFoodCategory(mealType.name(), false);
+            foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip().replaceAll("\\|", "");
+        }
+        return foodName;
     }
 
     public static Food.FoodType parseFoodType(String type) throws FitNusException {
