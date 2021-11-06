@@ -390,6 +390,7 @@ The `Storage` component consists of:
     75.0 | 2021-11-05
     75.5 | 2021-11-06
     ```
+> **_NOTE:_** Example of `mealplan.txt` is omitted because its format is largely similar to `food.txt`
 
 #### Sequence of operations
 
