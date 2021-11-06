@@ -15,7 +15,7 @@ public class MealTypeTest {
     private static final int LUNCH_HOUR_UPPER = 14; //2pm
     private static final int DINNER_HOUR_LOWER = 18; //6pm
     private static final int DINNER_HOUR_UPPER = 21; //9pm
-    MealType mealType;
+    MealType mealType = MealType.UNDEFINED;
 
     @Test
     void findMealTypeTiming_currentTiming_returnCorrectType() {
@@ -26,6 +26,8 @@ public class MealTypeTest {
             assertEquals(MealType.LUNCH, mealType.findMealTypeTiming());
         } else if (hourOfDay >= DINNER_HOUR_LOWER && hourOfDay < DINNER_HOUR_UPPER) {
             assertEquals(MealType.DINNER, mealType.findMealTypeTiming());
+        } else {
+            assertEquals(MealType.SNACK, mealType.findMealTypeTiming());
         }
     }
 }
