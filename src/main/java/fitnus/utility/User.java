@@ -30,7 +30,7 @@ public class User {
     private static final float MAXIMUM_WEEKLY_CHANGE = (float) 1.0;
     private static final int ALL_MONTHS = 0;
     private static final String[] monthStrings = {"January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"};
+        "July", "August", "September", "October", "November", "December"};
 
     public User(int calorieGoal, Gender gender, int age, int height, float weight) {
         this.calorieGoal = calorieGoal;
@@ -199,11 +199,17 @@ public class User {
             throw new FitNusException("An error has occurred! No weight records found.");
         }
 
+        boolean isFirstEntry = true;
         for (WeightProgressEntry e : relevantEntries) {
             assert e != null : "e should not be null";
             float weight = e.getWeight();
             String date = e.getDate().toString();
-            lines.append(date).append(": ").append(weight).append("kg").append(System.lineSeparator());
+            if (isFirstEntry) {
+                lines.append(date).append(": ").append(weight).append("kg");
+                isFirstEntry = false;
+            } else {
+                lines.append(System.lineSeparator()).append(date).append(": ").append(weight).append("kg");
+            }
         }
         return lines.toString();
     }

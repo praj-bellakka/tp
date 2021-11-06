@@ -83,7 +83,8 @@ public class Parser {
     private static final String DESCRIPTOR_SET = "/set";
     private static final String DESCRIPTOR_MEALPLAN = "/mealplan";
     public static final int INVALID_INPUT = -1;
-    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! Type 'help' for a list of commands\n"
+    public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! "
+            + "Type 'help' for a list of commands\n"
             + "and their command formats.";
 
     // FoodType related strings
