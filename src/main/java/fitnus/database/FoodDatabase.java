@@ -7,6 +7,8 @@ import fitnus.exception.FitNusException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -15,74 +17,74 @@ public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
     private static final String DELIMITER = " | ";
 
-    private static final String UTOWN_FOOD_LIST = "\nfinefood - bbq beef set | 504 | MEAL\n" +
-            "finefood - bbq chicken set | 510 | MEAL\n" +
-            "finefood - bibimbap | 400 | MEAL\n" +
-            "finefood - black pepper beef bibimbap | 405 | MEAL\n" +
-            "finefood - kimchi shin ramen | 280 | MEAL\n" +
-            "finefood - beef veg soup set | 237 | MEAL\n" +
-            "finefood - chicken cutlet + fried ebi bento | 243 | MEAL\n" +
-            "finefood - salmon + chicken cutlet bento | 515 | MEAL\n" +
-            "finefood - lemon tea | 90 | BEVERAGE\n" +
-            "finefood - green tea | 120 | BEVERAGE\n" +
-            "finefood - oolong tea | 5 | BEVERAGE\n" +
-            "finefood - milk foam oolong tea | 200 | BEVERAGE\n" +
-            "finefood - honey green tea | 70 | BEVERAGE\n" +
-            "finefood - gold grill combo | 605 | MEAL\n" +
-            "finefood - honey chicken chop rice | 510 | MEAL\n" +
-            "finefood - x-large chicken chop rice | 579 | MEAL\n" +
-            "finefood - salted crispy chicken rice | 550 | MEAL\n" +
-            "finefood - sesame seed chicken rice | 509 | MEAL\n" +
-            "finefood - taiwanese sweet & sour chicken rice | 341 | MEAL\n" +
-            "finefood - teriyaki chicken rice | 430 | MEAL\n" +
-            "finefood - taiwanese braised pork rice | 434 | MEAL\n" +
-            "finefood - charcoal roasted duck rice set meal | 673 | MEAL\n" +
-            "finefood - crispy roasted chicken rice/noodle | 618 | MEAL\n" +
-            "finefood - rose soy sauce chicken rice/noodle | 605 | MEAL\n" +
-            "finefood - char siew rice/noodle | 412 | MEAL\n" +
-            "finefood - duck drumstick rice/noodle | 420 | MEAL\n" +
-            "finefood - chicken drumstick rice/noodle | 415 | MEAL\n" +
-            "finefood - happy combo noodle (dry/soup) | 450 | MEAL\n" +
-            "finefood - signature minipot noodle (dry/soup) | 460 | MEAL\n" +
-            "finefood - original bak chor mee (dry/soup) | 412 | MEAL\n" +
-            "finefood - teochew fish ball noodle (dry/soup) | 390 | MEAL\n" +
-            "finefood - fried wanton noodle (dry/soup) | 395 | MEAL\n" +
-            "finefood - handmade shrimp dumpling noodle (dry/sooup) | 414 | MEAL\n" +
-            "finefood - sweet & sour chicken cube rice | 462 | MEAL\n" +
-            "finefood - marmite chicken cube rice | 470 | MEAL\n" +
-            "finefood - kung pao chicken rice | 469 | MEAL\n" +
-            "finefood - ginger & onion sliced chicken cube rice | 490 | MEAL\n" +
-            "finefood - beef fried rice | 505 | MEAL\n" +
-            "finefood - seafood fried rice | 495 | MEAL\n" +
-            "finefood - kampung fried rice | 480 | MEAL\n" +
-            "finefood - 2 vegetables + 1 meat + rice | 380 | MEAL\n" +
-            "finefood - signature fish bee hoon | 349 | MEAL\n" +
-            "finefood - seafood clam five grains bee hoon | 297 | MEAL\n" +
-            "finefood - original fish bee hoon | 300 | MEAL\n" +
-            "finefood - sour and spicy fish bee hoon | 349 | MEAL\n" +
-            "finefood - golden soup fish bee hoon | 349 | MEAL\n" +
-            "finefood - mushroom with chicken rice | 380 | MEAL\n" +
-            "finefood - minced pork with salted egg rice | 380 | MEAL\n" +
-            "finefood - minced pork with pickled mustard rice | 395 | MEAL\n" +
-            "finefood - minced meat peanut porridge | 349 | MEAL\n" +
-            "finefood - minced meat century egg porridge | 349 | MEAL\n" +
-            "food clique - chicken chop rice | 600 | MEAL\n" +
-            "food clique - pork chop fried rice with fish roe | 450 | MEAL\n" +
-            "food clique - shrimp fried rice with fish roe | 341 | MEAL\n" +
-            "food clique - vinegar beef noodle | 406 | MEAL\n" +
-            "food clique - chilli oil chive dumpling (10 pcs) | 450 | SNACK\n" +
-            "waa cow - original wagyu beef | 489 | MEAL\n" +
-            "waa cow - mentaiko wagyu beef | 521 | MEAL\n" +
-            "waa cow - truffle wagyu beef | 529 | MEAL\n" +
-            "waa cow - original chirashi | 400 | MEAL\n" +
-            "waa cow - mentaiko salmon | 432 | MEAL\n" +
-            "waa cow - truffle fries | 300 | SNACK\n" +
-            "hwang's - dak bulgogi | 311 | MEAL\n" +
-            "hwang's - bibimbap | 490 | MEAL\n" +
-            "hwang's - doeji bulgogi | 330 | MEAL\n" +
-            "hwang's - gulgogi | 395 | MEAL\n" +
-            "hwang's - kimchi jigae | 316 | MEAL\n" +
-            "hwang's - la myun | 470 | MEAL\n";
+    private static final String UTOWN_FOOD_LIST = "finefood - bbq beef set | 504 | MEAL\n"
+            + "finefood - bbq chicken set | 510 | MEAL\n"
+            + "finefood - bibimbap | 400 | MEAL\n"
+            + "finefood - black pepper beef bibimbap | 405 | MEAL\n"
+            + "finefood - kimchi shin ramen | 280 | MEAL\n"
+            + "finefood - beef veg soup set | 237 | MEAL\n"
+            + "finefood - chicken cutlet + fried ebi bento | 243 | MEAL\n"
+            + "finefood - salmon + chicken cutlet bento | 515 | MEAL\n"
+            + "finefood - lemon tea | 90 | BEVERAGE\n"
+            + "finefood - green tea | 120 | BEVERAGE\n"
+            + "finefood - oolong tea | 5 | BEVERAGE\n"
+            + "finefood - milk foam oolong tea | 200 | BEVERAGE\n"
+            + "finefood - honey green tea | 70 | BEVERAGE\n"
+            + "finefood - gold grill combo | 605 | MEAL\n"
+            + "finefood - honey chicken chop rice | 510 | MEAL\n"
+            + "finefood - x-large chicken chop rice | 579 | MEAL\n"
+            + "finefood - salted crispy chicken rice | 550 | MEAL\n"
+            + "finefood - sesame seed chicken rice | 509 | MEAL\n"
+            + "finefood - taiwanese sweet & sour chicken rice | 341 | MEAL\n"
+            + "finefood - teriyaki chicken rice | 430 | MEAL\n"
+            + "finefood - taiwanese braised pork rice | 434 | MEAL\n"
+            + "finefood - charcoal roasted duck rice set meal | 673 | MEAL\n"
+            + "finefood - crispy roasted chicken rice/noodle | 618 | MEAL\n"
+            + "finefood - rose soy sauce chicken rice/noodle | 605 | MEAL\n"
+            + "finefood - char siew rice/noodle | 412 | MEAL\n"
+            + "finefood - duck drumstick rice/noodle | 420 | MEAL\n"
+            + "finefood - chicken drumstick rice/noodle | 415 | MEAL\n"
+            + "finefood - happy combo noodle (dry/soup) | 450 | MEAL\n"
+            + "finefood - signature minipot noodle (dry/soup) | 460 | MEAL\n"
+            + "finefood - original bak chor mee (dry/soup) | 412 | MEAL\n"
+            + "finefood - teochew fish ball noodle (dry/soup) | 390 | MEAL\n"
+            + "finefood - fried wanton noodle (dry/soup) | 395 | MEAL\n"
+            + "finefood - handmade shrimp dumpling noodle (dry/sooup) | 414 | MEAL\n"
+            + "finefood - sweet & sour chicken cube rice | 462 | MEAL\n"
+            + "finefood - marmite chicken cube rice | 470 | MEAL\n"
+            + "finefood - kung pao chicken rice | 469 | MEAL\n"
+            + "finefood - ginger & onion sliced chicken cube rice | 490 | MEAL\n"
+            + "finefood - beef fried rice | 505 | MEAL\n"
+            + "finefood - seafood fried rice | 495 | MEAL\n"
+            + "finefood - kampung fried rice | 480 | MEAL\n"
+            + "finefood - 2 vegetables + 1 meat + rice | 380 | MEAL\n"
+            + "finefood - signature fish bee hoon | 349 | MEAL\n"
+            + "finefood - seafood clam five grains bee hoon | 297 | MEAL\n"
+            + "finefood - original fish bee hoon | 300 | MEAL\n"
+            + "finefood - sour and spicy fish bee hoon | 349 | MEAL\n"
+            + "finefood - golden soup fish bee hoon | 349 | MEAL\n"
+            + "finefood - mushroom with chicken rice | 380 | MEAL\n"
+            + "finefood - minced pork with salted egg rice | 380 | MEAL\n"
+            + "finefood - minced pork with pickled mustard rice | 395 | MEAL\n"
+            + "finefood - minced meat peanut porridge | 349 | MEAL\n"
+            + "finefood - minced meat century egg porridge | 349 | MEAL\n"
+            + "food clique - chicken chop rice | 600 | MEAL\n"
+            + "food clique - pork chop fried rice with fish roe | 450 | MEAL\n"
+            + "food clique - shrimp fried rice with fish roe | 341 | MEAL\n"
+            + "food clique - vinegar beef noodle | 406 | MEAL\n"
+            + "food clique - chilli oil chive dumpling (10 pcs) | 450 | SNACK\n"
+            + "waa cow - original wagyu beef | 489 | MEAL\n"
+            + "waa cow - mentaiko wagyu beef | 521 | MEAL\n"
+            + "waa cow - truffle wagyu beef | 529 | MEAL\n"
+            + "waa cow - original chirashi | 400 | MEAL\n"
+            + "waa cow - mentaiko salmon | 432 | MEAL\n"
+            + "waa cow - truffle fries | 300 | SNACK\n"
+            + "hwang's - dak bulgogi | 311 | MEAL\n"
+            + "hwang's - bibimbap | 490 | MEAL\n"
+            + "hwang's - doeji bulgogi | 330 | MEAL\n"
+            + "hwang's - gulgogi | 395 | MEAL\n"
+            + "hwang's - kimchi jigae | 316 | MEAL\n"
+            + "hwang's - la myun | 470 | MEAL\n";
 
     /**
      * Adds a Food object to the ArrayList databaseFoods.
@@ -161,12 +163,12 @@ public class FoodDatabase {
         if (databaseFoods.size() < 1) {
             return "Oops, there are no records found!";
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 1; i <= databaseFoods.size(); i++) {
-            result += String.format(" %d.%s", i, databaseFoods.get(i - 1)
-                    + System.lineSeparator());
+            result.append(String.format(" %d.%s", i, databaseFoods.get(i - 1)
+                    + System.lineSeparator()));
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -193,25 +195,49 @@ public class FoodDatabase {
         int preloadFoodCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {
-            String[] description = line.trim().split("\\s*[|]\\s*");
-            //assert description.length == 4 : "description does not contain both name and calories";
-            try {
-                String name = description[0].strip();
-                assert !name.equals("") : "name field cannot only contain white spaces";
-
-                String caloriesString = description[1].strip();
-                assert !caloriesString.equals("") : "calories field cannot only contain white spaces";
-
-                Food.FoodType type = Parser.parseFoodType(description[2]);
-
-                Integer calories = Integer.parseInt(caloriesString);
-                this.addFood(name, calories, type);
+            int loadedFoodSuccessfully = loadFood(line);
+            if (loadedFoodSuccessfully == 1) {
                 preloadFoodCount++;
-            } catch (IndexOutOfBoundsException e) {
-                Ui.printPreloadDatabaseError();
+            }
+        }
+        if (this.databaseFoods.size() == 0) {
+            Reader inputString = new StringReader(UTOWN_FOOD_LIST);
+            BufferedReader newReader = new BufferedReader(inputString);
+            while ((line = newReader.readLine()) != null) {
+                int loadedFoodSuccessfully = loadFood(line);
+                if (loadedFoodSuccessfully == 1) {
+                    preloadFoodCount++;
+                }
             }
         }
         Ui.println("Successfully preloaded " + preloadFoodCount + " foods");
+    }
+
+    /**
+     * Preloads a food into the database.
+     *
+     * @param line A line of food information to be processed and added.
+     * @return 1 if successful and 0 if unsuccessful.
+     * @throws FitNusException If unable to parse Food type.
+     */
+    public int loadFood(String line) throws FitNusException {
+        String[] description = line.trim().split("\\s*[|]\\s*");
+        try {
+            String name = description[0].strip();
+            assert !name.equals("") : "name field cannot only contain white spaces";
+
+            String caloriesString = description[1].strip();
+            assert !caloriesString.equals("") : "calories field cannot only contain white spaces";
+
+            Food.FoodType type = Parser.parseFoodType(description[2]);
+
+            Integer calories = Integer.parseInt(caloriesString);
+            this.addFood(name, calories, type);
+            return 1; //success
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printPreloadDatabaseError();
+            return 0; //failure
+        }
     }
 
     /**
