@@ -173,7 +173,7 @@ class UserTest {
                 + "Gender: m" + System.lineSeparator()
                 + "Age: 18" + System.lineSeparator()
                 + "Weight: 65.0" + System.lineSeparator()
-                + "Height: 180" + System.lineSeparator(), user.getUserDataDisplay());
+                + "Height: 180", user.getUserDataDisplay());
     }
 
     @Test

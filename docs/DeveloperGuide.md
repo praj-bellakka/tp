@@ -419,6 +419,8 @@ The parser component makes use of the user input String from the `fitNus` class 
 
     The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
+<user >
+
 ## Instructions for manual testing
 
 =======
