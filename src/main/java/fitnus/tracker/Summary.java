@@ -3,24 +3,27 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
-import fitnus.exception.FitNusException;
-
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.time.Period;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Summary class is responsible for generating a diet summary for users based on day ranges.
+ */
 public class Summary {
     private static final int UNIT_PER_SQUARE = 100;
     private static final String SQUARE = "#";
     private final ArrayList<Entry> entries;
     private int days;
 
+    /**
+     * Constructs a Summary object.
+     *
+     * @param ed EntryDatabase used to give summary
+     * @param days range of days to covered in summary
+     */
     public Summary(EntryDatabase ed, int days) {
         ed.sortDatabase();
         this.entries = ed.getEntries();
@@ -37,6 +40,11 @@ public class Summary {
         }
     }
 
+    /**
+     * Gets the most and least frequently eaten food by the user over some days.
+     *
+     * @return Returns the most and least frequently eaten foods and the corresponding times.
+     */
     private String getMostAndLeastEatenFood() {
         HashMap<String, Integer> occurrence = new HashMap<>();
 
@@ -87,6 +95,11 @@ public class Summary {
                 leastFrequentFoods, minOccurrence);
     }
 
+    /**
+     * Calculates the user's average calorie intake.
+     *
+     * @return the average calorie intake
+     */
     private int getAverageCalories() {
         int totalCalories = 0;
         int totalNumEntries = entries.size();
@@ -98,6 +111,13 @@ public class Summary {
         return totalCalories / days;
     }
 
+    /**
+     * Draws a horizontal calorie graph based on the calorie intake.
+     *
+     * @param calorie Total calorie intake on someday
+     * @param unit the unit for each #
+     * @return convert the calorie integer to a graph drawing
+     */
     private static String drawGraphSquares(int calorie, int unit) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < calorie / unit; i++) {
@@ -106,6 +126,11 @@ public class Summary {
         return builder.toString();
     }
 
+    /**
+     * Draw a horizontal calorie intake trend graph over the past week.
+     *
+     * @return convert the calorie intake over the past week to a graph.
+     */
     private String getWeekCalorieTrendGraph() {
         StringBuilder output = new StringBuilder();
         LocalDate date;
@@ -142,7 +167,7 @@ public class Summary {
 
 
     /**
-     * This function generates a report based on the calorie intake over the past seven days.
+     * Generates a report based on the calorie intake over the past seven days.
      * Report includes the calorie intake trend graph, weekly average calorie intake and the
      * most/least frequently eaten food.
      *
@@ -163,7 +188,7 @@ public class Summary {
     }
 
     /**
-     * This function generates a report based on the calorie intake over current month.
+     * Generates a report based on the calorie intake over current month.
      * Report includes monthly average calorie intake and the most/least frequently eaten food.
      *
      * @return String a report of monthly calorie intake
