@@ -4,11 +4,13 @@ import fitnus.database.FoodDatabase;
 import fitnus.tracker.Entry;
 import fitnus.tracker.Food;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner sc = new Scanner(System.in);
+    //private final Scanner sc = new Scanner(System.in);
 
     public static final String DIVIDER = "------------------\n";
     public static final String USER_INPUT = "You: ";
@@ -36,24 +38,26 @@ public class Ui {
         System.out.println("Error encountered while preloading user data :(");
     }
 
-    public String readInput() {
+    public String readInput(InputStream in , PrintStream out) {
+        Scanner sc = new Scanner(in);
         String userInput = "";
         do {
             userInput = sc.nextLine().toLowerCase().trim();
             if (userInput.equals("")) {
-                println("Input cannot be empty! Please try again");
+                out.println("Input cannot be empty! Please try again");
             }
         } while (userInput.equals(""));
         assert !userInput.trim().equals("") : "input cannot be empty";
         return userInput;
     }
 
-    public String[] readIndexesInput() {
+    public String[] readIndexesInput(InputStream in , PrintStream out) {
+        Scanner sc = new Scanner(in);
         String userInput = "";
         do {
             userInput = sc.nextLine().toLowerCase().trim();
             if (userInput.equals("")) {
-                println("Input cannot be empty! Please try again");
+                out.println("Input cannot be empty! Please try again");
             }
         } while (userInput.equals(""));
         assert !userInput.trim().equals("") : "input cannot be empty";

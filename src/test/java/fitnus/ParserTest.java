@@ -1,21 +1,20 @@
 package fitnus;
 
-import fitnus.command.ExitCommand;
-import fitnus.command.HelpCommand;
-import fitnus.command.ListFoodDatabaseCommand;
-import fitnus.command.ListFoodEntryCustomCommand;
-import fitnus.command.ListWeightProgressCommand;
-import fitnus.command.SetWeightCommand;
+import fitnus.command.*;
 import fitnus.database.EntryDatabase;
 import fitnus.database.FoodDatabase;
 import fitnus.database.MealPlanDatabase;
 import fitnus.exception.FitNusException;
 import fitnus.parser.Parser;
+import fitnus.tracker.Food;
 import fitnus.tracker.MealType;
 import fitnus.tracker.Summary;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +47,22 @@ public class ParserTest {
         Exception exception2 = assertThrows(FitNusException.class, () -> parser.parseCommandType(
                 "invalid command 123", fd, ed, md));
         assertEquals(INVALID_COMMAND_MESSAGE, exception2.getMessage());
+    }
 
+    @Test
+    void parseAddFoodCommand_addExistingFood_validEntry() throws FitNusException {
+        Food testFood = new Food("food", 200, Food.FoodType.MEAL);
+        fd.addFood(testFood);
+        String data = "1" + System.lineSeparator();
+        InputStream stdin = System.in;
+        AddFoodEntryCommand testCmd;
+        try {
+            System.setIn(new ByteArrayInputStream(data.getBytes()));
+            testCmd = parser.parseAddFoodCommand("food", fd, "unspecified");
+        } finally {
+            System.setIn(stdin);
+        }
+        assertEquals(AddFoodEntryCommand.class, testCmd.getClass());
     }
 
     @Test
