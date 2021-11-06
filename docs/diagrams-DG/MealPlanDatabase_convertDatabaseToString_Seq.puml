@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":MealPlanDatabase": convertDatabaseToString()
+activate ":MealPlanDatabase"
+
+loop For every MealPlan object in MealPlanDatabase
+
+    ":MealPlanDatabase" -> ":MealPlan": getMealPlanName()
+    activate ":MealPlan"
+    return name
+    ":MealPlanDatabase" -> ":MealPlan": getMealPlanFoods()
+    activate ":MealPlan"
+    return ArrayList<Food>
+    ":MealPlanDatabase" -> ":MealPlanDatabase": convertFoodToString()
+    activate ":MealPlanDatabase"
+    return Food ArrayList as String
+end
+
+return content as String
+@enduml
+

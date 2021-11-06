@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":MealPlanDatabase": listMealPlan()
+activate ":MealPlanDatabase"
+
+alt If database size is > 0
+
+loop While MealPlan exists in database
+    ":MealPlanDatabase" -> ":MealPlan": getMealPlanName()
+    activate ":MealPlan"
+    return name
+    ":MealPlanDatabase" -> ":MealPlan": getFoodString()
+    activate ":MealPlan"
+    return Food as String
+    ":MealPlanDatabase" -> ":MealPlanDatabase": append()
+    activate ":MealPlanDatabase"
+    return StringBuilder
+end
+
+end
+return MealPlan as String
+@enduml
+
