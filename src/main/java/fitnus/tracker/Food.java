@@ -1,5 +1,8 @@
 package fitnus.tracker;
 
+/**
+ * Represents a Food record.
+ */
 public class Food {
     private final String name;
     private final Integer calories;
