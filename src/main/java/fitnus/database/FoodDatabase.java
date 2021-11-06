@@ -163,12 +163,12 @@ public class FoodDatabase {
         if (databaseFoods.size() < 1) {
             return "Oops, there are no records found!";
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 1; i <= databaseFoods.size(); i++) {
-            result += String.format(" %d.%s", i, databaseFoods.get(i - 1)
-                    + System.lineSeparator());
+            result.append(String.format(" %d.%s", i, databaseFoods.get(i - 1)
+                    + System.lineSeparator()));
         }
-        return result;
+        return result.toString();
     }
 
     /**
