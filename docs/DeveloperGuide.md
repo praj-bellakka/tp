@@ -368,44 +368,66 @@ Additionally, they implement the following operations:
 
 The Storage class reads and writes data to and from the text file.
 
-#### Storage format
+#### Storage format (in the text files)
 
-**Every line in each text file represents one object / entry / item**
+**Every line in each text file represents one food / entry / record**
 
-*   FoodDatabase:`FOODNAME | CALORIE_VALUE`  
-    Example: `Nasi Lemak | 400`   `Ramen | 600`
-*   EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE`  
-    Example: `Dinner | Ramen | 500 | 2021-10-20`   `Lunch | Fried rice | 600 | 2021-10-20`
-*   User:`CALORIE_GOAL | GENDER`  
-    Example: `1000 | 0`
-*   User weight:`WEIGHT | DATE`  
-    Example: `60.0 | 2021-07-20`   `59.0 | 2021-08-20`   `58.0 | 2021-09-20`   `45.0 | 2021-10-21`
+* FoodDatabase:`FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
+    Example: 
+    ```
+    fried rice | 400 | MEAL
+    ramen | 500 | MEAL
+    ```
+* EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE | FOOD_TYPE`  
+    Example: 
+    ```
+    Lunch | fried rice | 400 | 2021-11-06 | MEAL
+    Dinner | ramen | 500 | 2021-11-06 | MEAL
 
-#### Implementation
+    ```
+* User:`CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
+    Example: 
+    ```
+    2503 | m | 21 | 184 | 75.0
+    ```
+* User weight:`WEIGHT | DATE`  
+    Example: 
+    ```
+    75.0 | 2021-11-05
+    75.5 | 2021-11-06
+    ```
 
-1.  **Saving to text file**
+#### Sequence of operations
 
-    `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
-    For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
-2.  **Loading from text file**
+1. **Saving to text file**
 
-    `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
-    For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
+`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. 
+This String is then saved to the text file. For instance, when saving the `FoodDatabase` data, `Storage` 
+calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the 
+`FoodDatabase`. This String is then written to the text file.
 
-#### Implementation considerations
+The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
+![](diagrams-DG/Storage_sequence_save.png)
+
+2. **Loading from text file**
+
+`Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the 
+contents of the storage text files. This is then passed to the respective objects for preloading.  
+For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and 
+passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates the 
+ArrayList in `FoodDatabase`.
+
+The following sequence diagram describes the operation of the `initialiseFoodDatabase()` operation.  
+![](diagrams-DG/Storage_sequence_initialise.png)
+
+
+#### Design considerations
 
 1. The `Path` of each text file is hardcoded within the `Storage` class. This eliminates
 the need to pass the `Path` of the destination file each time. For example, to save the `FoodDatabase`
 contents, the method call is `saveFoodDatabase()` rather than `saveFoodDatabase(PATH)`.
 2. All public methods are declared as `static` methods. This allows various methods within the
 `Storage` class to be called without having to instantiate a `Storage` object.
-
-
-
-#### UML Sequence Diagram
-
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-![](diagrams-DG/Storage_sequence.png)
 
 ---
 
@@ -436,61 +458,6 @@ The parser component makes use of the user input String from the `fitNus` class 
 ### 
 
 ## Instructions for manual testing
-
-=======
-<h4>Storage format</h4>
-<div><strong>Every line in each text file represents one object / entry / item</strong></div>
-<ul>
-<li>
-FoodDatabase:<code>FOODNAME | CALORIE_VALUE</code> <br/>
-Example: <code>Nasi Lemak | 400</code> &nbsp; <code>Ramen | 600</code>
-</li>
-
-<li>
-EntryDatabase:<code>MEALTYPE | FOODNAME | CALORIE_VALUE | DATE</code> <br/>
-Example: <code>Dinner | Ramen | 500 | 2021-10-20</code> &nbsp; <code>Lunch | Fried rice | 600 | 2021-10-20</code>
-</li>
-
-<li>
-User:<code>CALORIE_GOAL | GENDER</code> <br/>
-Example: <code>1000 | 0</code> &nbsp;
-</li>
-
-
-<li>
-User weight:<code>WEIGHT | DATE</code> <br/>
-Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &nbsp; <code>58.0 | 2021-09-20</code> &nbsp; <code>45.0 | 2021-10-21</code>
-</li>
-
-</ul>
-
-<h4>Implementation</h4>
-<ol>
-<li>
-<div><strong>Saving to file</strong></div>
-<code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
-its data to String format. This String is then saved to the text file. <br/>
-For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is then written to the text file.
-</li>
-
-
-<li>
-<div><strong>Loading from file </strong></div>
-<code>Storage</code> makes use of the <code>BufferedReader</code> and <code>FileInputStream</code> provided  by <code>java.io</code> to access 
-the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
-
-For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
-and passes the file contents to the <code>preLoadDatabase()</code> method in <code>FoodDatabase</code> which populates
-the ArrayList in <code>FoodDatabase</code>.
-</li>
-
-</ol>
-
-<h4>UML Sequence Diagram </h4>
-The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
-<img src="diagrams/Storage_sequence.png">
-
 
 <li>
 <h3>Parser Component</h3>
