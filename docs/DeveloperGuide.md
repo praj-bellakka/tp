@@ -221,66 +221,35 @@ The class diagram below showcases the relationships between the `MealPlanDatabas
 
 ### User component
 
-(put class diagram here)
+![User Class Diagram](diagrams-DG/User_Class.png)
 
 The `User` component:
 - Stores the user's personal data eg gender, age, height, weight
-- Stores the user's weight progress data i.e. all `WeightProgressEntry` objects (which are contained in an `ArrayList` as an attribute in `User`)
-- Performs functions related to the user's calorie goal such as setting and generating the calorie goal
+- Stores the user's weight tracker data
+  (i.e. `WeightRecord` objects which are contained in an `ArrayList` as an attribute in `User`)
+- Performs functions related to the user's daily calorie goal such as 
+generating and setting the calorie goal, and displaying remaining calories
+for the day
 
-#### Weight tracker feature
+The `User` component consists of the following main methods (helper functions were omitted):
+- `updateWeightAndWeightTracker(float)` - Sets the user's weight and updates the weight tracker.
+- `getWeightTrackerDisplay(int)` - Displays `weightRecords` (the `ArrayList` containing
+`WeightRecord` objects) in the form of a weight tracker. 
+- `getCaloriesRemaining(EntryDatabase)` - Returns the remaining number of calories that the user
+can consume for the day according to their daily calorie goal.
+- `handleGenerateCalorieGoalCommand(float, String)` - Generates and returns a calorie goal according
+to the user's body type and their desired weekly weight change.
+- `preloadUserData(BufferedReader)` - Loads the user's data from storage to the User object.
+- `preloadWeightData(BufferedReader)` - Loads the user's weight tracker data from storage to the User object.
+- `getUserDataDisplay()` - Returns a string displaying the user's data.
+- `convertUserDataToString()` - Returns user data converted to the correct format for storage.
+- `convertWeightDataToString()` - Returns weight tracker data converted 
+to the correct format for storage.
 
-The weight tracker consists of the `ArrayList` of `WeightProgressEntry` objects. Each `WeightProgressEntry` object stores a date as a `LocalDate` and the weight corresponding to the date stored.
+The class diagram below showcases the relationships between the 
+User class and its various components.
 
-The `updateWeightAndWeightTracker` method allows the user to update their weight and the weight tracker. This is performed as shown in the following sequence diagram:
-![SetWeightSeqDiagram](diagrams-DG/SetWeightCommand.png "Set Weight Sequence Diagram")
-
-How updating the weight tracker works:
-
-1. When the user inputs the command to set weight, `User` is called upon to execute the function to update the user's weight and weight tracker.
-2. In all cases, the weight attribute of the initialised `User` object will be updated to the new weight entered by the user.
-3. If the latest weight progress entry was recorded on the same day, that entry is updated with the new weight (that is, no new entry is added to the weight tracker). Otherwise, a new weight progress entry is created in the `ArrayList` with the current date and new weight.
-
-The weight tracker can also perform the following operations:
-- `convertWeightDataToString` - Converts the weight data in the weight tracker to a `String` to be stored in a text file. Weight progress entries are stored in a text file in the following format:  
-  `WEIGHT | DATE(YYYY-MM-DD)` (e.g.`100 | 2021-03-01`)
-- `preloadWeightData` - Loads weight tracker data from the text file to the `ArrayList` of `WeightProgressEntry` objects
-- `getWeightProgressDisplay` - Returns a `String` displaying the weight tracker to the user.
-
-#### Calories remaining feature
-
-The calories remaining feature allows the user to check how many more calories they can consume for the day. This is implemented by the `getCaloriesRemaining` method.
-
-![ViewRemainingCalorieSeqDiagram](diagrams-DG/ViewRemainingCalorieCommand.png "View Remaining Calorie Sequence Diagram")
-
-#### Generate and set calorie goal feature
-
-The generate and set calorie goal feature generates a calorie goal according to the user's desired weekly weight change, age, height, weight and gender, and then sets the user's calorie goal to the generated goal. 
-
-This is performed as shown in the following sequence diagram:
-![GenerateGoalSeqDiagram](diagrams-DG/GenerateCalorieGoalCommand.png "Generate Calorie Goal Sequence Diagram")
-
-- The following formulas are used to generate the calorie goal:
-  - For females: calorieGoal = [[655.1 + (9.563 x weight in kg) + (1.850 x height in cm) - (4.676 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-  - For males: calorieGoal = [[66.47 + (13.75 x weight in kg) + (5.003 x height in cm) - (6.755 x age in years)] * 1.55] - (weeklyLossInKg * 1000)
-
-
-> ⚠️ Notes about the generate and set calorie goal feature:
->- The weekly change is the absolute value of the weekly change in weight. It cannot be greater than 1.0, which is the upper bound for the recommended healthy weight change per week.
-
-#### Setting user data feature
-
-The user is able to change their personal data at any point while using the app. 
-
-Setting gender, age and height operate in a similar way, as shown in the example sequence diagram below where setting height is performed:
-![SetHeightSeqDiagram](diagrams-DG/SetHeightCommand.png "Set Height Sequence Diagram")
-
-> ⚠️ Notes about the setting user data feature:
-> - The age (in years) can only be set to an integer within the range of 12 to 100
-> - The height (in cm) can only be set to an integer within the range of 40 to 300
-> - The weight (in kg) can only be set to a number within the range of 0 to 500
-
-
+![](diagrams-DG/User_Classes.png)
 
 ---
 
@@ -423,7 +392,6 @@ The parser component makes use of the user input String from the `fitNus` class 
 
     The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
-
 ## Implementation
 
 ### Add Food Entry
@@ -434,7 +402,102 @@ The parser component makes use of the user input String from the `fitNus` class 
 
 ### Delete Food Entry
 
-### 
+### User Profile Setup and Editing
+
+This feature allows the user to set up and
+edit various attributes of their user profile such as their
+gender, height, weight, age and daily calorie goal.
+Given below is an example usage scenario and
+how the user profile setup and editing
+mechanism behaves at each step respectively.
+
+#### User Profile Setup
+
+1. The user launches the application, causing `FitNUS#initialiseFitNUS`
+to be called. Since this is the first time the user is using the app,
+the `user.txt` file containing the user data does not exist yet,
+prompting FitNUS to create an empty text file storing the user data
+(user.txt). 
+
+2. Since the text file is empty, the check for whether
+the user data in the storage is valid returns false, causing FitNUS to
+begin the user profile setup process.
+
+    > ⚠️ Note: If `user.txt` is not empty but the user data is
+    in an invalid or incomplete format, 
+    the user profile setup process is continued. 
+
+3. FitNUS begins the gender setting process by calling 
+`FitNUS#initialiseAttribute` for the gender. This prompts the user to 
+enter the character indicating their gender. 
+The entered character is appended to a string 
+"gender /set " (eg if the user entered "m", the string becomes
+ "gender /set m"). This string is passed into `Parser#parseCommandType`.
+
+4. If the user input for the character indicating the gender is valid,
+`Parser#parseCommandType` returns the corresponding `SetGenderCommand` object.
+The `execute` method of the `SetGenderCommand` object is called, which
+sets the `gender` attribute of the `User` object. This terminates the 
+gender initialisation process.
+
+5. If any `FitNUSException` was thrown in steps 4 and 5 due to invalid user
+input, steps 4 and 5 are repeated until no exception is thrown (i.e. valid
+user input was received).
+
+6. Steps 3 to 6 are repeated for `age`, `height` and `weight` attributes.
+
+7. A daily calorie goal that allows the user to maintain their current weight
+is generated by calling `User#calculateCalorieGoal`
+and the `calorieGoal` attribute is set to the generated goal. 
+
+#### User Profile Editing
+
+1. The user executes the `height /set 180` command to set their height to 180cm. 
+`SetHeightCommand#execute` is called, which sets the `height` attribute
+of the `User` object to 180 by calling `User#setHeight`.
+
+### Record Weight
+
+This feature allows the user to record their weight for the day in the
+weight tracker and also update their weight in their user profile.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `weight /set 65.5` command to set their weight to 65.5 kg.
+`SetWeightCommand#execute` is called, which calls `User#updateWeightAndWeightTracker`.
+2. The `weight` attribute of the `User` object is set to 65.5.
+3. If a weight record for the current day already exists in the weight tracker,
+that record is replaced with another record with the updated weight. Otherwise, a
+new weight record with the updated weight is created and added to the weight tracker.
+
+### Generate Calorie Goal
+This feature allows the user to generate a daily calorie goal
+according to their body type and their desired weekly weight change
+and set that as their daily goal.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `calorie /generate /lose 0.1` command to 
+generate a calorie goal that allows them to lose 0.1 kg per week
+and set that as their daily goal. `GenerateCalorieGoalCommand#execute` is called, 
+which calls `User#handleGenerateCalorieGoalCommand`. 
+2. If no exceptions were thrown, `User#calculateCalorieGoal` is called, which 
+calculates the calorie goal accordingly and returns it.
+3. `User#setCalorieGoal` is called to set the user's calorie goal to the generated
+goal.
+
+### View Remaining Calories
+
+This feature allows the user to view how many calories they have remaining
+for the day before they hit their daily calorie goal. 
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `calorie /remain` command to view their remaining calories
+for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#getCaloriesRemaining`.
+2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
+entries in the food tracker. This is subtracted from the user's daily calorie goal. 
+The resulting calories remaining is then displayed to the user. 
 
 ## Instructions for manual testing
 
