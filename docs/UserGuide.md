@@ -409,9 +409,8 @@ Format: `age /set AGE`
 Example of usage:`age /set 18`
 
 Sample output:
-```
-You have set your age to 18 years old!
-```
+
+![img](diagrams-UG/set-age.png)
 
 <p>&nbsp;</p>
 
@@ -423,9 +422,8 @@ Format: `calorie /set CALORIE_GOAL`
 Example of usage:`calorie /set 2000`
 
 Sample output:
-```
-The calorie goal has been set to 2000
-```
+
+![img](diagrams-UG/Setting-calorie-goal.png)
 
 <p>&nbsp;</p>
 
@@ -440,9 +438,8 @@ Format: `calorie /generate /WEIGHT_CHANGE_TYPE WEEKLY_TARGET`
 Example of usage:`calorie /generate /gain 0.5`
 
 Sample output:
-```
-Your new calorie goal to gain 0.5 kg per week is 2702 kcal daily!
-```
+
+![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
 <p>&nbsp;</p>
 
@@ -451,14 +448,8 @@ View all the personal body measurements including gender, age, weight, height an
 Format: `list /user`
 
 Sample output:
-```
-Here are the matching foods in your database:
-Calorie Goal: 2365 
-Gender: m
-Age: 18
-Weight: 63.3
-Height: 180
-```
+
+![img](diagrams-UG/list-user.png)
 
 ### Other
 
@@ -477,7 +468,6 @@ Sample Output:
 FitNUS supports two kinds of diet reports:
 
 
-
 ##### Weekly report
 Weekly report gives you an overview of your diet over the past 7 days, which includes:
 - Graph of daily calorie intake
@@ -488,19 +478,7 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 Format: `summary /week`
 
 Sample Output:
-
-```
-2021-10-29: ############### 1562
-2021-10-30: ################# 1747
-2021-10-31: ############### 1561
-2021-11-01: ############# 1340
-2021-11-02: ############# 1389
-2021-11-03:  0
-2021-11-04:  0
-Average Daily Calorie Intake: ########## 1085
-Food eaten most: [oranges] [3 time(s)]
-Food eaten least: [bananas, bartlett pears, bread, butter, chick, chicken rice, cranberry juice, flour, grape juice, lunchmeat, mushrooms, orange juice, peaches, pickles, southern meats, strawberries, turkey] [1 time(s)]
-```
+![img](diagrams-UG/week-summary.png)
 
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes:
@@ -512,11 +490,7 @@ Format: `summary /month`
 
 Sample Output:
 
-```
-Average Daily Calorie Intake: 1495
-Food eaten most: [bacon, vitamin b6, bananas, beef, southern meats, pork, cranberry juice, cheese] [1 time(s)]
-Food eaten least: [bacon, vitamin b6, bananas, beef, southern meats, pork, cranberry juice, cheese] [1 time(s)]
-```
+![img](diagrams-UG/month-summary.png)
 
 <p>&nbsp;</p>
 
@@ -539,6 +513,10 @@ Example of usage:
 Exit FitNus program
 
 Format: `exit`
+
+Sample Output:
+
+![img](diagrams-UG/exit.png)
 
 
 ## FAQ

@@ -18,7 +18,7 @@ Weekly summary includes components of calorie trend graph, average daily calorie
 Monthly summary includes components of average daily calorie and most/least eaten foods in the past 7 days.
 
 - **Documentation**
-  - User Guide:
+  - User Guide: Add descriptions and sample outputs for several commands
   
   - Developer Guide: Add the overall architecture of this software and implementation details of `summary` feature.
 
