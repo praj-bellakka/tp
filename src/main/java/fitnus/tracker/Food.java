@@ -50,7 +50,7 @@ public class Food {
      */
     @Override
     public String toString() {
-        assert calories > 0 : "calorie of food should not be less than or equal to 0";
+        assert calories >= 0 : "calorie of food should not be less than or equal to 0";
         return this.name + " (" + this.calories + " Kcal)" + " Type: " + type.toString();
     }
 
@@ -70,7 +70,7 @@ public class Food {
      */
     public String convertToStringForStorage() {
         StringBuilder lines = new StringBuilder();
-        assert calories > 0 : "calorie of food should not be less than or equal to 0";
+        assert calories >= 0 : "calorie of food should not be less than or equal to 0";
         String name = this.getName();
         Integer calories = this.getCalories();
         String type = this.getType().toString();

@@ -93,7 +93,7 @@ public class FoodDatabase {
      * @throws FitNusException If the calorie value provided is <= 0.
      */
     public void addFood(String name, Integer calories, Food.FoodType type) throws FitNusException {
-        if (calories <= 0) {
+        if (calories < 0) {
             throw new FitNusException("Food must have more than 0 calories!");
         }
         Food food = new Food(name, calories, type);
@@ -108,7 +108,7 @@ public class FoodDatabase {
      */
     public void addFood(Food food) throws FitNusException {
         assert food != null : "food should not be null";
-        if (food.getCalories() <= 0) {
+        if (food.getCalories() < 0) {
             throw new FitNusException("Food must have more than 0 calories!");
         }
         databaseFoods.add(food);
