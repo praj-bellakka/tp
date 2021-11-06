@@ -1,3 +1,5 @@
+//@@author: siyuancheng178
+
 package fitnus.tracker;
 
 
@@ -14,6 +16,7 @@ public enum Gender {
             return "f";
         }
     };
+
 
     public static Gender findGender(String gender) {
         if (gender.toLowerCase().equals("m")) {

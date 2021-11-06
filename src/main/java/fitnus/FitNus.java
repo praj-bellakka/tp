@@ -14,8 +14,9 @@ import fitnus.tracker.Gender;
 import fitnus.utility.Ui;
 import fitnus.utility.User;
 
-import javax.swing.text.View;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,26 +41,24 @@ public class FitNus {
             int successfullyInitialisedUser = Storage.initialiseUser(user);
 
             if (successfullyInitialisedUser == 0) { //did not successfully initialise user data
-                Ui ui = new Ui();
-
-                ui.println(Ui.DIVIDER);
-                ui.println("[X] Please enter your gender (m/f):");
+                Ui.println(Ui.DIVIDER);
+                Ui.println(Ui.INIT_GENDER);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "gender /set ");
-                ui.println(Ui.DIVIDER);
-                ui.println("[X] Please enter your age in years:");
+                Ui.println(Ui.DIVIDER);
+                Ui.println(Ui.INIT_AGE);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "age /set ");
-                ui.println(Ui.DIVIDER);
-                ui.println("\n[X] Please enter your height in cm:");
+                Ui.println(Ui.DIVIDER);
+                Ui.println(Ui.INIT_HEIGHT);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "height /set ");
-                ui.println(Ui.DIVIDER);
-                ui.println("\n[X] Please enter your weight in kg:");
+                Ui.println(Ui.DIVIDER);
+                Ui.println(Ui.INIT_WEIGHT);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "weight /set ");
-                ui.println("Generated your daily calorie needs accordingly.");
+                Ui.println(Ui.INIT_SUCCESS);
                 int calorieGoal = user.calculateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
-                ui.println("Your daily calorie need is " + calorieGoal + " kcal.");
-                ui.println(Ui.DIVIDER);
-                saveFitNus();
+                Ui.printCalorieGoal(calorieGoal);
+                Ui.println(Ui.DIVIDER);
+                saveData();
             }
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
@@ -75,9 +74,9 @@ public class FitNus {
         Parser parser = new Parser();
 
         boolean attributeInitialised = false;
-        while (attributeInitialised == false) {
+        while (!attributeInitialised) {
             try {
-                String requiredInput = ui.readInput().strip();
+                String requiredInput = ui.readInput(System.in, System.out).strip();
                 String commandString = commandStringFront + requiredInput;
                 Command c = parser.parseCommandType(commandString, fd, ed, md);
                 String msg = c.execute(ed, fd, md, user);
@@ -86,13 +85,12 @@ public class FitNus {
                 }
                 attributeInitialised = true;
             } catch (FitNusException e) {
-                attributeInitialised = false;
                 Ui.println(e.getMessage());
             }
         }
     }
 
-    private void saveFitNus() {
+    private void saveData() {
         try {
             Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(foodDatabase);
@@ -114,11 +112,11 @@ public class FitNus {
                 String userInput;
                 Command inputType;
                 Ui.print(Ui.USER_INPUT);
-                userInput = ui.readInput();
+                userInput = ui.readInput(System.in, System.out);
                 inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
                 Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
                 entryDatabase.sortDatabase();
-                saveFitNus();
+                saveData();
                 if (inputType instanceof ExitCommand) {
                     break;
                 }
@@ -127,15 +125,6 @@ public class FitNus {
             }
             Ui.print(Ui.DIVIDER);
         }
-    }
-
-    public static void printPreloadedData(FoodDatabase fd, EntryDatabase ed, MealPlanDatabase md, User user) {
-        Ui.println("Food database:" + System.lineSeparator()
-                + fd.listFoods());
-        Ui.println("Entry database:" + System.lineSeparator()
-                + ed.listEntries());
-        Ui.println("User data:" + System.lineSeparator()
-                + user.getUserDataDisplay());
     }
 
 
@@ -150,7 +139,7 @@ public class FitNus {
         // Init
         Ui.printWelcomeMessage();
         initialiseFitNus();
-        printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
+        Ui.printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
 
 
