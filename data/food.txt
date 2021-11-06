@@ -21,7 +21,7 @@ finefood - teriyaki chicken rice | 430 | MEAL
 finefood - taiwanese braised pork rice | 434 | MEAL
 finefood - charcoal roasted duck rice set meal | 673 | MEAL
 finefood - crispy roasted chicken rice/noodle | 618 | MEAL
-finefood - rose soy sauce chciekn rice/noode | 605 | MEAL
+finefood - rose soy sauce chicken rice/noodle | 605 | MEAL
 finefood - char siew rice/noodle | 412 | MEAL
 finefood - duck drumstick rice/noodle | 420 | MEAL
 finefood - chicken drumstick rice/noodle | 415 | MEAL
