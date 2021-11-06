@@ -145,13 +145,15 @@ experience as they do not have to input all details when adding an `Entry` to th
 ![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
-- ArrayList of `Food` objects to store `Food` objects.
-- `addFood()` Adds a Food object to the database. 
-- `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
+- `databaseFoods`: ArrayList of `Food` objects to store `Food` objects.
+- `UTOWN_FOOD_LIST`: Stores information about food available at UTown, NUS.
+- `addFood()`: Adds a `Food` object to the database. 
+- `convertDatabaseToString()`: Returns a String representation of 
+all Food objects in the database. 
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
-- `deleteFood()` Removes a specified Food object from the database. 
-- `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
-- `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType 
+- `deleteFood()`: Removes a specified Food object from the database. 
+- `findFoods()`: Returns an ArrayList containing matching Food objects based on a keyword. 
+- `findSuggestions()`: Returns an ArrayList containing matching Food objects based on the specified FoodType 
 and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
 matching Food objects.
 ```
@@ -166,9 +168,11 @@ public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean
     return matchingSuggestions;
 }
 ```
-- `getFoodAtIndex()` Returns the Food object at the specified index. 
-- `listFoods()` Returns a formatted String of all Food objects to be printed. 
-- `preloadDatabase()` Preloads the database using data from the text file.
+- `getFoodAtIndex()`: Returns the Food object at the specified index. 
+- `getFoodDatabase()`: Returns the whole `databaseFoods` ArrayList.
+- `listFoods()`: Returns a formatted String of all Food objects to be printed. 
+- `loadFood()`: Loads `Food` objects into the `FoodDatabase`.
+- `preloadDatabase(BufferedReader)`: Preloads the database using data from the text file.
    <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
@@ -336,31 +340,51 @@ Additionally, they implement the following operations:
 
 ### Storage
 
-The Storage class reads and writes data to and from the text file.
+The `Storage` class reads and writes data to and from the text files.
+
+![](diagrams-DG/Storage_class.png)
+
+The `Storage` component consists of:
+
+- `Path` variables and `ROOT` that determines the location of the text files.
+- `createDirectory()`: Creates a directory at the specified location.
+- `createDirectoryAndFiles()`: Creates the necessary directory and text files for `Storage`.
+- `createFile()`: Creates a text file at the specified location.
+- `initialiseEntryDatabase()`: Initialises the `EntryDatabase` by preloading data from file.
+- `initialiseFoodDatabase()`: Initialises the `FoodDatabase` by preloading data from file.
+- `initialiseMealPlanDatabase()`: Initialises the `MealPlanDatabase` by preloading data from file.
+- `initialiseUser()`:  Initialises `User` data from file.
+- `initialiseWeightProgress()`: Initialises weight progress data from file.
+- `saveData()`: Saves data to a specified file.
+- `saveEntryDatabase()`: Saves all the `EntryDatabase` data to file.
+- `saveFoodDatabase()`: Saves all the `FoodDatabase` data to file.
+- `saveMealPlanDatabase()`: Saves all the `MealPlanDatabase` data to file.
+- `saveUserData()`: Saves all the `User` data to file.
+- `saveWeightData()`: Saves all weight data to file.
 
 #### Storage format (in the text files)
 
 **Every line in each text file represents one food / entry / record**
 
-* FoodDatabase:`FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
+* FoodDatabase (`food.txt`): `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
     Example: 
     ```
     fried rice | 400 | MEAL
     ramen | 500 | MEAL
     ```
-* EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE | FOOD_TYPE`  
+* EntryDatabase (`entry.txt`): `MEALTYPE | FOODNAME | CALORIE_VALUE | DATE | FOOD_TYPE`  
     Example: 
     ```
     Lunch | fried rice | 400 | 2021-11-06 | MEAL
     Dinner | ramen | 500 | 2021-11-06 | MEAL
 
     ```
-* User:`CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
+* User (`user.txt`): `CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
     Example: 
     ```
     2503 | m | 21 | 184 | 75.0
     ```
-* User weight:`WEIGHT | DATE`  
+* User weight (`weight.txt`): `WEIGHT | DATE`  
     Example: 
     ```
     75.0 | 2021-11-05
