@@ -198,8 +198,8 @@ public class FoodDatabase {
         int preloadFoodCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {
-            boolean loadedFoodSuccessfully = loadFood(line);
-            if (loadedFoodSuccessfully) {
+            boolean hasLoadedSuccessfully = loadFood(line);
+            if (hasLoadedSuccessfully) {
                 preloadFoodCount++;
             }
         }
@@ -207,8 +207,8 @@ public class FoodDatabase {
             Reader inputString = new StringReader(UTOWN_FOOD_LIST);
             BufferedReader newReader = new BufferedReader(inputString);
             while ((line = newReader.readLine()) != null) {
-                boolean loadedFoodSuccessfully = loadFood(line);
-                if (loadedFoodSuccessfully) {
+                boolean hasLoadedSuccessfully = loadFood(line);
+                if (hasLoadedSuccessfully) {
                     preloadFoodCount++;
                 }
             }
