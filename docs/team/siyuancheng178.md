@@ -6,6 +6,7 @@ FitNUS is specially made for Computing Students living in University Town, with 
 functionalities taylor made for them.
 
 ## Summary of Contributions
+Code contribution: [This is the RepoSense report of the code contributed.](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-25&tabOpen=true&tabType=authorship&tabAuthor=siyuancheng178&tabRepo=AY2122S1-CS2113T-W12-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
 During the development this software, I am responsible for implement the following features:
 - Adding custom food entry
@@ -13,10 +14,6 @@ During the development this software, I am responsible for implement the followi
 - Showing weekly food intake summary
 - Showing monthly food intake summary
 - exit the program
-
-Given below are my contributions to the project:
-
-- Code contribution: [This is the RepoSense report of the code contributed.](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-25&tabOpen=true&tabType=authorship&tabAuthor=siyuancheng178&tabRepo=AY2122S1-CS2113T-W12-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
 
 ## Enhancement implementation
