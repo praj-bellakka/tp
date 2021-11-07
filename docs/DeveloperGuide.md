@@ -81,10 +81,20 @@ The primary components of the app are listed below:
 #### How the overall architecture works
 
 1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
-2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddFoodEntryCommand`). 
+2. This results in a `Command` object (more precisely, an object of one of its subclasses 
+e.g., `AddFoodEntryCommand`). 
 3. The `Command` object calls its `execute` method which performs the function required.
-   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related to those components (e.g. to add an entry).
-4. The `execute` method returns a `String` object that contains the outcome message of the command that was executed, which is displayed to the user by the `Ui` component.
+   - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and 
+   `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related 
+   to those components (e.g. to add an entry).
+
+   > ⚠️ Notes about `execute` method:
+   > The `execute` method takes in EntryDatabase, FoodDatabase, MealPlanDatabase and User
+   > as parameters. In this developer guide, all sequence diagrams will denote the `execute`
+   > method as `execute(ed, fd, md, us)` to represent this.
+
+4. The `execute` method returns a `String` object that contains the outcome message of 
+the command that was executed, which is displayed to the user by the `Ui` component.
 ---
 
 ### Entry
@@ -548,8 +558,6 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
 
-## Instructions for manual testing
-
 ### User Profile Setup and Editing
 
 This feature allows the user to set up and
@@ -604,6 +612,15 @@ and the `calorieGoal` attribute is set to the generated goal.
 `SetHeightCommand#execute` is called, which sets the `height` attribute
 of the `User` object to 180 by calling `User#setHeight`.
 
+### List User Data
+This feature lists all the user's data (i.e. gender, age, height, weight 
+and daily calorie goal). Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `list /user` command to
+   list their data. `ListUserDataCommand#execute` is called,
+   which calls `User#getUserDataDisplay` and displays the returned user data.
+
 ### Record Weight
 
 This feature allows the user to record their weight for the day in the
@@ -618,7 +635,24 @@ how its mechanism behaves at each step.
 that record is replaced with another record with the updated weight. Otherwise, a
 new weight record with the updated weight is created and added to the weight tracker.
 
+### List Weight Tracker
+
+This feature allows the user to list the weight tracker data in a particular month
+or since the start of using the app.
+Given below is an example usage scenario and
+how its mechanism behaves at each step.
+
+1. The user executes the `list /weight /month 1` command to list all weight tracker 
+data in January (in the current year). `ListWeightProgressCommand#execute` is called, 
+which calls `User#getWeightTrackerDisplay`.
+2. `User#getRelevantWeightRecords` is called to get all weight records in January in
+the current year. If there is more than one weight record, the difference between the 
+weight in the earliest record and the latest record is calculated.
+3. The weight tracker is displayed, showing weight records and the calculated weight
+change in January.
+
 ### Generate Calorie Goal
+
 This feature allows the user to generate a daily calorie goal
 according to their body type and their desired weekly weight change
 and set that as their daily goal.
@@ -646,6 +680,8 @@ for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#
 2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
 entries in the food tracker. This is subtracted from the user's daily calorie goal. 
 The resulting calories remaining is then displayed to the user. 
+
+## Instructions for manual testing
 
 ### Add Food Entry
 
