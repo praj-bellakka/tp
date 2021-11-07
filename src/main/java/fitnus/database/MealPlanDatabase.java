@@ -132,6 +132,6 @@ public class MealPlanDatabase {
                 Ui.printPreloadDatabaseError();
             }
         }
-        System.out.println("Successfully preloaded " + preloadMealPlanCount + " meal plans");
+        System.out.println("Preloaded " + preloadMealPlanCount + " meal plans");
     }
 }

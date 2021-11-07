@@ -212,6 +212,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Creates a new file at the filePath if it does not exist.
+     *
+     * @param filePath The filePath of the File to be created.
+     * @throws IOException If an I/O error occurs.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.tutorialspoint.com/java/io/file_createnewfile.htm
     // with modifications
@@ -223,6 +229,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a directory at directoryPath if it does not exist.
+     *
+     * @param directoryPath The directoryPath of the directory to be created.
+     */
     // @@author brendanlsz-reused
     // Reused from https://www.tutorialspoint.com/java/io/file_mkdir.htm
     // with modifications

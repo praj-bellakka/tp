@@ -70,6 +70,14 @@ public class Ui {
     }
 
     /**
+     * Prints a message informing the user that there were some problems
+     * when preloading the weight data.
+     */
+    public static void printPreloadWeightError() {
+        System.out.println("Error encountered while preloading weight data :(");
+    }
+
+    /**
      * Reads the user's inputs.
      *
      * @return The user's inputs as a String.

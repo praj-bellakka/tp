@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+-> ":Parser": promptUserCalories(index, mealType, foodName, ui)
+activate ":Parser"
+
+create ":Ui"
+":Parser" -> ":Ui": printAddCalorieToFood(foodName)
+activate ":Ui"
+return
+
+alt If input is invalid or first prompt
+    loop while input is invalid
+        ":Parser" -> ":Parser": parseInteger()
+        activate ":Parser"
+            ":Parser" -> ":Ui": readInput()
+            activate ":Ui"
+            return user input calories
+
+        return userInput
+    end
+
+end
+
+alt If foodType input is invalid or first prompt
+    loop while foodType input is invalid
+            ":Parser" -> ":Ui": readInput()
+            activate ":Ui"
+            return foodType
+
+      alt If foodType matches built-in types
+            ":Parser" -> ":Food": parseFoodType()
+            activate ":Food"
+            return FoodType
+        end
+
+    end
+
+end
+
+return AddFoodEntryCommand
+
+@enduml

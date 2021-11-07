@@ -1,7 +1,10 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+activate ":FitNUS"
+":FitNUS" -> "<<class>>\n Storage": initialiseFoodDatabase()
+activate "<<class>>\n Storage"
 
--> ":FoodDatabase": preloadDatabase()
+"<<class>>\n Storage" -> ":FoodDatabase": preloadDatabase()
 activate ":FoodDatabase"
 
 loop While there are still unread lines
@@ -17,9 +20,8 @@ loop While there are still unread lines
     return
 
     return
-
-
 end
+return
 
 return
 @enduml

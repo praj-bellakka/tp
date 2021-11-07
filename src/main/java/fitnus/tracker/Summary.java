@@ -3,6 +3,7 @@
 package fitnus.tracker;
 
 import fitnus.database.EntryDatabase;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Summary {
     /**
      * Constructs a Summary object.
      *
-     * @param ed EntryDatabase used to give summary
+     * @param ed   EntryDatabase used to give summary
      * @param days range of days to covered in summary
      */
     public Summary(EntryDatabase ed, int days) {
@@ -115,7 +116,7 @@ public class Summary {
      * Draws a horizontal calorie graph based on the calorie intake.
      *
      * @param calorie Total calorie intake on someday
-     * @param unit the unit for each #
+     * @param unit    the unit for each #
      * @return convert the calorie integer to a graph drawing
      */
     private static String drawGraphSquares(int calorie, int unit) {
