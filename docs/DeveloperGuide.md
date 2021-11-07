@@ -52,10 +52,25 @@ Refer to the User Guide (no link for now) for details of each command.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...| 
-|--------|----------|---------------|------------------| 
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application| 
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| As a... | I can...                                 | So that I can...                                                    |
+|---------|------------------------------------------|---------------------------------------------------------------------|
+| User    | input entries every time I eat something | incorporate it seamlessly into my daily life                        |
+| User    | edit my entries                          | make changes to my food entries at a later time                     |
+| User    | delete entries in case I mistype         | -                                                                   |
+| User    | list all my entries                      | look back at what I ate in the past                                 |
+| User    | search food by a keyword                 | easily look for the food that I ate                                 |
+| User    | create meal plans                        | add multiple food entries at once                                   |
+| User    | record my current weight                 | look back and keep track of my weight in the future                 |
+| User    | list out previous weight records         | look at my progress of weight loss/gain                             |
+| User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
+| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
+| User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
+| User    | list my user details                     | see my current user details at a glance                             |
+| User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
+| User    | ask for help                             | see all the available commands at a glance                          |
+| User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
+| User    | exit FitNUS                              | -                                                                   |
+
 
 ## Architecture
 
