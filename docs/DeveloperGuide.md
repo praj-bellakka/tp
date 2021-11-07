@@ -4,8 +4,8 @@
 
 1. [Product Scope](#product-scope)
 2. [Quick Start](#quick-start)
-3. [User Story](#user-stories)
-4. [Application Architecture](#architecture)
+3. [User Stories](#user-stories)
+4. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
    - [Entry Database](#entrydatabase)
@@ -16,12 +16,12 @@
    - [Suggest](#view-food-suggestions)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Implementation](#Implementation)
+5. [Implementation](#implementation)
    - [Add Food Entry](#add-food-entry)
    - [Edit Food Entry](#edit-food-entry)
    - [List Food Entry](#list-food-entry)
    - [Delete Food Entry](#delete-food-entry)
-6. [Instruction for manual testing](#instructions-for-manual-testing)
+6. [Instructions for manual testing](#instructions-for-manual-testing)
     - [Add Food Entry](#add-food-entry-instructions)
 7. [Non-functional Requirement](#nf-requirements)
 
@@ -72,7 +72,7 @@ Refer to the User Guide (no link for now) for details of each command.
 | User    | exit FitNUS                              | -                                                                   |
 
 
-## Architecture
+## Application Architecture
 
 ### Overall Architecture
 
@@ -248,7 +248,7 @@ The class diagram below showcases the relationships between the `MealPlanDatabas
 
 --- 
 
-### User component
+### User 
 
 ![User Class Diagram](diagrams-DG/User_Class.png)
 
@@ -556,6 +556,7 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
 
+---
 
 ### View Food Suggestions
 #### This feature allows users to find food suggestions based on food type and calorie goal.
@@ -574,7 +575,7 @@ Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
 
 
 
-## Instructions for manual testing
+## Implementation
 
 ### User Profile Setup and Editing
 
@@ -733,18 +734,13 @@ The following sequence diagram shows how the view remaining calories feature wor
 ![viewRemainingCalorie Sequence Diagram](diagrams-DG/Command_ViewRemainingCalorie_Seq.png)
 
 
-# Instructions for manual testing
+## Instructions for manual testing
 
-### Launch and shutdown
-//todo
+### Entry Features
 
--------------
+#### Add Food Entry
 
-## Entry Features
-
-### Add Food Entry
-
-**Add from existing database**
+Add from existing database
 
 1. Test case: `add /bfast chicken cutlet`
 
@@ -753,14 +749,14 @@ The following sequence diagram shows how the view remaining calories feature wor
 2. Other incorrect commands to try:
    - `add /teabreak chicken rice`(should use one of the available meal types)
 
-**Add a custom food entry**
+Add a custom food entry
 
 1. Test case: `add /snack vanilla ice-cream`
 
     Expected: User to be able to add a new food entry "vanilla ice-cream" since it does not exist in the existing 
 database. Resulting in a new food entry being added as a Snack.
 
-### Edit Food Entry
+#### Edit Food Entry
 
 1. Prerequisite: User must have **1 or more** existing food entries
 2. Test case: `edit 1 chicken rice`
@@ -769,9 +765,9 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `edit 0 laksa`(should use a valid index)
 
-### List Food Entry
+#### List Food Entry
 
-**List entries for the day**
+List entries for the day
 1. Prerequisite: User should have **1 or more** existing food entries
 2. Test case: `list /entry /day`
 
@@ -779,7 +775,7 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `list /entry year`(should use a valid timeframe)
 
-**List entries for the past week**
+List entries for the past week
 1. Prerequisite: User should have **1 or more** existing food entries
 2. Test case: `list /entry /week`
 
@@ -787,7 +783,7 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `list /entry year`(should use a valid timeframe)
 
-### Delete Food Entry
+#### Delete Food Entry
 
 1. Prerequisite: User should have **1 or more** existing food entries
 2. Test case: `remove /entry 1`
@@ -796,24 +792,24 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `remove /entry -1`(should use a valid index)
 
-### Find Food Entry
+#### Find Food Entry
 1. Prerequisite: User should have **1 or more** existing food entries consisting of the keyword "chicken"
 2. Test case: `find /entry chicken`
 
     Expected: User should be able to see all entries consisting of the keyword "chicken"
 
 -------------
-## Food Features
+### Food Features
 
-### List foods
-#### List all foods inside food database
+#### List foods
+List all foods inside food database.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `list /food`
 
    Expected: returns all the foods inside the food database.
 
-### Delete food
-#### Delete food inside the food database at certain index.
+#### Delete food
+Delete food inside the food database at certain index.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `remove /food 2`
    Expected: delete the 2nd food at the food database successfully.
@@ -822,8 +818,8 @@ database. Resulting in a new food entry being added as a Snack.
    - `remove /food a` (the index is supposed to be an integer)
 
 
-### Find food
-#### Find food inside the food database according to keywords.
+#### Find food
+Find food inside the food database according to keywords.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `remove /food rice`
    Expected: returns all the foods inside the food database contain the keyword "rice".
@@ -831,18 +827,18 @@ database. Resulting in a new food entry being added as a Snack.
    - `remove /food` (the keyword for searching is mandatory)
 
 -------------
-## Weight Tracker Features
+### Weight Tracker Features
 
-### Record weight
+#### Record weight
 
-#### Recording weight for the day
+Recording weight for the day
 1. Prerequisites: User has not recorded their weight for the day.
 2. Test case: `weight /set 65.5`
 
    Expected: User's weight is set to 65.5 kg, and a new weight record is added
    to the weight tracker with the current date and the recorded weight of 65.5 kg.
 
-#### Updating weight twice in one day
+Updating weight twice in one day
 1. Prerequisites: User has already recorded their weight for the day.
 2. Test case: `weight /set 55.5`
 
@@ -850,16 +846,16 @@ database. Resulting in a new food entry being added as a Snack.
    weight record in the weight tracker is replaced with a new weight record with
    the updated weight of 55.5 kg.
 
-### List weight tracker data
+#### List weight tracker data
 
-#### Listing all weight tracker data
+Listing all weight tracker data
 1. Prerequisites: Multiple weight records in weight tracker.
 2. Test case: `list /weight /all`
 
    Expected: All weight records in the weight tracker are listed and
    the amount of weight gained or lost since the start of using the app is shown.
 
-#### Listing weight tracker data in a particular month in the current year
+Listing weight tracker data in a particular month in the current year
 1. Prerequisites: Weight records for the month of January exist in the weight tracker.
 2. Test case: `list /weight /month 1`
 
@@ -872,41 +868,41 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: Weight tracker data not shown. Error details shown in status message.
 
 -------------
-## User Personalisation Features
+### User Personalisation Features
 
-### Set gender
+#### Set gender
 
-#### Setting gender
+Setting gender
 1. Test case: `gender /set m`
 
    Expected: The user's gender is set to Male.
 
-### Set gender
+#### Set age
 
-#### Setting age
+Setting age
 1. Test case: `age /set 18`
 
    Expected: The user's age is set to 18 years old.
 
-### Set height
+#### Set height
 
-#### Setting height
+Setting height
 1. Test case: `height /set 180`
 
    Expected: The user's height is set to 180 cm.
 
-### Set calorie goal
+#### Set calorie goal
 
-#### Setting calorie goal
+Setting calorie goal
 1. Prerequisites: The minimum/maximum calorie goal of the user (according
    to their body type) is lower/higher than 2000kcal.
 2. Test case: `calorie /set 2000`
 
    Expected: The user's calorie goal is set to 2000kcal.
 
-### Generate calorie goal
+#### Generate calorie goal
 
-#### Generating calorie goal according to desired weekly change
+Generating calorie goal according to desired weekly change
 1. Prerequisites: User profile setup has been completed (app is not
    prompting user to set up their profile).
 2. Test case: `calorie /generate /lose 0.1`
@@ -925,9 +921,9 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: A new calorie goal is not generated and set. Error details shown
    in status message.
 
-### View remaining calories
+#### View remaining calories
 
-#### Viewing remaining calories for the day
+ Viewing remaining calories for the day
 1. Prerequisites: The total number of calories of all food tracker entries entered
    for the day has not exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
@@ -935,7 +931,7 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: The remaining calories that the user can consume for the day according
    to their daily calorie goal is displayed.
 
-#### Viewing remaining calories for the day when exceeded daily goal
+Viewing remaining calories for the day when exceeded daily goal
 1. Prerequisites: The total number of calories of all food tracker entries entered
    for the day has exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
@@ -943,9 +939,9 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: The number of calories the user has exceeded their daily goal by is
    displayed.
 
-### List user data
+#### List user data
 
-#### Listing all user data
+Listing all user data
 1. Prerequisite: User profile setup has been completed (app is not
    prompting user to set up their profile).
 2. Test case: `list /user`
@@ -954,10 +950,10 @@ database. Resulting in a new food entry being added as a Snack.
    calorie goal is displayed.
 
 -------------
-## Other Features
+### Other Features
 
-### View statistics
-#### Weekly report
+#### View statistics
+Weekly report
 
 This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
 
@@ -973,7 +969,7 @@ over the past seven days.
 Expected: A weekly report is generated.
 
 
-#### Monthly report
+Monthly report
 
 This feature allows the user to generate a report that gives an overview of their diet over this past month.
 
@@ -988,7 +984,7 @@ Prerequisite: Have at least one existing `Entry` in the past month.
 
 Expected: A monthly report is generated.
 
-### View suggestions
+#### View suggestions
 
 This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
 

@@ -198,8 +198,8 @@ public class FoodDatabase {
         int preloadFoodCount = 0;
         String line;
         while ((line = reader.readLine()) != null) {
-            int loadedFoodSuccessfully = loadFood(line);
-            if (loadedFoodSuccessfully == 1) {
+            boolean loadedFoodSuccessfully = loadFood(line);
+            if (loadedFoodSuccessfully) {
                 preloadFoodCount++;
             }
         }
@@ -207,8 +207,8 @@ public class FoodDatabase {
             Reader inputString = new StringReader(UTOWN_FOOD_LIST);
             BufferedReader newReader = new BufferedReader(inputString);
             while ((line = newReader.readLine()) != null) {
-                int loadedFoodSuccessfully = loadFood(line);
-                if (loadedFoodSuccessfully == 1) {
+                boolean loadedFoodSuccessfully = loadFood(line);
+                if (loadedFoodSuccessfully) {
                     preloadFoodCount++;
                 }
             }
@@ -220,10 +220,10 @@ public class FoodDatabase {
      * Preloads a food into the database.
      *
      * @param line A line of food information to be processed and added.
-     * @return 1 if successful and 0 if unsuccessful.
+     * @return True if successful and false if unsuccessful.
      * @throws FitNusException If unable to parse Food type.
      */
-    public int loadFood(String line) throws FitNusException {
+    public boolean loadFood(String line) throws FitNusException {
         String[] description = line.trim().split("\\s*[|]\\s*");
         try {
             String name = description[0].strip();
@@ -236,10 +236,10 @@ public class FoodDatabase {
 
             Integer calories = Integer.parseInt(caloriesString);
             this.addFood(name, calories, type);
-            return 1; //success
+            return true; //success
         } catch (IndexOutOfBoundsException e) {
             Ui.printPreloadDatabaseError();
-            return 0; //failure
+            return false; //failure
         }
     }
 
