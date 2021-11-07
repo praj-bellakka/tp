@@ -17,6 +17,7 @@ public class FindFoodsCommand extends Command {
         this.keyword = keyword;
     }
 
+    @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         ArrayList<Food> matchingFoods = fd.findFoods(keyword);
         if (matchingFoods.size() > 0) {
