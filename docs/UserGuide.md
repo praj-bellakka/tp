@@ -65,6 +65,7 @@ Successfully preloaded weight data
 
 
 ## Features
+
 > **⚠️ Notes about command format**
 > 
 > - Words in **UPPER_CASE** are the parameters to be input by the user!
