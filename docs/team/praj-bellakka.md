@@ -36,10 +36,7 @@ The method has built in checks to only allow integer values within the range of 
 - **Viewing meal plans**: I implemented `ListMealPlanDatabaseCommand` to allow users to view all currently saved meal plans in the database.
 
 ### Contributions to the UG:
-- Feature: Creating new meal plan.
-- Feature: Adding existing meal plan in database.
-- Feature: Listing meal plans in database.
-- Feature: Adding new food to database.
+- Feature: Creating new meal plan, Adding existing meal plan in database, Listing meal plans in database, Adding new food to database.
 - I also contributed to the `Command summary` section of the UG.
 
 ### Contributions to the DG:
@@ -50,8 +47,7 @@ The method has built in checks to only allow integer values within the range of 
 
 
 - Design and implementation: `MealPlanDatabase`
-    - Added a UML class diagram to highlight the relationships between the `MealPlanDatabase`
-      class and various components.
+    - Added a UML class diagram to highlight the relationships between the `MealPlanDatabase`class and various components.
     - Added a UML class diagram to highlight the `MealPlanDatabase` methods and attributes.
     - Added UML sequence diagrams for `preloadDatabase()` and `convertDatabaseToString()` methods.
     - Added UML sequence diagrams for `listMealPlan()` method.
