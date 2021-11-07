@@ -210,14 +210,6 @@ Example of usage:
 
 ----
 
-#### View remaining calories for the day: `calorie /remain`
-Shows the remaining number of calories the user can consume for the day to stay
-within their daily calorie goal.
-
-Format: `calorie /remain`
-
-Sample output:
-
 
 
 ### Food Database
@@ -230,6 +222,7 @@ Format: `remove /food INDEX_OF_FOOD`
 Example of usage: `remove /food 12`
 
 Sample output:
+
 ![](diagrams-UG/remove_food.png)
 
 <p>&nbsp;</p>
@@ -242,6 +235,7 @@ Format: `find /food KEYWORD`
 Example of usage: `find /food ramen`
 
 Sample output:
+
 ![](diagrams-UG/find_food.png)
 
 <p>&nbsp;</p>
@@ -521,6 +515,16 @@ Sample output:
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
 <p>&nbsp;</p>
+
+#### View remaining calories for the day: `calorie /remain`
+Shows the remaining number of calories the user can consume for the day to stay
+within their daily calorie goal.
+
+Format: `calorie /remain`
+
+Sample output:
+![](diagrams-UG/calorie_remain.png)
+
 
 #### View user data: `list /user`
 View user data including gender, age, weight, height and calorie goal.
