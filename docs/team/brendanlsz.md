@@ -19,24 +19,34 @@ Backend Software Engineer: Responsible for implementing various backend features
 ### Enhancements Implemented
 
 Implemented the core functionalities of the following:
-- `Storage`: I implemented the file storage functionality, which allows the FitNus application
-to save the user's data to a text file. This enables FitNus to retain the user's progress and data
-even after terminating the application. The `Storage` class is also designed such that it fails
-gracefully in the event that the text files are corrupted. This is achieved by discarding corrupted 
-data and providing messages to the user.
-- `FoodDatabase`: At the beginning of the project, I implemented the core functionalities of the `FoodDatabase` 
-class, used to keep a record of all the various types of `Food` objects. Over the course of the project, 
-I also continuously added enhancements, including features that allow users to search `Food` objects 
-as well as find `Food` suggestions.
-- `EntryDatabase`: I co-implemented the basic features of the `EntryDatabase` class, used to handle 
-all functionalities relating to the Entry objects.
-- `ViewSuggestionsCommand`: In V2.0, I implemented the `ViewSuggestionsCommand`, which enables users
-to find suggestions from their `FoodDatabase` on what to eat based on their calorie goal and 
-the food type they specify.
-- `FindFoodsCommand`: I implemented the `FindFoodsCommand` in V2.0 which allows users to search the
-`FoodDatabase` using a keyword. This allows users to easily find matching `Food` objects in the database.
-- `FindEntriesCommand`: I implemented the `FindEntriesCommand` in V2.0 which allows users to search the
-`EntryDatabase` using a keyword. This allows users to easily find matching `Entry` objects in the database.
+- `Storage`: 
+  - I implemented the file storage functionality, which allows the FitNus application to save and read data 
+  to and from text files. This enables FitNus to retain the user's progress and various data
+  even after terminating the application. 
+  - The `Storage` class is also designed such that it fails
+  gracefully in the event that the text files are corrupted. This is achieved by discarding corrupted 
+  data and providing messages to the user.
+  - Implementing the storage functionality also involved adding methods to various classes to
+  preload data and also convert data to String for storage.
+- `FoodDatabase`: 
+  - At the beginning of the project, I implemented the core functionalities of the `FoodDatabase` 
+  class, used to keep a record of all the various types of `Food` objects. 
+  - Over the course of the project, 
+  I also continuously added enhancements, including features that allow users to search `Food` objects 
+  as well as find `Food` suggestions.
+- `EntryDatabase`: 
+  - I co-implemented the basic features of the `EntryDatabase` class, used to handle 
+  functionalities relating to the `Entry` objects.
+- `ViewSuggestionsCommand`: 
+  - In v2.0, I implemented the `ViewSuggestionsCommand`, which enables users
+  to find suggestions from their `FoodDatabase` on what to eat based on their calorie goal and 
+  the food type they specify.
+- `FindFoodsCommand`: 
+  - I implemented the `FindFoodsCommand` in v2.0 which allows users to search the
+  `FoodDatabase` using a keyword. This allows users to easily find matching `Food` objects in the database.
+- `FindEntriesCommand`: 
+  - I implemented the `FindEntriesCommand` in v2.0 which allows users to search the
+  `EntryDatabase` using a keyword. This allows users to easily find matching `Entry` objects in the database.
 
 
 ### Contributions to the UG:
@@ -62,47 +72,16 @@ the food type they specify.
   `ViewSuggestionsCommand`.
   - Provided detailed explanation on the sequence of the execution.
 
+### Contributions to team-based tasks:
 
-### Developer Guide Extract: Storage
+- Setting up milestone `v2.0`
+- Protect the team repository's master branch using GitHub's Protected Branches feature
+- Keep track of deadlines and milestones.
+- Refactored code to improve consistency and to improve the use of OOP principles.
 
-The Storage class reads and writes data to and from the text file.
+### Review/mentoring contributions
 
-#### Storage format
+- [Here the PRs that I reviewed or commented on](https://github.com/AY2122S1-CS2113T-W12-1/tp/pulls?q=is%3Apr+commenter%3Abrendanlsz+)
+- Assisted my teammates with `Storage` and `FoodDatabase` related technical issues.
 
-**Every line in each text file represents one object / entry / item**
-
-*   FoodDatabase:`FOODNAME | CALORIE_VALUE`  
-    Example: `Nasi Lemak | 400`   `Ramen | 600`
-*   EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE`  
-    Example: `Dinner | Ramen | 500 | 2021-10-20`   `Lunch | Fried rice | 600 | 2021-10-20`
-*   User:`CALORIE_GOAL | GENDER`  
-    Example: `1000 | 0`
-*   User weight:`WEIGHT | DATE`  
-    Example: `60.0 | 2021-07-20`   `59.0 | 2021-08-20`   `58.0 | 2021-09-20`   `45.0 | 2021-10-21`
-
-#### Implementation
-
-1.  **Saving to text file**
-
-    `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
-    For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
-2.  **Loading from text file**
-
-    `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
-    For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
-
-#### Implementation considerations
-
-1. The `Path` of each text file is hardcoded within the `Storage` class. This eliminates
-   the need to pass the `Path` of the destination file each time. For example, to save the `FoodDatabase`
-   contents, the method call is `saveFoodDatabase()` rather than `saveFoodDatabase(PATH)`.
-2. All public methods are declared as `static` methods. This allows various methods within the
-   `Storage` class to be called without having to instantiate a `Storage` object.
-
-
-
-#### UML Sequence Diagram
-
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-![](./../diagrams-DG/Storage_sequence.png)
 
