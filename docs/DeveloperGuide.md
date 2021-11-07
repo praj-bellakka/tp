@@ -703,36 +703,60 @@ Expected: User should be able to see all entries consisting of the keyword "chic
 
 ### View statistics
 #### Weekly report
-Prerequisite: Have at least one existing `Entry`
 
-Test case: `summary /week`
+This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
 
-Expected Output: A weekly report is generated similar to the following:
-![img](diagrams-UG/week-summary.png)
+Prerequisite: Have at least one existing `Entry` in the past week.
+
+1. The user executes the `summary /week` command to generate a report of their diet in the past week.
+`ViewWeekSummaryCommand#execute` is called.
+2. `EntryDatabase#getPastDaysEntryDatabase` is then called to retrieve all `Entry` objects from the past week.
+3. A `Summary` object is then created based on the retrieved `Entry` objects.
+4. `Summary#generateWeekSummaryReport` is then called which generates a report based on the food consumed 
+over the past seven days.
+
+Expected: A weekly report is generated.
+
 
 #### Monthly report
-Prerequisite: Have at least one existing `Entry`
 
-Test case: `summary /month`
+This feature allows the user to generate a report that gives an overview of their diet over this past month.
 
-Expected Output: A monthly report is generated similar to the following:
+Prerequisite: Have at least one existing `Entry` in the past month.
 
-![img](diagrams-UG/month-summary.png)
+1. The user executes the `summary /month` command to generate a report of their diet in the past month.
+   `ViewMonthSummaryCommand#execute` is called.
+2. `EntryDatabase#getPastMonthEntryDatabase` is then called to retrieve all `Entry` objects from the past month.
+3. A `Summary` object is then created based on the retrieved `Entry` objects.
+4. `Summary#generateMonthSummaryReport` is then called which generates a report based on the food consumed
+   over the past month.
+
+Expected: A monthly report is generated.
+
 
 
 ### View suggestions
+
+This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
+
 Prerequisite: 
 - User data (gender, age, weight, height) is set correctly to ensure the calorie
 goal is generated correctly
 - `FoodDatabase` has at least one `Food`
 
-Test cases: 
-- `suggest /FOODTYPE` (result unsorted)
-- `suggest /FOODTYPE /sort` (result sorted)
+Given below is an example usage scenario and how its mechanism behaves at each step.
 
-> **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
+1. The user executes the `suggest /snack` command to find suggestions for a snack.
+`ViewSuggestionsCommand#execute` is called.
+2. `User#getCalorieGoal` and `EntryDatabase#getTotalDailyCalorie` are then called in order to compute
+the remaining calories for the day.
+3. `FoodDatabase#findSuggestions` is called next to retrieve matching `Food` objects.
+4. `Ui#printMatchingFoods` is then called to print all the retrieved `Food`.
 
-Expected Output: Matching `Food` suggestions are shown.
+Expected: Matching `Food` suggestions are shown.
+
+
+
 
 <h3>Parser Component</h3>
 <div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
