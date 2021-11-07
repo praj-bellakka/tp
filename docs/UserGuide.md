@@ -18,9 +18,9 @@ Here is the list of sections we will be covering in this User Guide.
     - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list)
     - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find)
   - [Food Database](#food-database)
-    - [Deleting food from food database: `remove /food`](#deleting-food-from-food-database-remove)
-    - [Searching for foods with keyword: `find /food`](#searching-for-foods-with-keyword-find)
-    - [Listing foods in food database: `list /food`](#listing-foods-in-food-database-list)
+    - [Deleting food: `remove /food`](#deleting-food-remove-food)
+    - [Searching for foods with keyword: `find /food`](#searching-for-foods-with-keyword-find-food)
+    - [Listing foods in food database: `list /food`](#listing-foods-in-food-database-list-food)
   - [Meal Plan Database](#meal-plan-database)
     - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create)
     - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list)
@@ -218,8 +218,9 @@ Example of usage:
 
 ### Food Database
 
-#### Deleting food from food database: `remove /food`
-Deletes food from the food database.
+#### Deleting food: `remove /food`
+
+Deletes a specified food from the FoodDatabase.
 
 Format: `remove /food INDEX_OF_FOOD`
 
@@ -232,6 +233,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Searching for foods with keyword: `find /food`
+
 Finds all matching food in the FoodDatabase based on the keyword you provided.
 
 Format: `find /food KEYWORD`
@@ -245,13 +247,15 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Listing foods in food database: `list /food`
-Lists out all foods in the database and their respective calories.
+
+Lists out all foods in the FoodDatabase.
 
 Format: `list /food`
 
 Example of usage: `list /food`
 
 Sample output:
+
 ![](diagrams-UG/list_food.png)
 
 <p>&nbsp;</p>
