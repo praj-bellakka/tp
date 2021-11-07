@@ -50,6 +50,7 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
+
 ```
 ------------------
 Welcome to FitNUS Tracker!
@@ -112,9 +113,10 @@ Sample output:
 
 ![Add Entry Sample Output](diagrams-UG/AddEntrySampleOutput.PNG)
 
-<p>&nbsp;</p>
+
 
 #### Adding meal plan entry: `add /mealplan`
+
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
 Click on [this link](#creating-meal-plan-by-adding-food-create) to create a meal plan.  
 
@@ -162,9 +164,9 @@ Sample output:
 
 ![Edit Entry Sample Output](diagrams-UG/EditEntrySampleOutput.PNG)
 
-<p>&nbsp;</p>
 
 #### Deleting food entry: `remove`
+
 Deletes an entry from the EntryDatabase.
 
 Format: `remove /entry INDEX_OF_FOOD`
@@ -175,12 +177,14 @@ Example of usage:
 
 ![Delete Entry Sample Output](diagrams-UG/DeleteEntrySampleOutput.PNG)
 
-<p>&nbsp;</p>
+
 
 #### Listing tracker entries: `list`
+
 Lists out all foods entered for a given timeframe.
 
 Format: `list /entry [/TIMEFRAME]`
+
 * The `TIMEFRAME` can be of the following 2 types:
   * `day` - to show entries in the current day
   * `week` - to show entries in the past week
@@ -194,9 +198,9 @@ Example of usage:
 
 ![img.png](diagrams-UG/ListWeekEntrySampleOutput.PNG)
 
-<p>&nbsp;</p>
 
 #### Searching for tracker entries with keyword: `find`
+
 Finds all matching entries in the EntryDatabase based on the keyword you provided.
 
 Format: `find /entry KEYWORD`
@@ -216,6 +220,7 @@ Example of usage:
 ### Food Database
 
 #### Deleting food from food database: `remove`
+
 Deletes food from the food database.
 
 Format: `remove /food INDEX_OF_FOOD`
@@ -226,9 +231,9 @@ Sample output:
 
 ![](diagrams-UG/remove_food.png)
 
-<p>&nbsp;</p>
 
 #### Searching for foods with keyword: `find`
+
 Finds all matching food in the FoodDatabase based on the keyword you provided.
 
 Format: `find /food KEYWORD`
@@ -239,9 +244,9 @@ Sample output:
 
 ![](diagrams-UG/find_food.png)
 
-<p>&nbsp;</p>
 
 #### Listing foods in food database: `list`
+
 Lists out all foods in the database and their respective calories.
 
 Format: `list /food`
@@ -251,13 +256,14 @@ Example of usage: `list /food`
 Sample output:
 ![](diagrams-UG/list_food.png)
 
-<p>&nbsp;</p>
+
 
 ---- 
 
 ### Meal Plan Database
 
 #### Creating meal plan by adding food: `create`
+
 Creates a custom meal plan by adding existing food items inside the food database to the meal plan. A meal plan consists of a name, and a list of Food items. 
 In order to create a meal plan, you must add at least 1 food item to the plan. 
 
@@ -330,6 +336,7 @@ Sample output:
 
 ---- 
 #### Listing meal plan entries: `list`
+
 Lists out all meal plans entered. Each individual meal plan along with its associated food items are listed as shown below.
 
 Format: `list /mealplan`
@@ -350,6 +357,7 @@ Sample output:
 ### Weight Tracker
 
 #### Recording weight: `weight /set`
+
 Updates the user's current weight as well as 
 their weight record for the day in the weight tracker.
 
@@ -374,10 +382,8 @@ You have updated your weight for today to 55.6 kg!
 You have lost 9.6 kg from the previous weight entry of 65.2 kg on 2021-11-07
 ```
 
-<p>&nbsp;</p>
-
-
 #### Listing weight records: `list`
+
 Lists weight records within a certain timeframe (either all time or a particular month in 
 the current year). 
 
@@ -418,11 +424,10 @@ Examples of usage:
     You have gained 0.4 kg during the month of March!
     ```
 
-<p>&nbsp;</p>
-
 ### Personalisation
 
 ####  Setting gender: `gender /set`
+
 Sets the user's gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
@@ -437,10 +442,10 @@ Sample output:
 You have set your gender to Male
 ```
 
-<p>&nbsp;</p>
 
 
 ####  Setting height: `height /set`
+
 Sets the user's height in centimeters.
 
 Format: `height /set HEIGHT`
@@ -453,10 +458,10 @@ Sample output:
 You have set your height to 180 cm!
 ```
 
-<p>&nbsp;</p>
 
 
 ####  Setting age: `age /set`
+
 Sets the user's age in years.
 
 Format: `age /set AGE`
@@ -471,6 +476,7 @@ Sample output:
 <p>&nbsp;</p>
 
 ####  Setting calorie goal: `calorie /set`
+
 Sets the user's calorie goal in kcal.
 
 Format: `calorie /set CALORIE_GOAL`
@@ -486,9 +492,10 @@ Example of usage:`calorie /set 2000`
 Sample output:
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
-<p>&nbsp;</p>
+
 
 ####  Generate and set calorie goal: `calorie /generate`
+
 Generates and sets a calorie goal based on the user's 
 target weight loss/gain per week, age, height, 
 weight and gender using the Harris-Benedict equation.
@@ -515,9 +522,10 @@ Sample output:
 
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
-<p>&nbsp;</p>
+
 
 #### View remaining calories for the day: `calorie /remain`
+
 Shows the remaining number of calories the user can consume for the day to stay
 within their daily calorie goal.
 
@@ -528,6 +536,7 @@ Sample output:
 
 
 #### View user data: `list /user`
+
 View user data including gender, age, weight, height and calorie goal.
 
 Format: `list /user`
@@ -538,6 +547,7 @@ Sample output:
 ### Other
 
 #### Viewing Help: `help`
+
 Lists out available commands and additional information regarding each command.
 
 Format: `help`
@@ -546,13 +556,13 @@ Sample Output:
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
 
-<p>&nbsp;</p>
-
 #### View statistics: `summary`
+
 FitNUS supports two kinds of diet reports:
 
 
 ##### Weekly report
+
 Weekly report gives you an overview of your diet over the past 7 days, which includes:
 - Graph of daily calorie intake
 - Average calorie intake
@@ -562,9 +572,11 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 Format: `summary /week`
 
 Sample Output:
+
 ![img](diagrams-UG/week-summary.png)
 
 ##### Monthly report
+
 Monthly report gives you an overview of your diet over this month, which includes:
 - Average calorie intake
 - Most frequently eaten foods
@@ -579,6 +591,7 @@ Sample Output:
 <p>&nbsp;</p>
 
 #### Suggest food based on food type and calorie goal: `suggest`
+
 Provides food suggestions for you by filtering food items in the database based on food type 
 (meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
 
@@ -599,6 +612,7 @@ Sample output:
 
 
 #### quit FitNus
+
 Exit FitNus program
 
 Format: `exit`
