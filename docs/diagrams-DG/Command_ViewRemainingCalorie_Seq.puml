@@ -1,0 +1,12 @@
+@startuml
+autoactivate on
+participant ":ViewRemainingCalorieCommand" as command
+participant ":User" as user
+
+-> command: execute(ed, fd, md, us)
+command-> user: getCaloriesRemaining(entryDatabase)
+user --> command: caloriesRemaining
+command-> user: getCalorieGoal()
+user --> command: calorieGoal
+<--command: output
+@enduml
