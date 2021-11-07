@@ -595,6 +595,10 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 
 ---
 
+
+
+## Implementation
+
 ### View Food Suggestions
 #### This feature allows users to find food suggestions based on food type and calorie goal.
 
@@ -609,10 +613,6 @@ Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
    based on the remaining calories and specified type. The user also has the option to have the result sorted
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
 4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
-
-
-
-## Implementation
 
 ### User Profile Setup and Editing
 
@@ -1021,7 +1021,7 @@ Prerequisite: Have at least one existing `Entry` in the past month.
 
 Expected: A monthly report is generated.
 
-#### View suggestions
+#### View Food Suggestions
 
 This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
 

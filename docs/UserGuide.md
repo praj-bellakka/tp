@@ -38,6 +38,8 @@ Here is the list of sections we will be covering in this User Guide.
     - [Viewing statistics: `summary`](#view-statistics-summary)
     - [Viewing help: `help`](#viewing-help-help)
     - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
+    - [Saving data](#saving-data)
+    - [Loading data](#loading-data)
     - [Exiting FitNUS: `exit`](#quit-fitnus)
 - [User Stories](#user-stories)
 - [Command Summary](#command-summary)
@@ -568,6 +570,24 @@ Sample output:
 ![](diagrams-UG/suggest_meal.png)
 ![](diagrams-UG/suggest_snack_sort.png)
 
+
+#### Saving data
+
+Application data is saved whenever any data is added or modified. 
+This process is automatic, so no user input is needed for this.
+
+#### Loading data
+
+Application data is automatically loaded from text files within the data folder upon startup. 
+
+If data is successfully loaded upon startup, you will see messages similar to the following:
+
+![](diagrams-UG/storage_load.png)
+
+However, if files are missing, FitNus will create the necessary files for you.
+Then, you will see messages similar to the following:
+
+![](diagrams-UG/storage_load_no_files.png)
 
 #### Quit FitNus
 Exits the FitNus program.
