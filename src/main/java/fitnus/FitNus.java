@@ -15,8 +15,6 @@ import fitnus.utility.Ui;
 import fitnus.utility.User;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,22 +41,26 @@ public class FitNus {
             if (successfullyInitialisedUser == 0) { //did not successfully initialise user data
                 Ui.println(Ui.DIVIDER);
                 Ui.println(Ui.INIT_GENDER);
-                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "gender /set ");
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
+                        user, "gender /set ");
                 Ui.println(Ui.DIVIDER);
                 Ui.println(Ui.INIT_AGE);
-                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "age /set ");
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
+                        user, "age /set ");
                 Ui.println(Ui.DIVIDER);
                 Ui.println(Ui.INIT_HEIGHT);
-                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "height /set ");
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
+                        user, "height /set ");
                 Ui.println(Ui.DIVIDER);
                 Ui.println(Ui.INIT_WEIGHT);
-                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase, user, "weight /set ");
+                initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
+                        user, "weight /set ");
                 Ui.println(Ui.INIT_SUCCESS);
                 int calorieGoal = user.calculateCalorieGoal(0, "gain");
                 user.setCalorieGoal(calorieGoal);
                 Ui.printCalorieGoal(calorieGoal);
                 Ui.println(Ui.DIVIDER);
-                saveData();
+                saveFitNus();
             }
         } catch (IOException e) {
             logger.log(Level.INFO, "some problems when loading data");
@@ -90,7 +92,7 @@ public class FitNus {
         }
     }
 
-    private void saveData() {
+    private void saveFitNus() {
         try {
             Storage.createDirectoryAndFiles();
             Storage.saveFoodDatabase(foodDatabase);
@@ -116,7 +118,7 @@ public class FitNus {
                 inputType = parser.parseCommandType(userInput, foodDatabase, entryDatabase, mealPlanDatabase);
                 Ui.println(inputType.execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
                 entryDatabase.sortDatabase();
-                saveData();
+                saveFitNus();
                 if (inputType instanceof ExitCommand) {
                     break;
                 }
