@@ -8,7 +8,7 @@ FitNUS is specially made for Computing Students living in University Town.
 ### Summary of Contributions
 Given below are my contributions to the project.
 
-- **Enhancement:** Added user profile initialisation 
+- **Feature:** Added user profile initialisation 
   - What it does: Detects first time users (no user data) or if user data
     in storage was corrupted and allows user to set up their profile (gender,
     age, height, weight). Upon setting up profile, a daily calorie goal that
@@ -22,7 +22,6 @@ Given below are my contributions to the project.
     (eg continuously prompting the user for their input for a certain attribute (e.g. gender)
     if the entered input when setting up the attribute was invalid, before moving
     on to setting up the next attribute).
-  - Credits: 
 - **Feature:** Added user profile editing
   - What it does: Allows the user to edit their user profile (e.g. change gender, change age)
   - Justification: This feature is needed as the user's data may change after a period
@@ -31,7 +30,6 @@ Given below are my contributions to the project.
     is accurate according to their body type.
   - Highlights: Many practical aspects of each user attribute had to be considered in order
     to implement an upper and lower bound (eg the height has to be between 40 and 300 cm).
-  - Credits:
 - **Feature:** Calorie goal generation
   - What it does: Generates a daily calorie goal automatically
     for the user according to their body type and their desired weekly
@@ -44,7 +42,6 @@ Given below are my contributions to the project.
     calorie goal should be.
   - Highlights: Much research was done to acquire a formula that can generate the
     daily calorie goal accurately and easily. 
-  - Credits:
 - **Feature:** Viewing remaining calories
   - What it does: Allows the user to view the remaining calories
   that they can consume for the day according to their food tracker
@@ -55,7 +52,6 @@ Given below are my contributions to the project.
   It is also used by other features in the app such as the food suggestions feature. 
   - Highlights: This feature required the integration
   of several components of the app (the user profile and the food tracker).
-  - Credits: 
 - **Feature:** Weight tracker
   - What it does: Allows the user to record their weight daily and view their weight progress.
   - Justification: This feature is one of the main features of the app as a diet and
@@ -65,8 +61,32 @@ Given below are my contributions to the project.
     (e.g. when the weight tracker is empty, when the weight tracker has only one entry) as the tracker
   comes with the additional feature of showing their total weight change during the selected time frame.
   This feature also required careful integration of other components such as storage.
-  - Credits: 
+  - Credits: This feature was implemented with the help of @brendanlsz, who created the base functions for
+  app storage which were reused with slight modifications in this feature.
 
-https://nus-cs2113-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=aaapppsss
+
+- Code contributed:[https://nus-cs2113-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=aaapppsss](RepoSense link)
 
 
+- Project management: Created and managed issues on GitHub during the project planning process
+
+
+- Enhancements to existing features:
+  - Added functionality to initialise UTown food database (Pull request #370)
+
+
+- Documentation:
+  - User Guide: 
+    - Added full documentation for the following features:
+      - Set gender/age/height/weight
+      - Generate calorie goal
+      - View remaining calories
+      - List weight tracker
+  - Developer Guide:
+    - Added full documentation for the following features:
+      - Set gender/age/height/weight
+      - Generate calorie goal
+      - View remaining calories
+      - List weight tracker
+    - Added parts of documentation for the following features:
+      - Overall architecture
