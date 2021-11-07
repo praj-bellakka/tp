@@ -286,33 +286,33 @@ User class and its various components.
 
 The Summary class provides an overview of user's diet over the past week/month.
 
-#### command format
-
-`summary /week` or `summary /month`  
-`Summary` class provides two methods `generateWeekSummaryReport()` and `generateMonthSummaryReport()` to give the user weekly/monthly report of their diets.
-
-*   `generateWeekSummaryReport()` shows weekly calorie intake trend graph, average daily calorie intake, and the most/least frequently eaten food over past 7 days.
-*   `generateMonthSummaryReport()` shows average daily calorie intake, and the most/least frequently eaten food over this month.
-
-#### UML Sequence Diagram
+#### Weekly summary report
 
 The following sequence diagram describes the operation of the `generateWeekSummary()`.  
-![](diagrams-DG/weekly%20report.png)  
+![](diagrams-DG/weekly%20report.png)
+
+Here are the general steps taken to generate a weekly report:
+
+- Create a `Summary` object with the entry database containing the records of past week and the number of days having records. 
+Generally, the number of days is seven, but for a new user having records less than 7 days, the total number of days he/she has used.
+- `ViewWeekSummaryCommand` calls `generateWeekReport()` method inside the Summary object.
+During the execution, it will self invoke the `getAverageCalories()` to calculate the average calorie intake during the past days, 
+`getMostAndLeastEatenFood()` to get the most and least eaten foods and corresponding times,
+and `getSquare()` method to draw a pictorial graph to illustrate the calorie intake trend.
+- At the end of execution, it will return the report as a String back.
+
+#### Monthly summary report
+
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
 ![](diagrams-DG/monthly%20report.png)
 
----
+Here are the general steps taken to generate a weekly report:
 
-### Command
-
-![command class diagram](diagrams-DG/command%20class%20diagram.drawio.png)
-
-The `Command` class is an abstract class that all other specific command classes (eg AddFoodEntryCommand, DeleteEntryCommand) inherit from. 
-
-The `Command` component
-    
-- Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds an entry to the EntryDatabase.) 
-
+- Create a `Summary` object with the entry database containing the records over this month and the number of days having records.
+- `ViewMonthSummaryCommand` calls `generateMonthReport()` method inside the Summary object.
+  During the execution, it will self invoke the `getAverageCalories()` to calculate the average calorie intake during the past days,
+  `getMostAndLeastEatenFood()` to get the most and least eaten foods and corresponding times.
+- At the end of execution, it will return the report as a String back.
 
 ---
 
