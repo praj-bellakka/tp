@@ -157,8 +157,7 @@ Format: `edit INDEX_OF_ENTRY FOOD_NAME`
     * Select which food you would like to add
     * Create your own custom food
 
-Example of usage:
-`edit 1 chicken`
+Example of usage: `edit 1 chicken`
 
 Sample output:
 
@@ -211,7 +210,6 @@ Example of usage:
 
 ![Find Entry Sample Output](diagrams-UG/FindEntrySampleOutput.PNG)
 
-<p>&nbsp;</p>
 
 ----
 
@@ -254,6 +252,7 @@ Format: `list /food`
 Example of usage: `list /food`
 
 Sample output:
+
 ![](diagrams-UG/list_food.png)
 
 
@@ -350,7 +349,6 @@ Sample output:
 
 ![img_7.png](diagrams-UG/listMealPlan.png)
 
-<p>&nbsp;</p>
 
 ---- 
 
@@ -413,16 +411,17 @@ Examples of usage:
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
 
-   - Sample output:
+Sample output:
 
-    ```
-    Your weight progress in March: 
-    2021-03-12: 51.5kg
-    2021-03-13: 51.7kg
-    2021-03-14: 51.8kg
-    2021-03-15: 51.9kg    
-    You have gained 0.4 kg during the month of March!
-    ```
+```
+Your weight progress in March: 
+2021-03-12: 51.5kg
+2021-03-13: 51.7kg
+021-03-14: 51.8kg
+2021-03-15: 51.9kg    
+You have gained 0.4 kg during the month of March!
+    
+```
 
 ### Personalisation
 
@@ -438,6 +437,7 @@ Format: `gender /set GENDER_SYMBOL`
 Example of usage: `gender /set m`
 
 Sample output:
+
 ```
 You have set your gender to Male
 ```
@@ -454,6 +454,7 @@ Format: `height /set HEIGHT`
 Example of usage:`height /set 180`
 
 Sample output:
+
 ```
 You have set your height to 180 cm!
 ```
@@ -473,7 +474,7 @@ Sample output:
 
 ![img](diagrams-UG/set-age.png)
 
-<p>&nbsp;</p>
+
 
 ####  Setting calorie goal: `calorie /set`
 
@@ -490,6 +491,7 @@ Format: `calorie /set CALORIE_GOAL`
 Example of usage:`calorie /set 2000`
 
 Sample output:
+
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
 
@@ -532,6 +534,7 @@ within their daily calorie goal.
 Format: `calorie /remain`
 
 Sample output:
+
 ![](diagrams-UG/calorie_remain.png)
 
 
@@ -542,6 +545,7 @@ View user data including gender, age, weight, height and calorie goal.
 Format: `list /user`
 
 Sample output:
+
 ![img](diagrams-UG/list-user.png)
 
 ### Other
@@ -553,6 +557,7 @@ Lists out available commands and additional information regarding each command.
 Format: `help`
 
 Sample Output:
+
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
 
@@ -588,7 +593,6 @@ Sample Output:
 
 ![img](diagrams-UG/month-summary.png)
 
-<p>&nbsp;</p>
 
 #### Suggest food based on food type and calorie goal: `suggest`
 
