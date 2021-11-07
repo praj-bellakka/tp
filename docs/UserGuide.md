@@ -2,9 +2,9 @@
 
 ## Introduction
 
-FitNUS Tracker is a desktop app for tracking daily food intake to keep a healthy lifestyle. FitNUS is specially made for Computing Students
-living in University Town, with features and functionalities taylor made for them.
-It is based on a Command Line Interface (CLI) and has rich functionality in order to cater to the needs of potential users.
+FitNUS Tracker is a desktop app for tracking daily food intake to keep a healthy lifestyle. FitNUS is specially made you if you are a Computing Student
+living in University Town, with features and functionalities taylor made just for you.
+It is based on a Command Line Interface (CLI) and has rich functionalities.
 
 Here is the list of sections we will be covering in this User Guide.
 
@@ -49,7 +49,9 @@ Here is the list of sections we will be covering in this User Guide.
 2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
-5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile. If you have successfully run the programme, you should see the following message as follows:
+5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
+If you have successfully run the programme, you should see the following message as follows:
+
 ```
 ------------------
 Welcome to FitNUS Tracker!
@@ -60,16 +62,15 @@ Successfully preloaded weight data
 ------------------
 
 [X] Please enter your gender (m/f):
-
 ```
 
 
 ## Features
 > **⚠️ Notes about command format**
 > 
-> - Words in **UPPER_CASE** are the parameters to be input by the user!
+> - Words in **UPPER_CASE** are the parameters to be input by you!
 
->  e.g. in `add /food NAME`, NAME is a parameter which can be substituted as `add /food burgers`.
+>  e.g. in `add /bfast FOOD_NAME`, FOOD_NAMEx is a parameter which can be substituted as `add /bfast burgers`.
 > - Items in **[Square brackets]** are optional!
 
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
@@ -77,7 +78,8 @@ Successfully preloaded weight data
 ### Entry Database
 
 #### Adding food entry: `add`
-Adds an entry to the Entry Database and prompts the user to fill in any additional information needed if an exact match to the user inputted food name was not found in the food database. 
+Adds an entry to the Entry Database. It will also prompt you to fill in any additional information if the
+food you requested was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -349,15 +351,15 @@ Sample output:
 ### Weight Tracker
 
 #### Recording weight: `weight /set`
-Updates the user's current weight as well as 
-their weight record for the day in the weight tracker.
+Updates your current weight as well as 
+your weight record for the day in the weight tracker.
 
 Format: `weight /set WEIGHT`
 
 - `WEIGHT` is a positive number with 1 decimal place and cannot be above 500.0
 
 > **⚠️ Notes about recording weight**
->- If the user has already recorded their weight for the day, recording the weight again
+>- If you have already recorded your weight for the day, recording the weight again
   will override the previous weight record for the day instead of creating a new record.
 >- If `WEIGHT` is entered as a number with more than 1 decimal place, the trailing decimals
 > will be cut off (no rounding will take place).
@@ -422,7 +424,7 @@ Examples of usage:
 ### Personalisation
 
 ####  Setting gender: `gender /set`
-Sets the user's gender to either Male or Female.
+Sets your gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
 - The `GENDER_SYMBOL` can be of the following types:
@@ -440,7 +442,7 @@ You have set your gender to Male
 
 
 ####  Setting height: `height /set`
-Sets the user's height in centimeters.
+Sets your height in centimeters.
 
 Format: `height /set HEIGHT`
 - `HEIGHT` is an integer between 40 and 300
@@ -456,7 +458,7 @@ You have set your height to 180 cm!
 
 
 ####  Setting age: `age /set`
-Sets the user's age in years.
+Sets your age in years.
 
 Format: `age /set AGE`
 - `AGE` is an integer between 12 and 100
@@ -470,14 +472,14 @@ Sample output:
 <p>&nbsp;</p>
 
 ####  Setting calorie goal: `calorie /set`
-Sets the user's calorie goal in kcal.
+Sets your calorie goal in kcal.
 
 Format: `calorie /set CALORIE_GOAL`
 
 > **⚠️ Notes about setting calorie goal**
-> - FitNUS calculates the minimum and maximum calorie goal according to the user's height,
+> - FitNUS calculates the minimum and maximum calorie goal according to your height,
   weight, gender and age that is within the recommended healthy amount of weight loss or gain
-  per week. The user cannot set a goal that is not within the healthy range of daily calorie
+  per week. You cannot set a goal that is not within the healthy range of daily calorie
   intake for their body type.
 
 Example of usage:`calorie /set 2000`
@@ -488,7 +490,7 @@ Sample output:
 <p>&nbsp;</p>
 
 ####  Generate and set calorie goal: `calorie /generate`
-Generates and sets a calorie goal based on the user's 
+Generates and sets a calorie goal based on your
 target weight loss/gain per week, age, height, 
 weight and gender using the Harris-Benedict equation.
 
@@ -506,7 +508,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 > lost or gained per week in a safe and healthy manner. 
 > * If the weekly change entered is less than 0.01 kg, 
 > it will be treated as a negligible weekly change and instead generate 
-> a goal that allows the user to maintain their current weight.
+> a goal that allows you to maintain their current weight.
 
 Example of usage:`calorie /generate /gain 0.5`
 
@@ -517,7 +519,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### View remaining calories for the day: `calorie /remain`
-Shows the remaining number of calories the user can consume for the day to stay
+Shows the remaining number of calories you can consume for the day to stay
 within their daily calorie goal.
 
 Format: `calorie /remain`
@@ -527,7 +529,7 @@ Sample output:
 
 
 #### View user data: `list /user`
-View user data including gender, age, weight, height and calorie goal.
+View your personal user data including gender, age, weight, height and calorie goal.
 
 Format: `list /user`
 
@@ -629,6 +631,7 @@ Sample Output:
 | User    | ask for help                             | see all the available commands at a glance                          |
 | User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
 | User    | exit FitNUS                              | -                                                                   |
+
 
 ## Command summary
 
