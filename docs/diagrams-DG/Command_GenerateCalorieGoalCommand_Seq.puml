@@ -1,0 +1,16 @@
+@startuml
+autoactivate on
+participant ":GenerateCalorieGoalCommand" as command
+participant ":User" as user
+
+-> command: execute(ed, fd, md, us)
+command-> user: handleGenerateCalorieGoalCommand(weeklyChange, changeType)
+user -> user: calculateCalorieGoal(weeklyChange, changeType)
+user --> user: newGoal
+user --> command: newGoal
+
+command -> user: setCalorieGoal(newGoal)
+user --> command
+
+<--command: output
+@enduml

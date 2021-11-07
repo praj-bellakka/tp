@@ -1,0 +1,19 @@
+@startuml
+hide member
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class User
+enum Gender
+package weightTracker{
+    class WeightRecord
+}
+package foodTracker{
+    class EntryDatabase
+}
+
+User *--> Gender
+User *-->WeightRecord
+User ..|> EntryDatabase
+@enduml

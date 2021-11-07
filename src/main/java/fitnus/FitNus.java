@@ -45,22 +45,22 @@ public class FitNus {
             Storage.initialiseMealPlanDatabase(mealPlanDatabase);
             Storage.initialiseWeightProgress(user);
 
-            int successfullyInitialisedUser = Storage.initialiseUser(user);
+            boolean successfullyInitialisedUser = Storage.initialiseUser(user);
 
-            if (successfullyInitialisedUser == 0) { //did not successfully initialise user data
-                Ui.println(Ui.DIVIDER);
+            if (!successfullyInitialisedUser) { //did not successfully initialise user data
+                Ui.print(Ui.DIVIDER);
                 Ui.println(Ui.INIT_GENDER);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
                         user, "gender /set ");
-                Ui.println(Ui.DIVIDER);
+                Ui.print(Ui.DIVIDER);
                 Ui.println(Ui.INIT_AGE);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
                         user, "age /set ");
-                Ui.println(Ui.DIVIDER);
+                Ui.print(Ui.DIVIDER);
                 Ui.println(Ui.INIT_HEIGHT);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
                         user, "height /set ");
-                Ui.println(Ui.DIVIDER);
+                Ui.print(Ui.DIVIDER);
                 Ui.println(Ui.INIT_WEIGHT);
                 initialiseAttribute(ui, entryDatabase, foodDatabase, mealPlanDatabase,
                         user, "weight /set ");

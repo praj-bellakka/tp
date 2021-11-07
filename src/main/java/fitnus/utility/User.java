@@ -155,11 +155,31 @@ public class User {
     private void updateWeightTrackerIfHavePreviousRecords(float newWeight, LocalDate currDate) {
         WeightRecord latestRecord = weightRecords.get(weightRecords.size() - 1);
         if (latestRecord.getDate().toString().equals(currDate.toString())) { //Update today's weight record
-            latestRecord.setWeight(newWeight);
-            weightRecords.set(weightRecords.size() - 1, latestRecord);
+            updateCurrentDayWeightRecord(newWeight, latestRecord);
         } else {
-            weightRecords.add(new WeightRecord(newWeight, currDate));
+            addNewWeightRecord(newWeight, currDate);
         }
+    }
+
+    /**
+     * Adds a new weight record to the weight tracker.
+     *
+     * @param newWeight Weight of weight record.
+     * @param currDate The current date.
+     */
+    private void addNewWeightRecord(float newWeight, LocalDate currDate) {
+        weightRecords.add(new WeightRecord(newWeight, currDate));
+    }
+
+    /**
+     * Updates the weight of the latest weight record in the weight tracker.
+     *
+     * @param newWeight Weight to be updated.
+     * @param latestRecord The latest weight record in the tracker.
+     */
+    private void updateCurrentDayWeightRecord(float newWeight, WeightRecord latestRecord) {
+        latestRecord.setWeight(newWeight);
+        weightRecords.set(weightRecords.size() - 1, latestRecord);
     }
 
     /**
@@ -381,10 +401,10 @@ public class User {
      * Loads the user data from the storage file to the User object.
      *
      * @param reader BufferedReader reading the user data storage file.
-     * @return Integer representing if the user data was preloaded successfully
+     * @return True if data preloaded successfully, false if unsuccessful.
      * @throws IOException if any I/O operations failed or were interrupted.
      */
-    public int preloadUserData(BufferedReader reader) throws IOException {
+    public boolean preloadUserData(BufferedReader reader) throws IOException {
         String line;
         boolean successfullyPreloadedData = false;
 
@@ -411,10 +431,10 @@ public class User {
         }
 
         if (successfullyPreloadedData == false) {
-            return 0; //failure
+            return false; //failure
         }
 
-        return 1; //success
+        return true; //success
     }
 
     /**
