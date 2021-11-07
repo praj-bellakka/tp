@@ -176,8 +176,8 @@ The `FoodDatabase` component consists of:
 - `convertDatabaseToString()`: Returns a String representation of 
 all Food objects in the database. 
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
-- `deleteFood()`: Removes a specified Food object from the database. 
-- `findFoods()`: Returns an ArrayList containing matching Food objects based on a keyword. 
+- `deleteFood()`: Removes a `Food` object at the specified index from the database. 
+- `findFoods()`: Returns an ArrayList containing matching `Food` objects based on a keyword. 
 - `findSuggestions()`: Returns an ArrayList containing matching Food objects based on the specified FoodType 
 and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
 matching Food objects.
@@ -193,11 +193,11 @@ public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean
     return matchingSuggestions;
 }
 ```
-- `getFoodAtIndex()`: Returns the Food object at the specified index. 
+- `getFoodAtIndex()`: Returns the `Food` object at the specified index. 
 - `getFoodDatabase()`: Returns the whole `databaseFoods` ArrayList.
 - `listFoods()`: Returns a formatted String of all Food objects to be printed. 
 - `loadFood()`: Loads `Food` objects into the `FoodDatabase`.
-- `preloadDatabase(BufferedReader)`: Preloads the database using data from the text file.
+- `preloadDatabase()`: Preloads the database using data from the text file.
    <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.

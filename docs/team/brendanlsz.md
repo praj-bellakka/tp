@@ -74,14 +74,14 @@ Implemented the core functionalities of the following:
 
 ### Contributions to team-based tasks:
 
-- Setting up milestone `v2.0`
-- Protect the team repository's master branch using GitHub's Protected Branches feature
+- Setting up milestone `v2.0`.
+- Protect the team repository's master branch using GitHub's Protected Branches feature.
 - Keep track of deadlines and milestones.
 - Refactored code to improve consistency and to improve the use of OOP principles.
 
 ### Review/mentoring contributions
 
-- [Here the PRs that I reviewed or commented on](https://github.com/AY2122S1-CS2113T-W12-1/tp/pulls?q=is%3Apr+commenter%3Abrendanlsz+)
+- [Here the PRs that I reviewed or commented on.](https://github.com/AY2122S1-CS2113T-W12-1/tp/pulls?q=is%3Apr+commenter%3Abrendanlsz+)
 - Assisted my teammates with `Storage` and `FoodDatabase` related technical issues.
 
 
