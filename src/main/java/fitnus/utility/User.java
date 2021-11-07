@@ -401,10 +401,10 @@ public class User {
      * Loads the user data from the storage file to the User object.
      *
      * @param reader BufferedReader reading the user data storage file.
-     * @return Integer representing if the user data was preloaded successfully
+     * @return True if data preloaded successfully, false if unsuccessful.
      * @throws IOException if any I/O operations failed or were interrupted.
      */
-    public int preloadUserData(BufferedReader reader) throws IOException {
+    public boolean preloadUserData(BufferedReader reader) throws IOException {
         String line;
         boolean successfullyPreloadedData = false;
 
@@ -431,10 +431,10 @@ public class User {
         }
 
         if (successfullyPreloadedData == false) {
-            return 0; //failure
+            return false; //failure
         }
 
-        return 1; //success
+        return true; //success
     }
 
     /**

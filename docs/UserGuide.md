@@ -617,7 +617,7 @@ List meal plan | list /mealplan | `list /mealplan`
 List all entries | list /entry | `list /entry`
 List daily entry | list /entry | `list /entry /day`
 List weekly entry | list /entry | `list /entry /week`
-List weight record | list /weight /all OR list /weight /month MONTH_INTEGER | `list /weight /all` OR `list /weight /month 1`
+List weight record | list /weight /all <br /> list /weight /month MONTH_INTEGER | `list /weight /all` <br /> `list /weight /month 1`
 List user data | list /user | `list /user`
 Set gender | gender /set GENDER | `gender /set m`
 Set age | age /set AGE | `age /set 18`
