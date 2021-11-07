@@ -1,24 +1,24 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
--> ":EntryDatabase": getPastDaysEntryDatabase(int days)
+-> ":EntryDatabase": getPastDaysEntryDatabase(days)
 activate ":EntryDatabase"
 
 ":EntryDatabase" -> ":EntryDatabase": sortDatabase()
 
 ":EntryDatabase" -> ":EntryDatabase": getEntries()
 activate ":EntryDatabase"
-":EntryDatabase" --> ":EntryDatabase": totalEntries:ArrayList<FoodTracker>
+":EntryDatabase" --> ":EntryDatabase": totalEntries
 deactivate ":EntryDatabase"
 create "pastDaysEntries:EntryDatabase"
-":EntryDatabase" -> "pastDaysEntries:EntryDatabase": new
+":EntryDatabase" -> "pastDaysEntries:EntryDatabase": new EntryDatabase()
 activate "pastDaysEntries:EntryDatabase"
 return
 
 loop Until it iterates through all the days or entries
     loop Until current entry date does not equal to pointer date
 
-        ":EntryDatabase" -> "pastDaysEntries:EntryDatabase": addEntry()
+        ":EntryDatabase" -> "pastDaysEntries:EntryDatabase": addEntry(totalEntries.get(count))
         activate "pastDaysEntries:EntryDatabase"
         return
 

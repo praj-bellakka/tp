@@ -90,7 +90,6 @@ for the RepoSense to my code contribution.
 Added documentation for the whole of the following segments:
 - `Entry Database`
   - Adding food entry
-  - Adding meal plan entry
   - Editing existing food entry
   - Deleting food entry
   - Listing tracker entries
