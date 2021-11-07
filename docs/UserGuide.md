@@ -574,15 +574,15 @@ Sample Output:
 <p>&nbsp;</p>
 
 #### Suggest food based on food type and calorie goal: `suggest`
-Filters food items in the database based on food type (meal, snack, beverage, others) 
-that if consumed, will not exceed the daily calorie goal set by the user.
+Provides food suggestions for you by filtering food items in the database based on food type 
+(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
 
 Format: `suggest /FOODTYPE` `suggest /FOODTYPE /sort`
 
 > **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
 
 > **_NOTE:_** Appending `/sort` will sort the suggestions by calorie value in
-> ascending order
+> ascending order (optional)
 
 
 Example of usage: `suggest /meal` `suggest /snack /sort`
