@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Represents an instance of the FitNUS app. It consists of one of each database, user details, and the parser.
+ * FitNUS helps the user track their food intake, suggest food, and much more.
+ */
 public class FitNus {
     private static final Logger logger = Logger.getLogger("FitNus");
     private final FoodDatabase foodDatabase;
@@ -27,6 +31,11 @@ public class FitNus {
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Initialises all the required data for FitNUS into the data files, (i.e. food.txt, entry.txt, user.txt, etc).
+     * If there are no existing data files, a new data file will be created and the user will be prompted to
+     * fill in some data for initialisation.
+     */
     private void initialiseFitNus() {
         // Load From Storage
         try {
@@ -71,6 +80,16 @@ public class FitNus {
         }
     }
 
+    /**
+     * Initialises all the necessary data for FitNUS into the respective databases, (i.e. FoodDatabase, EntryDatabase,
+     * User, etc).
+     * @param ui The User Interface class that handles all printing and reading.
+     * @param ed The EntryDatabase class to initialise all entries to.
+     * @param fd The FoodDatabase class to initialise all food to.
+     * @param md the MealPlanDatabase class to initialise all meal plans to.
+     * @param user The User class to initialise all user details to.
+     * @param commandStringFront The command used to initialise the respective data.
+     */
     private static void initialiseAttribute(Ui ui, EntryDatabase ed, FoodDatabase fd,
                                             MealPlanDatabase md, User user, String commandStringFront) {
         Parser parser = new Parser();
@@ -92,6 +111,9 @@ public class FitNus {
         }
     }
 
+    /**
+     * Saves all data from their databases to their respective data files. (i.e. EntryDatabase to entry.txt)
+     */
     private void saveFitNus() {
         try {
             Storage.createDirectoryAndFiles();
@@ -106,6 +128,10 @@ public class FitNus {
         }
     }
 
+    /**
+     * Main method that is in charge of running FitNUS. It reads the user input, parses it, and executes the
+     * respective command.
+     */
     private void run() {
         Ui.println(new HelpCommand().execute(entryDatabase, foodDatabase, mealPlanDatabase, user));
         Ui.print(Ui.DIVIDER);
@@ -129,7 +155,9 @@ public class FitNus {
         }
     }
 
-
+    /**
+     * Constructor for FitNus. Creates all the required classes and initialises the data.
+     */
     private FitNus() {
         foodDatabase = new FoodDatabase();
         entryDatabase = new EntryDatabase();
