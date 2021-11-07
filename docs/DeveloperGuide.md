@@ -372,7 +372,7 @@ The `Storage` component consists of:
 
 #### Sequence of operations
 
-1. **Saving to text file**
+i. **Saving to text file**
 
 `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. 
 This String is then saved to the text file. For instance, when saving the `FoodDatabase` data, `Storage` 
@@ -382,7 +382,7 @@ calls the `convertDatabaseToString()` method to obtain the String representation
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
 ![](diagrams-DG/Storage_sequence_save.png)
 
-2. **Loading from text file**
+ii. **Loading from text file**
 
 `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the 
 contents of the storage text files. This is then passed to the respective objects for preloading.  
