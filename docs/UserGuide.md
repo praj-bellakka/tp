@@ -221,11 +221,10 @@ Deletes food from the food database.
 
 Format: `remove /food INDEX_OF_FOOD`
 
-Example of usage:
+Example of usage: `remove /food 12`
 
-`remove /food 12`
-
-- Removes the 12th food in the list of preset foods.
+Sample output:
+![](diagrams-UG/remove_food.png)
 
 <p>&nbsp;</p>
 
@@ -234,11 +233,10 @@ Finds all matching food in the FoodDatabase based on the keyword you provided.
 
 Format: `find /food KEYWORD`
 
-Example of usage:
+Example of usage: `find /food ramen`
 
-`find /food rice`
-
-- Prints out all preset foods that contains "rice".
+Sample output:
+![](diagrams-UG/find_food.png)
 
 <p>&nbsp;</p>
 
@@ -247,9 +245,10 @@ Lists out all foods in the database and their respective calories.
 
 Format: `list /food`
 
-Example of usage:
+Example of usage: `list /food`
 
-`list /food`
+Sample output:
+![](diagrams-UG/list_food.png)
 
 <p>&nbsp;</p>
 
@@ -541,16 +540,21 @@ Sample Output:
 Filters food items in the database based on food type (meal, snack, beverage, others) 
 that if consumed, will not exceed the daily calorie goal set by the user.
 
-Format: `suggest /FOODTYPE [/sort]`
+Format: `suggest /FOODTYPE` `suggest /FOODTYPE /sort`
 
-> **_OPTIONAL:_** You can sort the suggestions by calorie value by simply appending "/sort"
-> to the command above e.g. suggest /FOODTYPE /sort
+> **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
 
-Example of usage:
+> **_NOTE:_** Appending `/sort` will sort the suggestions by calorie value in
+> ascending order
 
-`suggest /meal`
 
-`suggest /snack /sort`
+Example of usage: `suggest /meal` `suggest /snack /sort`
+
+Sample output:
+
+![](diagrams-UG/suggest_meal.png)
+![](diagrams-UG/suggest_snack_sort.png)
+
 
 #### quit FitNus
 Exit FitNus program
