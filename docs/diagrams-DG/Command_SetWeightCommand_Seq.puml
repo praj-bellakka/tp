@@ -1,0 +1,20 @@
+@startuml
+autoactivate on
+
+participant ":ListUserDataCommand" as command
+participant ":User" as user
+
+-> command: execute(ed, fd, md, us)
+command-> user: updateWeightAndWeightTracker(newWeight)
+
+alt Weight record for current day already exists
+    user -> user: updateCurrentDayWeightRecord(newWeight, latestRecord)
+    user --> user
+else Weight record for current day does not exist
+    user -> user: addNewWeightRecord(newWeight, currDate)
+    user --> user
+end
+
+user --> command:
+<--command: output
+@enduml

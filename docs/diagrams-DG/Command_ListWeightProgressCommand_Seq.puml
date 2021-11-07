@@ -1,0 +1,12 @@
+@startuml
+autoactivate on
+participant ":ListWeightProgressCommand" as command
+participant ":User" as user
+
+-> command: execute(ed, fd, md, us)
+command-> user: getWeightTrackerDisplay(month)
+user -> user: getRelevantWeightRecords(month)
+user --> user: relevantWeightRecords
+user --> command: weightTrackerDisplay
+<--command: output
+@enduml
