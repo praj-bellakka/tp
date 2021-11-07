@@ -421,6 +421,18 @@ public class Parser {
         return new AddFoodEntryCommand(mealType, tempDbFoods.get(userInput - 1));
     }
 
+    /**
+     * The function takes in the relevant details from parseEditTypeCommand, prompts the user to confirm the food
+     * to be edited to, and returns the respective Edit command.
+     * @param index Index of the food entry to be edited.
+     * @param foodName Food name of the food to be edited to.
+     * @param tempDbFoods Temporary FoodDatabase containing the foods that matched user's specifications.
+     * @param newUi User interface that will read the user's input.
+     * @param hasMultipleEntries A boolean variable that indicated whether there were multiple foods that matched the
+     *                           user's specification.
+     * @return Returns the respective Edit command that will edit the user's specified entry.
+     * @throws FitNusException Throws an exception if the input of the user is invalid.
+     */
     private EditFoodEntryCommand returnUserInput(int index, String foodName, ArrayList<Food> tempDbFoods,
                                                  Ui newUi, boolean hasMultipleEntries) throws FitNusException {
         int userInput = 0;
@@ -632,6 +644,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input and returns the respective List command.
+     * @param input The user input
+     * @return Returns the correct List command based on the input
+     * @throws FitNusException Thrown when user inputs an invalid command
+     */
     private Command parseListTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         if (typeDescriptorIndex == -1) {
@@ -894,6 +912,14 @@ public class Parser {
         throw new FitNusException("That is an invalid summary timeframe (/week or /month)");
     }
 
+    /**
+     * Te function returns the respective Edit command with the user specified index and food.
+     * @param input The user input.
+     * @param fd The existing food database.
+     * @param ed The existing entry database.
+     * @return Returns the Edit command with the appropriate parameters.
+     * @throws FitNusException Thrown when user inputs an invalid command.
+     */
     private Command parseEditTypeCommand(String input, FoodDatabase fd, EntryDatabase ed) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(SPACE_CHARACTER);
         int entryIndex = Integer.parseInt(input.substring(0, typeDescriptorIndex));
