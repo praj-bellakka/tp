@@ -57,10 +57,10 @@ If you have successfully run the programme, you should see the following message
 ```
 ------------------
 Welcome to FitNUS Tracker!
-Successfully preloaded 68 foods
-Successfully preloaded 0 entries
-Successfully preloaded 0 meal plans
-Successfully preloaded weight data
+Preloaded 68 foods
+Preloaded 0 entries
+Preloaded 0 meal plans
+Preloaded user data successfully
 ------------------
 
 [X] Please enter your gender (m/f):
