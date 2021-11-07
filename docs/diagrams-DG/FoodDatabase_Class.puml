@@ -6,15 +6,18 @@ skinparam classAttributeIconSize 0
 
 class FoodDatabase {
 - databaseFoods:ArrayList<Food>
-+ addFood(Food):void
-+ addFood(String, Integer, FoodType):void
-+ convertDatabaseToString():String
-+ deleteFood(int):void
+- UTOWN_FOOD_LIST: String
++ addFood(Food): void
++ addFood(String, Integer, FoodType): void
++ convertDatabaseToString(): String
++ deleteFood(int): void
 + findFoods(String): ArrayList<Food>
 + findSuggestions(FoodType, int, boolean): ArrayList<Food>
-+ getFoodAtIndex(int):Food
-+ listFoods():String
-+ preloadDatabase(BufferedReader):void
++ getFoodAtIndex(int): Food
++ getFoodDatabase(): ArrayList<Food>
++ listFoods(): String
++ loadFood(String): int
++ preloadDatabase(BufferedReader): void
 }
 
 
