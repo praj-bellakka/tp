@@ -1,10 +1,8 @@
 # Brendan Lau Siew Zhi (brendanlsz) - Project Portfolio Page
 
 ## Product Overview
-FitNUS Tracker is a desktop app for tracking daily food intake to help users keep a healthy lifestyle. 
-FitNUS is specially made for Computing Students living in University Town, with features and 
-functionalities taylor made for them. It is based on a Command Line Interface (CLI) and has 
-rich functionality in order to cater to the needs of potential users.
+FitNUS Tracker is a desktop application for tracking daily food intake to help users keep a healthy lifestyle. 
+FitNUS is specially made for Computing Students living in University Town.
 
 
 ## Summary of Contributions
