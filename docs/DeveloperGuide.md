@@ -731,29 +731,149 @@ then compared with default list of commands to determine the type of method call
 
 ## Instructions for manual testing
 
+### Launch and shutdown
+//todo
+
 ### Delete food
-1. Delete food inside the food database at certain index.
-2. Prerequisite: there must be at least one food inside the database
-3. Test case: `remove /food 2`
+#### Delete food inside the food database at certain index.
+1. Prerequisites: there must be at least one food inside the database
+2. Test case: `remove /food 2`
 Expected: delete the 2nd food at the food database successfully.
-4. Other incorrect commands to try:
+3. Other incorrect commands to try:
   - `remove /food` (the index for food is mandatory)
   - `remove /food a` (the index is supposed to be an integer)
 
 ### Find food
-1. find food inside the food database according to keywords.
-2. Prerequisite: there must be at least one food inside the database
-3. Test case: `remove /food rice`
+#### Find food inside the food database according to keywords.
+1. Prerequisites: there must be at least one food inside the database
+2. Test case: `remove /food rice`
    Expected: returns all the foods inside the food database contain the keyword "rice".
-4. Other incorrect commands to try:
+3. Other incorrect commands to try:
 - `remove /food` (the keyword for searching is mandatory)
 
 ### List foods
-1. List all foods inside food database
-2. Prerequisite: there must be at least one food inside the database
-3. Test case: `list /food`
+#### List all foods inside food database
+1. Prerequisites: there must be at least one food inside the database
+2. Test case: `list /food`
    Expected: returns all the foods inside the food database.
 
+### Generate calorie goal
+
+#### Generating calorie goal according to desired weekly change
+1. Prerequisites: User profile setup has been completed (app is not 
+prompting user to set up their profile).
+2. Test case: `calorie /generate /lose 0.1`
+   
+    Expected: The generated calorie goal to lose 0.1 kg per week is displayed.
+    The user's calorie goal is set to the newly generated goal.
+3. Test case: `calorie /generate /lose 0.001`
+
+    Expected: The user is alerted that the weekly weight change must be 0.01 kg
+    or more and that the newly generated goal will allow them to maintain
+    their current weight instead. The user's calorie goal is set to the newly
+    generated goal.
+4. Other incorrect `calorie /generate` commands to try: `calorie /generate`,
+`calorie /generate /lose invalid`
+
+    Expected: A new calorie goal is not generated and set. Error details shown
+    in status message.
+
+### List user data
+
+#### Listing all user data
+1. Prerequisite: User profile setup has been completed (app is not
+   prompting user to set up their profile).
+2. Test case: `list /user`
+   
+    Expected: User data including gender, age, height, weight and daily
+calorie goal is displayed.
+
+### List weight tracker data
+
+#### Listing all weight tracker data
+1. Prerequisites: Multiple weight records in weight tracker. 
+2. Test case: `list /weight /all`
+   
+    Expected: All weight records in the weight tracker are listed and
+    the amount of weight gained or lost since the start of using the app is shown.
+
+#### Listing weight tracker data in a particular month in the current year
+1. Prerequisites: Weight records for the month of January exist in the weight tracker.
+2. Test case: `list /weight /month 1`
+    
+    Expected:  All weight records in the weight tracker that were entered during the month
+    of January (in the current year) are listed, and the amount of
+    weight gained or lost in January (in the current year) is shown.
+3. Other incorrect `list /weight` commands to try: `list /weight`,
+   `list /weight /month 13`
+
+    Expected: Weight tracker data not shown. Error details shown in status message. 
+
+### Record weight
+
+#### Recording weight for the day 
+1. Prerequisites: User has not recorded their weight for the day.
+2. Test case: `weight /set 65.5`
+
+    Expected: User's weight is set to 65.5 kg, and a new weight record is added
+    to the weight tracker with the current date and the recorded weight of 65.5 kg.
+
+#### Updating weight twice in one day
+1. Prerequisites: User has already recorded their weight for the day.
+2. Test case: `weight /set 55.5`
+
+    Expected: The user's weight is set to 55.5 kg, and the current day's
+    weight record in the weight tracker is replaced with a new weight record with 
+    the updated weight of 55.5 kg.
+
+### Set gender
+
+#### Setting gender
+1. Test case: `gender /set m`
+
+    Expected: The user's gender is set to Male.
+
+### Set gender
+
+#### Setting age
+1. Test case: `age /set 18`
+
+   Expected: The user's age is set to 18 years old.
+
+### Set height
+
+#### Setting height
+1. Test case: `height /set 180`
+
+   Expected: The user's height is set to 180 cm.
+
+### Set calorie goal
+
+#### Setting calorie goal
+1. Prerequisites: The minimum/maximum calorie goal of the user (according
+to their body type) is lower/higher than 2000kcal.
+2. Test case: `calorie /set 2000`
+
+   Expected: The user's calorie goal is set to 2000kcal.
+
+### View remaining calories
+
+#### Viewing remaining calories for the day 
+1. Prerequisites: The total number of calories of all food tracker entries entered
+for the day has not exceeded the user's daily calorie goal.
+2. Test case: `calorie /remain`
+
+   Expected: The remaining calories that the user can consume for the day according 
+   to their daily calorie goal is displayed.
+
+#### Viewing remaining calories for the day when exceeded daily goal
+1. Prerequisites: The total number of calories of all food tracker entries entered
+   for the day has exceeded the user's daily calorie goal.
+2. Test case: `calorie /remain`
+
+   Expected: The number of calories the user has exceeded their daily goal by is
+    displayed.
+   
 ## NF Requirements
 
 1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
