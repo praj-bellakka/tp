@@ -301,36 +301,6 @@ The `Command` component
     
 - Contains an abstract method `execute`. In the specific command classes that inherit from `Command`, `execute` performs the function that the command describes. (For example, in `AddFoodEntryCommand`, `execute` adds an entry to the EntryDatabase.) 
 
-#### Add Food Entry Feature
-
-The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
-
-Additionally, it implements the following operations:
-- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-
-![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
-
-#### Edit Food Entry Feature
-
-The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
-
-Additionally, it implements the following operations:
-- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
-- `FoodDatabase#addFood` -- Adds a new food into the food database
-  
-![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
-
-#### List Food Entry Feature
-
-The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
-
-Additionally, they implement the following operations:
-- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
-- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
-
-![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
-![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 ---
 
@@ -381,26 +351,157 @@ The following sequence diagram describes the operation of the `saveFoodDatabase(
 
 ### Parser
 
-The parser component makes use of the user input String from the `fitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
+The parser component makes use of the user input String from the `FitNus` class to detect the type of `Command` object called. It then returns a `Command` object that represents the type of command called through the input.
 
-*   determines the type of `Command` object and returns it.
-*   handles input exceptions and returns relevant `FitNusException` command.
+##### Identifying type of method called
 
-#### Implementation
+  The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character.
+  If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
 
-*   ##### Identifying type of method called
+#### How it works
 
-    The `Parser` is invoked through the `parseCommandType()` method. The input is first split up by identifying a space character. If no space character is detected, and the `help` or `exit` method was not called, a `FitNusException` is thrown. The first string element is then compared with default list of commands to determine the type of method called using if-else statements.
+
+- `parseAddFoodCommand(input, fd, mealTypeString)`
+
+    `parseAddFoodCommand` checks whether the user is calling to add a new `Food` or a `MealPlan` and returns the corresponding `parseAddMealPlanFoodCommand` or `parseAddFoodCommand` methods. 
+This decision is done via a simple if-else check as shown in the code snippet below. `DESCRIPTOR_MEALPLAN` is defined as the String `"/mealplan"`. 
+
+     ```
+    if (mealTypeString.equals(DESCRIPTOR_MEALPLAN)) {
+    return parseAddMealPlanFoodCommand(md, input);
+    } else {
+    return parseAddFoodCommand(input, fd, mealTypeString);
+    }
+    ```
+
+- `parseAddFoodCommand(input, fd, mealTypeString)`
+
+    - `parseAddFoodCommand` returns a `AddFoodEntryCommand` object when called. The method first finds the `MealType` of the food by calling the `parseMealType` command.  
+    - The food name input by the user is then compared to the `FoodDatabase` and `tempDbFoods`, an ArrayList containing matching Food objects, is displayed
+    - If there are no matching food, a new food object will be created. `returnUserInput` will be returned and the user will be directly prompted to enter the calories and meal type of the new food.
+    - If there are matching foods, `returnUserInput` will be returned and the user will be  prompted to choose the food from the matching list. 
+
+> ⚠️ Notes about matching foods:
+>- The user is allowed to create a new `Food` object when being prompted to selected matching foods. However, the scenario has not been displayed below for the sake of clarity.
+
+
+![](diagrams-DG/Parser_parseAddFoodCommand_Seq.png)
+
+
+- `parseCreateCommand(input, fd)`
+
+    - `parseCreateCommand` creates custom meal plans when called. The method is responsible for handling all meal plan creation requests.
+    - The method calls the `readIndexesInput` from the `Ui` class and returns an ArrayList of inputs.
+    - For each valid input, the relevant Food object from the `FoodDatabase` is extracted and stored in a temporary list of Food items.
+    - Once all inputs have been parsed, a `CreateMealPlanCommand` is returned.
+
+> ⚠️ Notes about inputs:
+>-  All non-integer inputs and inputs outside the range of the database will be ignored.
+> 
+
+
+![](diagrams-DG/Parser_parseCreateCommand_Seq.png)
+
+
+- `promptUserCalories(index, mealType, foodName, newUi)`
+  - `promptUserCalories` prompts the user for extra inputs when called.
+  - The method uses 2 do-while loops to receive inputs for calories and foodType variables as shown below. An internal boolean flag, `isLoopFlagOn`, is used to handle the loop logic. The flag is set to true until a valid calorie input is entered.
+  ```
+    do {
+        userInput = parseInteger(newUi.readInput(System.in, System.out)); //getting calories
+    } while (isLoopFlagOn);
+
+    ```
+
+![](diagrams-DG/Parser_promptUserCalories_Seq.png)
+
 
 ## Implementation
 
-### Add Food Entry
+#### Add Food Entry Feature
 
-### Edit Food Entry
+The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
-### List Food Entry
+Additionally, it implements the following operations:
+- `EntryDatabase#addEntry(Entry)` -- Adds a new entry into the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
 
-### Delete Food Entry
+Given below is an example usage scenario and how the add food entry mechanism behaves at each step.
+
+1. The user executes the `add soft boiled eggs` command to add a food entry to the Entry Database. 
+2. Since the meal type was not specified, the `Parser` will automatically select the meal type based on the current timing.
+3. The `add` command calls `AddFoodEntryCommand#execute()`, which checks whether the specified food, "soft boiled eggs",
+exists in the current Food Database. 
+4. Assuming there are no such food found in the Food Database, the user will be prompted to add "soft boiled eggs" as a 
+new custom food. The user then inputs the relevant details required to add the new food. 
+5. `AddFoodEntryCommand#execute()` will create a new Food object which corresponds to the specified food. It then calls
+both `EntryDatabase#addEntry(Entry)` and `FoodDatabase#addFood()` and passes in the newly created food into these methods 
+to add "soft boiled eggs" to both the Entry Database and Food Database.
+
+The following Sequence Diagram shows how the add food entry feature works:
+
+![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
+
+#### Edit Food Entry Feature
+
+The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, it implements the following operations:
+- `EntryDatabase#editEntryAtIndex(int, Entry)` -- Edits the entry at the specified index of the entry database
+- `FoodDatabase#addFood` -- Adds a new food into the food database
+
+Given below is an example usage scenario and how the edit food entry mechanism behaves at each step.
+
+1. The user executes the `edit 1 chicken cutlet` command to edit the first entry's food to "chicken cutlet".
+2. The `edit` command calls `EditFoodEntryCommand#execute()`, which checks whether the specified food, "chicken cutlet",
+   exists in the current Food Database. In this case, fortunately, there were multiple foods that were found in FitNUS's 
+Food Database. 
+3. The user is then prompted to select one of the foods found in the Food Database, the user then selects the first option, 
+"salted egg chicken cutlet".
+4. `EditFoodEntryCommand#execute()` calls `EntryDatabase#editEntryAtIndex(int, Entry)` which proceeds to change the food
+at the first entry to "salted egg chicken cutlet".
+
+The following Sequence Diagram shows how the edit food entry feature works:
+
+![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
+
+#### List Food Entry Feature
+
+The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#listEntries()` -- Lists all entries within the entry database
+- `EntryDatabase#getPastDaysEntryDatabase(int)` -- returns a subset of the original entry database containing only entries of the past specified days
+
+Given below is an example usage scenario and how the list food entry mechanism behaves at each step.
+
+1. The user executes the `list /entry /week` command to list out all entries in the past week. 
+2. This calls `ListFoodEntryWeekCommand#execute()`, which creates a temporary EntryDatabase by calling
+`EntryDatabase#getPastDaysEntryDatabase(int)` with '7' as its parameter (Since there are 7 days a week).
+3. `EntryDatabase#getPastDaysEntryDatabase(int)` then returns a EntryDatabase with entries of the past 7 days.
+4. With the new temporary EntryDatabase, `EntryDatabase#listEntries()` then displays the past week's entries
+to the user.
+
+The following Sequence Diagrams shows how the list food entry feature works:
+
+![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
+
+#### Delete Food Entry Feature
+
+The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from EntryDatabase.
+
+Given below is an example usage scenario and how the delete food entry mechanism behaves at each step.
+
+1. The user executes the `delete /entry 2` command to delete the second entry from the EntryDatabase.
+2. This calls `DeleteEntryCommand#execute()`, which then calls `EntryDatabase#deleteEntry(int)` with '2' as its parameter
+   (Since the user wishes to delete the second entry).
+3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
+
+## Instructions for manual testing
 
 ### User Profile Setup and Editing
 
@@ -498,8 +599,6 @@ for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#
 2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
 entries in the food tracker. This is subtracted from the user's daily calorie goal. 
 The resulting calories remaining is then displayed to the user. 
-
-## Instructions for manual testing
 
 ### Add Food Entry
 

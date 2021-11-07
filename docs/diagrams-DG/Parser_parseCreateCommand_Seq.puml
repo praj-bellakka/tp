@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+-> ":Parser": parseCreateCommand(input, fd)
+activate ":Parser"
+
+create ":Ui"
+":Parser" -> ":Ui": readIndexesInput()
+activate ":Ui"
+return user inputs
+
+loop for each input
+
+    alt If input is valid
+        ":Parser" -> ":FoodDatabase": getFoodDatabase()
+        activate ":FoodDatabase"
+        return ArrayList<Food>
+
+        ":Parser" -> ":Parser": get(input)
+        activate ":Parser"
+        return Food
+
+        ":Parser" -> ":Parser": add(food)
+        note right: Food is added to a temporary ArrayList of Food items
+        activate ":Parser"
+        return AddFoodEntryCommand
+
+    end
+
+end
+return CreateMealPlanCommand
+@enduml

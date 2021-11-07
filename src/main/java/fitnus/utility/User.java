@@ -397,12 +397,12 @@ public class User {
                 this.age = Integer.parseInt(description[2]);
                 this.height = Integer.parseInt(description[3]);
                 this.weight = Float.parseFloat(description[4]);
-                System.out.println("Successfully preloaded user data");
+                System.out.println("Preloaded user data successfully");
                 successfullyPreloadedData = true;
             } catch (IndexOutOfBoundsException e) {
                 successfullyPreloadedData = false;
                 logger.log(Level.WARNING, "Error processing user data (missing inputs)");
-                Ui.printPreloadDatabaseError();
+                Ui.printPreloadUserError();
             } catch (NumberFormatException e) {
                 successfullyPreloadedData = false;
                 logger.log(Level.WARNING, "Error processing user data (invalid inputs for numerical fields)");
@@ -433,13 +433,15 @@ public class User {
                 weightRecords.add(new WeightRecord(weight, date));
             } catch (IndexOutOfBoundsException e) {
                 logger.log(Level.WARNING, "Error processing weight data (missing inputs)");
-                Ui.printPreloadDatabaseError();
+                Ui.printPreloadWeightError();
             } catch (NumberFormatException e) {
                 logger.log(Level.WARNING, "Error processing weight data (invalid inputs for numerical fields)");
-                Ui.printPreloadUserError();
+                Ui.printPreloadWeightError();
             }
         }
-        System.out.println("Successfully preloaded weight data");
+        if (weightRecords.size() > 0) {
+            System.out.println("Preloaded weight data successfully");
+        }
     }
 
     /**
