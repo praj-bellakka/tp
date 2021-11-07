@@ -145,13 +145,15 @@ experience as they do not have to input all details when adding an `Entry` to th
 ![](diagrams-DG/FoodDatabase_Class.png)  
 
 The `FoodDatabase` component consists of:
-- ArrayList of `Food` objects to store `Food` objects.
-- `addFood()` Adds a Food object to the database. 
-- `convertDatabaseToString()` Returns a String representation of all Food objects in the database. 
+- `databaseFoods`: ArrayList of `Food` objects to store `Food` objects.
+- `UTOWN_FOOD_LIST`: Stores information about food available at UTown, NUS.
+- `addFood()`: Adds a `Food` object to the database. 
+- `convertDatabaseToString()`: Returns a String representation of 
+all Food objects in the database. 
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
-- `deleteFood()` Removes a specified Food object from the database. 
-- `findFoods()` Returns an ArrayList containing matching Food objects based on a keyword. 
-- `findSuggestions()` Returns an ArrayList containing matching Food objects based on the specified FoodType 
+- `deleteFood()`: Removes a specified Food object from the database. 
+- `findFoods()`: Returns an ArrayList containing matching Food objects based on a keyword. 
+- `findSuggestions()`: Returns an ArrayList containing matching Food objects based on the specified FoodType 
 and the user's calorie goal. The code snippet below shows how this method makes use of `stream` to filter
 matching Food objects.
 ```
@@ -166,9 +168,11 @@ public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean
     return matchingSuggestions;
 }
 ```
-- `getFoodAtIndex()` Returns the Food object at the specified index. 
-- `listFoods()` Returns a formatted String of all Food objects to be printed. 
-- `preloadDatabase()` Preloads the database using data from the text file.
+- `getFoodAtIndex()`: Returns the Food object at the specified index. 
+- `getFoodDatabase()`: Returns the whole `databaseFoods` ArrayList.
+- `listFoods()`: Returns a formatted String of all Food objects to be printed. 
+- `loadFood()`: Loads `Food` objects into the `FoodDatabase`.
+- `preloadDatabase(BufferedReader)`: Preloads the database using data from the text file.
    <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
@@ -306,46 +310,89 @@ The `Command` component
 
 ### Storage
 
-The Storage class reads and writes data to and from the text file.
+The `Storage` class reads and writes data to and from the text files.
 
-#### Storage format
+![](diagrams-DG/Storage_class.png)
 
-**Every line in each text file represents one object / entry / item**
+The `Storage` component consists of:
 
-*   FoodDatabase:`FOODNAME | CALORIE_VALUE`  
-    Example: `Nasi Lemak | 400`   `Ramen | 600`
-*   EntryDatabase:`MEALTYPE | FOODNAME | CALORIE_VALUE | DATE`  
-    Example: `Dinner | Ramen | 500 | 2021-10-20`   `Lunch | Fried rice | 600 | 2021-10-20`
-*   User:`CALORIE_GOAL | GENDER`  
-    Example: `1000 | 0`
-*   User weight:`WEIGHT | DATE`  
-    Example: `60.0 | 2021-07-20`   `59.0 | 2021-08-20`   `58.0 | 2021-09-20`   `45.0 | 2021-10-21`
+- `Path` variables and `ROOT` that determines the location of the text files.
+- `createDirectory()`: Creates a directory at the specified location.
+- `createDirectoryAndFiles()`: Creates the necessary directory and text files for `Storage`.
+- `createFile()`: Creates a text file at the specified location.
+- `initialiseEntryDatabase()`: Initialises the `EntryDatabase` by preloading data from file.
+- `initialiseFoodDatabase()`: Initialises the `FoodDatabase` by preloading data from file.
+- `initialiseMealPlanDatabase()`: Initialises the `MealPlanDatabase` by preloading data from file.
+- `initialiseUser()`:  Initialises `User` data from file.
+- `initialiseWeightProgress()`: Initialises weight progress data from file.
+- `saveData()`: Saves data to a specified file.
+- `saveEntryDatabase()`: Saves all the `EntryDatabase` data to file.
+- `saveFoodDatabase()`: Saves all the `FoodDatabase` data to file.
+- `saveMealPlanDatabase()`: Saves all the `MealPlanDatabase` data to file.
+- `saveUserData()`: Saves all the `User` data to file.
+- `saveWeightData()`: Saves all weight data to file.
 
-#### Implementation
+#### Storage format (in the text files)
 
-1.  **Saving to text file**
+**Every line in each text file represents one food / entry / record**
 
-    `FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. This String is then saved to the text file.  
-    For instance, when saving the `FoodDatabase` data, `Storage` calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the \`FoodDatabase\`. This String is then written to the text file.
-2.  **Loading from text file**
+* FoodDatabase (`food.txt`): `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
+    Example: 
+    ```
+    fried rice | 400 | MEAL
+    ramen | 500 | MEAL
+    ```
+* EntryDatabase (`entry.txt`): `MEALTYPE | FOODNAME | CALORIE_VALUE | DATE | FOOD_TYPE`  
+    Example: 
+    ```
+    Lunch | fried rice | 400 | 2021-11-06 | MEAL
+    Dinner | ramen | 500 | 2021-11-06 | MEAL
 
-    `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the contents of the storage text files. This is then passed to the respective objects for preloading.  
-    For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and passes the file contents to the `preLoadDatabase()` method in ,`FoodDatabase` which populates the ArrayList in `FoodDatabase`.
+    ```
+* User (`user.txt`): `CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
+    Example: 
+    ```
+    2503 | m | 21 | 184 | 75.0
+    ```
+* User weight (`weight.txt`): `WEIGHT | DATE`  
+    Example: 
+    ```
+    75.0 | 2021-11-05
+    75.5 | 2021-11-06
+    ```
+> **_NOTE:_** Example of `mealplan.txt` is omitted because its format is largely similar to `food.txt`
 
-#### Implementation considerations
+#### Sequence of operations
+
+1. **Saving to text file**
+
+`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. 
+This String is then saved to the text file. For instance, when saving the `FoodDatabase` data, `Storage` 
+calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the 
+`FoodDatabase`. This String is then written to the text file.
+
+The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
+![](diagrams-DG/Storage_sequence_save.png)
+
+2. **Loading from text file**
+
+`Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the 
+contents of the storage text files. This is then passed to the respective objects for preloading.  
+For instance, when preloading the `FoodDatabase` data, `Storage` accesses the storage text file and 
+passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` which populates the 
+ArrayList in `FoodDatabase`.
+
+The following sequence diagram describes the operation of the `initialiseFoodDatabase()` operation.  
+![](diagrams-DG/Storage_sequence_initialise.png)
+
+
+#### Design considerations
 
 1. The `Path` of each text file is hardcoded within the `Storage` class. This eliminates
 the need to pass the `Path` of the destination file each time. For example, to save the `FoodDatabase`
 contents, the method call is `saveFoodDatabase()` rather than `saveFoodDatabase(PATH)`.
 2. All public methods are declared as `static` methods. This allows various methods within the
 `Storage` class to be called without having to instantiate a `Storage` object.
-
-
-
-#### UML Sequence Diagram
-
-The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
-![](diagrams-DG/Storage_sequence.png)
 
 ---
 
@@ -654,62 +701,39 @@ Test case: `find /entry chicken`
 
 Expected: User should be able to see all entries consisting of the keyword "chicken"
 
-=======
-<h4>Storage format</h4>
-<div><strong>Every line in each text file represents one object / entry / item</strong></div>
-<ul>
-<li>
-FoodDatabase:<code>FOODNAME | CALORIE_VALUE</code> <br/>
-Example: <code>Nasi Lemak | 400</code> &nbsp; <code>Ramen | 600</code>
-</li>
+### View statistics
+#### Weekly report
+Prerequisite: Have at least one existing `Entry`
 
-<li>
-EntryDatabase:<code>MEALTYPE | FOODNAME | CALORIE_VALUE | DATE</code> <br/>
-Example: <code>Dinner | Ramen | 500 | 2021-10-20</code> &nbsp; <code>Lunch | Fried rice | 600 | 2021-10-20</code>
-</li>
+Test case: `summary /week`
 
-<li>
-User:<code>CALORIE_GOAL | GENDER</code> <br/>
-Example: <code>1000 | 0</code> &nbsp;
-</li>
+Expected Output: A weekly report is generated similar to the following:
+![img](diagrams-UG/week-summary.png)
 
+#### Monthly report
+Prerequisite: Have at least one existing `Entry`
 
-<li>
-User weight:<code>WEIGHT | DATE</code> <br/>
-Example: <code>60.0 | 2021-07-20</code> &nbsp; <code>59.0 | 2021-08-20</code> &nbsp; <code>58.0 | 2021-09-20</code> &nbsp; <code>45.0 | 2021-10-21</code>
-</li>
+Test case: `summary /month`
 
-</ul>
+Expected Output: A monthly report is generated similar to the following:
 
-<h4>Implementation</h4>
-<ol>
-<li>
-<div><strong>Saving to file</strong></div>
-<code>FoodDatabase</code>, <code>EntryDatabase</code>, and <code>User</code> classes each have a method to convert
-its data to String format. This String is then saved to the text file. <br/>
-For instance, when saving the <code>FoodDatabase</code> data, <code>Storage</code> calls the <code>convertDatabaseToString()</code>
-method to obtain the String representation of all the data within the `FoodDatabase`. This String is then written to the text file.
-</li>
+![img](diagrams-UG/month-summary.png)
 
 
-<li>
-<div><strong>Loading from file </strong></div>
-<code>Storage</code> makes use of the <code>BufferedReader</code> and <code>FileInputStream</code> provided  by <code>java.io</code> to access 
-the contents of the storage text files. This is then passed to the respective objects for preloading. <br/>
+### View suggestions
+Prerequisite: 
+- User data (gender, age, weight, height) is set correctly to ensure the calorie
+goal is generated correctly
+- `FoodDatabase` has at least one `Food`
 
-For instance, when preloading the <code>FoodDatabase</code> data, <code>Storage</code> accesses the storage text file
-and passes the file contents to the <code>preLoadDatabase()</code> method in <code>FoodDatabase</code> which populates
-the ArrayList in <code>FoodDatabase</code>.
-</li>
+Test cases: 
+- `suggest /FOODTYPE` (result unsorted)
+- `suggest /FOODTYPE /sort` (result sorted)
 
-</ol>
+> **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
 
-<h4>UML Sequence Diagram </h4>
-The following sequence diagram describes the operation of the <code>saveFoodDatabase()</code> operation.<br/>
-<img src="diagrams/Storage_sequence.png">
+Expected Output: Matching `Food` suggestions are shown.
 
-
-<li>
 <h3>Parser Component</h3>
 <div>The parser component makes use of the user input String from the <code>fitNus</code> class to detect the type of <code>Command</code> object called.
 It then returns a <code>Command</code> object that represents the type of command called through the input.</div>

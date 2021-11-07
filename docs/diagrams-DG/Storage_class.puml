@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class Storage {
+-ROOT: String
+-DIRECTORY_PATH: Path
+-FILE_PATH_FOOD_DATA: Path
+-FILE_PATH_USER_DATA: Path
+-FILE_PATH_ENTRY_DATA: Path
+-FILE_PATH_WEIGHT_DATA: Path
+-FILE_PATH_MEALPLAN_DATA: Path
+-createDirectory(String): void
++createDirectoryAndFiles(): void
+-createFile(String): void
++initialiseEntryDatabase(EntryDatabase): void
++initialiseFoodDatabase(FoodDatabase): void
++initialiseMealPlanDatabase(MealPlanDatabase): void
++initialiseUser(User): int
++initialiseWeightProgress(User): void
+-saveData(String, String): void
++saveEntryDatabase(EntryDatabase): void
++saveFoodDatabase(FoodDatabase): void
++saveMealPlanDatabase(MealPlanDatabase): void
++saveUserData(User): void
++saveWeightData(User): void
+}
+
+
+@enduml
