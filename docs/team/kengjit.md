@@ -2,23 +2,11 @@
 
 ## Product Overview
 FitNUS Tracker is a desktop app for tracking daily food intake to help users keep a healthy lifestyle. 
-FitNUS is specially made for Computing Students living in University Town, with features and 
-functionalities taylor made for them. It is based on a Command Line Interface (CLI) and has 
-rich functionality in order to cater to the needs of potential users.
+FitNUS is specially made for Computing Students living in University Town.
 
 
 ## Summary of Contributions
 
-As one of FitNUS's full stack developer, I am responsible for implementing various features including:
-
-- Adding Entries
-- Editing Entries
-- Listing Entries
-- Deleting Entries
-- Showing food intake summary
-- Show help message
-
-### Enhancements Implemented
 
 #### Adding Entries
 
@@ -79,14 +67,14 @@ the application can or cannot do.
 - Highlights: This enhancement required a good understanding of how all the features in FitNUS operates. 
 
 
-### Code Contributed
+#### Code Contributed
 
 Click
 [here](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=kengjit&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-25&tabOpen=true&tabType=authorship&tabAuthor=kengjit&tabRepo=AY2122S1-CS2113T-W12-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 for the RepoSense to my code contribution.
 
 
-### Contributions to the UG:
+#### Contributions to the UG:
 Added documentation for the whole of the following segments:
 - `Entry Database`
   - Adding food entry
@@ -97,7 +85,7 @@ Added documentation for the whole of the following segments:
 - `Viewing help` 
 - `User Stories`
 
-### Contributions to the DG:
+#### Contributions to the DG:
 Designed and implemented the following segments:
 - `Entry Database`
 - `Implementation`

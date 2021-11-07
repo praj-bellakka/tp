@@ -12,7 +12,7 @@ loop While there are still unread lines
 
     ":EntryDatabase" -> Parser: parseFoodType(type)
     activate Parser
-    return type
+    return foodType
 
     ":EntryDatabase" -> Parser: getDate()
     activate Parser
