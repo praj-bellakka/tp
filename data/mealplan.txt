@@ -39,4 +39,3 @@ finefood - kimchi shin ramen | 280 | MEAL
 -------- | dinner plan
 finefood - bbq beef set | 504 | MEAL
 -------- | supper plan
-

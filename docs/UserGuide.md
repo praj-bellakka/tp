@@ -54,7 +54,7 @@ Here is the list of sections we will be covering in this User Guide.
 ```
 ------------------
 Welcome to FitNUS Tracker!
-Successfully preloaded 0 foods
+Successfully preloaded 68 foods
 Successfully preloaded 0 entries
 Successfully preloaded 0 meal plans
 Successfully preloaded weight data
@@ -164,7 +164,7 @@ Sample output:
 ![Edit Entry Sample Output](diagrams-UG/EditEntrySampleOutput.PNG)
 
 
-#### Deleting food entry: `remove`
+#### Deleting food entry: `remove /entry`
 
 Deletes an entry from the EntryDatabase.
 
@@ -178,7 +178,7 @@ Example of usage:
 
 
 
-#### Listing tracker entries: `list`
+#### Listing tracker entries: `list /entry`
 
 Lists out all foods entered for a given timeframe.
 
@@ -198,7 +198,7 @@ Example of usage:
 ![img.png](diagrams-UG/ListWeekEntrySampleOutput.PNG)
 
 
-#### Searching for tracker entries with keyword: `find`
+#### Searching for tracker entries with keyword: `find /entry`
 
 Finds all matching entries in the EntryDatabase based on the keyword you provided.
 
@@ -217,7 +217,7 @@ Example of usage:
 
 ### Food Database
 
-#### Deleting food from food database: `remove`
+#### Deleting food from food database: `remove /food`
 
 Deletes food from the food database.
 
@@ -230,7 +230,7 @@ Sample output:
 ![](diagrams-UG/remove_food.png)
 
 
-#### Searching for foods with keyword: `find`
+#### Searching for foods with keyword: `find /food`
 
 Finds all matching food in the FoodDatabase based on the keyword you provided.
 
@@ -243,7 +243,7 @@ Sample output:
 ![](diagrams-UG/find_food.png)
 
 
-#### Listing foods in food database: `list`
+#### Listing foods in food database: `list /food`
 
 Lists out all foods in the database and their respective calories.
 
@@ -261,7 +261,7 @@ Sample output:
 
 ### Meal Plan Database
 
-#### Creating meal plan by adding food: `create`
+#### Creating meal plan by adding food: `create /mealplan`
 
 Creates a custom meal plan by adding existing food items inside the food database to the meal plan. A meal plan consists of a name, and a list of Food items. 
 In order to create a meal plan, you must add at least 1 food item to the plan. 
@@ -334,7 +334,8 @@ Sample output:
 > Duplicate meal plans are allowed as restricting either the name or the food added to a meal plan would not improve the usability of the app.
 
 ---- 
-#### Listing meal plan entries: `list`
+
+#### Listing meal plan entries: `list /mealplan`
 
 Lists out all meal plans entered. Each individual meal plan along with its associated food items are listed as shown below.
 
@@ -374,13 +375,11 @@ Example of usage:
 `weight /set 55.6`
 
 Sample Output:
+![img.png](sampleOutputWeightSet)
 
-```
-You have updated your weight for today to 55.6 kg!
-You have lost 9.6 kg from the previous weight entry of 65.2 kg on 2021-11-07
-```
+<p>&nbsp;</p>
 
-#### Listing weight records: `list`
+#### Listing weight records: `list /weight`
 
 Lists weight records within a certain timeframe (either all time or a particular month in 
 the current year). 
@@ -395,33 +394,13 @@ Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
    - Sample output:
-     
-   ``` 
-   Your weight progress since the start of your FitNUS journey: 
-   2021-03-12: 51.5kg
-   2021-03-13: 51.7kg
-   2021-03-14: 51.8kg
-   2021-03-15: 51.9kg
-   2021-04-12: 54.2kg
-   2021-10-27: 63.3kg
-   2021-10-31: 54.0kg
-   2021-11-01: 55.6kg      
-   You have gained 4.1 kg since the start of your FitNUS Journey!
-   ```
+  ![img.png](sampleOutputListWeightAll.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
+   - Sample output:
+   ![img.png](sampleOutputListWeightMonth.png)
+<p>&nbsp;</p>
 
-Sample output:
-
-```
-Your weight progress in March: 
-2021-03-12: 51.5kg
-2021-03-13: 51.7kg
-021-03-14: 51.8kg
-2021-03-15: 51.9kg    
-You have gained 0.4 kg during the month of March!
-    
-```
 
 ### Personalisation
 
@@ -437,10 +416,8 @@ Format: `gender /set GENDER_SYMBOL`
 Example of usage: `gender /set m`
 
 Sample output:
+![img_2.png](sampleOutputGenderSet.png)
 
-```
-You have set your gender to Male
-```
 
 
 
@@ -454,10 +431,8 @@ Format: `height /set HEIGHT`
 Example of usage:`height /set 180`
 
 Sample output:
+![img_2.png](sampleOutputHeightSet.png)
 
-```
-You have set your height to 180 cm!
-```
 
 
 
@@ -615,9 +590,9 @@ Sample output:
 ![](diagrams-UG/suggest_snack_sort.png)
 
 
-#### quit FitNus
+#### Quit FitNus
+Exits the FitNus program.
 
-Exit FitNus program
 
 Format: `exit`
 
@@ -666,7 +641,15 @@ List meal plan | list /mealplan | `list /mealplan`
 List all entries | list /entry | `list /entry`
 List daily entry | list /entry | `list /entry /day`
 List weekly entry | list /entry | `list /entry /week`
-List weight record | list /weight | `list /weight`
+List weight record | list /weight /all OR list /weight /month MONTH_INTEGER | `list /weight /all` OR `list /weight /month 1`
+List user data | list /user | `list /user`
+Set gender | gender /set GENDER | `gender /set m`
+Set age | age /set AGE | `age /set 18`
+Set height | height /set HEIGHT | `height /set 180`
+Set and record weight | weight /set WEIGHT | `weight /set 65.5`
+Set calorie goal | calorie /set CALORIE_GOAL | `calorie /set 2000`
+Generate calorie goal | calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG | `calorie /generate /lose 0.1`
+View remaining calories | calorie /remain | `calorie /remain`
 View weekly statistics | summary /week | `summary /week`
 View monthly statistics | summary /month | `summary /month`
 Suggest food | suggest /FOODTYPE <br /> suggest /FOODTYPE /sort | `suggest /meal` <br /> `suggest /snack /sort`
