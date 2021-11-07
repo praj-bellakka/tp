@@ -19,6 +19,7 @@ public class ViewSuggestionsCommand extends Command {
         this.isSort = isSort;
     }
 
+    @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
         int remaining = us.getCalorieGoal() - ed.getTotalDailyCalorie();
         if (remaining < 0) {
