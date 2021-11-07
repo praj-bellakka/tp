@@ -39,8 +39,8 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
-3. Copy the file to the folder you want to use as the home folder for your WellNUS Tracker 
-4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `wellnus.jar` file is located or provide the absolute path of `wellnus.jar`).
+3. Copy the file to the folder you want to use as the home folder for your FitNus Tracker 
+4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `fitnus.jar` file is located or provide the absolute path of `fitnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
    - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your EntryDatabase and food database. 
