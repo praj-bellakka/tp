@@ -255,7 +255,7 @@ public class Parser {
     /**
      * Parses add food command by returning AddFoodEntryCommand object with its parameters.
      * Method returns a prompt to user if food is already present in database or to enter calorie and meal type of food.
-     * Calorie of food must be between 1 and 5000, or prompt continues in infinite loop.
+     * Calorie of food must be between 0 and 5000, or prompt continues in infinite loop.
      *
      * @param input          String containing user input.
      * @param fd             Food database containing existing food items.
@@ -441,7 +441,7 @@ public class Parser {
     }
 
     /**
-     * Prompts user to enter calories between 1 and 5000 when called.
+     * Prompts user to enter calories between 0 and 5000 when called.
      * Prompt continues in infinite loop until a valid calorie is inputted.
      *
      * @param index    Index if EditFoodEntryCommand is called.
@@ -602,11 +602,11 @@ public class Parser {
     private int parseInteger(String input) {
         try {
             int val = Integer.parseInt(input.strip());
-            if (val > 0 && val <= CALORIE_LIMIT) {
+            if (val >= 0 && val <= CALORIE_LIMIT) {
                 isLoopFlagOn = false;
                 return val;
             } else {
-                System.out.println("Calories can only be between 1 and 5000!");
+                System.out.println("Calories can only be between 0 and 5000!");
             }
         } catch (NumberFormatException e) {
             System.out.println("Please enter an integer value!");
