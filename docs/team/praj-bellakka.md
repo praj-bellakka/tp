@@ -18,22 +18,22 @@ Backend Software Engineer: Responsible for implementing various backend features
 
 ### Enhancements Implemented
 
-Implemented the core functionalities of the following:
-- `Parser`: I implemented the main parser functions that take in user input and return the respective `Command` function. 
+**Implemented the core functionalities of the following features:**
+- **Parsing user inputs**: I implemented the main `Parser` functions that take in user input and return the respective `Command` function. 
 They include adding a new `Food` item and adding/creating a new `MealPlan`.
 
-- `MealPlan`: I implemented the meal plan which allows user to group multiple food items together.
+-  **Adding meal plans**: I implemented the `MealPlan` class which allows user to group multiple food items together.
 
-- `MealPlanDatabase`: I implemented the  features of the `MealPlanDatabase` class, used to handle
+- **Saving meal plans to storage**: I implemented the features of the `MealPlanDatabase` class, used to handle
   all functionalities relating to the MealPlan objects, including saving and reading MealPlan items from local storage.
 
-- `AddMealPlanEntryCommand`: I implemented the `AddMealPlanEntryCommand`, which enables users
+- **Entering meal plans through CLI**: I implemented the `AddMealPlanEntryCommand` class, which enables users
   to find enter meal plans through the CLI.
 
-Implemented the non-core functionalities of the following:
-- `Ui`: I implemented a single method in the Ui class, i.e. `readIndexesInput()`, which parses user input when adding meal plans. 
+**Implemented the non-core functionalities of the following:**
+- **Reading user input for meal plan**: I implemented a single method in the `Ui` class, i.e. `readIndexesInput()`, which parses user input when adding meal plans. 
 The method has built in checks to only allow integer values within the range of the `MealPlanDatabase` to be added.
-- `ListMealPlanDatabaseCommand`: I implemented this Command to allow users to view all currently saved meal plans in the database.
+- **Viewing meal plans**: I implemented `ListMealPlanDatabaseCommand` to allow users to view all currently saved meal plans in the database.
 
 ### Contributions to the UG:
 - Feature: Creating new meal plan.
@@ -57,4 +57,6 @@ The method has built in checks to only allow integer values within the range of 
     - Added UML sequence diagrams for `listMealPlan()` method.
     - Provided information on the various methods within the `MealPlanDatabase` class and their use cases.
 
+### Enhancements to existing features:
 
+- Refactored a large amount of code to make the code more robust for Parser and Ui. (PR [#353](https://github.com/AY2122S1-CS2113T-W12-1/tp/pull/353), [#358](https://github.com/AY2122S1-CS2113T-W12-1/tp/pull/358)) 
