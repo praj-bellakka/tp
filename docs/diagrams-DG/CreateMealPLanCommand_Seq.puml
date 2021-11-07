@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":CreateMealPlanCommand": execute()
+activate ":CreateMealPlanCommand"
+":CreateMealPlanCommand" -> ":MealPlan" : new MealPlan(mealPlanName, mealFoods)
+activate ":MealPlan"
+return newMealPlan
+
+":CreateMealPlanCommand" -> ":MealPlanDatabase" : addMealPlan(newMealPlan)
+activate ":MealPlanDatabase"
+return
+
+":CreateMealPlanCommand" -> ":MealPlan" : toString()
+activate ":MealPlan"
+return
+
+
+
+return output
+
+@enduml

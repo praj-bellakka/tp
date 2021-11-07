@@ -11,17 +11,17 @@ import fitnus.utility.User;
 import java.util.ArrayList;
 
 public class CreateMealPlanCommand extends Command {
-    private final ArrayList<Food> mealFood;
+    private final ArrayList<Food> mealFoods;
     private final String mealPlanName;
 
-    public CreateMealPlanCommand(ArrayList<Food> mealFood, String mealPlanName) {
-        this.mealFood = mealFood;
+    public CreateMealPlanCommand(ArrayList<Food> mealFoods, String mealPlanName) {
+        this.mealFoods = mealFoods;
         this.mealPlanName = mealPlanName;
     }
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        MealPlan newMealPlan = new MealPlan(mealPlanName, mealFood);
+        MealPlan newMealPlan = new MealPlan(mealPlanName, mealFoods);
         System.out.println("Adding items to meal plan...");
         md.addMealPlan(newMealPlan);
         newMealPlan.toString();
