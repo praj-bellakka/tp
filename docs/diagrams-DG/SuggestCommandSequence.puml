@@ -2,7 +2,7 @@
 'https://plantuml.com/class-diagram
 
 
--> ":ViewSuggestionsCommand": execute()
+-> ":ViewSuggestionsCommand": execute(ed, fd, md, us)
 activate ":ViewSuggestionsCommand"
 
 ":ViewSuggestionsCommand" -> ":User" : getCalorieGoal()
@@ -20,7 +20,7 @@ end note
 activate ":FoodDatabase"
 return suggestions
 
-":ViewSuggestionsCommand" -> "<<Class>>\nUi" : printMatchingSuggestions(suggestions)
+":ViewSuggestionsCommand" -> "<<Class>>\nUi" : printMatchingFoods(suggestions)
 activate "<<Class>>\nUi"
 return
 

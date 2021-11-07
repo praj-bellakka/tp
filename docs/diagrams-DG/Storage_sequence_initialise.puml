@@ -1,22 +1,27 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 activate ":FitNUS"
-":FitNUS" -> "<<class>>\n Storage": initialiseFoodDatabase()
+":FitNUS" -> "<<class>>\n Storage": initialiseFoodDatabase(database)
 activate "<<class>>\n Storage"
 
-"<<class>>\n Storage" -> ":FoodDatabase": preloadDatabase()
+"<<class>>\n Storage" -> ":FoodDatabase": preloadDatabase(reader)
 activate ":FoodDatabase"
 
 loop While there are still unread lines
-    ":FoodDatabase" -> ":FoodDatabase": loadFood()
+    ":FoodDatabase" -> ":FoodDatabase": loadFood(line)
     activate ":FoodDatabase"
 
-    ":FoodDatabase" -> "<<Class>>\nParser": parseFoodType()
+    ":FoodDatabase" -> "<<Class>>\nParser": parseFoodType(type)
     activate "<<Class>>\nParser"
-    return type
+    return foodType
 
-    ":FoodDatabase" -> ":FoodDatabase": addFood(name, calories, type)
+    ":FoodDatabase" -> ":FoodDatabase": addFood(name, calories, foodType)
     activate ":FoodDatabase"
+    create ":Food"
+    ":FoodDatabase" -> ":Food": new Food(name, calories, foodType)
+    activate ":Food"
+    return food
+
     return
 
     return
