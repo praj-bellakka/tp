@@ -541,6 +541,43 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
 
+#### Adding Meal Plan Feature
+
+The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#addEntry()` -- Adds each food inside the specified meal plan into the entry database.
+
+Given below is an example usage scenario and how the add meal plan feature works at each step.
+
+1. The user executes the `add /mealplan 1` command, causing the execute method to run. The method extracts the `MealPlan` object at index '1' and instantiates it via the constructor of `AddMealPlanEntryCommand`. 
+2. This calls `AddMealPlanEntryCommand#execute()`, which then calls `MealPlan#getMealFoods()`, where all food under the meal plan is returned to an ArrayList of Food items.
+3. For each food item inside the meal plan, an `Entry` object is first created.  
+4. `EntryDatabase#addEntry(Entry)` adds the `Entry` object into the entry database.
+5. The returned output, being the string representation of the meal plan, is then passed on to the `Ui` class to be printed over to the user.
+
+The following Sequence Diagram shows how the adding of meal plan feature works:
+
+![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
+
+
+#### Creating Meal Plan Feature
+
+The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
+
+Additionally, they implement the following operations:
+
+Given below is an example usage scenario and how the add meal plan feature works at each step.
+1. The user executes the `create /mealplan plan_name` command, causing the `parseCreateCommand(input, fd)` to run as described in the Parser section [here](#parser). 
+2. The `CreateMealPlanCommand` creates a new `MealPlan` object, using the meal plan name entered by the user, `mealPlanName`, and the foods specified, mealFoods. 
+3. The `addMealPlan(newMealPlan)` method from `MealPlanDatabase` is then called, passing in the `MealPlan` object created in the previous step as a parameter. The plan is then added to the meal plan database.
+4. The plan is then converted to a String using the `toString()` method of the MealPlan. This string representation of the meal plan is used as a feedback response to the user.
+5. The returned output, being the string representation of the meal plan, is then passed on to the `Ui` class to be printed over to the user.
+
+The following Sequence Diagram shows how the creation of meal plan feature works:
+
+![](diagrams-DG/CreateMealPLanCommand_Seq.png)
+
 
 ### View Food Suggestions
 #### This feature allows users to find food suggestions based on food type and calorie goal.

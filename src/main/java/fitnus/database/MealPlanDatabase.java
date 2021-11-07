@@ -91,9 +91,9 @@ public class MealPlanDatabase {
      *
      * @return The Food ArrayList as String.
      */
-    private String convertFoodToString(ArrayList<Food> foodList) {
+    private String convertFoodToString(ArrayList<Food> listFoods) {
         StringBuilder lines = new StringBuilder();
-        for (Food food : foodList) {
+        for (Food food : listFoods) {
             lines.append(food.convertToStringForStorage());
         }
         return lines.toString();

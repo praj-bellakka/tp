@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+-> ":AddMealPlanEntryCommand": execute()
+activate ":AddMealPlanEntryCommand"
+":AddMealPlanEntryCommand" -> ":MealPlan" : getMealFoods()
+activate ":MealPlan"
+return allFoodItems
+
+loop For each food inside meal plan
+
+    create ":Entry"
+    ":AddMealPlanEntryCommand" -> ":Entry" : new Entry(mealType, food)
+    activate ":Entry"
+    return Entry object
+
+    ":AddMealPlanEntryCommand" -> ":EntryDatabase" : addEntry
+    activate ":EntryDatabase"
+    return
+
+end
+
+return output
+
+@enduml
