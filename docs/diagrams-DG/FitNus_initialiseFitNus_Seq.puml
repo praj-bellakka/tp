@@ -1,0 +1,33 @@
+@startuml
+autoactivate on
+
+participant ":FitNUS" as fitnus
+participant ":User" as user
+participant ":Storage" as storage
+
+activate fitnus
+fitnus -> fitnus: initialiseFitNus()
+fitnus -> storage: initialiseUser(user)
+storage --> fitnus: successfullyInitialisedUser
+
+opt successfullyInitialisedUser is false
+    fitnus -> fitnus: initialiseAttribute(ui, ed, fd, md, user, "gender /set ")
+    fitnus --> fitnus
+    fitnus -> fitnus: initialiseAttribute(ui, ed, fd, md, user, "age /set ")
+    fitnus --> fitnus
+    fitnus -> fitnus: initialiseAttribute(ui, ed, fd, md, user, "height /set ")
+    fitnus --> fitnus
+    fitnus -> fitnus: initialiseAttribute(ui, ed, fd, md, user, "weight /set ")
+    fitnus --> fitnus
+    fitnus -> user: calculateCalorieGoal(weeklyChange, changeType)
+    user --> fitnus: calorieGoal
+    fitnus -> user: setCalorieGoal(calorieGoal)
+    user --> fitnus
+    fitnus -> fitnus: saveFitNus()
+    fitnus --> fitnus
+end
+
+fitnus --> fitnus
+
+
+@enduml

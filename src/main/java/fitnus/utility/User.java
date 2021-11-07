@@ -155,11 +155,31 @@ public class User {
     private void updateWeightTrackerIfHavePreviousRecords(float newWeight, LocalDate currDate) {
         WeightRecord latestRecord = weightRecords.get(weightRecords.size() - 1);
         if (latestRecord.getDate().toString().equals(currDate.toString())) { //Update today's weight record
-            latestRecord.setWeight(newWeight);
-            weightRecords.set(weightRecords.size() - 1, latestRecord);
+            updateCurrentDayWeightRecord(newWeight, latestRecord);
         } else {
-            weightRecords.add(new WeightRecord(newWeight, currDate));
+            addNewWeightRecord(newWeight, currDate);
         }
+    }
+
+    /**
+     * Adds a new weight record to the weight tracker.
+     *
+     * @param newWeight Weight of weight record.
+     * @param currDate The current date.
+     */
+    private void addNewWeightRecord(float newWeight, LocalDate currDate) {
+        weightRecords.add(new WeightRecord(newWeight, currDate));
+    }
+
+    /**
+     * Updates the weight of the latest weight record in the weight tracker.
+     *
+     * @param newWeight Weight to be updated.
+     * @param latestRecord The latest weight record in the tracker.
+     */
+    private void updateCurrentDayWeightRecord(float newWeight, WeightRecord latestRecord) {
+        latestRecord.setWeight(newWeight);
+        weightRecords.set(weightRecords.size() - 1, latestRecord);
     }
 
     /**

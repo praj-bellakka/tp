@@ -21,18 +21,51 @@ Given below are my contributions to the project.
     components to be integrated in order for certain aspects of it to be achieved
     (eg continuously prompting the user for their input for a certain attribute (e.g. gender)
     if the entered input when setting up the attribute was invalid, before moving
-    on to setting up the next attribute)
-    
-- User profile editing: Allow user to edit their user profile anytime
-  (e.g. change gender, change age)
-- Calorie goal generation: Generate a daily calorie goal automatically
-  for the user according to their body type and their desired weekly
-  weight change
-- Weight tracker: Allows user to record their weight daily and view
-  their weight progress
-- Viewing remaining calories: Allow user to view the remaining calories
-  that they can can consume for the day according to their food tracker
-  and their daily calorie goal
+    on to setting up the next attribute).
+  - Credits: 
+- **Feature:** Added user profile editing
+  - What it does: Allows the user to edit their user profile (e.g. change gender, change age)
+  - Justification: This feature is needed as the user's data may change after a period
+    of time, or they may have entered their data wrongly during the profile setup process.
+    It is important for the user's data to be accurate so that the generated calorie goal
+    is accurate according to their body type.
+  - Highlights: Many practical aspects of each user attribute had to be considered in order
+    to implement an upper and lower bound (eg the height has to be between 40 and 300 cm).
+  - Credits:
+- **Feature:** Calorie goal generation
+  - What it does: Generates a daily calorie goal automatically
+    for the user according to their body type and their desired weekly
+    weight change, and sets the user's calorie goal to the new goal
+  - Justification: The average user with limited knowledge about dieting
+    and nutrition would not have a good gauge of how many calories they should
+    consume a day based on their body type and their desired rate of change in weight.
+    This feature brings convenience to the user who wants to quickly get started
+    on their dietting journey instead of having to research what their daily
+    calorie goal should be.
+  - Highlights: Much research was done to acquire a formula that can generate the
+    daily calorie goal accurately and easily. 
+  - Credits:
+- **Feature:** Viewing remaining calories
+  - What it does: Allows the user to view the remaining calories
+  that they can consume for the day according to their food tracker
+  and their daily calorie goal.
+  - Justification: This feature improves the app by allowing the user to keep track
+  of how many calories they have left throughout the day in order to make decisions
+  about what to eat according to their dieting goals. 
+  It is also used by other features in the app such as the food suggestions feature. 
+  - Highlights: This feature required the integration
+  of several components of the app (the user profile and the food tracker).
+  - Credits: 
+- **Feature:** Weight tracker
+  - What it does: Allows the user to record their weight daily and view their weight progress.
+  - Justification: This feature is one of the main features of the app as a diet and
+  weight tracking app. It allows the user to observe their weight progress in order to 
+  analyse if their diet is effective in helping them achieve their goal weight.
+  - Highlights: This feature was challenging to implement as many use cases had to be considered
+    (e.g. when the weight tracker is empty, when the weight tracker has only one entry) as the tracker
+  comes with the additional feature of showing their total weight change during the selected time frame.
+  This feature also required careful integration of other components such as storage.
+  - Credits: 
 
 https://nus-cs2113-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=aaapppsss
 
