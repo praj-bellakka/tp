@@ -287,23 +287,6 @@ The following sequence diagram describes the operation of `generateMonthSummary(
 ![](diagrams-DG/monthly%20report.png)
 
 ---
-### View Food Suggestions
-#### This feature allows users to find food suggestions based on food type and calorie goal.
-
-
-The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
-![](diagrams-DG/SuggestCommandSequence.png) 
-
-Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
-1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object 
-and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
-2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
-3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
-based on the remaining calories and specified type. The user also has the option to have the result sorted 
-in ascending order of calories. This is indicated by the boolean `isSort` variable.
-4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
-
----
 
 ### Command
 
@@ -557,6 +540,26 @@ Given below is an example usage scenario and how the delete food entry mechanism
 2. This calls `DeleteEntryCommand#execute()`, which then calls `EntryDatabase#deleteEntry(int)` with '2' as its parameter
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
+
+
+### View Food Suggestions
+#### This feature allows users to find food suggestions based on food type and calorie goal.
+
+The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
+![](diagrams-DG/SuggestCommandSequence.png)
+
+Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object
+   and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
+3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+   based on the remaining calories and specified type. The user also has the option to have the result sorted
+   in ascending order of calories. This is indicated by the boolean `isSort` variable.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
+
+
+
+## Instructions for manual testing
 
 ### User Profile Setup and Editing
 
