@@ -48,6 +48,8 @@ Added documentation for the following features:
 - Searching for foods with keyword.
 - Searching for entries with keyword.
 - Suggest food based on food type and calorie goal. 
+- Loading data.
+- Saving data.
 
 Contributed to the `Command summary` section of the UG.
 
