@@ -8,23 +8,23 @@ loop For every FoodTracker object in EntryDatabase
 
     ":EntryDatabase" -> ":Entry": getFood()
     activate ":Entry"
-    return food:Food
+    return food
 
     ":EntryDatabase" -> ":Entry": getDate()
     activate ":Entry"
-    return date:String
+    return date
 
     ":EntryDatabase" -> ":Food": getName()
     activate ":Food"
-    return name:String
+    return name
 
     ":EntryDatabase" -> ":Food": getCalories()
     activate ":Food"
-    return calories:Integer
+    return calories
 
     ":EntryDatabase" -> ":Food": getType()
     activate ":Food"
-    return type:String
+    return type
 
     ":EntryDatabase" -> ":EntryDatabase": append info onto String
     

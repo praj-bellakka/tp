@@ -1,26 +1,26 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
--> ":EditFoodEntryCommand": execute()
+-> ":EditFoodEntryCommand": execute(ed, fd, md, us)
 activate ":EditFoodEntryCommand"
 alt Food does not exist in database
 
     create ":Food"
-    ":EditFoodEntryCommand" -> ":Food" : new
+    ":EditFoodEntryCommand" -> ":Food" : new Food(foodName, calories, type)
     activate ":Food"
-    return customFood:Food
+    return customFood
 
-    ":EditFoodEntryCommand" -> ":EntryDatabase" : editEntryAtIndex
+    ":EditFoodEntryCommand" -> ":EntryDatabase" : editEntryAtIndex(index, customFood)
     activate ":EntryDatabase"
     return
 
-    ":EditFoodEntryCommand" -> ":FoodDatabase" : addFood
+    ":EditFoodEntryCommand" -> ":FoodDatabase" : addFood(customFood)
     activate ":FoodDatabase"
     return
 
 else Food exists in database
 
-    ":EditFoodEntryCommand" -> ":EntryDatabase" : editEntryAtIndex
+    ":EditFoodEntryCommand" -> ":EntryDatabase" : editEntryAtIndex(index, food)
     activate ":EntryDatabase"
     return
 
