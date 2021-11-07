@@ -53,7 +53,7 @@ Here is the list of sections we will be covering in this User Guide.
 ```
 ------------------
 Welcome to FitNUS Tracker!
-Successfully preloaded 0 foods
+Successfully preloaded 68 foods
 Successfully preloaded 0 entries
 Successfully preloaded 0 meal plans
 Successfully preloaded weight data
