@@ -142,7 +142,7 @@ Examples of usage: `add /mealplan /dinner 1`
 
 Sample output:
 
-![img_11.png](img_11.png)
+![img_11.png](diagrams-UG/img_11.png)
 
 <p>&nbsp;</p>
 
@@ -297,7 +297,7 @@ Sample output:
 
 ![img.png](diagrams-UG/createMealPlan.png)
 
-![img_12.png](img_12.png)
+![img_12.png](diagrams-UG/img_12.png)
 
 **Example 2 - Some input indexes are invalid**
 
@@ -314,7 +314,7 @@ Sample output:
 
 ![img_4.png](diagrams-UG/createMealPlanP4.png)
 
-![img_13.png](img_13.png)
+![img_13.png](diagrams-UG/img_13.png)
 
 **Example 3 - All input indexes are invalid**
 
@@ -331,7 +331,7 @@ Sample output:
 
 ![img_4.png](diagrams-UG/createMealPlanP4.png)
 
-![img_14.png](img_14.png)
+![img_14.png](diagrams-UG/img_14.png)
 
 > **⚠️ Notes about duplicate meal plans**
 >
@@ -352,7 +352,14 @@ Format: `list /mealplan`
 
 Sample output: 
 
-![img_15.png](img_15.png)
+![img_15.png](diagrams-UG/img_15.png)
+
+---- 
+
+> **⚠️ Notes about meal plans**
+>
+> 1. Meal plans are still a work in progress! FitNUS will add the ability to delete meal plans in a future update. For now, meal plans are permanent once added and thus, cannot be deleted.
+> 2. Meal plans do not affect the actual food databases! Adding meal plans which contain a deleted food item will still add the food to the entry database. However, don't worry, the food will not be added to your food database!
 
 <p>&nbsp;</p>
 
@@ -380,7 +387,7 @@ Example of usage:
 
 Sample output:
 
-![img_2.png](sampleOutputWeightSet.png)
+![img_2.png](diagrams-UG/sampleOutputWeightSet.png)
 
 <p>&nbsp;</p>
 
@@ -402,12 +409,12 @@ Examples of usage:
 1. List weight progress since the start of using FitNUS `list /weight /all`
    - Sample output:
    
-    ![img_2.png](img_2.png)
+    ![img_2.png](diagrams-UG/img_2.png)
 
 2. List weight progress in a certain month in the current year: `list /weight /month 3`
    - Sample Output:
 
-    ![img_8.png](img_8.png)
+    ![img_8.png](diagrams-UG/img_8.png)
 
 <p>&nbsp;</p>
 
@@ -429,7 +436,7 @@ Example of usage: `gender /set m`
 
 Sample output:
 
-![img_9.png](img_9.png)
+![img_9.png](diagrams-UG/img_9.png)
 
 <p>&nbsp;</p>
 
@@ -443,7 +450,7 @@ Example of usage:`height /set 180`
 
 Sample output:
 
-![img_10.png](img_10.png)
+![img_10.png](diagrams-UG/img_10.png)
 
 <p>&nbsp;</p>
 
