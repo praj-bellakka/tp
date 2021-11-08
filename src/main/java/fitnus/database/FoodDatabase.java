@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
  */
 public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
-    private static final String DELIMITER = " | ";
 
     private static final String UTOWN_FOOD_LIST = "finefood - bbq beef set | 504 | MEAL\n"
             + "finefood - bbq chicken set | 510 | MEAL\n"

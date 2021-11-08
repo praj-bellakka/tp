@@ -68,16 +68,9 @@ FitNUS is specially made for Computing Students living in University Town.
 
 - Documentation:
   - User Guide: 
-    - Added full documentation for the following features:
-      - Set gender/age/height/weight
-      - Generate calorie goal
-      - View remaining calories
-      - List weight tracker
+    - Added full documentation for the following features: Set gender/age/height/weight, 
+    Generate calorie goal, View remaining calories, List weight tracker
   - Developer Guide:
-    - Added full documentation for the following features:
-      - Set gender/age/height/weight
-      - Generate calorie goal
-      - View remaining calories
-      - List weight tracker
-    - Added parts of documentation for the following features:
-      - Overall architecture
+    - Added full documentation for the following features: Set gender/age/height/weight,
+    Generate calorie goal, View remaining calories, List weight tracker
+    - Added parts of documentation for the following features: Overall architecture
