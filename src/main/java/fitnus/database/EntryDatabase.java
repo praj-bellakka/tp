@@ -130,13 +130,11 @@ public class EntryDatabase {
                 Entry entry = new Entry(mealType, food, date);
                 this.addEntry(entry);
                 preloadEntryCount++;
-            } catch (FitNusException e) {
+            } catch (FitNusException | NumberFormatException e) {
                 Ui.println(e.getMessage());
                 Ui.printPreloadDatabaseError();
             } catch (IndexOutOfBoundsException e) {
                 Ui.printPreloadDatabaseError();
-            } catch (NumberFormatException e) {
-                Ui.println(e.getMessage());
             }
         }
         Ui.println("Preloaded " + preloadEntryCount + " entries");
