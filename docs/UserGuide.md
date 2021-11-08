@@ -354,6 +354,13 @@ Sample output:
 
 ![img_15.png](img_15.png)
 
+---- 
+
+> **⚠️ Notes about meal plans**
+>
+> 1. Meal plans are still a work in progress! FitNUS will add the ability to delete meal plans in a future update. For now, meal plans are permanent once added and thus, cannot be deleted.
+> 2. Meal plans do not affect the actual food databases! Adding meal plans which contain a deleted food item will still add the food to the entry database. However, don't worry, the food will not be added to your food database!
+
 <p>&nbsp;</p>
 
 ---- 

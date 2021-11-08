@@ -70,6 +70,8 @@ public class Parser {
     private static final String COMMAND_SUGGEST = "suggest";
     private static final String COMMAND_SUMMARY = "summary";
     private static final String COMMAND_CREATE = "create";
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_EXIT = "exit";
     private static final String SORT = "/sort";
     private static final String SPACE = " ";
 
@@ -84,7 +86,8 @@ public class Parser {
     private static final String DESCRIPTOR_GENERATE = "/generate";
     private static final String DESCRIPTOR_SET = "/set";
     private static final String DESCRIPTOR_MEALPLAN = "/mealplan";
-    public static final int INVALID_INPUT = -1;
+    private static final int INVALID_INPUT = -1;
+    private static final int INVALID_INDEX = -1;
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! "
             + "Type 'help' for a list of commands\n"
             + "and their command formats.";
@@ -97,6 +100,15 @@ public class Parser {
     private static final String SNACK = "/snack";
     private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
+    private static final String BREAKFAST = "/bfast";
+    private static final String LUNCH = "/lunch";
+    private static final String DINNER = "/dinner";
+    private static final String BREAKFAST_STRING = "Breakfast";
+    private static final String LUNCH_STRING = "Lunch";
+    private static final String DINNER_STRING = "Dinner";
+    private static final String SNACK_STRING_CAPS = "Snack";
+
+
     private static final String OTHERS_STRING = "others";
     private static final String[] possibleFoodTypes = {"meal", "snack", "beverage", "others"};
     private static final String[] possibleFoodCategories = {"/bfast", "/lunch", "/dinner", "/snack"};
@@ -128,7 +140,8 @@ public class Parser {
     // Timeframe
     private static final int DAYS_IN_DAY = 1;
     private static final int DAYS_IN_WEEK = 7;
-
+    public static final String EMPTY_FOOD_MEALPLAN_ERROR = "Unable to create meal plan as there "
+            + "are no food in the database! Add some foods first!";
     private static boolean isLoopFlagOn = true;
 
     /**
@@ -155,9 +168,9 @@ public class Parser {
             if (spaceIndex == INVALID_INPUT) {
                 assert spaceIndex < 0 : "Illegal input";
                 switch (input) {
-                case "help":
+                case COMMAND_HELP:
                     return new HelpCommand();
-                case "exit":
+                case COMMAND_EXIT:
                     return new ExitCommand();
                 default:
                     throw new FitNusException(INVALID_COMMAND_MESSAGE);
@@ -240,7 +253,7 @@ public class Parser {
         //find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
-        if (spaceCharacterIndex == -1) {
+        if (spaceCharacterIndex == INVALID_INDEX) {
             mealTypeString = input;
         } else {
             mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
@@ -317,14 +330,14 @@ public class Parser {
     public AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input)
             throws FitNusException {
         int spaceIndex = input.indexOf(SPACE_CHARACTER);
-        if (spaceIndex == -1) {
+        if (spaceIndex == INVALID_INDEX) {
             throw new FitNusException("Invalid format");
         }
         String remainingString = input.substring(spaceIndex).strip();
         int spaceRemainingIndex = remainingString.indexOf(SPACE_CHARACTER);
         MealType mealType = MealType.UNDEFINED;
         //mealType has not been specified by the user
-        if (spaceRemainingIndex == -1) {
+        if (spaceRemainingIndex == INVALID_INDEX) {
             mealType = mealType.findMealTypeTiming();
             //throw new FitNusException("Invalid format");
         } else {
@@ -332,7 +345,7 @@ public class Parser {
         }
         try {
             int index;
-            if (spaceRemainingIndex == -1) {
+            if (spaceRemainingIndex == INVALID_INDEX) {
                 index = Integer.parseInt(remainingString.strip());
             } else if (!remainingString.substring(0, spaceRemainingIndex).contains(BACKSLASH_CHARACTER)) {
                 throw new FitNusException("Recheck command format!");
@@ -361,13 +374,16 @@ public class Parser {
 
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealNameString = "";
-        if (spaceCharacterIndex == -1) {
+        if (spaceCharacterIndex == INVALID_INDEX) {
             throw new FitNusException("Meal plan name cannot be empty!");
         } else {
             mealNameString = input.substring(input.indexOf(SPACE_CHARACTER))
                     .strip().replaceAll("\\|", "");
         }
-
+        //if food database is empty, return error
+        if (fd.getFoodDatabase().size() == 0) {
+            throw new FitNusException(EMPTY_FOOD_MEALPLAN_ERROR);
+        }
         //display all current foods
         Ui newUi = new Ui();
         Ui.printMealPlanCreation(fd);
@@ -377,6 +393,9 @@ public class Parser {
         //for each index, check if it is an integer and within range
         for (String i : userInputIndexes) {
             try {
+                if (i.strip() == "") {
+                    continue;
+                }
                 int inputInt = Integer.parseInt(i);
                 if (inputInt > fd.getFoodDatabase().size() || inputInt <= 0) {
                     Ui.printOutOfRangeInputInteger(inputInt);
@@ -548,13 +567,13 @@ public class Parser {
     public static MealType parseMealType(String input, boolean isDatabaseRequest) throws FitNusException {
         if (isDatabaseRequest) {
             switch (input) {
-            case "Breakfast":
+            case BREAKFAST_STRING:
                 return MealType.BREAKFAST;
-            case "Lunch":
+            case LUNCH_STRING:
                 return MealType.LUNCH;
-            case "Dinner":
+            case DINNER_STRING:
                 return MealType.DINNER;
-            case "Snack":
+            case Parser.SNACK_STRING_CAPS:
                 return MealType.SNACK;
             default:
                 return MealType.UNDEFINED;
@@ -566,13 +585,13 @@ public class Parser {
                         + "Avoid using the backslash character if food category is not specified.");
             }
             switch (input) {
-            case "/bfast":
+            case BREAKFAST:
                 return MealType.BREAKFAST;
-            case "/lunch":
+            case LUNCH:
                 return MealType.LUNCH;
-            case "/dinner":
+            case DINNER:
                 return MealType.DINNER;
-            case "/snack":
+            case SNACK:
                 return MealType.SNACK;
             default:
                 return MealType.UNDEFINED;
