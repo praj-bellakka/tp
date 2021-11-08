@@ -365,7 +365,7 @@ Example of usage:
 
 `weight /set 55.6`
 
-Sample Output:
+Sample output:
 
 ![img_2.png](sampleOutputWeightSet.png)
 
@@ -385,12 +385,12 @@ Format:
 Examples of usage:
 
 1. List weight progress since the start of using FitNUS `list /weight /all`
-   - Sample Output:
+   - Sample output:
    
     ![img_2.png](img_2.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
-   - Sample Output:
+   - Sample output:
    
    ![img_8.png](img_8.png)
 
@@ -408,7 +408,7 @@ Format: `gender /set GENDER_SYMBOL`
 
 Example of usage: `gender /set m`
 
-Sample Output:
+Sample output:
 
 ![img_9.png](img_9.png)
 
@@ -422,7 +422,7 @@ Format: `height /set HEIGHT`
 
 Example of usage:`height /set 180`
 
-Sample Output:
+Sample output:
 
 ![img_10.png](img_10.png)
 
@@ -436,7 +436,7 @@ Format: `age /set AGE`
 
 Example of usage:`age /set 18`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/set-age.png)
 
@@ -455,7 +455,7 @@ Format: `calorie /set CALORIE_GOAL`
 
 Example of usage:`calorie /set 2000`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
@@ -484,7 +484,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
 Example of usage:`calorie /generate /gain 0.5`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
@@ -496,7 +496,7 @@ within their daily calorie goal.
 
 Format: `calorie /remain`
 
-Sample Output:
+Sample output:
 
 ![](diagrams-UG/calorie_remain.png)
 
@@ -507,7 +507,7 @@ View your personal user data including gender, age, weight, height and calorie g
 
 Format: `list /user`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/list-user.png)
 
@@ -521,7 +521,7 @@ Lists out available commands and additional information regarding each command.
 
 Format: `help`
 
-Sample Output:
+Sample output:
 
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
@@ -540,7 +540,7 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 
 Format: `summary /week`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/week-summary.png)
 
@@ -554,7 +554,7 @@ Monthly report gives you an overview of your diet over this month, which include
 
 Format: `summary /month`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/month-summary.png)
 
@@ -609,7 +609,7 @@ Exits the FitNUS program.
 
 Format: `exit`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/exit.png)
 
