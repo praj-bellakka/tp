@@ -503,7 +503,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-####  Generate and set calorie goal: `calorie /generate`
+####  Generating and setting calorie goal: `calorie /generate`
 Generates and sets a calorie goal based on your
 target weight loss/gain per week, age, height, 
 weight and gender using the Harris-Benedict equation.
@@ -532,7 +532,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### View remaining calories for the day: `calorie /remain`
+#### Viewing remaining calories for the day: `calorie /remain`
 Shows the remaining number of calories you can consume for the day to stay
 within your daily calorie goal.
 
@@ -544,7 +544,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### View user data: `list /user`
+#### Viewing user data: `list /user`
 View your personal user data including gender, age, weight, height and calorie goal.
 
 Format: `list /user`
