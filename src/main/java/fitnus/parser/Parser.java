@@ -875,6 +875,7 @@ public class Parser {
         try {
             if (typeDescriptor.equals(DESCRIPTOR_SET)) {
                 float weight = Float.parseFloat(input.substring(typeDescriptorIndex).trim());
+                weight = (float) (Math.round(weight * 10.0) / 10.0);
 
                 if (weight <= MINIMUM_WEIGHT) {
                     throw new FitNusException("Please enter a positive number for your weight!");

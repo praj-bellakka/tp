@@ -378,8 +378,8 @@ Format: `weight /set WEIGHT`
 > **⚠️ Notes about recording weight**
 >- If you have already recorded your weight for the day, recording the weight again
   will override the previous weight record for the day instead of creating a new record.
->- If `WEIGHT` is entered as a number with more than 1 decimal place, the trailing decimals
-> will be cut off (no rounding will take place).
+>- If `WEIGHT` is entered as a number with more than 1 decimal place, the weight will be
+> rounded to 1 decimal place (note that if the next digit is 5, it rounds down instead of up).
 
 Example of usage:
 
@@ -685,8 +685,8 @@ Find entry | find /entry KEYWORD | `find /entry rice`
 List food | list /food | `list /food`
 List meal plan | list /mealplan | `list /mealplan`
 List all entries | list /entry | `list /entry`
-List daily entry | list /entry | `list /entry /day`
-List weekly entry | list /entry | `list /entry /week`
+List daily entry | list /entry /day | `list /entry /day`
+List weekly entry | list /entry /week | `list /entry /week`
 List weight record | list /weight /all <br /> list /weight /month MONTH_INTEGER | `list /weight /all` <br /> `list /weight /month 1`
 List user data | list /user | `list /user`
 Set gender | gender /set GENDER | `gender /set m`
