@@ -871,11 +871,11 @@ public class Parser {
     private Command parseFindTypeCommand(String input) throws FitNusException {
         if (input.contains("/food")) {
             int typeDescriptorIndex = input.indexOf("/food");
-            String keyword = input.substring(typeDescriptorIndex + 6);
+            String keyword = input.substring(typeDescriptorIndex + 5);
             return new FindFoodsCommand(keyword);
         } else if (input.contains("/entry")) {
             int typeDescriptorIndex = input.indexOf("/entry");
-            String keyword = input.substring(typeDescriptorIndex + 7);
+            String keyword = input.substring(typeDescriptorIndex + 6);
             return new FindEntriesCommand(keyword);
         }
         throw new FitNusException("find command format is wrong. It is supposed to be:\n"
