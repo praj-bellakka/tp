@@ -18,7 +18,7 @@ class Storage {
 +initialiseEntryDatabase(EntryDatabase): void
 +initialiseFoodDatabase(FoodDatabase): void
 +initialiseMealPlanDatabase(MealPlanDatabase): void
-+initialiseUser(User): int
++initialiseUser(User): boolean
 +initialiseWeightProgress(User): void
 -saveData(String, String): void
 +saveEntryDatabase(EntryDatabase): void

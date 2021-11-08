@@ -6,13 +6,13 @@ activate ":EntryDatabase"
 participant Parser << Class >>
 loop While there are still unread lines
 
-    ":EntryDatabase" -> Parser: parseMealType()
+    ":EntryDatabase" -> Parser: parseMealType(input, isDatabaseRequest)
     activate Parser
     return mealType
 
-    ":EntryDatabase" -> Parser: parseFoodType()
+    ":EntryDatabase" -> Parser: parseFoodType(type)
     activate Parser
-    return type
+    return foodType
 
     ":EntryDatabase" -> Parser: getDate()
     activate Parser

@@ -6,6 +6,8 @@
 activate ":EntryDatabase"
 
 ":EntryDatabase" -> ":EntryDatabase": sortDatabase()
+activate ":EntryDatabase"
+return
 
 ":EntryDatabase" -> ":EntryDatabase": getEntries()
 activate ":EntryDatabase"

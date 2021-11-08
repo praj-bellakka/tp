@@ -4,32 +4,42 @@
 
 1. [Product Scope](#product-scope)
 2. [Quick Start](#quick-start)
-3. [User Story](#user-stories)
-4. [Application Architecture](#architecture)
+3. [User Stories](#user-stories)
+4. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
    - [Entry Database](#entrydatabase)
    - [Food Database](#food-database)
    - [Meal Plan DataBase](#meal-plan-database)
-   - [User](#user-component)
+   - [User](#user)
    - [Summary](#summary)
    - [Suggest](#view-food-suggestions)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Implementation](#Implementation)
-   - [Add Food Entry](#add-food-entry)
-   - [Edit Food Entry](#edit-food-entry)
-   - [List Food Entry](#list-food-entry)
-   - [Delete Food Entry](#delete-food-entry)
-6. [Instruction for manual testing](#instructions-for-manual-testing)
-    - [Add Food Entry](#add-food-entry-instructions)
-7. [Non-functional Requirement](#nf-requirements)
+5. [Implementation](#implementation)
+   - [Add Food Entry](#add-food-entry-feature)
+   - [Edit Food Entry](#edit-food-entry-feature)
+   - [List Food Entry](#list-food-entry-feature)
+   - [Delete Food Entry](#delete-food-entry-feature)
+   - [Adding Meal Plan](#adding-meal-plan-feature)
+   - [Creating Meal Plan](#creating-meal-plan-feature)
+   - [View Food Suggestions](#view-food-suggestions-feature)
+   - [User Profile Setup and Editing](#user-profile-setup-and-editing-feature)
+   - [List User Data](#list-user-data-feature)
+   - [Record Weight](#record-weight-feature)
+   - [List Weight Tracker](#list-weight-tracker-feature)
+   - [Generate Calorie Goal](#generate-calorie-goal-feature)
+   - [View Remaining Calories](#view-remaining-calories-feature)
+6. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+7. [Appendix: Non-functional Requirement](#nf-requirements)
+8. [Appendix: User Stories](#user-stories)
+
 
 ## Product scope
 
 ### Target user profile
 
-NUS Computer Engineering students reside in UTown going on diet.
+NUS Computing students reside in UTown.
 
 ### Value proposition
 
@@ -39,40 +49,19 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
-3. Copy the file to the folder you want to use as the home folder for your WellNUS Tracker 
-4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `wellnus.jar` file is located or provide the absolute path of `wellnus.jar`).
+3. Copy the file to the folder you want to use as the home folder for your FitNus Tracker 
+4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `fitnus.jar` file is located or provide the absolute path of `fitnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
-   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your EntryDatabase and food database. 
+   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your Entry Database and food database. 
    - `list food`: Lists all foods in database 
-   - `list intake /DAY`: Lists all entries in the EntryDatabase for the day. 
+   - `list intake /DAY`: Lists all entries in the Entry Database for the day. 
    - `exit`: Exits the app.  
 
 Refer to the User Guide (no link for now) for details of each command.
 
-## User Stories
 
-| As a... | I can...                                 | So that I can...                                                    |
-|---------|------------------------------------------|---------------------------------------------------------------------|
-| User    | input entries every time I eat something | incorporate it seamlessly into my daily life                        |
-| User    | edit my entries                          | make changes to my food entries at a later time                     |
-| User    | delete entries in case I mistype         | -                                                                   |
-| User    | list all my entries                      | look back at what I ate in the past                                 |
-| User    | search food by a keyword                 | easily look for the food that I ate                                 |
-| User    | create meal plans                        | add multiple food entries at once                                   |
-| User    | record my current weight                 | look back and keep track of my weight in the future                 |
-| User    | list out previous weight records         | look at my progress of weight loss/gain                             |
-| User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
-| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
-| User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
-| User    | list my user details                     | see my current user details at a glance                             |
-| User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
-| User    | ask for help                             | see all the available commands at a glance                          |
-| User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
-| User    | exit FitNUS                              | -                                                                   |
-
-
-## Architecture
+## Application Architecture
 
 ### Overall Architecture
 
@@ -118,14 +107,14 @@ the command that was executed, which is displayed to the user by the `Ui` compon
 
 ---
 
-### EntryDatabase
+### Entry Database
 
-The EntryDatabase is represented by the class `EntryDatabase`.
+The Entry Database is represented by the class `EntryDatabase`.
 
 ![EntryDatabase Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
 The `EntryDatabase` class consists of an ArrayList of Entry. It handles all functionalities 
-that uses/amends the EntryDatabase. 
+that uses/amends the Entry Database. 
 
 The `EntryDatabase` component consists of:
 - `addEntry()` Adds an Entry object to the database.
@@ -154,7 +143,7 @@ The `EntryDatabase` component consists of:
 
 - `editEntryAtIndex(int, Food)` Edits the Entry object at the specified index to the new specified Food object
 
-The diagram below showcases the relationships between EntryDatabase object and various components.
+The diagram below showcases the relationships between the EntryDatabase object and various components.
 
 ![EntryDatabase Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
 
@@ -248,7 +237,7 @@ The class diagram below showcases the relationships between the `MealPlanDatabas
 
 --- 
 
-### User component
+### User 
 
 ![User Class Diagram](diagrams-DG/User_Class.png)
 
@@ -372,9 +361,9 @@ The `Storage` component consists of:
 
 #### Sequence of operations
 
-1. **Saving to text file**
+i. **Saving to text file**
 
-`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. 
+`FoodDatabase`, `EntryDatabase`, `MealPlanDatabase`, and `User` classes each have a method to convert its data to String format. 
 This String is then saved to the text file. For instance, when saving the `FoodDatabase` data, `Storage` 
 calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the 
 `FoodDatabase`. This String is then written to the text file.
@@ -382,7 +371,7 @@ calls the `convertDatabaseToString()` method to obtain the String representation
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
 ![](diagrams-DG/Storage_sequence_save.png)
 
-2. **Loading from text file**
+ii. **Loading from text file**
 
 `Storage` makes use of the `BufferedReader` and `FileInputStream` provided by `java.io` to access the 
 contents of the storage text files. This is then passed to the respective objects for preloading.  
@@ -531,10 +520,10 @@ Additionally, they implement the following operations:
 Given below is an example usage scenario and how the list food entry mechanism behaves at each step.
 
 1. The user executes the `list /entry /week` command to list out all entries in the past week. 
-2. This calls `ListFoodEntryWeekCommand#execute()`, which creates a temporary EntryDatabase by calling
+2. This calls `ListFoodEntryWeekCommand#execute()`, which creates a temporary Entry Database by calling
 `EntryDatabase#getPastDaysEntryDatabase(int)` with '7' as its parameter (Since there are 7 days a week).
-3. `EntryDatabase#getPastDaysEntryDatabase(int)` then returns a EntryDatabase with entries of the past 7 days.
-4. With the new temporary EntryDatabase, `EntryDatabase#listEntries()` then displays the past week's entries
+3. `EntryDatabase#getPastDaysEntryDatabase(int)` then returns an Entry Database with entries of the past 7 days.
+4. With the new temporary Entry Database, `EntryDatabase#listEntries()` then displays the past week's entries
 to the user.
 
 The following Sequence Diagrams shows how the list food entry feature works:
@@ -547,18 +536,55 @@ The following Sequence Diagrams shows how the list food entry feature works:
 The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
 Additionally, they implement the following operations:
-- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from EntryDatabase.
+- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from Entry Database.
 
 Given below is an example usage scenario and how the delete food entry mechanism behaves at each step.
 
-1. The user executes the `delete /entry 2` command to delete the second entry from the EntryDatabase.
+1. The user executes the `delete /entry 2` command to delete the second entry from the Entry Database.
 2. This calls `DeleteEntryCommand#execute()`, which then calls `EntryDatabase#deleteEntry(int)` with '2' as its parameter
    (Since the user wishes to delete the second entry).
-3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
+3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
+
+#### Adding Meal Plan Feature
+
+The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
+
+Additionally, they implement the following operations:
+- `EntryDatabase#addEntry()` -- Adds each food inside the specified meal plan into the entry database.
+
+Given below is an example usage scenario and how the add meal plan feature works at each step.
+
+1. The user executes the `add /mealplan 1` command, causing the execute method to run. The method extracts the `MealPlan` object at index '1' and instantiates it via the constructor of `AddMealPlanEntryCommand`. 
+2. This calls `AddMealPlanEntryCommand#execute()`, which then calls `MealPlan#getMealFoods()`, where all food under the meal plan is returned to an ArrayList of Food items.
+3. For each food item inside the meal plan, an `Entry` object is first created.  
+4. `EntryDatabase#addEntry(Entry)` adds the `Entry` object into the entry database.
+5. The returned output, being the string representation of the meal plan, is then passed on to the `Ui` class to be printed over to the user.
+
+The following Sequence Diagram shows how the adding of meal plan feature works:
+
+![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
 
 
-### View Food Suggestions
-#### This feature allows users to find food suggestions based on food type and calorie goal.
+#### Creating Meal Plan Feature
+
+The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
+
+Additionally, they implement the following operations:
+
+Given below is an example usage scenario and how the add meal plan feature works at each step.
+1. The user executes the `create /mealplan plan_name` command, causing the `parseCreateCommand(input, fd)` to run as described in the Parser section [here](#parser). 
+2. The `CreateMealPlanCommand` creates a new `MealPlan` object, using the meal plan name entered by the user, `mealPlanName`, and the foods specified, mealFoods. 
+3. The `addMealPlan(newMealPlan)` method from `MealPlanDatabase` is then called, passing in the `MealPlan` object created in the previous step as a parameter. The plan is then added to the meal plan database.
+4. The plan is then converted to a String using the `toString()` method of the MealPlan. This string representation of the meal plan is used as a feedback response to the user.
+5. The returned output, being the string representation of the meal plan, is then passed on to the `Ui` class to be printed over to the user.
+
+The following Sequence Diagram shows how the creation of meal plan feature works:
+
+![](diagrams-DG/CreateMealPLanCommand_Seq.png)
+
+
+### View Food Suggestions feature
+This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
 ![](diagrams-DG/SuggestCommandSequence.png)
@@ -572,11 +598,7 @@ Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
 4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
 
-
-
-## Instructions for manual testing
-
-### User Profile Setup and Editing
+### User Profile Setup and Editing Feature
 
 This feature allows the user to set up and
 edit various attributes of their user profile such as their
@@ -642,7 +664,7 @@ for the example of setting height:
 
 ![setHeight Sequence Diagram](diagrams-DG/Command_SetHeightCommand_Seq.png)
 
-### List User Data
+### List User Data Feature
 This feature lists all the user's data (i.e. gender, age, height, weight 
 and daily calorie goal). Given below is an example usage scenario and
 how its mechanism behaves at each step.
@@ -655,7 +677,7 @@ The following sequence diagram shows how the list user data feature works:
 
 ![setHeight Sequence Diagram](diagrams-DG/Command_ListUserDataCommand_Seq.png)
 
-### Record Weight
+### Record Weight Feature
 
 This feature allows the user to record their weight for the day in the
 weight tracker and also update their weight in their user profile.
@@ -673,7 +695,7 @@ The following sequence diagram shows how the weight recording feature works:
 
 ![setWeight Sequence Diagram](diagrams-DG/Command_SetWeightCommand_Seq.png)
 
-### List Weight Tracker
+### List Weight Tracker Feature
 
 This feature allows the user to list the weight tracker data in a particular month
 or since the start of using the app.
@@ -694,7 +716,7 @@ The following sequence diagram shows how the list weight tracker feature works:
 ![listWeight Sequence Diagram](diagrams-DG/Command_ListWeightProgressCommand_Seq.png)
 
 
-### Generate Calorie Goal
+### Generate Calorie Goal Feature
 
 This feature allows the user to generate a daily calorie goal
 according to their body type and their desired weekly weight change
@@ -715,7 +737,7 @@ The following sequence diagram shows how the generate calorie goal feature works
 
 ![generateCalorieGoal Sequence Diagram](diagrams-DG/Command_GenerateCalorieGoalCommand_Seq.png)
 
-### View Remaining Calories
+### View Remaining Calories Feature
 
 This feature allows the user to view how many calories they have remaining
 for the day before they hit their daily calorie goal. 
@@ -733,18 +755,13 @@ The following sequence diagram shows how the view remaining calories feature wor
 ![viewRemainingCalorie Sequence Diagram](diagrams-DG/Command_ViewRemainingCalorie_Seq.png)
 
 
-# Instructions for manual testing
+## Instructions for manual testing
 
-### Launch and shutdown
-//todo
+### Entry Features
 
--------------
+#### Add Food Entry
 
-## Entry Features
-
-### Add Food Entry
-
-**Add from existing database**
+Add from existing database
 
 1. Test case: `add /bfast chicken cutlet`
 
@@ -753,14 +770,14 @@ The following sequence diagram shows how the view remaining calories feature wor
 2. Other incorrect commands to try:
    - `add /teabreak chicken rice`(should use one of the available meal types)
 
-**Add a custom food entry**
+Add a custom food entry
 
 1. Test case: `add /snack vanilla ice-cream`
 
     Expected: User to be able to add a new food entry "vanilla ice-cream" since it does not exist in the existing 
 database. Resulting in a new food entry being added as a Snack.
 
-### Edit Food Entry
+#### Edit Food Entry
 
 1. Prerequisite: User must have **1 or more** existing food entries
 2. Test case: `edit 1 chicken rice`
@@ -769,9 +786,9 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `edit 0 laksa`(should use a valid index)
 
-### List Food Entry
+#### List Food Entry
 
-**List entries for the day**
+List entries for the day
 1. Prerequisite: User should have **1 or more** existing food entries
 2. Test case: `list /entry /day`
 
@@ -779,7 +796,7 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `list /entry year`(should use a valid timeframe)
 
-**List entries for the past week**
+List entries for the past week
 1. Prerequisite: User should have **1 or more** existing food entries
 2. Test case: `list /entry /week`
 
@@ -787,7 +804,7 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `list /entry year`(should use a valid timeframe)
 
-### Delete Food Entry
+#### Delete Food Entry
 
 1. Prerequisite: User should have **1 or more** existing food entries
 2. Test case: `remove /entry 1`
@@ -796,24 +813,24 @@ database. Resulting in a new food entry being added as a Snack.
 3. Other incorrect commands to try:
     - `remove /entry -1`(should use a valid index)
 
-### Find Food Entry
+#### Find Food Entry
 1. Prerequisite: User should have **1 or more** existing food entries consisting of the keyword "chicken"
 2. Test case: `find /entry chicken`
 
     Expected: User should be able to see all entries consisting of the keyword "chicken"
 
 -------------
-## Food Features
+### Food Features
 
-### List foods
-#### List all foods inside food database
+#### List foods
+List all foods inside food database.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `list /food`
 
    Expected: returns all the foods inside the food database.
 
-### Delete food
-#### Delete food inside the food database at certain index.
+#### Delete food
+Delete food inside the food database at certain index.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `remove /food 2`
    Expected: delete the 2nd food at the food database successfully.
@@ -822,8 +839,8 @@ database. Resulting in a new food entry being added as a Snack.
    - `remove /food a` (the index is supposed to be an integer)
 
 
-### Find food
-#### Find food inside the food database according to keywords.
+#### Find food
+Find food inside the food database according to keywords.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `remove /food rice`
    Expected: returns all the foods inside the food database contain the keyword "rice".
@@ -831,18 +848,18 @@ database. Resulting in a new food entry being added as a Snack.
    - `remove /food` (the keyword for searching is mandatory)
 
 -------------
-## Weight Tracker Features
+### Weight Tracker Features
 
-### Record weight
+#### Record weight
 
-#### Recording weight for the day
+Recording weight for the day
 1. Prerequisites: User has not recorded their weight for the day.
 2. Test case: `weight /set 65.5`
 
    Expected: User's weight is set to 65.5 kg, and a new weight record is added
    to the weight tracker with the current date and the recorded weight of 65.5 kg.
 
-#### Updating weight twice in one day
+Updating weight twice in one day
 1. Prerequisites: User has already recorded their weight for the day.
 2. Test case: `weight /set 55.5`
 
@@ -850,16 +867,16 @@ database. Resulting in a new food entry being added as a Snack.
    weight record in the weight tracker is replaced with a new weight record with
    the updated weight of 55.5 kg.
 
-### List weight tracker data
+#### List weight tracker data
 
-#### Listing all weight tracker data
+Listing all weight tracker data
 1. Prerequisites: Multiple weight records in weight tracker.
 2. Test case: `list /weight /all`
 
    Expected: All weight records in the weight tracker are listed and
    the amount of weight gained or lost since the start of using the app is shown.
 
-#### Listing weight tracker data in a particular month in the current year
+Listing weight tracker data in a particular month in the current year
 1. Prerequisites: Weight records for the month of January exist in the weight tracker.
 2. Test case: `list /weight /month 1`
 
@@ -872,41 +889,41 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: Weight tracker data not shown. Error details shown in status message.
 
 -------------
-## User Personalisation Features
+### User Personalisation Features
 
-### Set gender
+#### Set gender
 
-#### Setting gender
+Setting gender
 1. Test case: `gender /set m`
 
    Expected: The user's gender is set to Male.
 
-### Set gender
+#### Set age
 
-#### Setting age
+Setting age
 1. Test case: `age /set 18`
 
    Expected: The user's age is set to 18 years old.
 
-### Set height
+#### Set height
 
-#### Setting height
+Setting height
 1. Test case: `height /set 180`
 
    Expected: The user's height is set to 180 cm.
 
-### Set calorie goal
+#### Set calorie goal
 
-#### Setting calorie goal
+Setting calorie goal
 1. Prerequisites: The minimum/maximum calorie goal of the user (according
    to their body type) is lower/higher than 2000kcal.
 2. Test case: `calorie /set 2000`
 
    Expected: The user's calorie goal is set to 2000kcal.
 
-### Generate calorie goal
+#### Generate calorie goal
 
-#### Generating calorie goal according to desired weekly change
+Generating calorie goal according to desired weekly change
 1. Prerequisites: User profile setup has been completed (app is not
    prompting user to set up their profile).
 2. Test case: `calorie /generate /lose 0.1`
@@ -925,9 +942,9 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: A new calorie goal is not generated and set. Error details shown
    in status message.
 
-### View remaining calories
+#### View remaining calories
 
-#### Viewing remaining calories for the day
+ Viewing remaining calories for the day
 1. Prerequisites: The total number of calories of all food tracker entries entered
    for the day has not exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
@@ -935,7 +952,7 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: The remaining calories that the user can consume for the day according
    to their daily calorie goal is displayed.
 
-#### Viewing remaining calories for the day when exceeded daily goal
+Viewing remaining calories for the day when exceeded daily goal
 1. Prerequisites: The total number of calories of all food tracker entries entered
    for the day has exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
@@ -943,9 +960,9 @@ database. Resulting in a new food entry being added as a Snack.
    Expected: The number of calories the user has exceeded their daily goal by is
    displayed.
 
-### List user data
+#### List user data
 
-#### Listing all user data
+Listing all user data
 1. Prerequisite: User profile setup has been completed (app is not
    prompting user to set up their profile).
 2. Test case: `list /user`
@@ -954,10 +971,10 @@ database. Resulting in a new food entry being added as a Snack.
    calorie goal is displayed.
 
 -------------
-## Other Features
+### Other Features
 
-### View statistics
-#### Weekly report
+#### View statistics
+Weekly report
 
 This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
 
@@ -973,7 +990,7 @@ over the past seven days.
 Expected: A weekly report is generated.
 
 
-#### Monthly report
+Monthly report
 
 This feature allows the user to generate a report that gives an overview of their diet over this past month.
 
@@ -988,7 +1005,7 @@ Prerequisite: Have at least one existing `Entry` in the past month.
 
 Expected: A monthly report is generated.
 
-### View suggestions
+#### View Food Suggestions
 
 This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
 
@@ -1016,3 +1033,27 @@ Expected: Matching `Food` suggestions are shown.
 1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
 2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
 3. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+
+
+---
+
+## User Stories
+
+| As a... | I can...                                 | So that I can...                                                    |
+|---------|------------------------------------------|---------------------------------------------------------------------|
+| User    | input entries every time I eat something | incorporate it seamlessly into my daily life                        |
+| User    | edit my entries                          | make changes to my food entries at a later time                     |
+| User    | delete entries in case I mistype         | -                                                                   |
+| User    | list all my entries                      | look back at what I ate in the past                                 |
+| User    | search food by a keyword                 | easily look for the food that I ate                                 |
+| User    | create meal plans                        | add multiple food entries at once                                   |
+| User    | record my current weight                 | look back and keep track of my weight in the future                 |
+| User    | list out previous weight records         | look at my progress of weight loss/gain                             |
+| User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
+| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
+| User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
+| User    | list my user details                     | see my current user details at a glance                             |
+| User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
+| User    | ask for help                             | see all the available commands at a glance                          |
+| User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
+| User    | exit FitNUS                              | -                                                                   |

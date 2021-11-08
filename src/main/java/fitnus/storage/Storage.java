@@ -104,21 +104,17 @@ public class Storage {
      * the User data with data from the file.
      *
      * @param user User object to preload.
-     * @return 1 if data is valid, 0 otherwise.
+     * @return True if data is valid, false otherwise.
      * @throws IOException If an I/O error occurs.
      */
-    public static int initialiseUser(User user) throws IOException {
+    public static boolean initialiseUser(User user) throws IOException {
         assert Files.exists(FILE_PATH_USER_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_USER_DATA.toString());
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        int userDataIsValid = user.preloadUserData(reader);
+        boolean userDataIsValid = user.preloadUserData(reader);
         reader.close();
-        if (userDataIsValid == 1) {
-            return 1; //success
-        } else {
-            return 0; //failure
-        }
+        return userDataIsValid;
     }
 
     /**
