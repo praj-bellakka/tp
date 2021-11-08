@@ -70,6 +70,8 @@ public class Parser {
     private static final String COMMAND_SUGGEST = "suggest";
     private static final String COMMAND_SUMMARY = "summary";
     private static final String COMMAND_CREATE = "create";
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_EXIT = "exit";
 
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
@@ -96,6 +98,15 @@ public class Parser {
     private static final String SNACK = "/snack";
     private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
+    private static final String BREAKFAST = "bfast";
+    private static final String LUNCH = "/lunch";
+    private static final String DINNER = "/dinner";
+    private static final String BREAKFAST_STRING = "Breakfast";
+    private static final String LUNCH_STRING = "Lunch";
+    private static final String DINNER_STRING = "Dinner";
+    private static final String SNACK_STRING_CAPS = "Snack";
+
+
     private static final String OTHERS_STRING = "others";
     private static final String[] possibleFoodTypes = {"meal", "snack", "beverage", "others"};
     private static final String[] possibleFoodCategories = {"/bfast", "/lunch", "/dinner", "/snack"};
@@ -129,7 +140,6 @@ public class Parser {
     private static final int DAYS_IN_WEEK = 7;
     public static final String EMPTY_FOOD_MEALPLAN_ERROR = "Unable to create meal plan as there "
             + "are no food in the database! Add some foods first!";
-
     private static boolean isLoopFlagOn = true;
 
     /**
@@ -156,9 +166,9 @@ public class Parser {
             if (spaceIndex == INVALID_INPUT) {
                 assert spaceIndex < 0 : "Illegal input";
                 switch (input) {
-                case "help":
+                case COMMAND_HELP:
                     return new HelpCommand();
-                case "exit":
+                case COMMAND_EXIT:
                     return new ExitCommand();
                 default:
                     throw new FitNusException(INVALID_COMMAND_MESSAGE);
@@ -554,13 +564,13 @@ public class Parser {
     public static MealType parseMealType(String input, boolean isDatabaseRequest) throws FitNusException {
         if (isDatabaseRequest) {
             switch (input) {
-            case "Breakfast":
+            case BREAKFAST_STRING:
                 return MealType.BREAKFAST;
-            case "Lunch":
+            case LUNCH_STRING:
                 return MealType.LUNCH;
-            case "Dinner":
+            case DINNER_STRING:
                 return MealType.DINNER;
-            case "Snack":
+            case Parser.SNACK_STRING_CAPS:
                 return MealType.SNACK;
             default:
                 return MealType.UNDEFINED;
@@ -572,13 +582,13 @@ public class Parser {
                         + "Avoid using the backslash character if food category is not specified.");
             }
             switch (input) {
-            case "/bfast":
+            case BREAKFAST:
                 return MealType.BREAKFAST;
-            case "/lunch":
+            case LUNCH:
                 return MealType.LUNCH;
-            case "/dinner":
+            case DINNER:
                 return MealType.DINNER;
-            case "/snack":
+            case SNACK:
                 return MealType.SNACK;
             default:
                 return MealType.UNDEFINED;
