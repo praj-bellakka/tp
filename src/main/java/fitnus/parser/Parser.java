@@ -70,11 +70,13 @@ public class Parser {
     private static final String COMMAND_SUGGEST = "suggest";
     private static final String COMMAND_SUMMARY = "summary";
     private static final String COMMAND_CREATE = "create";
+    private static final String SORT = "/sort";
+    private static final String SPACE = " ";
 
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
     private static final String DESCRIPTOR_FOOD = "/food";
-    private static final String DESCRIPTOR_INTAKE = "/entry";
+    private static final String DESCRIPTOR_ENTRY = "/entry";
     private static final String DESCRIPTOR_WEIGHT = "/weight";
     private static final String DESCRIPTOR_USER = "/user";
     private static final String DESCRIPTOR_DEFAULT = "/def";
@@ -204,7 +206,7 @@ public class Parser {
             }
 
             if (inputCommandType.equals(COMMAND_SUGGEST)) {
-                return parseSuggestCommand(subString);
+                return parseSuggestTypeCommand(subString);
             }
 
             if (inputCommandType.equals(COMMAND_SUMMARY)) { //summary type command
@@ -424,10 +426,11 @@ public class Parser {
     /**
      * The function takes in the relevant details from parseEditTypeCommand, prompts the user to confirm the food
      * to be edited to, and returns the respective Edit command.
-     * @param index Index of the food entry to be edited.
-     * @param foodName Food name of the food to be edited to.
-     * @param tempDbFoods Temporary FoodDatabase containing the foods that matched user's specifications.
-     * @param newUi User interface that will read the user's input.
+     *
+     * @param index              Index of the food entry to be edited.
+     * @param foodName           Food name of the food to be edited to.
+     * @param tempDbFoods        Temporary FoodDatabase containing the foods that matched user's specifications.
+     * @param newUi              User interface that will read the user's input.
      * @param hasMultipleEntries A boolean variable that indicated whether there were multiple foods that matched the
      *                           user's specification.
      * @return Returns the respective Edit command that will edit the user's specified entry.
@@ -635,7 +638,7 @@ public class Parser {
                     .substring(typeDescriptorIndex).trim());
             if (removeType.equals(DESCRIPTOR_FOOD)) {
                 return new DeleteFoodCommand(index);
-            } else if (removeType.equals(DESCRIPTOR_INTAKE)) {
+            } else if (removeType.equals(DESCRIPTOR_ENTRY)) {
                 return new DeleteEntryCommand(index);
             }
             throw new FitNusException("Invalid remove command!");
@@ -646,6 +649,7 @@ public class Parser {
 
     /**
      * Parses the input and returns the respective List command.
+     *
      * @param input The user input
      * @return Returns the correct List command based on the input
      * @throws FitNusException Thrown when user inputs an invalid command
@@ -655,7 +659,7 @@ public class Parser {
         if (typeDescriptorIndex == -1) {
             if (input.equals(DESCRIPTOR_FOOD)) {
                 return new ListFoodDatabaseCommand();
-            } else if (input.equals(DESCRIPTOR_INTAKE)) {
+            } else if (input.equals(DESCRIPTOR_ENTRY)) {
                 return new ListFoodEntryAllCommand();
             } else if (input.equals(DESCRIPTOR_USER)) {
                 return new ListUserDataCommand();
@@ -664,7 +668,7 @@ public class Parser {
             }
         }
 
-        if (input.contains(DESCRIPTOR_INTAKE)) {
+        if (input.contains(DESCRIPTOR_ENTRY)) {
             String timeFrame = input.substring(typeDescriptorIndex);
 
             switch (timeFrame) {
@@ -869,12 +873,13 @@ public class Parser {
     }
 
     private Command parseFindTypeCommand(String input) throws FitNusException {
-        if (input.contains("/food")) {
-            int typeDescriptorIndex = input.indexOf("/food");
+        String[] description = input.split(SPACE);
+        if (description[0].equals(DESCRIPTOR_FOOD)) {
+            int typeDescriptorIndex = input.indexOf(DESCRIPTOR_FOOD);
             String keyword = input.substring(typeDescriptorIndex + 5);
             return new FindFoodsCommand(keyword);
-        } else if (input.contains("/entry")) {
-            int typeDescriptorIndex = input.indexOf("/entry");
+        } else if (description[0].equals(DESCRIPTOR_ENTRY)) {
+            int typeDescriptorIndex = input.indexOf(DESCRIPTOR_ENTRY);
             String keyword = input.substring(typeDescriptorIndex + 6);
             return new FindEntriesCommand(keyword);
         }
@@ -882,14 +887,20 @@ public class Parser {
                 + "find /food KEYWORD or find /entry KEYWORD");
     }
 
-    private Command parseSuggestCommand(String input) throws FitNusException {
+    private Command parseSuggestTypeCommand(String input) throws FitNusException {
         boolean isSort = false;
-        if (input.contains("/sort")) {
-            isSort = true;
-            int spaceIndex = input.indexOf(" ");
-            input = input.substring(0, spaceIndex);
+        String[] description = input.split(SPACE);
+        if (description.length == 2) {
+            if (description[1].equals(SORT)) {
+                isSort = true;
+            } else {
+                throw new FitNusException("Did you enter an invalid input or any additional inputs by mistake?");
+            }
         }
-        switch (input) {
+        if (description.length > 2) {
+            throw new FitNusException("Did you enter an invalid input or any additional inputs by mistake?");
+        }
+        switch (description[0]) {
         case MEAL:
             return new ViewSuggestionsCommand(Food.FoodType.MEAL, isSort);
         case SNACK:
@@ -914,9 +925,10 @@ public class Parser {
 
     /**
      * Te function returns the respective Edit command with the user specified index and food.
+     *
      * @param input The user input.
-     * @param fd The existing food database.
-     * @param ed The existing entry database.
+     * @param fd    The existing food database.
+     * @param ed    The existing entry database.
      * @return Returns the Edit command with the appropriate parameters.
      * @throws FitNusException Thrown when user inputs an invalid command.
      */
