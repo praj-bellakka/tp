@@ -156,12 +156,5 @@ public class ParserTest {
         LocalDate date = Parser.getDate(line);
         assertEquals(LocalDate.of(2021, 12, 23), date);
     }
-
-    @Test
-    void parseCommandType_validGenderInput_returnCommand() throws FitNusException {
-    //        String input = "gender /set M";
-    //        Command returnCommand = parser.parseCommandType(input);
-    //
-    //        assertEquals(SetGenderCommand.class, returnCommand.getClass());
-    }
+    
 }
