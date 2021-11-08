@@ -1059,7 +1059,7 @@ public class Parser {
     private static LocalDate parseDate(String description) {
         LocalDate date;
         try {
-            date = Parser.parseDate(description);
+            date = LocalDate.parse(description);
         } catch (DateTimeParseException e) {
             return null;
         }
