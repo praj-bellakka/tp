@@ -1048,7 +1048,7 @@ Listing all user data
 ### Other Features
 
 
-#### View Weekly report
+#### View Weekly Report
 
 Prerequisite: Have at least one existing `Entry` in the past week.
 
@@ -1057,7 +1057,7 @@ Test case: `summary /week`
 Expected: A weekly report is generated.
 
 
-#### View Monthly report
+#### View Monthly Report
 
 Prerequisite: Have at least one existing `Entry` in the past month.
 
