@@ -164,7 +164,9 @@ The `FoodDatabase` component consists of:
 - `addFood()`: Adds a `Food` object to the database. 
 - `convertDatabaseToString()`: Returns a String representation of 
 all Food objects in the database. 
+
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
+
 - `deleteFood()`: Removes a `Food` object at the specified index from the database. 
 - `findFoods()`: Returns an ArrayList containing matching `Food` objects based on a keyword. 
 - `findSuggestions()`: Returns an ArrayList containing matching Food objects based on the specified FoodType 
@@ -187,7 +189,8 @@ public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean
 - `listFoods()`: Returns a formatted String of all Food objects to be printed. 
 - `loadFood()`: Loads `Food` objects into the `FoodDatabase`.
 - `preloadDatabase()`: Preloads the database using data from the text file.
-   <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
+
+   ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
@@ -277,7 +280,8 @@ The Summary class provides an overview of user's diet over the past week/month.
 
 #### Weekly summary report
 
-The following sequence diagram describes the operation of the `generateWeekSummary()`.  
+The following sequence diagram describes the operation of the `generateWeekSummary()`. 
+
 ![](diagrams-DG/weekly%20report.png)
 
 Here are the general steps taken to generate a weekly report:
@@ -293,6 +297,7 @@ and `getSquare()` method to draw a pictorial graph to illustrate the calorie int
 #### Monthly summary report
 
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
+
 ![](diagrams-DG/monthly%20report.png)
 
 Here are the general steps taken to generate a weekly report:
@@ -369,6 +374,7 @@ calls the `convertDatabaseToString()` method to obtain the String representation
 `FoodDatabase`. This String is then written to the text file.
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
+
 ![](diagrams-DG/Storage_sequence_save.png)
 
 ii. **Loading from text file**
@@ -380,6 +386,7 @@ passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` whi
 ArrayList in `FoodDatabase`.
 
 The following sequence diagram describes the operation of the `initialiseFoodDatabase()` operation.  
+
 ![](diagrams-DG/Storage_sequence_initialise.png)
 
 
@@ -529,6 +536,7 @@ to the user.
 The following Sequence Diagrams shows how the list food entry feature works:
 
 ![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+
 ![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 #### Delete Food Entry Feature
@@ -587,6 +595,7 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
+
 ![](diagrams-DG/SuggestCommandSequence.png)
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
