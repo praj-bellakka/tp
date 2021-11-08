@@ -150,11 +150,11 @@ public class Ui {
     }
 
     public static void printOutOfRangeInputInteger(int num) {
-        System.out.println("Input " + num + " was out of range. Ignoring Input");
+        System.out.println("Input \"" + num + "\" was out of range. Ignoring Input");
     }
 
     public static void printInvalidInputInteger(String input) {
-        System.out.println("Input " + input + " was not an integer. Ignoring input.");
+        System.out.println("Input \"" + input + "\" was not an integer. Ignoring input");
     }
 
     public static void printAddCalorieToFood(String foodName) {

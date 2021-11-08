@@ -375,6 +375,9 @@ public class Parser {
         //for each index, check if it is an integer and within range
         for (String i : userInputIndexes) {
             try {
+                if (i.strip() == "") {
+                    continue;
+                }
                 int inputInt = Integer.parseInt(i);
                 if (inputInt > fd.getFoodDatabase().size() || inputInt <= 0) {
                     Ui.printOutOfRangeInputInteger(inputInt);
