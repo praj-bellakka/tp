@@ -344,7 +344,7 @@ The `Storage` component consists of:
 
 #### Storage format (in the text files)
 
-**Every line in each text file represents one food / entry / record**
+> **_NOTE:_** Every line in each text file represents one food / entry / record
 
 * FoodDatabase (`food.txt`): `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
     Example: 
