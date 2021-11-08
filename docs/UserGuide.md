@@ -42,7 +42,7 @@ Here is the list of sections we will be covering in this User Guide.
     - [Getting food suggestions: `suggest`](#getting-food-suggestions-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
-    - [Exiting FitNUS: `exit`](#quit-fitnus)
+    - [Exiting FitNUS: `exit`](#exiting-fitnus)
 - [User Stories](#user-stories)
 - [Command Summary](#command-summary)
 
@@ -62,7 +62,7 @@ If you have successfully run the programme, you should see output similar to the
 
 ----- 
 
-##Notes About FitNUS
+## Notes About FitNUS
 
 Before you begin using FitNUS, here are some things to note about the app.
 1. FitNUS features that allow the user to enter a custom name 
@@ -503,7 +503,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-####  Generate and set calorie goal: `calorie /generate`
+####  Generating and setting calorie goal: `calorie /generate`
 Generates and sets a calorie goal based on your
 target weight loss/gain per week, age, height, 
 weight and gender using the Harris-Benedict equation.
@@ -532,7 +532,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### View remaining calories for the day: `calorie /remain`
+#### Viewing remaining calories for the day: `calorie /remain`
 Shows the remaining number of calories you can consume for the day to stay
 within your daily calorie goal.
 
@@ -544,7 +544,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### View user data: `list /user`
+#### Viewing user data: `list /user`
 View your personal user data including gender, age, weight, height and calorie goal.
 
 Format: `list /user`
@@ -649,7 +649,7 @@ Then, you will see messages similar to the following:
 
 <p>&nbsp;</p>
 
-#### Quit FitNUS
+#### Exiting FitNUS
 Exits the FitNUS program.
 
 Format: `exit`
