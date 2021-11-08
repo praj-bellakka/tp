@@ -34,7 +34,7 @@
    - [List Weight Tracker](#list-weight-tracker-feature)
    - [Generate Calorie Goal](#generate-calorie-goal-feature)
    - [View Remaining Calories](#view-remaining-calories-feature)
-6. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 7. [Appendix: Non-functional Requirement](#nf-requirements)
 8. [Appendix: User Stories](#user-stories)
 
@@ -620,13 +620,15 @@ The sequence diagram below describes the execution of the `ViewSuggestionsComman
 ![](diagrams-DG/SuggestCommandSequence.png)
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
-1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object
-   and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `User` object
+by calling `User#getCalorieGoal` and obtains current calorie consumption (`caloriesConsumed`) from the `EntryDatabase` 
+object by calling `EntryDatabase#getTotalDailyCalorie`.
 2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
-3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+3. `FoodDatabase#findSuggestions` is called to filter out all matching `Food` objects
    based on the remaining calories and specified type. The user also has the option to have the result sorted
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
-4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user
+by calling `Ui#printMatchingFoods`.
 
 ### User Profile Setup and Editing Feature
 
