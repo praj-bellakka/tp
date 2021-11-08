@@ -98,7 +98,7 @@ public class Parser {
     private static final String SNACK = "/snack";
     private static final String SNACK_STRING = "snack";
     private static final String OTHERS = "/others";
-    private static final String BREAKFAST = "bfast";
+    private static final String BREAKFAST = "/bfast";
     private static final String LUNCH = "/lunch";
     private static final String DINNER = "/dinner";
     private static final String BREAKFAST_STRING = "Breakfast";
