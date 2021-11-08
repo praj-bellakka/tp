@@ -9,6 +9,7 @@ living in University Town. FitNUS is run on the Command Line Interface (CLI).
 Here is the list of sections we will be covering in this User Guide.
 
 - [Quick Start](#quick-start)
+- [Notes About FitNUS](#notes-about-fitnus)
 - [Features](#features)
   - [Entry Database](#entry-database)
     - [Adding food entry: `add`](#adding-food-entry-add)
@@ -61,6 +62,18 @@ If you have successfully run the programme, you should see output similar to the
 
 ----- 
 
+##Notes About FitNUS
+
+Before you begin using FitNUS, here are some things to note about the app.
+1. FitNUS features that allow the user to enter a custom name 
+  are unable to handle special characters such as certain symbols
+  as well as characters in other languages such as Chinese characters.
+  When such characters are detected, FitNUS will omit them from the 
+  custom name. Do note that this may result in a blank name field if 
+  all characters in the custom name were unable to be handled by 
+  FitNUS.
+
+----
 
 ## Features
 > **⚠️ Notes about command format**
@@ -171,7 +184,7 @@ Sample output:
 #### Deleting food entry: `remove /entry`
 Deletes an entry from the Entry Database.
 
-Format: `remove /entry INDEX_OF_FOOD`
+Format: `remove /entry INDEX_OF_ENTRY`
 
 Example of usage:
 
@@ -380,6 +393,8 @@ Format: `weight /set WEIGHT`
   will override the previous weight record for the day instead of creating a new record.
 >- If `WEIGHT` is entered as a number with more than 1 decimal place, the weight will be
 > rounded to 1 decimal place (note that if the next digit is 5, it rounds down instead of up).
+> - If `WEIGHT` is entered as a number that will be rounded down to 0.0 according to the rounding
+> system described above, it will not be accepted as a positive number.
 
 Example of usage:
 
@@ -592,7 +607,7 @@ Sample output:
 
 #### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
-(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal.
+(meal, snack, beverage, others) that if consumed, will not exceed your daily calorie goal.
 
 Format: `suggest /FOODTYPE [/sort]`
 
@@ -677,8 +692,8 @@ Action | Command Format | Example
 Add food| add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
 Add meal plan| add /mealplan /MEALTYPE MEALPLAN_INDEX | `add /mealplan /bfast 1`
 Create meal plan| create /mealplan MEALPLAN_NAME | `create /mealplan bulking`
-Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1 burger`
-Remove entry | remove /entry INDEX_OF_FOOD | `remove /entry 2`
+Edit | edit INDEX_OF_ENTRY FOOD_NAME | `edit 1 burger`
+Remove entry | remove /entry INDEX_OF_ENTRY | `remove /entry 2`
 Remove food | remove /food INDEX_OF_FOOD | `remove /food 12`
 Find food | find /food KEYWORD | `find /food rice`
 Find entry | find /entry KEYWORD | `find /entry rice`
