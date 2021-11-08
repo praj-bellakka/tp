@@ -603,8 +603,6 @@ Sample Output:
 ![img](diagrams-UG/exit.png)
 
 
-## FAQ
-
 ##User Stories
 
 | As a... | I can...                                 | So that I can...                                                    |
