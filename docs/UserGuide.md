@@ -180,7 +180,7 @@ Sample output:
 #### Deleting food entry: `remove /entry`
 Deletes an entry from the Entry Database.
 
-Format: `remove /entry INDEX_OF_FOOD`
+Format: `remove /entry INDEX_OF_ENTRY`
 
 Example of usage:
 
@@ -688,8 +688,8 @@ Action | Command Format | Example
 Add food| add /MEALTYPE FOOD_NAME | `add /bfast chocolate rolls`
 Add meal plan| add /mealplan /MEALTYPE MEALPLAN_INDEX | `add /mealplan /bfast 1`
 Create meal plan| create /mealplan MEALPLAN_NAME | `create /mealplan bulking`
-Edit | edit INDEX_OF_FOOD FOOD_NAME | `edit 1 burger`
-Remove entry | remove /entry INDEX_OF_FOOD | `remove /entry 2`
+Edit | edit INDEX_OF_ENTRY FOOD_NAME | `edit 1 burger`
+Remove entry | remove /entry INDEX_OF_ENTRY | `remove /entry 2`
 Remove food | remove /food INDEX_OF_FOOD | `remove /food 12`
 Find food | find /food KEYWORD | `find /food rice`
 Find entry | find /entry KEYWORD | `find /entry rice`
