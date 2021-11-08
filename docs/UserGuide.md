@@ -62,7 +62,7 @@ If you have successfully run the programme, you should see output similar to the
 
 ----- 
 
-##Notes About FitNUS
+## Notes About FitNUS
 
 Before you begin using FitNUS, here are some things to note about the app.
 1. FitNUS features that allow the user to enter a custom name 
