@@ -53,19 +53,9 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
-If you have successfully run the programme, you should see the following message as follows:
+If you have successfully run the programme, you should see the following message:
 
-```
-------------------
-Welcome to FitNUS Tracker!
-Preloaded 68 foods
-Preloaded 0 entries
-Preloaded 0 meal plans
-Preloaded user data successfully
-------------------
-
-[X] Please enter your gender (m/f):
-```
+![](diagrams-UG/launch.png)
 
 
 ## Features
