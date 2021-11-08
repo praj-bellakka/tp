@@ -9,41 +9,41 @@ class User {
 -height:int
 -weight:int
 
-+getCalorieGoal()
-+setCalorieGoal(int)
++getCalorieGoal():int
++setCalorieGoal(int):void
 
-+getGender()
-+setGender(Gender)
++getGender():Gender
++setGender(Gender):void
 
-+getWeight()
-+setWeight(float)
++getWeight():float
++setWeight(float):void
 
-+getHeight()
-+setHeight(int)
++getHeight():int
++setHeight(int):void
 
-+getAge()
-+setAge(int)
++getAge():int
++setAge(int):void
 
-+getWeightRecords()
-+addToWeightRecords(WeightRecord)
-+updateWeightAndWeightTracker(float)
--updateWeightTrackerIfHavePreviousRecords(float)
--getWeightDifference(float, WeightRecord)
--getChangeType(float)
-+convertWeightRecordsToStringForUi(ArrayList<WeightRecord>)
-+getWeightTrackerDisplay(int)
--getRelevantWeightRecords(int)
++getWeightRecords():ArrayList<WeightRecord>
++addToWeightRecords(WeightRecord):void
++updateWeightAndWeightTracker(float):String
+-updateWeightTrackerIfHavePreviousRecords(float):void
+-getWeightDifference(float, WeightRecord):float
+-getChangeType(float):String
++convertWeightRecordsToStringForUi(ArrayList<WeightRecord>):String
++getWeightTrackerDisplay(int):String
+-getRelevantWeightRecords(int):ArrayList<WeightRecord>
 
-+getCaloriesRemaining(EntryDatabase)
-+handleGenerateCalorieGoalCommand(float, String)
-+calculateCalorieGoal(float, String)
--calculateBasalMetabolicRate()
++getCaloriesRemaining(EntryDatabase):int
++handleGenerateCalorieGoalCommand(float, String):int
++calculateCalorieGoal(float, String):int
+-calculateBasalMetabolicRate():int
 
-+preloadUserData(BufferedReader)
-+preloadWeightData(BufferedReader)
++preloadUserData(BufferedReader):boolean
++preloadWeightData(BufferedReader):void
 
-+getUserDataDisplay()
-+convertUserDataToString()
-+convertWeightDataToString()
++getUserDataDisplay():String
++convertUserDataToString():String
++convertWeightDataToString():String
 }
 @enduml
