@@ -56,6 +56,7 @@ Here is the list of sections we will be covering in this User Guide.
 FitNUS will prompt you to set up your user profile by filling in some details.
 If you have successfully run the programme, you should see output similar to the screenshot below:
 
+
 ![](diagrams-UG/launch.png)
 
 ----- 
@@ -128,7 +129,7 @@ Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
 
-If a MEALTYPE is not specified, FitNus will automatically tag the meal based on the current time.
+If a MEALTYPE is not specified, FitNUS will automatically tag the meal based on the current time.
 
 > **⚠️ Notes about `INDEX_OF_MEALPLAN`**
 >
@@ -141,7 +142,7 @@ Examples of usage: `add /mealplan /dinner 1`
 
 Sample output:
 
-![img.png](diagrams-UG/addMealPlan.png)
+![img_11.png](img_11.png)
 
 <p>&nbsp;</p>
 
@@ -296,8 +297,7 @@ Sample output:
 
 ![img.png](diagrams-UG/createMealPlan.png)
 
-![img_2.png](diagrams-UG/createMealPlanP3.png)
-
+![img_12.png](img_12.png)
 
 **Example 2 - Some input indexes are invalid**
 
@@ -314,8 +314,7 @@ Sample output:
 
 ![img_4.png](diagrams-UG/createMealPlanP4.png)
 
-![img_5.png](diagrams-UG/createMealPlanInvalidIndexes.png)
-
+![img_13.png](img_13.png)
 
 **Example 3 - All input indexes are invalid**
 
@@ -332,7 +331,7 @@ Sample output:
 
 ![img_4.png](diagrams-UG/createMealPlanP4.png)
 
-![img_6.png](diagrams-UG/createMealPlanInvalid.png)
+![img_14.png](img_14.png)
 
 > **⚠️ Notes about duplicate meal plans**
 >
@@ -353,7 +352,7 @@ Format: `list /mealplan`
 
 Sample output: 
 
-![img_7.png](diagrams-UG/listMealPlan.png)
+![img_15.png](img_15.png)
 
 <p>&nbsp;</p>
 
@@ -379,7 +378,7 @@ Example of usage:
 
 `weight /set 55.6`
 
-Sample Output:
+Sample output:
 
 ![img_2.png](sampleOutputWeightSet.png)
 
@@ -400,15 +399,15 @@ Format:
 
 Examples of usage:
 
-1. List weight progress since the start of using FitNus: `list /weight /all`
-   - Sample Output:
+1. List weight progress since the start of using FitNUS `list /weight /all`
+   - Sample output:
    
     ![img_2.png](img_2.png)
 
 2. List weight progress in a certain month in the current year: `list /weight /month 3`
    - Sample Output:
-   
-   ![img_8.png](img_8.png)
+
+    ![img_8.png](img_8.png)
 
 <p>&nbsp;</p>
 
@@ -428,7 +427,7 @@ Format: `gender /set GENDER_SYMBOL`
 
 Example of usage: `gender /set m`
 
-Sample Output:
+Sample output:
 
 ![img_9.png](img_9.png)
 
@@ -442,7 +441,7 @@ Format: `height /set HEIGHT`
 
 Example of usage:`height /set 180`
 
-Sample Output:
+Sample output:
 
 ![img_10.png](img_10.png)
 
@@ -456,7 +455,7 @@ Format: `age /set AGE`
 
 Example of usage:`age /set 18`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/set-age.png)
 
@@ -476,7 +475,7 @@ Format: `calorie /set CALORIE_GOAL`
 
 Example of usage:`calorie /set 2000`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
@@ -505,7 +504,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
 Example of usage:`calorie /generate /gain 0.5`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
@@ -517,7 +516,7 @@ within your daily calorie goal.
 
 Format: `calorie /remain`
 
-Sample Output:
+Sample output:
 
 ![](diagrams-UG/calorie_remain.png)
 
@@ -528,7 +527,7 @@ View your personal user data including gender, age, weight, height and calorie g
 
 Format: `list /user`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/list-user.png)
 
@@ -545,7 +544,7 @@ Lists out available commands and additional information regarding each command.
 
 Format: `help`
 
-Sample Output:
+Sample output:
 
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
@@ -564,7 +563,7 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 
 Format: `summary /week`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/week-summary.png)
 
@@ -578,7 +577,7 @@ Monthly report gives you an overview of your diet over the current month, which 
 
 Format: `summary /month`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/month-summary.png)
 
@@ -621,19 +620,19 @@ If data is successfully loaded upon startup, you will see messages similar to th
 
 ![](diagrams-UG/storage_load.png)
 
-However, if files are missing, FitNus will create the necessary files for you.
+However, if files are missing, FitNUS will create the necessary files for you.
 Then, you will see messages similar to the following:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
 <p>&nbsp;</p>
 
-#### Quit FitNus
-Exits the FitNus program.
+#### Quit FitNUS
+Exits the FitNUS program.
 
 Format: `exit`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/exit.png)
 
