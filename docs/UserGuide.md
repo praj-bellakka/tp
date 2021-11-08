@@ -80,7 +80,7 @@ Before you begin using FitNUS, here are some things to note about the app.
 > 
 > - Words in **UPPER_CASE** are the parameters to be inputted by you!
 
->  e.g. in `add /bfast FOOD_NAME`, FOOD_NAMEx is a parameter which can be substituted as `add /bfast burgers`.
+>  e.g. in `add /bfast FOOD_NAME`, FOOD_NAME is a parameter that can be substituted as `add /bfast burgers`.
 > - Items in **[Square brackets]** are optional!
 
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
@@ -132,7 +132,7 @@ Sample output:
 #### Adding meal plan entry: `add /mealplan`
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
 Click [here](#creating-meal-plan-by-adding-food-create-mealplan) 
-to find our how to create a meal plan.  
+to find out how to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
@@ -417,7 +417,7 @@ Format:
 `list /weight /all` OR `list /weight /month MONTH_INTEGER`
 
 - `MONTH_INTEGER` refers to the integer representation of a particular month.
-  (e.g. 1 represents January, 2 represents February etc.)
+  (e.g. 1 represents January, 2 represents February, etc.)
 
 Examples of usage:
 
