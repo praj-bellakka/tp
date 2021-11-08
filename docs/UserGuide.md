@@ -377,7 +377,7 @@ Example of usage:
 
 Sample Output:
 
-![img.png](sampleOutputWeightSet)
+![img_2.png](sampleOutputWeightSet.png)
 
 <p>&nbsp;</p>
 
@@ -395,14 +395,14 @@ Format:
 Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
-   - Sample output:
-
-   ![img.png](sampleOutputListWeightAll.png)
+   - Sample Output:
+   
+    ![img_2.png](img_2.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
-   - Sample output:
+   - Sample Output:
    
-   ![img.png](sampleOutputListWeightMonth.png)
+   ![img_8.png](img_8.png)
 
 
 ### Personalisation
@@ -419,8 +419,7 @@ Example of usage: `gender /set m`
 
 Sample Output:
 
-![img_2.png](sampleOutputGenderSet.png)
-
+![img_9.png](img_9.png)
 
 
 ####  Setting height: `height /set`
@@ -433,9 +432,7 @@ Example of usage:`height /set 180`
 
 Sample Output:
 
-![img_2.png](sampleOutputHeightSet.png)
-
-
+![img_10.png](img_10.png)
 
 ####  Setting age: `age /set`
 Sets your age in years.
