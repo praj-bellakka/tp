@@ -16,7 +16,7 @@ class FoodDatabase {
 + getFoodAtIndex(int): Food
 + getFoodDatabase(): ArrayList<Food>
 + listFoods(): String
-+ loadFood(String): int
++ loadFood(String): boolean
 + preloadDatabase(BufferedReader): void
 }
 

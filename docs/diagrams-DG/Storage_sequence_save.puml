@@ -2,7 +2,7 @@
 'https://plantuml.com/sequence-diagram
 
 activate ":FitNUS"
-":FitNUS" -> "<<class>>\n Storage": saveFoodDatabase(foodDatabase)
+":FitNUS" -> "<<class>>\n Storage": saveFoodDatabase(database)
 activate "<<class>>\n Storage"
 "<<class>>\n Storage" -> ":FoodDatabase" : convertDatabaseToString()
 activate ":FoodDatabase"

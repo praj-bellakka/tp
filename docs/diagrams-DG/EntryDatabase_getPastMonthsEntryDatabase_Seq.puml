@@ -6,20 +6,22 @@
 activate ":EntryDatabase"
 
 ":EntryDatabase" -> ":EntryDatabase": sortDatabase()
+activate ":EntryDatabase"
+return
 
 ":EntryDatabase" -> ":EntryDatabase": getEntries()
 activate ":EntryDatabase"
-":EntryDatabase" --> ":EntryDatabase": totalEntries:ArrayList<FoodTracker>
+":EntryDatabase" --> ":EntryDatabase": totalEntries
 deactivate ":EntryDatabase"
 
 create "pastMonthsEntries:EntryDatabase"
-":EntryDatabase" -> "pastMonthsEntries:EntryDatabase": new
+":EntryDatabase" -> "pastMonthsEntries:EntryDatabase": new EntryDatabase()
 activate "pastMonthsEntries:EntryDatabase"
 return
 
 loop Until current entry month does not equal to current month or has iterated through all entries
 
-    ":EntryDatabase" -> "pastMonthsEntries:EntryDatabase": addEntry()
+    ":EntryDatabase" -> "pastMonthsEntries:EntryDatabase": addEntry(totalEntries.get(count))
     activate "pastMonthsEntries:EntryDatabase"
     return
 

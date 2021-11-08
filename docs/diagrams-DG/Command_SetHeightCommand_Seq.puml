@@ -1,0 +1,11 @@
+@startuml
+autoactivate on
+
+participant ":SetHeightCommand" as command
+participant ":User" as user
+
+-> command: execute(ed, fd, md, us)
+command-> user: setHeight(height)
+user --> command
+<--command: output
+@enduml

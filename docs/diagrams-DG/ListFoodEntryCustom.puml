@@ -1,14 +1,14 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
--> ":ListFoodEntryCustomCommand": execute()
+-> ":ListFoodEntryCustomCommand": execute(ed, fd, md, us)
 activate ":ListFoodEntryCustomCommand"
 
     create ":EntryDatabase"
-    ":ListFoodEntryCustomCommand" -> ":EntryDatabase" : getPastDaysEntryDatabase(int)
+    ":ListFoodEntryCustomCommand" -> ":EntryDatabase" : getPastDaysEntryDatabase(days)
     activate ":EntryDatabase"
-    return CustomDayEntryDatabase: EntryDatabase
-    ":ListFoodEntryCustomCommand" -> ":EntryDatabase" : listEntries
+    return CustomDayEntryDatabase
+    ":ListFoodEntryCustomCommand" -> ":EntryDatabase" : listEntries()
     activate ":EntryDatabase"
     return entries
 
