@@ -43,9 +43,9 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `fitnus.jar` file is located or provide the absolute path of `fitnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
-   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your EntryDatabase and food database. 
+   - `add Chicken Rice /cal 607`: Adds an entry of Chicken Rice with 607 calories to your Entry Database and food database. 
    - `list food`: Lists all foods in database 
-   - `list intake /DAY`: Lists all entries in the EntryDatabase for the day. 
+   - `list intake /DAY`: Lists all entries in the Entry Database for the day. 
    - `exit`: Exits the app.  
 
 Refer to the User Guide (no link for now) for details of each command.
@@ -118,14 +118,14 @@ the command that was executed, which is displayed to the user by the `Ui` compon
 
 ---
 
-### EntryDatabase
+### Entry Database
 
-The EntryDatabase is represented by the class `EntryDatabase`.
+The Entry Database is represented by the class `EntryDatabase`.
 
 ![EntryDatabase Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
 The `EntryDatabase` class consists of an ArrayList of Entry. It handles all functionalities 
-that uses/amends the EntryDatabase. 
+that uses/amends the Entry Database. 
 
 The `EntryDatabase` component consists of:
 - `addEntry()` Adds an Entry object to the database.
@@ -154,7 +154,7 @@ The `EntryDatabase` component consists of:
 
 - `editEntryAtIndex(int, Food)` Edits the Entry object at the specified index to the new specified Food object
 
-The diagram below showcases the relationships between EntryDatabase object and various components.
+The diagram below showcases the relationships between the EntryDatabase object and various components.
 
 ![EntryDatabase Class Architecture](diagrams-DG/FoodTrackerDatabase_Classes.png)
 
@@ -531,10 +531,10 @@ Additionally, they implement the following operations:
 Given below is an example usage scenario and how the list food entry mechanism behaves at each step.
 
 1. The user executes the `list /entry /week` command to list out all entries in the past week. 
-2. This calls `ListFoodEntryWeekCommand#execute()`, which creates a temporary EntryDatabase by calling
+2. This calls `ListFoodEntryWeekCommand#execute()`, which creates a temporary Entry Database by calling
 `EntryDatabase#getPastDaysEntryDatabase(int)` with '7' as its parameter (Since there are 7 days a week).
-3. `EntryDatabase#getPastDaysEntryDatabase(int)` then returns a EntryDatabase with entries of the past 7 days.
-4. With the new temporary EntryDatabase, `EntryDatabase#listEntries()` then displays the past week's entries
+3. `EntryDatabase#getPastDaysEntryDatabase(int)` then returns an Entry Database with entries of the past 7 days.
+4. With the new temporary Entry Database, `EntryDatabase#listEntries()` then displays the past week's entries
 to the user.
 
 The following Sequence Diagrams shows how the list food entry feature works:
@@ -547,14 +547,14 @@ The following Sequence Diagrams shows how the list food entry feature works:
 The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
 Additionally, they implement the following operations:
-- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from EntryDatabase.
+- `EntryDatabase#deleteEntry(int)` -- Deletes the entry at the specified index from Entry Database.
 
 Given below is an example usage scenario and how the delete food entry mechanism behaves at each step.
 
-1. The user executes the `delete /entry 2` command to delete the second entry from the EntryDatabase.
+1. The user executes the `delete /entry 2` command to delete the second entry from the Entry Database.
 2. This calls `DeleteEntryCommand#execute()`, which then calls `EntryDatabase#deleteEntry(int)` with '2' as its parameter
    (Since the user wishes to delete the second entry).
-3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the EntryDatabase.
+3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
 
 #### Adding Meal Plan Feature
 

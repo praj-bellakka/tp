@@ -168,7 +168,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Deleting food entry: `remove /entry`
-Deletes an entry from the EntryDatabase.
+Deletes an entry from the Entry Database.
 
 Format: `remove /entry INDEX_OF_FOOD`
 
@@ -200,7 +200,7 @@ Example of usage:
 <p>&nbsp;</p>
 
 #### Searching for tracker entries with keyword: `find /entry`
-Finds all matching entries in the EntryDatabase based on the keyword you provided.
+Finds all matching entries in the Entry Database based on the keyword you provided.
 
 Format: `find /entry KEYWORD`
 
