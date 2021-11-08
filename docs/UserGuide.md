@@ -49,9 +49,9 @@ Here is the list of sections we will be covering in this User Guide.
 ## Quick Start
 
 1. Ensure that you have Java 11 installed in your computer. 
-2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
+2. Download the latest version of `fitnus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+4. Type the following command in your terminal to run this program:`java -jar fitnus.jar`
 5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
 If you have successfully run the programme, you should see messages similar to the following:
 
@@ -120,7 +120,7 @@ Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
 
-If a MEALTYPE is not specified, FitNus will automatically tag the meal based on the current time.
+If a MEALTYPE is not specified, FitNUS will automatically tag the meal based on the current time.
 
 > **⚠️ Notes about `INDEX_OF_MEALPLAN`**
 >
@@ -365,7 +365,7 @@ Example of usage:
 
 `weight /set 55.6`
 
-Sample Output:
+Sample output:
 
 ![img_2.png](sampleOutputWeightSet.png)
 
@@ -384,13 +384,13 @@ Format:
 
 Examples of usage:
 
-1. List weight progress since the start of using FitNus: `list /weight /all`
-   - Sample Output:
+1. List weight progress since the start of using FitNUS `list /weight /all`
+   - Sample output:
    
     ![img_2.png](img_2.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
-   - Sample Output:
+   - Sample output:
    
    ![img_8.png](img_8.png)
 
@@ -408,7 +408,7 @@ Format: `gender /set GENDER_SYMBOL`
 
 Example of usage: `gender /set m`
 
-Sample Output:
+Sample output:
 
 ![img_9.png](img_9.png)
 
@@ -422,7 +422,7 @@ Format: `height /set HEIGHT`
 
 Example of usage:`height /set 180`
 
-Sample Output:
+Sample output:
 
 ![img_10.png](img_10.png)
 
@@ -436,7 +436,7 @@ Format: `age /set AGE`
 
 Example of usage:`age /set 18`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/set-age.png)
 
@@ -455,7 +455,7 @@ Format: `calorie /set CALORIE_GOAL`
 
 Example of usage:`calorie /set 2000`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
@@ -484,7 +484,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
 Example of usage:`calorie /generate /gain 0.5`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
@@ -496,7 +496,7 @@ within their daily calorie goal.
 
 Format: `calorie /remain`
 
-Sample Output:
+Sample output:
 
 ![](diagrams-UG/calorie_remain.png)
 
@@ -507,7 +507,7 @@ View your personal user data including gender, age, weight, height and calorie g
 
 Format: `list /user`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/list-user.png)
 
@@ -521,7 +521,7 @@ Lists out available commands and additional information regarding each command.
 
 Format: `help`
 
-Sample Output:
+Sample output:
 
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
@@ -540,7 +540,7 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 
 Format: `summary /week`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/week-summary.png)
 
@@ -554,7 +554,7 @@ Monthly report gives you an overview of your diet over this month, which include
 
 Format: `summary /month`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/month-summary.png)
 
@@ -597,19 +597,19 @@ If data is successfully loaded upon startup, you will see messages similar to th
 
 ![](diagrams-UG/storage_load.png)
 
-However, if files are missing, FitNus will create the necessary files for you.
+However, if files are missing, FitNUS will create the necessary files for you.
 Then, you will see messages similar to the following:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
 <p>&nbsp;</p>
 
-#### Quit FitNus
-Exits the FitNus program.
+#### Quit FitNUS
+Exits the FitNUS program.
 
 Format: `exit`
 
-Sample Output:
+Sample output:
 
 ![img](diagrams-UG/exit.png)
 
