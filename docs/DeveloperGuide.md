@@ -33,6 +33,7 @@
 7. [Appendix: Non-functional Requirement](#nf-requirements)
 8. [Appendix: User Stories](#user-stories)
 
+----
 
 ## Product scope
 
@@ -43,6 +44,8 @@ NUS Computing students reside in UTown.
 ### Value proposition
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
+
+----
 
 ## Quick Start
 
@@ -59,6 +62,7 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 Refer to the User Guide (no link for now) for details of each command.
 
+----
 
 ## Application Architecture
 
@@ -465,6 +469,7 @@ This decision is done via a simple if-else check as shown in the code snippet be
 
 ![](diagrams-DG/Parser_promptUserCalories_Seq.png)
 
+----
 
 ## Implementation
 
@@ -762,6 +767,7 @@ The following sequence diagram shows how the view remaining calories feature wor
 
 ![viewRemainingCalorie Sequence Diagram](diagrams-DG/Command_ViewRemainingCalorie_Seq.png)
 
+----
 
 ## Appendix: Instructions for manual testing
 
