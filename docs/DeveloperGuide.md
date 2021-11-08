@@ -34,7 +34,7 @@
    - [List Weight Tracker](#list-weight-tracker-feature)
    - [Generate Calorie Goal](#generate-calorie-goal-feature)
    - [View Remaining Calories](#view-remaining-calories-feature)
-6. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 7. [Appendix: Non-functional Requirement](#nf-requirements)
 8. [Appendix: User Stories](#user-stories)
 
@@ -620,13 +620,15 @@ The sequence diagram below describes the execution of the `ViewSuggestionsComman
 ![](diagrams-DG/SuggestCommandSequence.png)
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
-1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object
-   and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `User` object
+by calling `User#getCalorieGoal` and obtains current calorie consumption (`caloriesConsumed`) from the `EntryDatabase` 
+object by calling `EntryDatabase#getTotalDailyCalorie`.
 2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
-3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+3. `FoodDatabase#findSuggestions` is called to filter out all matching `Food` objects
    based on the remaining calories and specified type. The user also has the option to have the result sorted
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
-4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user
+by calling `Ui#printMatchingFoods`.
 
 ### User Profile Setup and Editing Feature
 
@@ -1045,57 +1047,42 @@ Listing all user data
 -------------
 ### Other Features
 
-#### View statistics
-Weekly report
 
-This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
+#### View Weekly report
 
 Prerequisite: Have at least one existing `Entry` in the past week.
 
-1. The user executes the `summary /week` command to generate a report of their diet in the past week.
-`ViewWeekSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastDaysEntryDatabase` is then called to retrieve all `Entry` objects from the past week.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateWeekSummaryReport` is then called which generates a report based on the food consumed 
-over the past seven days.
+Test case: `summary /week`
 
 Expected: A weekly report is generated.
 
 
-Monthly report
-
-This feature allows the user to generate a report that gives an overview of their diet over this past month.
+#### View Monthly report
 
 Prerequisite: Have at least one existing `Entry` in the past month.
 
-1. The user executes the `summary /month` command to generate a report of their diet in the past month.
-   `ViewMonthSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastMonthEntryDatabase` is then called to retrieve all `Entry` objects from the past month.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateMonthSummaryReport` is then called which generates a report based on the food consumed
-   over the past month.
+Test case: `summary /month`
 
 Expected: A monthly report is generated.
 
+
 #### View Food Suggestions
 
-This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
-
 Prerequisite: 
-- User data (gender, age, weight, height) is set correctly to ensure the calorie
-goal is generated correctly
+- Daily calorie goal is set correctly
 - `FoodDatabase` has at least one `Food`
 
-Given below is an example usage scenario and how its mechanism behaves at each step.
+View suggestions (unsorted) 
+* Test case: `suggest /meal`
 
-1. The user executes the `suggest /snack` command to find suggestions for a snack.
-`ViewSuggestionsCommand#execute` is called.
-2. `User#getCalorieGoal` and `EntryDatabase#getTotalDailyCalorie` are then called in order to compute
-the remaining calories for the day.
-3. `FoodDatabase#findSuggestions` is called next to retrieve matching `Food` objects.
-4. `Ui#printMatchingFoods` is then called to print all the retrieved `Food`.
+    Expected: Matching `Food` suggestions are shown but suggestions are not fully sorted.
 
-Expected: Matching `Food` suggestions are shown.
+View suggestions (sorted)
+* Test case: `suggest /snack /sort`
+   
+    Expected: Matching `Food` suggestions are shown and suggestions are fully sorted.
+
+
 
 -------------
 
