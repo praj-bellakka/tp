@@ -648,6 +648,13 @@ public class Parser {
         return -1;
     }
 
+    /**
+     * Function parses the input containing a remove command and returns the appropriate remove command, either
+     * DeleteFoodCommand or DeleteEntryCommand. If input is of an invalid format, it will throw an exception.
+     * @param input Input containing the user's desired command.
+     * @return Returns the correct remove command.
+     * @throws FitNusException Thrown when the input is of an invalid format.
+     */
     private Command parseRemoveTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         String removeType = input.substring(0, typeDescriptorIndex);
