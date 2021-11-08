@@ -9,7 +9,6 @@ FitNUS is specially made for Computing Students living in University Town.
 
 
 - **Feature: Adding Entries**
-
   - What it does: Allows the user to add and track their food intake. They can do so either by choosing from our
   extensive database of foods, or create their own custom food.
   - Highlights: This enhancement was challenging as it was affected by many other changes made in FitNUS, causing it
@@ -17,7 +16,6 @@ FitNUS is specially made for Computing Students living in University Town.
   of this feature.
 
 - **Feature: Editing Entries**
-
   - What it does: Allows the user to edit their past food entries. They can either change it to a food from the 
   database, or to a custom food.
   - Highlights: This enhancement required a deep understanding of both the `EntryDatabase` and `FoodDatabase` classes,
@@ -25,7 +23,6 @@ FitNUS is specially made for Computing Students living in University Town.
   does not exist.
 
 - **Feature: Listing Entries**
-
   - What it does: Allows the user to list their past food entries. They can either list out all entries in the past day,
   week, or since inception.
   - Highlights: This enhancement required a good understanding of how entries are being logged in. The challenge comes in 
@@ -35,13 +32,11 @@ FitNUS is specially made for Computing Students living in University Town.
 <div style="page-break-after: always;"></div>
     
 - **Feature: Deleting Entries**
-
   - What it does: Allows the user to delete a specified food entry.
   - Highlights: This enhancement required a good understanding of how entries are being logged in. The challenge when 
   implementing this feature is to ensure that the specified entry exists, and throws the proper exception otherwise.
 
 - **Feature: Showing food intake summary**
-
   - What it does: Allows the user to view a summary of their past food intake. They can either view a summary of the
     past week or month. Not only does it provide useful information such as the user's average daily calorie intake, it also
   provides information about the user's most/least eaten food and a visual diagram of the user's calorie intake.
@@ -53,7 +48,6 @@ FitNUS is specially made for Computing Students living in University Town.
   with the visualisation of the summary diagrams.
 
 - **Feature: Show help message**
-
   - What it does: Allows the user to list out all the available commands FitNUS accepts.
   - Highlights: This enhancement required a good understanding of how all the features in FitNUS operates. 
 
