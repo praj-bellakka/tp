@@ -32,6 +32,8 @@ FitNUS is specially made for Computing Students living in University Town.
   differentiating how many entries to list out. This required the use of `EntryDatabase#getPastDaysEntryDatabase(int)`
   which returns a subset of the current `EntryDatabase`. 
 
+<div style="page-break-after: always;"></div>
+    
 - **Feature: Deleting Entries**
 
   - What it does: Allows the user to delete a specified food entry.
