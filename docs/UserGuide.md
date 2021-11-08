@@ -49,9 +49,9 @@ Here is the list of sections we will be covering in this User Guide.
 ## Quick Start
 
 1. Ensure that you have Java 11 installed in your computer. 
-2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
+2. Download the latest version of `fitnus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+4. Type the following command in your terminal to run this program:`java -jar fitnus.jar`
 5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
 If you have successfully run the programme, you should see messages similar to the following:
 
@@ -120,7 +120,7 @@ Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
 
-If a MEALTYPE is not specified, FitNus will automatically tag the meal based on the current time.
+If a MEALTYPE is not specified, FitNUS will automatically tag the meal based on the current time.
 
 > **⚠️ Notes about `INDEX_OF_MEALPLAN`**
 >
@@ -384,7 +384,7 @@ Format:
 
 Examples of usage:
 
-1. List weight progress since the start of using FitNus: `list /weight /all`
+1. List weight progress since the start of using FitNUS `list /weight /all`
    - Sample Output:
    
     ![img_2.png](img_2.png)
@@ -597,15 +597,15 @@ If data is successfully loaded upon startup, you will see messages similar to th
 
 ![](diagrams-UG/storage_load.png)
 
-However, if files are missing, FitNus will create the necessary files for you.
+However, if files are missing, FitNUS will create the necessary files for you.
 Then, you will see messages similar to the following:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
 <p>&nbsp;</p>
 
-#### Quit FitNus
-Exits the FitNus program.
+#### Quit FitNUS
+Exits the FitNUS program.
 
 Format: `exit`
 
