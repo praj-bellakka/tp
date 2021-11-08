@@ -15,7 +15,7 @@ public class SetWeightCommand extends Command {
 
     @Override
     public String execute(EntryDatabase ed, FoodDatabase fd, MealPlanDatabase md, User us) throws FitNusException {
-        float newWeightIn2Dp = (float) (Math.round(newWeight * 10.0) / 10.0);
-        return us.updateWeightAndWeightTracker(newWeightIn2Dp);
+        //float newWeightIn2Dp = (float) (Math.round(newWeight * 10.0) / 10.0);
+        return us.updateWeightAndWeightTracker(newWeight);
     }
 }
