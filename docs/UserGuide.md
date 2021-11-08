@@ -380,6 +380,8 @@ Format: `weight /set WEIGHT`
   will override the previous weight record for the day instead of creating a new record.
 >- If `WEIGHT` is entered as a number with more than 1 decimal place, the weight will be
 > rounded to 1 decimal place (note that if the next digit is 5, it rounds down instead of up).
+> - If `WEIGHT` is entered as a number that will be rounded down to 0.0 according to the rounding
+> system described above, it will not be accepted as a positive number.
 
 Example of usage:
 
