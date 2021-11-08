@@ -8,7 +8,7 @@
 4. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
-   - [Entry Database](#entrydatabase)
+   - [Entry Database](#entry-database)
    - [Food Database](#food-database)
    - [Meal Plan DataBase](#meal-plan-database)
    - [User](#user)
@@ -582,7 +582,7 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 ![](diagrams-DG/CreateMealPLanCommand_Seq.png)
 
 
-### View Food Suggestions feature
+### View Food Suggestions Feature
 This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.

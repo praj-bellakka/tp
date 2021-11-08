@@ -15,8 +15,8 @@ Here is the list of sections we will be covering in this User Guide.
     - [Adding meal plan entry: `add /mealplan`](#adding-meal-plan-entry-add-mealplan)
     - [Editing existing food entry: `edit`](#editing-existing-food-entry-edit)
     - [Deleting food entry: `remove /entry`](#deleting-food-entry-remove-entry)
-    - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list-entry)
-    - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find-entry)
+    - [Listing food entries: `list /entry`](#listing-food-entries-list-entry)
+    - [Searching for food entries with keyword: `find /entry`](#searching-for-food-entries-with-keyword-find-entry)
   - [Food Database](#food-database)
     - [Deleting food: `remove /food`](#deleting-food-remove-food)
     - [Searching for foods with keyword: `find /food`](#searching-for-foods-with-keyword-find-food)
@@ -36,8 +36,8 @@ Here is the list of sections we will be covering in this User Guide.
     - [View remaining calories for the day: `calorie /remain`](#view-remaining-calories-for-the-day-calorie-remain)
     - [View user data: `list /user`](#view-user-data-list-user)
   - [Other](#other)
-    - [Viewing statistics: `summary`](#view-statistics-summary)
     - [Viewing help: `help`](#viewing-help-help)
+    - [Viewing statistics: `summary`](#view-statistics-summary)
     - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
@@ -181,7 +181,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-#### Listing tracker entries: `list /entry`
+#### Listing food entries: `list /entry`
 Lists out all foods entered for a given timeframe.
 
 Format: `list /entry [/TIMEFRAME]`
@@ -200,7 +200,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-#### Searching for tracker entries with keyword: `find /entry`
+#### Searching for food entries with keyword: `find /entry`
 Finds all matching entries in the Entry Database based on the keyword you provided.
 
 Format: `find /entry KEYWORD`
@@ -605,7 +605,7 @@ Sample Output:
 ![img](diagrams-UG/exit.png)
 
 
-##User Stories
+## User Stories
 
 | As a... | I can...                                 | So that I can...                                                    |
 |---------|------------------------------------------|---------------------------------------------------------------------|
