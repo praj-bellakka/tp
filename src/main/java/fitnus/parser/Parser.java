@@ -872,6 +872,14 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Parses the user input and returns the corresponding FindFoodsCommand object or
+     * FindEntriesCommand object depending on user input.
+     *
+     * @param input The user input.
+     * @return FindFoodsCommand object or FindEntriesCommand object depending on user input.
+     * @throws FitNusException If the command format is wrong.
+     */
     private Command parseFindTypeCommand(String input) throws FitNusException {
         String[] description = input.split(SPACE);
         if (description[0].equals(DESCRIPTOR_FOOD)) {
@@ -887,6 +895,13 @@ public class Parser {
                 + "find /food KEYWORD or find /entry KEYWORD");
     }
 
+    /**
+     * Parses the user input and returns the corresponding ViewSuggestionsCommand object.
+     *
+     * @param input The user input.
+     * @return ViewSuggestionsCommand object.
+     * @throws FitNusException If the command format is wrong.
+     */
     private Command parseSuggestTypeCommand(String input) throws FitNusException {
         boolean isSort = false;
         String[] description = input.split(SPACE);
