@@ -33,7 +33,8 @@ Here is the list of sections we will be covering in this User Guide.
     - [Setting age: `age /set`](#setting-age-age-set)
     - [Setting calorie goal: `calorie /set`](#setting-calorie-goal-calorie-set)
     - [Generate and set calorie goal: `calorie /generate`](#generate-and-set-calorie-goal-calorie-generate)
-    - [View personal data: `list /user`](#view-user-data-list-user)
+    - [View remaining calories for the day: `calorie /remain`](#view-remaining-calories-for-the-day-calorie-remain)
+    - [View user data: `list /user`](#view-user-data-list-user)
   - [Other](#other)
     - [Viewing help: `help`](#viewing-help-help)
     - [Viewing statistics: `summary`](#view-statistics-summary)
@@ -415,7 +416,7 @@ Format: `gender /set GENDER_SYMBOL`
 
 Example of usage: `gender /set m`
 
-Sample output:
+Sample Output:
 
 ![img_2.png](sampleOutputGenderSet.png)
 
@@ -429,7 +430,7 @@ Format: `height /set HEIGHT`
 
 Example of usage:`height /set 180`
 
-Sample output:
+Sample Output:
 
 ![img_2.png](sampleOutputHeightSet.png)
 
@@ -443,7 +444,7 @@ Format: `age /set AGE`
 
 Example of usage:`age /set 18`
 
-Sample output:
+Sample Output:
 
 ![img](diagrams-UG/set-age.png)
 
@@ -462,7 +463,7 @@ Format: `calorie /set CALORIE_GOAL`
 
 Example of usage:`calorie /set 2000`
 
-Sample output:
+Sample Output:
 
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
@@ -491,7 +492,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
 Example of usage:`calorie /generate /gain 0.5`
 
-Sample output:
+Sample Output:
 
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
@@ -503,7 +504,7 @@ within their daily calorie goal.
 
 Format: `calorie /remain`
 
-Sample output:
+Sample Output:
 
 ![](diagrams-UG/calorie_remain.png)
 
@@ -513,7 +514,7 @@ View your personal user data including gender, age, weight, height and calorie g
 
 Format: `list /user`
 
-Sample output:
+Sample Output:
 
 ![img](diagrams-UG/list-user.png)
 
