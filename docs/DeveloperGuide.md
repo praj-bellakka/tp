@@ -11,7 +11,7 @@
    - [Entry Database](#entrydatabase)
    - [Food Database](#food-database)
    - [Meal Plan DataBase](#meal-plan-database)
-   - [User](#user-component)
+   - [User](#user)
    - [Summary](#summary)
    - [Suggest](#view-food-suggestions)
    - [Storage](#storage)
