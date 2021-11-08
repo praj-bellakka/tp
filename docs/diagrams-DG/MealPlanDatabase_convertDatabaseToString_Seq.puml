@@ -11,8 +11,8 @@ loop For every MealPlan object in MealPlanDatabase
     return name
     ":MealPlanDatabase" -> ":MealPlan": getMealPlanFoods()
     activate ":MealPlan"
-    return ArrayList<Food>
-    ":MealPlanDatabase" -> ":MealPlanDatabase": convertFoodToString()
+    return listFoods
+    ":MealPlanDatabase" -> ":MealPlanDatabase": convertFoodToString(listFoods)
     activate ":MealPlanDatabase"
     return Food ArrayList as String
 end
