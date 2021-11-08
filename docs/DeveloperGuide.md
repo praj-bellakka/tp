@@ -1073,12 +1073,12 @@ Prerequisite:
 View suggestions (unsorted) 
 * Test case: `suggest /meal`
 
-    Expected: Matching `Food` suggestions are shown but not fully sorted.
+    Expected: Matching `Food` suggestions are shown but suggestions are not fully sorted.
 
 View suggestions (sorted)
 * Test case: `suggest /snack /sort`
    
-    Expected: Matching `Food` suggestions are shown and is fully sorted.
+    Expected: Matching `Food` suggestions are shown and suggestions are fully sorted.
 
 
 
