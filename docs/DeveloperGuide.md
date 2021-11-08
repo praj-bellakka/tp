@@ -55,7 +55,7 @@ Helps the user to keep track of their daily calorie intake and manage their diet
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer. 
-2. Download the latest fitnus.jar from here (no link for now). 
+2. Download the latest fitnus.jar from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.1). 
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker 
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `fitnus.jar` file is located or provide the absolute path of `fitnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
