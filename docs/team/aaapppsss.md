@@ -10,10 +10,9 @@ Given below are my contributions to the project.
 
 - **Feature:** Added user profile initialisation 
   - What it does: Detects first time users (no user data) or if user data
-    in storage was corrupted and allows user to set up their profile (gender,
-    age, height, weight). Upon setting up profile, a daily calorie goal that
-    maintains their current weight is calculated and set to their profile
-    according to their body type.
+    in storage was corrupted and allows user to set up their profile. 
+    Upon setting up profile, a daily calorie goal that
+    maintains their current weight is calculated and set.
   - Justification: This feature is essential to the calorie goal generation 
     feature, as calorie goal generation cannot be performed if any of the user
     data is missing. 
@@ -27,19 +26,16 @@ Given below are my contributions to the project.
   - Justification: This feature is needed as the user's data may change after a period
     of time, or they may have entered their data wrongly during the profile setup process.
     It is important for the user's data to be accurate so that the generated calorie goal
-    is accurate according to their body type.
+    is accurate.
   - Highlights: Many practical aspects of each user attribute had to be considered in order
     to implement an upper and lower bound (eg the height has to be between 40 and 300 cm).
 - **Feature:** Calorie goal generation
   - What it does: Generates a daily calorie goal automatically
     for the user according to their body type and their desired weekly
     weight change, and sets the user's calorie goal to the new goal
-  - Justification: The average user with limited knowledge about dieting
-    and nutrition would not have a good gauge of how many calories they should
-    consume a day based on their body type and their desired rate of change in weight.
-    This feature brings convenience to the user who wants to quickly get started
-    on their dietting journey instead of having to research what their daily
-    calorie goal should be.
+  - Justification: This feature brings convenience to the user who wants to quickly 
+    get started on their dieting journey instead of having to research what their daily
+    calorie goal should be to achieve their goal weight.
   - Highlights: Much research was done to acquire a formula that can generate the
     daily calorie goal accurately and easily. 
 - **Feature:** Viewing remaining calories
@@ -66,10 +62,6 @@ Given below are my contributions to the project.
 
 
 - Code contributed:[https://nus-cs2113-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=aaapppsss](RepoSense link)
-
-
-- Project management: Created and managed issues on GitHub during the project planning process
-
 
 - Enhancements to existing features:
   - Added functionality to initialise UTown food database (Pull request #370)
