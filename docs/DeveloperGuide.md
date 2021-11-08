@@ -20,6 +20,11 @@
    - [Edit Food Entry](#edit-food-entry-feature)
    - [List Food Entry](#list-food-entry-feature)
    - [Delete Food Entry](#delete-food-entry-feature)
+   - [Add Meal Plan](#add-meal-plan-feature)
+   - [Create Meal Plan](#create-meal-plan-feature)
+6. [Instructions for manual testing](#instructions-for-manual-testing)
+    - [Add Food Entry](#add-food-entry-instructions)
+7. [Non-functional Requirement](#nf-requirements)
    - [Adding Meal Plan](#adding-meal-plan-feature)
    - [Creating Meal Plan](#creating-meal-plan-feature)
    - [View Food Suggestions](#view-food-suggestions-feature)
@@ -228,7 +233,7 @@ The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitN
   
 ![](diagrams-DG/MealPlanDatabase_listMealPlan_Seq.png)
 
-#### Implementation
+#### How it works
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
 - Automatically detect the name of an individual meal plan.
@@ -557,7 +562,7 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
 
-#### Adding Meal Plan Feature
+#### Add Meal Plan Feature
 
 The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
 
@@ -577,7 +582,7 @@ The following Sequence Diagram shows how the adding of meal plan feature works:
 ![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
 
 
-#### Creating Meal Plan Feature
+#### Create Meal Plan Feature
 
 The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
 
@@ -862,6 +867,47 @@ Find food inside the food database according to keywords.
    - `remove /food` (the keyword for searching is mandatory)
 
 -------------
+
+### Meal Plan Features
+
+#### Create meal plan
+
+Creates and adds a new meal plan into the meal plan database.
+1. Prerequisites: there must be at least 1 food inside the food database, and at least 1 food must be selected to create the meal plan.
+2. Test case: `create /mealplan breakfast`. Enter `1 2 3` when prompted to choose foods to add to the database (assuming there are at least 3 food items in the food database).
+
+    Expected: Creates a meal plan with the name "breakfast", with foods 1, 2 and 3 tagged to it.
+3. Other incorrect commands to try:
+   - `create /mealplan` (the meal plan name is compulsory)
+   - (**When prompted to select foods to add to meal plan**): `-1 blah asdfs` (the input must be an integer and be within the range of the food database)
+
+#### Add meal plan
+
+Adds a meal plan into the entry database.
+1. Prerequisites: there must be at least 1 meal plan inside the meal plan database.
+2. Test case: `add /mealplan 1`. 
+    
+   Expected: Adds the meal plan at index 1 to the entry database. The food entry is automatically added as either breakfast, lunch, dinner or snack depending on the time of the day.
+
+    Test case: `add /mealplan /bfast 1`.
+
+    Expected: Adds the meal plan at index 1 to the entry database. The food entry is tagged as breakfast.
+
+3. Other incorrect commands to try:
+    - `add /mealplan invalid` (the meal plan index must be valid; integer value and within range of meal plan database)
+
+#### List meal plan
+
+Lists all meal plans saved in the meal plan database.
+
+1. Prerequisites: there must be at least 1 meal plan inside the meal plan database.
+2. Test case: `list /mealplan`.
+
+    Expected: Lists all meal plans inside the database with its name, followed by all the food items tagged to the meal plan.
+
+
+-------------
+
 ### Weight Tracker Features
 
 #### Record weight
