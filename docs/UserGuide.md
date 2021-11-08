@@ -10,34 +10,35 @@ Here is the list of sections we will be covering in this User Guide.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Entry Database](#food-tracker)
-    - [Adding food entry: `add`](#adding-food-tracker-entry-add)
+  - [Entry Database](#entry-database)
+    - [Adding food entry: `add`](#adding-food-entry-add)
     - [Adding meal plan entry: `add /mealplan`](#adding-meal-plan-entry-add-mealplan)
-    - [Editing existing food entry: `edit`](#editing-existing-food-tracker-entry-edit)
-    - [Deleting food entry: `remove /entry`](#deleting-food-tracker-entry-remove)
-    - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list)
-    - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find)
+    - [Editing existing food entry: `edit`](#editing-existing-food-entry-edit)
+    - [Deleting food entry: `remove /entry`](#deleting-food-entry-remove-entry)
+    - [Listing food entries: `list /entry`](#listing-food-entries-list-entry)
+    - [Searching for food entries with keyword: `find /entry`](#searching-for-food-entries-with-keyword-find-entry)
   - [Food Database](#food-database)
     - [Deleting food: `remove /food`](#deleting-food-remove-food)
     - [Searching for foods with keyword: `find /food`](#searching-for-foods-with-keyword-find-food)
     - [Listing foods in food database: `list /food`](#listing-foods-in-food-database-list-food)
   - [Meal Plan Database](#meal-plan-database)
-    - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create)
-    - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list)
+    - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create-mealplan)
+    - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list-mealplan)
   - [Weight Tracker](#weight-tracker)
     - [Recording weight: `weight /set`](#recording-weight-weight-set)
-    - [Listing weight records: `list /weight`](#listing-weight-records-list)
+    - [Listing weight records: `list /weight`](#listing-weight-records-list-weight)
   - [Personalisation](#personalisation)
     - [Setting gender: `gender /set`](#setting-gender-gender-set)
     - [Setting height: `height /set`](#setting-height-height-set)
     - [Setting age: `age /set`](#setting-age-age-set)
     - [Setting calorie goal: `calorie /set`](#setting-calorie-goal-calorie-set)
     - [Generate and set calorie goal: `calorie /generate`](#generate-and-set-calorie-goal-calorie-generate)
-    - [View personal data: `list /user`](#view-personal-data-list-user)
+    - [View remaining calories for the day: `calorie /remain`](#view-remaining-calories-for-the-day-calorie-remain)
+    - [View user data: `list /user`](#view-user-data-list-user)
   - [Other](#other)
-    - [Viewing statistics: `summary`](#view-statistics-summary)
     - [Viewing help: `help`](#viewing-help-help)
-    - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
+    - [Viewing statistics: `summary`](#view-statistics-summary)
+    - [Getting food suggestions: `suggest`](#getting-food-suggestions-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
     - [Exiting FitNUS: `exit`](#quit-fitnus)
@@ -52,19 +53,9 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
-If you have successfully run the programme, you should see the following message as follows:
+If you have successfully run the programme, you should see messages similar to the following:
 
-```
-------------------
-Welcome to FitNUS Tracker!
-Preloaded 68 foods
-Preloaded 0 entries
-Preloaded 0 meal plans
-Preloaded user data successfully
-------------------
-
-[X] Please enter your gender (m/f):
-```
+![](diagrams-UG/launch.png)
 
 
 ## Features
@@ -119,7 +110,7 @@ Sample output:
 
 #### Adding meal plan entry: `add /mealplan`
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
-Click on [this link](#creating-meal-plan-by-adding-food-create) to create a meal plan.  
+Click on [this link](#creating-meal-plan-by-adding-food-create-mealplan) to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
@@ -168,7 +159,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Deleting food entry: `remove /entry`
-Deletes an entry from the EntryDatabase.
+Deletes an entry from the Entry Database.
 
 Format: `remove /entry INDEX_OF_FOOD`
 
@@ -180,7 +171,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-#### Listing tracker entries: `list /entry`
+#### Listing food entries: `list /entry`
 Lists out all foods entered for a given timeframe.
 
 Format: `list /entry [/TIMEFRAME]`
@@ -199,8 +190,8 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-#### Searching for tracker entries with keyword: `find /entry`
-Finds all matching entries in the EntryDatabase based on the keyword you provided.
+#### Searching for food entries with keyword: `find /entry`
+Finds all matching entries in the Entry Database based on the keyword you provided.
 
 Format: `find /entry KEYWORD`
 
@@ -375,6 +366,7 @@ Example of usage:
 `weight /set 55.6`
 
 Sample Output:
+
 ![img.png](sampleOutputWeightSet)
 
 <p>&nbsp;</p>
@@ -394,12 +386,14 @@ Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
    - Sample output:
-  ![img.png](sampleOutputListWeightAll.png)
+
+   ![img.png](sampleOutputListWeightAll.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
    - Sample output:
+   
    ![img.png](sampleOutputListWeightMonth.png)
-<p>&nbsp;</p>
+
 
 ### Personalisation
 
@@ -413,10 +407,10 @@ Format: `gender /set GENDER_SYMBOL`
 
 Example of usage: `gender /set m`
 
-Sample output:
+Sample Output:
+
 ![img_2.png](sampleOutputGenderSet.png)
 
-<p>&nbsp;</p>
 
 
 ####  Setting height: `height /set`
@@ -427,10 +421,10 @@ Format: `height /set HEIGHT`
 
 Example of usage:`height /set 180`
 
-Sample output:
+Sample Output:
+
 ![img_2.png](sampleOutputHeightSet.png)
 
-<p>&nbsp;</p>
 
 
 ####  Setting age: `age /set`
@@ -441,7 +435,7 @@ Format: `age /set AGE`
 
 Example of usage:`age /set 18`
 
-Sample output:
+Sample Output:
 
 ![img](diagrams-UG/set-age.png)
 
@@ -460,7 +454,8 @@ Format: `calorie /set CALORIE_GOAL`
 
 Example of usage:`calorie /set 2000`
 
-Sample output:
+Sample Output:
+
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
 <p>&nbsp;</p>
@@ -488,7 +483,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
 Example of usage:`calorie /generate /gain 0.5`
 
-Sample output:
+Sample Output:
 
 ![img](diagrams-UG/Generate-and-set-calorie-goal.png)
 
@@ -500,7 +495,8 @@ within their daily calorie goal.
 
 Format: `calorie /remain`
 
-Sample output:
+Sample Output:
+
 ![](diagrams-UG/calorie_remain.png)
 
 
@@ -509,7 +505,8 @@ View your personal user data including gender, age, weight, height and calorie g
 
 Format: `list /user`
 
-Sample output:
+Sample Output:
+
 ![img](diagrams-UG/list-user.png)
 
 ### Other
@@ -520,6 +517,7 @@ Lists out available commands and additional information regarding each command.
 Format: `help`
 
 Sample Output:
+
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
 
@@ -539,6 +537,7 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 Format: `summary /week`
 
 Sample Output:
+
 ![img](diagrams-UG/week-summary.png)
 
 ##### Monthly report
@@ -555,11 +554,11 @@ Sample Output:
 
 <p>&nbsp;</p>
 
-#### Suggest food based on food type and calorie goal: `suggest`
+#### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
 (meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
 
-Format: `suggest /FOODTYPE` `suggest /FOODTYPE /sort`
+Format: `suggest /FOODTYPE [/sort]`
 
 > **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
 
@@ -572,6 +571,7 @@ Example of usage: `suggest /meal` `suggest /snack /sort`
 Sample output:
 
 ![](diagrams-UG/suggest_meal.png)
+
 ![](diagrams-UG/suggest_snack_sort.png)
 
 
@@ -603,7 +603,7 @@ Sample Output:
 ![img](diagrams-UG/exit.png)
 
 
-##User Stories
+## User Stories
 
 | As a... | I can...                                 | So that I can...                                                    |
 |---------|------------------------------------------|---------------------------------------------------------------------|
