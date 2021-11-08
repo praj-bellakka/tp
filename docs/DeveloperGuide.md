@@ -574,9 +574,6 @@ Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
 4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
 
 
-
-## Implementation
-
 ### User Profile Setup and Editing
 
 This feature allows the user to set up and
