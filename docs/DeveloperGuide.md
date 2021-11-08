@@ -583,7 +583,7 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 ![](diagrams-DG/CreateMealPLanCommand_Seq.png)
 
 
-### View Food Suggestions feature
+### View Food Suggestions Feature
 This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
