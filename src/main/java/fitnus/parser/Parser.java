@@ -82,7 +82,8 @@ public class Parser {
     private static final String DESCRIPTOR_GENERATE = "/generate";
     private static final String DESCRIPTOR_SET = "/set";
     private static final String DESCRIPTOR_MEALPLAN = "/mealplan";
-    public static final int INVALID_INPUT = -1;
+    private static final int INVALID_INPUT = -1;
+    private static final int INVALID_INDEX = -1;
     public static final String INVALID_COMMAND_MESSAGE = "That was an invalid command! "
             + "Type 'help' for a list of commands\n"
             + "and their command formats.";
@@ -126,6 +127,8 @@ public class Parser {
     // Timeframe
     private static final int DAYS_IN_DAY = 1;
     private static final int DAYS_IN_WEEK = 7;
+    public static final String EMPTY_FOOD_MEALPLAN_ERROR = "Unable to create meal plan as there "
+            + "are no food in the database! Add some foods first!";
 
     private static boolean isLoopFlagOn = true;
 
@@ -238,7 +241,7 @@ public class Parser {
         //find meal category and food name
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealTypeString = "";
-        if (spaceCharacterIndex == -1) {
+        if (spaceCharacterIndex == INVALID_INDEX) {
             mealTypeString = input;
         } else {
             mealTypeString = input.substring(0, input.indexOf(SPACE_CHARACTER));
@@ -315,14 +318,14 @@ public class Parser {
     public AddMealPlanEntryCommand parseAddMealPlanFoodCommand(MealPlanDatabase md, String input)
             throws FitNusException {
         int spaceIndex = input.indexOf(SPACE_CHARACTER);
-        if (spaceIndex == -1) {
+        if (spaceIndex == INVALID_INDEX) {
             throw new FitNusException("Invalid format");
         }
         String remainingString = input.substring(spaceIndex).strip();
         int spaceRemainingIndex = remainingString.indexOf(SPACE_CHARACTER);
         MealType mealType = MealType.UNDEFINED;
         //mealType has not been specified by the user
-        if (spaceRemainingIndex == -1) {
+        if (spaceRemainingIndex == INVALID_INDEX) {
             mealType = mealType.findMealTypeTiming();
             //throw new FitNusException("Invalid format");
         } else {
@@ -330,7 +333,7 @@ public class Parser {
         }
         try {
             int index;
-            if (spaceRemainingIndex == -1) {
+            if (spaceRemainingIndex == INVALID_INDEX) {
                 index = Integer.parseInt(remainingString.strip());
             } else if (!remainingString.substring(0, spaceRemainingIndex).contains(BACKSLASH_CHARACTER)) {
                 throw new FitNusException("Recheck command format!");
@@ -359,13 +362,16 @@ public class Parser {
 
         int spaceCharacterIndex = input.indexOf(SPACE_CHARACTER);
         String mealNameString = "";
-        if (spaceCharacterIndex == -1) {
+        if (spaceCharacterIndex == INVALID_INDEX) {
             throw new FitNusException("Meal plan name cannot be empty!");
         } else {
             mealNameString = input.substring(input.indexOf(SPACE_CHARACTER))
                     .strip().replaceAll("\\|", "");
         }
-
+        //if food database is empty, return error
+        if (fd.getFoodDatabase().size() == 0) {
+            throw new FitNusException(EMPTY_FOOD_MEALPLAN_ERROR);
+        }
         //display all current foods
         Ui newUi = new Ui();
         Ui.printMealPlanCreation(fd);
