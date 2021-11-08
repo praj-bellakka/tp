@@ -119,7 +119,7 @@ Sample output:
 
 #### Adding meal plan entry: `add /mealplan`
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
-Click on [this link](#creating-meal-plan-by-adding-food-create) to create a meal plan.  
+Click on [this link](#creating-meal-plan-by-adding-food-create-mealplan) to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
@@ -395,14 +395,14 @@ Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
    - Sample output:
-   
+
    ![img.png](sampleOutputListWeightAll.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
    - Sample output:
    
    ![img.png](sampleOutputListWeightMonth.png)
-<p>&nbsp;</p>
+
 
 ### Personalisation
 
@@ -420,7 +420,6 @@ Sample output:
 
 ![img_2.png](sampleOutputGenderSet.png)
 
-<p>&nbsp;</p>
 
 
 ####  Setting height: `height /set`
@@ -435,7 +434,6 @@ Sample output:
 
 ![img_2.png](sampleOutputHeightSet.png)
 
-<p>&nbsp;</p>
 
 
 ####  Setting age: `age /set`

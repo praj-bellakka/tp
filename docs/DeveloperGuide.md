@@ -583,7 +583,7 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 ![](diagrams-DG/CreateMealPLanCommand_Seq.png)
 
 
-### View Food Suggestions feature
+### View Food Suggestions Feature
 This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
@@ -747,7 +747,7 @@ how its mechanism behaves at each step.
 1. The user executes the `calorie /remain` command to view their remaining calories
 for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#getCaloriesRemaining`.
 2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
-entries in the food tracker. This is subtracted from the user's daily calorie goal. 
+entries in the Entry Database. This is subtracted from the user's daily calorie goal. 
 The resulting calories remaining is then displayed to the user. 
 
 The following sequence diagram shows how the view remaining calories feature works:
@@ -945,7 +945,7 @@ Generating calorie goal according to desired weekly change
 #### View remaining calories
 
  Viewing remaining calories for the day
-1. Prerequisites: The total number of calories of all food tracker entries entered
+1. Prerequisites: The total number of calories of all food entries entered
    for the day has not exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
 
@@ -953,7 +953,7 @@ Generating calorie goal according to desired weekly change
    to their daily calorie goal is displayed.
 
 Viewing remaining calories for the day when exceeded daily goal
-1. Prerequisites: The total number of calories of all food tracker entries entered
+1. Prerequisites: The total number of calories of all food entries entered
    for the day has exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
 
