@@ -4,29 +4,23 @@
 
 1. [Product Scope](#product-scope)
 2. [Quick Start](#quick-start)
-3. [User Stories](#user-stories)
-4. [Application Architecture](#application-architecture)
+3. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
    - [Entry Database](#entry-database)
    - [Food Database](#food-database)
-   - [Meal Plan DataBase](#meal-plan-database)
+   - [Meal Plan Database](#meal-plan-database)
    - [User](#user)
    - [Summary](#summary)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Implementation](#implementation)
+4. [Implementation](#implementation)
    - [Add Food Entry](#add-food-entry-feature)
    - [Edit Food Entry](#edit-food-entry-feature)
    - [List Food Entry](#list-food-entry-feature)
    - [Delete Food Entry](#delete-food-entry-feature)
    - [Add Meal Plan](#add-meal-plan-feature)
    - [Create Meal Plan](#create-meal-plan-feature)
-6. [Instructions for manual testing](#appendix-instructions-for-manual-testing)
-    - [Add Food Entry](#add-food-entry)
-7. [Non-functional Requirement](#appendix-nf-requirements)
-   - [Adding Meal Plan](#add-meal-plan-feature)
-   - [Creating Meal Plan](#create-meal-plan-feature)
    - [View Food Suggestions](#view-food-suggestions-feature)
    - [User Profile Setup and Editing](#user-profile-setup-and-editing-feature)
    - [List User Data](#list-user-data-feature)
@@ -34,9 +28,15 @@
    - [List Weight Tracker](#list-weight-tracker-feature)
    - [Generate Calorie Goal](#generate-calorie-goal-feature)
    - [View Remaining Calories](#view-remaining-calories-feature)
-6. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
-7. [Appendix: Non-functional Requirement](#nf-requirements)
-8. [Appendix: User Stories](#user-stories)
+5. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    - [Entry Features](#entry-features)
+    - [Food Features](#food-features)
+    - [Meal Plan Features](#meal-plan-features)
+    - [Weight Tracker Features](#weight-tracker-features)
+    - [User Personalisation Features](#user-personalisation-features)
+    - [Other Features](#other-features)
+6. [Appendix: Non-functional Requirement](#appendix-nf-requirements)
+7. [Appendix: User Stories](#appendix-user-stories)
 
 ----
 
@@ -344,7 +344,7 @@ The `Storage` component consists of:
 
 #### Storage format (in the text files)
 
-**Every line in each text file represents one food / entry / record**
+> **_NOTE:_** Every line in each text file represents one `Food` / `Entry` / record
 
 * FoodDatabase (`food.txt`): `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
     Example: 
@@ -359,6 +359,19 @@ The `Storage` component consists of:
     Dinner | ramen | 500 | 2021-11-06 | MEAL
 
     ```
+* MealPlanDatabase (`mealplan.txt`): 
+
+    For every `MealPlan` with `n` number of `Food`:
+
+    * `n` lines of `Food`: `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
+    * Followed by 1 line containing the `MealPlan` name
+  
+    Example:
+    ```
+    lemon tea | 90 | BEVERAGE
+    bbq beef set | 504 | MEAL
+    -------- | lunch set a
+    ```
 * User (`user.txt`): `CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
     Example: 
     ```
@@ -370,7 +383,6 @@ The `Storage` component consists of:
     75.0 | 2021-11-05
     75.5 | 2021-11-06
     ```
-> **_NOTE:_** Example of `mealplan.txt` is omitted because its format is largely similar to `food.txt`
 
 #### Sequence of operations
 
@@ -478,7 +490,7 @@ This decision is done via a simple if-else check as shown in the code snippet be
 
 ## Implementation
 
-#### Add Food Entry Feature
+### Add Food Entry Feature
 
 The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -502,7 +514,7 @@ The following Sequence Diagram shows how the add food entry feature works:
 
 ![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
 
-#### Edit Food Entry Feature
+### Edit Food Entry Feature
 
 The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -525,7 +537,7 @@ The following Sequence Diagram shows how the edit food entry feature works:
 
 ![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
 
-#### List Food Entry Feature
+### List Food Entry Feature
 
 The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
 
@@ -548,7 +560,7 @@ The following Sequence Diagrams shows how the list food entry feature works:
 
 ![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
-#### Delete Food Entry Feature
+### Delete Food Entry Feature
 
 The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -562,7 +574,7 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
 
-#### Add Meal Plan Feature
+### Add Meal Plan Feature
 
 The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
 
@@ -582,7 +594,7 @@ The following Sequence Diagram shows how the adding of meal plan feature works:
 ![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
 
 
-#### Create Meal Plan Feature
+### Create Meal Plan Feature
 
 The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
 
@@ -608,13 +620,15 @@ The sequence diagram below describes the execution of the `ViewSuggestionsComman
 ![](diagrams-DG/SuggestCommandSequence.png)
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
-1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object
-   and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `User` object
+by calling `User#getCalorieGoal` and obtains current calorie consumption (`caloriesConsumed`) from the `EntryDatabase` 
+object by calling `EntryDatabase#getTotalDailyCalorie`.
 2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
-3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+3. `FoodDatabase#findSuggestions` is called to filter out all matching `Food` objects
    based on the remaining calories and specified type. The user also has the option to have the result sorted
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
-4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user
+by calling `Ui#printMatchingFoods`.
 
 ### User Profile Setup and Editing Feature
 
@@ -1033,57 +1047,42 @@ Listing all user data
 -------------
 ### Other Features
 
-#### View statistics
-Weekly report
 
-This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
+#### View Weekly report
 
 Prerequisite: Have at least one existing `Entry` in the past week.
 
-1. The user executes the `summary /week` command to generate a report of their diet in the past week.
-`ViewWeekSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastDaysEntryDatabase` is then called to retrieve all `Entry` objects from the past week.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateWeekSummaryReport` is then called which generates a report based on the food consumed 
-over the past seven days.
+Test case: `summary /week`
 
 Expected: A weekly report is generated.
 
 
-Monthly report
-
-This feature allows the user to generate a report that gives an overview of their diet over this past month.
+#### View Monthly report
 
 Prerequisite: Have at least one existing `Entry` in the past month.
 
-1. The user executes the `summary /month` command to generate a report of their diet in the past month.
-   `ViewMonthSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastMonthEntryDatabase` is then called to retrieve all `Entry` objects from the past month.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateMonthSummaryReport` is then called which generates a report based on the food consumed
-   over the past month.
+Test case: `summary /month`
 
 Expected: A monthly report is generated.
 
+
 #### View Food Suggestions
 
-This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
-
 Prerequisite: 
-- User data (gender, age, weight, height) is set correctly to ensure the calorie
-goal is generated correctly
+- Daily calorie goal is set correctly
 - `FoodDatabase` has at least one `Food`
 
-Given below is an example usage scenario and how its mechanism behaves at each step.
+View suggestions (unsorted) 
+* Test case: `suggest /meal`
 
-1. The user executes the `suggest /snack` command to find suggestions for a snack.
-`ViewSuggestionsCommand#execute` is called.
-2. `User#getCalorieGoal` and `EntryDatabase#getTotalDailyCalorie` are then called in order to compute
-the remaining calories for the day.
-3. `FoodDatabase#findSuggestions` is called next to retrieve matching `Food` objects.
-4. `Ui#printMatchingFoods` is then called to print all the retrieved `Food`.
+    Expected: Matching `Food` suggestions are shown but suggestions are not fully sorted.
 
-Expected: Matching `Food` suggestions are shown.
+View suggestions (sorted)
+* Test case: `suggest /snack /sort`
+   
+    Expected: Matching `Food` suggestions are shown and suggestions are fully sorted.
+
+
 
 -------------
 
