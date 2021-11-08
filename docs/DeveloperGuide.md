@@ -13,7 +13,6 @@
    - [Meal Plan DataBase](#meal-plan-database)
    - [User](#user)
    - [Summary](#summary)
-   - [Suggest](#view-food-suggestions)
    - [Storage](#storage)
    - [Parser](#parser)
 5. [Implementation](#implementation)
@@ -755,7 +754,7 @@ The following sequence diagram shows how the view remaining calories feature wor
 ![viewRemainingCalorie Sequence Diagram](diagrams-DG/Command_ViewRemainingCalorie_Seq.png)
 
 
-## Instructions for manual testing
+## Appendix: Instructions for manual testing
 
 ### Entry Features
 
@@ -1028,7 +1027,7 @@ Expected: Matching `Food` suggestions are shown.
 -------------
 
 
-## NF Requirements
+## Appendix: NF Requirements
 
 1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
 2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
@@ -1037,7 +1036,7 @@ Expected: Matching `Food` suggestions are shown.
 
 ---
 
-## User Stories
+## Appendix: User Stories
 
 | As a... | I can...                                 | So that I can...                                                    |
 |---------|------------------------------------------|---------------------------------------------------------------------|
