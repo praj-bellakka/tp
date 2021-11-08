@@ -44,8 +44,8 @@ public class HelpCommand extends Command {
                 + "============== OTHERS ===============\n"
                 + "[X] List out available commands: help\n"
                 + "[X] Show summary: summary /TIMEFRAME (/week, /month)\n"
-                + "[X] Recommend food to eat: suggest /FOODTYPE (/meal, /beverage, /snack, /others)\n"
-                + "[X] Recommend food to eat (sorted): suggest /FOODTYPE /sort\n"
+                + "[X] Suggest food to eat: suggest /FOODTYPE (/meal, /beverage, /snack, /others)\n"
+                + "[X] Suggest food to eat (sorted): suggest /FOODTYPE /sort\n"
                 + "[X] Exit FitNUS: exit\n";
     }
 }
