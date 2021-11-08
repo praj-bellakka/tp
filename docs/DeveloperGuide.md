@@ -56,7 +56,7 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
-3. Copy the file to the folder you want to use as the home folder for your FitNus Tracker 
+3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker 
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `fitnus.jar` file is located or provide the absolute path of `fitnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
@@ -78,7 +78,7 @@ The Architecture Diagram given above explains the high-level design of the App.
 
 Given below is a quick overview of main components and how they interact with each other.
 
-The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used.
+The entry point of the app is the `FitNus` class, where the application is run and all other components are initialised and used.
 
 The primary components of the app are listed below:
 - `Storage`: For handling backend storage.
@@ -92,12 +92,12 @@ The primary components of the app are listed below:
 
 #### How the overall architecture works
 
-1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
+1. When the user enters a command, `FitNus` uses the Parser class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses 
 e.g., `AddFoodEntryCommand`). 
 3. The `Command` object calls its `execute` method which performs the function required.
    - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and 
-   `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related 
+   `MealPlanDatabase` initialised in `FitNus`, it is able to perform operations related 
    to those components (e.g. to add an entry).
 
    > ⚠️ Notes about `execute` method:
@@ -225,7 +225,7 @@ The `MealPlanDatabase` component consists of:
 
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
   
-The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNus is first launched.
+The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNUS is first launched.
 
 ![](diagrams-DG/MealPlanDatabase_preLoadDatabase_Seq.png)
 
@@ -641,10 +641,10 @@ mechanism behaves at each step respectively.
 
 #### User Profile Setup
 
-1. The user launches the application, causing `FitNUS#initialiseFitNUS`
+1. The user launches the application, causing `FitNus#initialiseFitNus`
 to be called. Since this is the first time the user is using the app,
 the `user.txt` file containing the user data does not exist yet,
-prompting FitNUS to create an empty text file storing the user data
+prompting FitNus to create an empty text file storing the user data
 (user.txt). 
 
 2. Since the text file is empty, the check for whether
@@ -656,7 +656,7 @@ begin the user profile setup process.
     the user profile setup process is continued. 
 
 3. FitNUS begins the gender setting process by calling 
-`FitNUS#initialiseAttribute` for the gender. This prompts the user to 
+`FitNus#initialiseAttribute` for the gender. This prompts the user to 
 enter the character indicating their gender. 
 The entered character is appended to a string 
 "gender /set " (eg if the user entered "m", the string becomes
@@ -668,7 +668,7 @@ The `execute` method of the `SetGenderCommand` object is called, which
 sets the `gender` attribute of the `User` object. This terminates the 
 gender initialisation process.
 
-5. If any `FitNUSException` was thrown in steps 4 and 5 due to invalid user
+5. If any `FitNusException` was thrown in steps 4 and 5 due to invalid user
 input, steps 4 and 5 are repeated until no exception is thrown (i.e. valid
 user input was received).
 
@@ -1048,7 +1048,7 @@ Listing all user data
 ### Other Features
 
 
-#### View Weekly report
+#### View Weekly Report
 
 Prerequisite: Have at least one existing `Entry` in the past week.
 
@@ -1057,7 +1057,7 @@ Test case: `summary /week`
 Expected: A weekly report is generated.
 
 
-#### View Monthly report
+#### View Monthly Report
 
 Prerequisite: Have at least one existing `Entry` in the past month.
 
