@@ -910,7 +910,7 @@ public class Parser {
             String keyword = input.substring(typeDescriptorIndex + 6);
             return new FindEntriesCommand(keyword);
         }
-        throw new FitNusException("find command format is wrong. It is supposed to be:\n"
+        throw new FitNusException("Find command format is wrong. It is supposed to be:\n"
                 + "find /food KEYWORD or find /entry KEYWORD");
     }
 
@@ -928,11 +928,11 @@ public class Parser {
             if (description[1].equals(SORT)) {
                 isSort = true;
             } else {
-                throw new FitNusException("Did you enter an invalid input or any additional inputs by mistake?");
+                throw new FitNusException(PARSE_SUGGEST_ERROR);
             }
         }
         if (description.length > 2) {
-            throw new FitNusException("Did you enter an invalid input or any additional inputs by mistake?");
+            throw new FitNusException(PARSE_SUGGEST_ERROR);
         }
         switch (description[0]) {
         case MEAL:
