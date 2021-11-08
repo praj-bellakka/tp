@@ -122,7 +122,7 @@ The Entry Database is represented by the class `EntryDatabase`.
 ![EntryDatabase Class Diagram](diagrams-DG/FoodTrackerDatabase_Class.png)
 
 The `EntryDatabase` class consists of an ArrayList of Entry. It handles all functionalities 
-that uses/amends the Entry Database. 
+that use/amends the Entry Database. 
 
 The `EntryDatabase` component consists of:
 - `addEntry()` Adds an Entry object to the database.
@@ -237,7 +237,7 @@ The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitN
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
 - Automatically detect the name of an individual meal plan.
-- Converts string representation of `Food` items under each meal plan into an `ArrayList` of`Food` objects.
+- Converts string representation of `Food` items under each meal plan into an `ArrayList` of `Food` objects.
 - Detects when all the `Food` items under each meal plan has been added and start parsing the next meal plan if it exists.
 - Add `MealPlan` object into `databaseMealPlans`, which is an `ArrayList` of `MealPlan` objects.
 
@@ -284,7 +284,7 @@ User class and its various components.
 
 ### Summary
 
-The Summary class provides an overview of user's diet over the past week/month.
+The Summary class provides an overview of the user's diet over the past week/month.
 
 #### Weekly summary report
 
@@ -326,7 +326,7 @@ The `Storage` class reads and writes data to and from the text files.
 
 The `Storage` component consists of:
 
-- `Path` variables and `ROOT` that determines the location of the text files.
+- `Path` variables and `ROOT` that determine the location of the text files.
 - `createDirectory()`: Creates a directory at the specified location.
 - `createDirectoryAndFiles()`: Creates the necessary directory and text files for `Storage`.
 - `createFile()`: Creates a text file at the specified location.
@@ -876,7 +876,7 @@ Delete food inside the food database at certain index.
 Find food inside the food database according to keywords.
 1. Prerequisites: there must be at least one food inside the database
 2. Test case: `remove /food rice`
-   Expected: returns all the foods inside the food database contain the keyword "rice".
+   Expected: returns all the foods inside the food database containing the keyword "rice".
 3. Other incorrect commands to try:
    - `remove /food` (the keyword for searching is mandatory)
 
@@ -1013,7 +1013,7 @@ Generating calorie goal according to desired weekly change
 4. Other incorrect `calorie /generate` commands to try: `calorie /generate`,
    `calorie /generate /lose invalid`
 
-   Expected: A new calorie goal is not generated and set. Error details shown
+   Expected: A new calorie goal is not generated and set. Error details are shown
    in status message.
 
 #### View remaining calories
