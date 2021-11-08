@@ -1,15 +1,11 @@
 # Brendan Lau Siew Zhi (brendanlsz) - Project Portfolio Page
 
 ## Product Overview
-FitNUS Tracker is a desktop app for tracking daily food intake to help users keep a healthy lifestyle. 
-FitNUS is specially made for Computing Students living in University Town, with features and 
-functionalities taylor made for them. It is based on a Command Line Interface (CLI) and has 
-rich functionality in order to cater to the needs of potential users.
+FitNUS Tracker is a desktop application for tracking daily food intake to help users keep a healthy lifestyle. 
+FitNUS is specially made for Computing Students living in University Town.
 
 
 ## Summary of Contributions
-Backend Software Engineer: Responsible for implementing various backend features including
-`Storage`, `FoodDatabase`, and `EntryDatabase`.
 
 ### Code Contributed
 
@@ -19,58 +15,49 @@ Backend Software Engineer: Responsible for implementing various backend features
 ### Enhancements Implemented
 
 Implemented the core functionalities of the following:
-- `Storage`: 
-  - I implemented the file storage functionality, which allows the FitNus application to save and read data 
-  to and from text files. This enables FitNus to retain the user's progress and various data
+- **New Feature:** Implemented and maintained the `Storage` component.
+  - What it does: Saves and reads data to and from text files. 
+  - Justification: This feature enables FitNus to retain the user's progress and various data
   even after terminating the application. 
-  - The `Storage` class is also designed such that it fails
-  gracefully in the event that the text files are corrupted. This is achieved by discarding corrupted 
-  data and providing messages to the user.
-  - Implementing the storage functionality also involved adding methods to various classes to
-  preload data and also convert data to String for storage.
-- `FoodDatabase`: 
-  - At the beginning of the project, I implemented the core functionalities of the `FoodDatabase` 
-  class, used to keep a record of all the various types of `Food` objects. 
-  - Over the course of the project, 
-  I also continuously added enhancements, including features that allow users to search `Food` objects 
-  as well as find `Food` suggestions.
-- `EntryDatabase`: 
-  - I co-implemented the basic features of the `EntryDatabase` class, used to handle 
-  functionalities relating to the `Entry` objects.
-- `ViewSuggestionsCommand`: 
-  - In v2.0, I implemented the `ViewSuggestionsCommand`, which enables users
-  to find suggestions from their `FoodDatabase` on what to eat based on their calorie goal and 
-  the food type they specify.
-- `FindFoodsCommand`: 
-  - I implemented the `FindFoodsCommand` in v2.0 which allows users to search the
-  `FoodDatabase` using a keyword. This allows users to easily find matching `Food` objects in the database.
-- `FindEntriesCommand`: 
-  - I implemented the `FindEntriesCommand` in v2.0 which allows users to search the
-  `EntryDatabase` using a keyword. This allows users to easily find matching `Entry` objects in the database.
+  - Highlights: The `Storage` component is designed such that it fails gracefully in the 
+  event that the text files are corrupted. This is achieved by discarding corrupted 
+  data and providing messages to the user. Implementing the storage functionality also 
+  involved adding methods to various classes to preload data and also convert data to String for storage.
+- **New Feature:** Implemented the core functionalities of `FoodDatabase`: 
+  - What it does: Keeps a record of all the various types of `Food` objects and handles various operations
+  on `Food` objects. 
+  - Justification: This feature eliminates the need for users to enter details repetitively for the same `Food` and also
+  allows users to find suggestions on what `Food` to eat. 
+- **New Feature:** Added the ability to view `Food` suggestions: 
+  - What it does: Enables users to find suggestions from their `FoodDatabase` on what to eat 
+  based on their calorie goal and the food type they specify.
+  - Justification: This feature improves the product significantly as it allows users to easily find `Food` suggestions
+  that meet their calorie goal from the `FoodDatabase`.
+- **New Feature:** Added the ability to search for foods with keyword: 
+  - What it does: Allows users to search the `FoodDatabase` using a keyword. 
+  - Justification: This allows users to easily find matching `Food` objects in the database.
+- **New Feature:** Added the ability to search for entries with keyword: 
+  - What it does: Allows users to search the `EntryDatabase` using a keyword. 
+  - Justification: This allows users to easily find matching `Entry` objects in the database.
 
 
 ### Contributions to the UG:
-- Feature: Searching for foods with keyword.
-- Feature: Searching for entries with keyword.
-- Feature: Suggest food based on food type and calorie goal.
-- I also contributed to the `Command summary` section of the UG.
+Added documentation for the following features:
+- Searching for foods with keyword.
+- Deleting food.
+- Listing foods in food database.
+- Searching for tracker entries with keyword.
+- Suggest food based on food type and calorie goal. 
+- Loading data.
+- Saving data.
+
+Contributed to the `Command summary` section of the UG.
+
 
 ### Contributions to the DG:
-- Design and implementation: `Storage`
-  - Added a UML sequence diagram demonstrating the process of saving the `FoodDatabase`
-  data to text file.
-  - Added a UML sequence diagram demonstrating the process of preloading the `FoodDatabase`
-  data from text file.
-  - Provided explanation on the implementation as well as design considerations taken into account.
-- Design and implementation: `FoodDatabase`
-  - Added a UML class diagram to highlight the relationships between the `FoodDatabase` 
-  class and various components.
-  - Added UML sequence diagrams for `preloadDatabase()` and `convertDatabaseToString()` methods.
-  - Provided information on the various methods within the `FoodDatabase` class and their use cases.
-- Design and implementation: `ViewSuggestionsCommand`
-  - Added a UML sequence diagram that shows the execution of the 
-  `ViewSuggestionsCommand`.
-  - Provided detailed explanation on the sequence of the execution.
+- Added design and implementation details of the `Storage` component.
+- Added design and implementation details of the `Food Database` component.
+- Added implementation details of the `View Food Suggestions` feature.
 
 ### Contributions to team-based tasks:
 

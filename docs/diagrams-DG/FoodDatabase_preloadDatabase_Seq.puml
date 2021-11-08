@@ -21,7 +21,7 @@ loop While there are still unread lines
 
     return
 
-return
+return hasLoadedSuccessfully
 
 end
 
