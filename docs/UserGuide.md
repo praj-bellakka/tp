@@ -395,12 +395,14 @@ Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
    - Sample output:
+   
   ![img.png](sampleOutputListWeightAll.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
    - Sample output:
+   
    ![img.png](sampleOutputListWeightMonth.png)
-<p>&nbsp;</p>
+
 
 ### Personalisation
 
@@ -415,9 +417,9 @@ Format: `gender /set GENDER_SYMBOL`
 Example of usage: `gender /set m`
 
 Sample Output:
+
 ![img_2.png](sampleOutputGenderSet.png)
 
-<p>&nbsp;</p>
 
 
 ####  Setting height: `height /set`
@@ -429,9 +431,9 @@ Format: `height /set HEIGHT`
 Example of usage:`height /set 180`
 
 Sample Output:
+
 ![img_2.png](sampleOutputHeightSet.png)
 
-<p>&nbsp;</p>
 
 
 ####  Setting age: `age /set`
@@ -462,6 +464,7 @@ Format: `calorie /set CALORIE_GOAL`
 Example of usage:`calorie /set 2000`
 
 Sample Output:
+
 ![img](diagrams-UG/Setting-calorie-goal.png)
 
 <p>&nbsp;</p>
@@ -502,6 +505,7 @@ within their daily calorie goal.
 Format: `calorie /remain`
 
 Sample Output:
+
 ![](diagrams-UG/calorie_remain.png)
 
 
@@ -541,6 +545,7 @@ Weekly report gives you an overview of your diet over the past 7 days, which inc
 Format: `summary /week`
 
 Sample Output:
+
 ![img](diagrams-UG/week-summary.png)
 
 ##### Monthly report
