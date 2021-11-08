@@ -10,33 +10,33 @@ Here is the list of sections we will be covering in this User Guide.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Entry Database](#food-tracker)
-    - [Adding food entry: `add`](#adding-food-tracker-entry-add)
+  - [Entry Database](#entry-database)
+    - [Adding food entry: `add`](#adding-food-entry-add)
     - [Adding meal plan entry: `add /mealplan`](#adding-meal-plan-entry-add-mealplan)
-    - [Editing existing food entry: `edit`](#editing-existing-food-tracker-entry-edit)
-    - [Deleting food entry: `remove /entry`](#deleting-food-tracker-entry-remove)
-    - [Listing tracker entries: `list /entry`](#listing-tracker-entries-list)
-    - [Searching for tracker entries with keyword: `find /entry`](#searching-for-tracker-entries-with-keyword-find)
+    - [Editing existing food entry: `edit`](#editing-existing-food-entry-edit)
+    - [Deleting food entry: `remove /entry`](#deleting-food-entry-remove-entry)
+    - [Listing food entries: `list /entry`](#listing-food-entries-list-entry)
+    - [Searching for food entries with keyword: `find /entry`](#searching-for-food-entries-with-keyword-find-entry)
   - [Food Database](#food-database)
     - [Deleting food: `remove /food`](#deleting-food-remove-food)
     - [Searching for foods with keyword: `find /food`](#searching-for-foods-with-keyword-find-food)
     - [Listing foods in food database: `list /food`](#listing-foods-in-food-database-list-food)
   - [Meal Plan Database](#meal-plan-database)
-    - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create)
-    - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list)
+    - [Creating new meal plan: `create /mealplan`](#creating-meal-plan-by-adding-food-create-mealplan)
+    - [Listing meal plan entries: `list /mealplan`](#listing-meal-plan-entries-list-mealplan)
   - [Weight Tracker](#weight-tracker)
     - [Recording weight: `weight /set`](#recording-weight-weight-set)
-    - [Listing weight records: `list /weight`](#listing-weight-records-list)
+    - [Listing weight records: `list /weight`](#listing-weight-records-list-weight)
   - [Personalisation](#personalisation)
     - [Setting gender: `gender /set`](#setting-gender-gender-set)
     - [Setting height: `height /set`](#setting-height-height-set)
     - [Setting age: `age /set`](#setting-age-age-set)
     - [Setting calorie goal: `calorie /set`](#setting-calorie-goal-calorie-set)
     - [Generate and set calorie goal: `calorie /generate`](#generate-and-set-calorie-goal-calorie-generate)
-    - [View personal data: `list /user`](#view-personal-data-list-user)
+    - [View personal data: `list /user`](#view-user-data-list-user)
   - [Other](#other)
-    - [Viewing statistics: `summary`](#view-statistics-summary)
     - [Viewing help: `help`](#viewing-help-help)
+    - [Viewing statistics: `summary`](#view-statistics-summary)
     - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
@@ -180,7 +180,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-#### Listing tracker entries: `list /entry`
+#### Listing food entries: `list /entry`
 Lists out all foods entered for a given timeframe.
 
 Format: `list /entry [/TIMEFRAME]`
@@ -199,7 +199,7 @@ Example of usage:
 
 <p>&nbsp;</p>
 
-#### Searching for tracker entries with keyword: `find /entry`
+#### Searching for food entries with keyword: `find /entry`
 Finds all matching entries in the Entry Database based on the keyword you provided.
 
 Format: `find /entry KEYWORD`
@@ -603,7 +603,7 @@ Sample Output:
 ![img](diagrams-UG/exit.png)
 
 
-##User Stories
+## User Stories
 
 | As a... | I can...                                 | So that I can...                                                    |
 |---------|------------------------------------------|---------------------------------------------------------------------|

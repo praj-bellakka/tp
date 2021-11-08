@@ -8,7 +8,7 @@
 4. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
-   - [Entry Database](#entrydatabase)
+   - [Entry Database](#entry-database)
    - [Food Database](#food-database)
    - [Meal Plan DataBase](#meal-plan-database)
    - [User](#user)
