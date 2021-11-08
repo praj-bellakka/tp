@@ -387,7 +387,9 @@ Sample Output:
 
 
 #### Listing weight records: `list /weight`
-Lists weight records within a certain timeframe (either all time or a particular month in 
+Lists weight records within a certain timeframe (either 
+all weight records from when the user started using the app
+or weight records in a particular month in 
 the current year). 
 
 Format:
@@ -403,7 +405,7 @@ Examples of usage:
    
     ![img_2.png](img_2.png)
 
-2. List weight progress in a certain month in the current year:`list /weight /month 3`
+2. List weight progress in a certain month in the current year: `list /weight /month 3`
    - Sample Output:
    
    ![img_8.png](img_8.png)
@@ -420,7 +422,7 @@ Examples of usage:
 Sets your gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
-- The `GENDER_SYMBOL` can be of the following types:
+- The `GENDER_SYMBOL` can be of the following 2 types:
   - `M` or `m` - denotes Male 
   - `F` or `f` - denotes Female
 
@@ -466,10 +468,11 @@ Sets your calorie goal in kcal.
 Format: `calorie /set CALORIE_GOAL`
 
 > **⚠️ Notes about setting calorie goal**
-> - FitNUS calculates the minimum and maximum calorie goal according to your height,
-  weight, gender and age that is within the recommended healthy amount of weight loss or gain
+> - FitNUS calculates the minimum and maximum calorie goal
+    (according to your height,
+  weight, gender and age) that is within the recommended healthy amount of weight loss or gain
   per week. You cannot set a goal that is not within the healthy range of daily calorie
-  intake for their body type.
+  intake for your body type.
 
 Example of usage:`calorie /set 2000`
 
@@ -498,7 +501,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 > lost or gained per week in a safe and healthy manner. 
 > * If the weekly change entered is less than 0.01 kg, 
 > it will be treated as a negligible weekly change and instead generate 
-> a goal that allows you to maintain their current weight.
+> a goal that allows you to maintain your current weight.
 
 Example of usage:`calorie /generate /gain 0.5`
 
@@ -510,7 +513,7 @@ Sample Output:
 
 #### View remaining calories for the day: `calorie /remain`
 Shows the remaining number of calories you can consume for the day to stay
-within their daily calorie goal.
+within your daily calorie goal.
 
 Format: `calorie /remain`
 
@@ -568,7 +571,7 @@ Sample Output:
 <p>&nbsp;</p>
 
 ##### Monthly report
-Monthly report gives you an overview of your diet over this month, which includes:
+Monthly report gives you an overview of your diet over the current month, which includes:
 - Average calorie intake
 - Most frequently eaten foods
 - Least frequently eaten foods
@@ -583,7 +586,7 @@ Sample Output:
 
 #### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
-(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
+(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal.
 
 Format: `suggest /FOODTYPE [/sort]`
 
@@ -651,7 +654,7 @@ Sample Output:
 | User    | record my current weight                 | look back and keep track of my weight in the future                 |
 | User    | list out previous weight records         | look at my progress of weight loss/gain                             |
 | User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
-| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
+| User    | set my calorie goal                      | have a fixed objective for my calorie intake                              |
 | User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
 | User    | list my user details                     | see my current user details at a glance                             |
 | User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
