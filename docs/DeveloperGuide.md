@@ -4,29 +4,23 @@
 
 1. [Product Scope](#product-scope)
 2. [Quick Start](#quick-start)
-3. [User Stories](#user-stories)
-4. [Application Architecture](#application-architecture)
+3. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
    - [Entry Database](#entry-database)
    - [Food Database](#food-database)
-   - [Meal Plan DataBase](#meal-plan-database)
+   - [Meal Plan Database](#meal-plan-database)
    - [User](#user)
    - [Summary](#summary)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Implementation](#implementation)
+4. [Implementation](#implementation)
    - [Add Food Entry](#add-food-entry-feature)
    - [Edit Food Entry](#edit-food-entry-feature)
    - [List Food Entry](#list-food-entry-feature)
    - [Delete Food Entry](#delete-food-entry-feature)
    - [Add Meal Plan](#add-meal-plan-feature)
    - [Create Meal Plan](#create-meal-plan-feature)
-6. [Instructions for manual testing](#instructions-for-manual-testing)
-    - [Add Food Entry](#add-food-entry-instructions)
-7. [Non-functional Requirement](#nf-requirements)
-   - [Adding Meal Plan](#adding-meal-plan-feature)
-   - [Creating Meal Plan](#creating-meal-plan-feature)
    - [View Food Suggestions](#view-food-suggestions-feature)
    - [User Profile Setup and Editing](#user-profile-setup-and-editing-feature)
    - [List User Data](#list-user-data-feature)
@@ -34,9 +28,15 @@
    - [List Weight Tracker](#list-weight-tracker-feature)
    - [Generate Calorie Goal](#generate-calorie-goal-feature)
    - [View Remaining Calories](#view-remaining-calories-feature)
-6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
-7. [Appendix: Non-functional Requirement](#nf-requirements)
-8. [Appendix: User Stories](#user-stories)
+5. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    - [Entry Features](#entry-features)
+    - [Food Features](#food-features)
+    - [Meal Plan Features](#meal-plan-features)
+    - [Weight Tracker Features](#weight-tracker-features)
+    - [User Personalisation Features](#user-personalisation-features)
+    - [Other Features](#other-features)
+6. [Appendix: Non-functional Requirement](#appendix-nf-requirements)
+7. [Appendix: User Stories](#appendix-user-stories)
 
 ----
 
@@ -490,7 +490,7 @@ This decision is done via a simple if-else check as shown in the code snippet be
 
 ## Implementation
 
-#### Add Food Entry Feature
+### Add Food Entry Feature
 
 The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -514,7 +514,7 @@ The following Sequence Diagram shows how the add food entry feature works:
 
 ![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
 
-#### Edit Food Entry Feature
+### Edit Food Entry Feature
 
 The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -537,7 +537,7 @@ The following Sequence Diagram shows how the edit food entry feature works:
 
 ![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
 
-#### List Food Entry Feature
+### List Food Entry Feature
 
 The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
 
@@ -560,7 +560,7 @@ The following Sequence Diagrams shows how the list food entry feature works:
 
 ![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
-#### Delete Food Entry Feature
+### Delete Food Entry Feature
 
 The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -574,7 +574,7 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
 
-#### Add Meal Plan Feature
+### Add Meal Plan Feature
 
 The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
 
@@ -594,7 +594,7 @@ The following Sequence Diagram shows how the adding of meal plan feature works:
 ![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
 
 
-#### Create Meal Plan Feature
+### Create Meal Plan Feature
 
 The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
 
