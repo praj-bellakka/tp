@@ -124,7 +124,7 @@ public class Storage {
      * @param user User object to preload.
      * @throws IOException If an I/O error occurs.
      */
-    public static void initialiseWeightProgress(User user) throws IOException {
+    public static void initialiseWeightProgress(User user) throws IOException, FitNusException {
         assert Files.exists(FILE_PATH_WEIGHT_DATA);
         FileInputStream stream;
         stream = new FileInputStream(FILE_PATH_WEIGHT_DATA.toString());

@@ -618,7 +618,6 @@ public class Parser {
                 System.out.println("The input is outside the range of the database!");
             }
         } catch (NumberFormatException e) {
-            //TODO: add proper Ui print message;
             System.out.println("Please enter an integer value!");
         }
         isLoopFlagOn = true;
@@ -747,6 +746,13 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Parse commands of type 'calorie' and returns the corresponding Command object.
+     *
+     * @param input String containing information about 'calorie' type command.
+     * @return Command object.
+     * @throws FitNusException Thrown when errors in user input are found.
+     */
     private Command parseCalorieTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
 
@@ -807,6 +813,13 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Returns SetGenderCommand object.
+     *
+     * @param input String input containing information about set gender command.
+     * @return SetGenderCommand object.
+     * @throws FitNusException Thrown when input format is invalid.
+     */
     private Command parseGenderTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
@@ -822,6 +835,13 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Returns parseAgeTypeCommand object.
+     *
+     * @param input String input containing information about set age command.
+     * @return parseAgeTypeCommand object.
+     * @throws FitNusException Thrown when input format is invalid.
+     */
     private Command parseAgeTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         String typeDescriptor;
@@ -847,6 +867,13 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Returns parseHeightTypeCommand object.
+     *
+     * @param input String input containing information about set height command.
+     * @return parseHeightTypeCommand object.
+     * @throws FitNusException Thrown when input format is invalid.
+     */
     private Command parseHeightTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
@@ -869,6 +896,13 @@ public class Parser {
         throw new FitNusException(INVALID_COMMAND_MESSAGE);
     }
 
+    /**
+     * Returns parseWeightTypeCommand object.
+     *
+     * @param input String input containing information about set weight command.
+     * @return parseWeightTypeCommand object.
+     * @throws FitNusException Thrown when input format is invalid.
+     */
     private Command parseWeightTypeCommand(String input) throws FitNusException {
         int typeDescriptorIndex = input.indexOf(" ");
         String typeDescriptor = input.substring(0, typeDescriptorIndex).trim();
@@ -948,6 +982,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns parseSummaryTypeCommand object.
+     *
+     * @param input String input containing information about summary time frame.
+     * @return parseSummaryTypeCommand object.
+     * @throws FitNusException Thrown when input format is invalid.
+     */
     private Command parseSummaryTypeCommand(String input) throws FitNusException {
         if (input.equals(WEEK)) {
             return new ViewWeekSummaryCommand();
@@ -958,7 +999,7 @@ public class Parser {
     }
 
     /**
-     * Te function returns the respective Edit command with the user specified index and food.
+     * The function returns the respective Edit command with the user specified index and food.
      *
      * @param input The user input.
      * @param fd    The existing food database.
@@ -1011,7 +1052,7 @@ public class Parser {
     private static LocalDate parseDate(String description) {
         LocalDate date;
         try {
-            date = LocalDate.parse(description);
+            date = Parser.parseDate(description);
         } catch (DateTimeParseException e) {
             return null;
         }

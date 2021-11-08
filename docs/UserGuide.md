@@ -42,7 +42,7 @@ Here is the list of sections we will be covering in this User Guide.
     - [Getting food suggestions: `suggest`](#getting-food-suggestions-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
-    - [Exiting FitNUS: `exit`](#quit-fitnus)
+    - [Exiting FitNUS: `exit`](#exiting-fitnus)
 - [User Stories](#user-stories)
 - [Command Summary](#command-summary)
 
@@ -649,7 +649,7 @@ Then, you will see messages similar to the following:
 
 <p>&nbsp;</p>
 
-#### Quit FitNUS
+#### Exiting FitNUS
 Exits the FitNUS program.
 
 Format: `exit`

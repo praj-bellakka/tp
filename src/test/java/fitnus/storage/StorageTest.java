@@ -132,7 +132,7 @@ class StorageTest {
     }
 
     @Test
-    void initialiseWeightProgress_validStorageFile_preloadSuccess() throws IOException {
+    void initialiseWeightProgress_validStorageFile_preloadSuccess() throws IOException, FitNusException {
         Storage.createDirectoryAndFiles();
         initialiseFileTestContents();
         User user = new User(1, null, 1, 1, 1);
