@@ -2,6 +2,7 @@ package fitnus.utility;
 
 import fitnus.database.EntryDatabase;
 import fitnus.exception.FitNusException;
+import fitnus.parser.Parser;
 import fitnus.tracker.Gender;
 import fitnus.tracker.WeightRecord;
 
@@ -443,13 +444,13 @@ public class User {
      * @param reader BufferedReader reading the user data storage file.
      * @throws IOException if any I/O operations failed or were interrupted.
      */
-    public void preloadWeightData(BufferedReader reader) throws IOException {
+    public void preloadWeightData(BufferedReader reader) throws IOException, FitNusException {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] description = line.trim().split("\\s*[|]\\s*");
             try {
                 float weight = Float.parseFloat(description[0]);
-                LocalDate date = LocalDate.parse(description[1]);
+                LocalDate date = Parser.getDate(description[1]);
                 weightRecords.add(new WeightRecord(weight, date));
             } catch (IndexOutOfBoundsException e) {
                 logger.log(Level.WARNING, "Error processing weight data (missing inputs)");

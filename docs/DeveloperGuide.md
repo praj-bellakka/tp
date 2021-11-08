@@ -44,11 +44,11 @@
 
 ### Target user profile
 
-NUS Computing students reside in UTown.
+NUS Computing students that reside in UTown.
 
 ### Value proposition
 
-Help user to keep track of their daily calorie intake, and manage their diet wisely.
+Helps the user to keep track of their daily calorie intake and manage their diet wisely.
 
 ----
 
