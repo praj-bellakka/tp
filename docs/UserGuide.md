@@ -404,6 +404,7 @@ Examples of usage:
    
    ![img.png](sampleOutputListWeightMonth.png)
 
+---- 
 
 ### Personalisation
 
@@ -421,7 +422,7 @@ Sample Output:
 
 ![img_2.png](sampleOutputGenderSet.png)
 
-
+<p>&nbsp;</p>
 
 ####  Setting height: `height /set`
 Sets your height in centimeters.
@@ -435,7 +436,7 @@ Sample Output:
 
 ![img_2.png](sampleOutputHeightSet.png)
 
-
+<p>&nbsp;</p>
 
 ####  Setting age: `age /set`
 Sets your age in years.
@@ -509,6 +510,7 @@ Sample Output:
 
 ![](diagrams-UG/calorie_remain.png)
 
+<p>&nbsp;</p>
 
 #### View user data: `list /user`
 View your personal user data including gender, age, weight, height and calorie goal.
@@ -518,6 +520,9 @@ Format: `list /user`
 Sample Output:
 
 ![img](diagrams-UG/list-user.png)
+
+
+-----
 
 ### Other
 
@@ -536,7 +541,6 @@ Sample Output:
 #### View statistics: `summary`
 FitNUS supports two kinds of diet reports:
 
-
 ##### Weekly report
 Weekly report gives you an overview of your diet over the past 7 days, which includes:
 - Graph of daily calorie intake
@@ -549,6 +553,8 @@ Format: `summary /week`
 Sample Output:
 
 ![img](diagrams-UG/week-summary.png)
+
+<p>&nbsp;</p>
 
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes:
@@ -584,11 +590,14 @@ Sample output:
 
 ![](diagrams-UG/suggest_snack_sort.png)
 
+<p>&nbsp;</p>
 
 #### Saving data
 
 Application data is saved whenever any data is added or modified. 
 This process is automatic, so no user input is needed for this.
+
+<p>&nbsp;</p>
 
 #### Loading data
 
@@ -603,6 +612,8 @@ Then, you will see messages similar to the following:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
+<p>&nbsp;</p>
+
 #### Quit FitNus
 Exits the FitNus program.
 
@@ -612,6 +623,7 @@ Sample Output:
 
 ![img](diagrams-UG/exit.png)
 
+----- 
 
 ## User Stories
 
@@ -634,6 +646,7 @@ Sample Output:
 | User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
 | User    | exit FitNUS                              | -                                                                   |
 
+----- 
 
 ## Command summary
 
