@@ -299,7 +299,7 @@ Generally, the number of days is seven, but for a new user having records less t
 - `ViewWeekSummaryCommand` calls `generateWeekReport()` method inside the Summary object.
 During the execution, it will self invoke the `getAverageCalories()` to calculate the average calorie intake during the past days, 
 `getMostAndLeastEatenFood()` to get the most and least eaten foods and corresponding times,
-and `getSquare()` method to draw a pictorial graph to illustrate the calorie intake trend.
+and `getWeekCalorieTrendGraph()` method to draw a pictorial graph to illustrate the calorie intake trend.
 - At the end of execution, it will return the report as a String back.
 
 #### Monthly summary report
