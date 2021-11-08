@@ -192,11 +192,12 @@ public class EntryDatabase {
      * @throws FitNusException If the keyword provided is an empty String.
      */
     public ArrayList<Entry> findEntries(String keyword) throws FitNusException {
-        if (keyword.equals("")) {
+        String keywordSearch = keyword.trim();
+        if (keywordSearch.equals("")) {
             throw new FitNusException("Please provide a valid keyword");
         }
         return (ArrayList<Entry>) entries.stream()
-                .filter(t -> t.getFood().getName().contains(keyword))
+                .filter(t -> t.getFood().getName().contains(keywordSearch))
                 .collect(Collectors.toList());
     }
 

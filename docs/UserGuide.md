@@ -2,9 +2,9 @@
 
 ## Introduction
 
-FitNUS Tracker is a desktop app for tracking daily food intake to keep a healthy lifestyle. FitNUS is specially made you if you are a Computing Student
-living in University Town, with features and functionalities taylor made just for you.
-It is based on a Command Line Interface (CLI) and has rich functionalities.
+FitNUS Tracker is a desktop app for tracking daily food intake to maintain a healthy lifestyle. 
+FitNUS has features and functionalities tailor-made just for you if you are a Computing Student
+living in University Town. FitNUS is run on the Command Line Interface (CLI).
 
 Here is the list of sections we will be covering in this User Guide.
 
@@ -49,29 +49,39 @@ Here is the list of sections we will be covering in this User Guide.
 ## Quick Start
 
 1. Ensure that you have Java 11 installed in your computer. 
-2. Download the latest version of `fitnus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.0).
+2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.1).
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar fitnus.jar`
-5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
-If you have successfully run the programme, you should see messages similar to the following:
+4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
+5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) 
+FitNUS will prompt you to set up your user profile by filling in some details.
+If you have successfully run the programme, you should see output similar to the screenshot below:
+
 
 ![](diagrams-UG/launch.png)
+
+----- 
 
 
 ## Features
 > **⚠️ Notes about command format**
 > 
-> - Words in **UPPER_CASE** are the parameters to be input by you!
+> - Words in **UPPER_CASE** are the parameters to be inputted by you!
 
 >  e.g. in `add /bfast FOOD_NAME`, FOOD_NAMEx is a parameter which can be substituted as `add /bfast burgers`.
 > - Items in **[Square brackets]** are optional!
 
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
 
+<p>&nbsp;</p>
+
+-----
+
 ### Entry Database
 
+<p>&nbsp;</p>
+
 #### Adding food entry: `add`
-Adds an entry to the Entry Database. It will also prompt you to fill in any additional information if the
+Adds an entry to the Entry Database. You will also be prompted to fill in any additional information if the
 food you requested was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
@@ -84,22 +94,20 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 
 > **⚠️ Notes about omitting `MEALTYPE`**
 >
-> The `MEALTYPE` will be automatically added based on the current time if not explicitly specified based on the following criteria:
->- Breakfast: 6am to 10am
->- Lunch: 11am to 2pm
->- Dinner: 6pm to 9pm
->- Snack: Remaining time
+> - The `MEALTYPE` will be automatically added based on the current time if not explicitly specified based on the following criteria:
+>  - Breakfast: 6am to 10am
+>  - Lunch: 11am to 2pm
+>  - Dinner: 6pm to 9pm
+>  - Snack: Remaining time
 > 
-> **If a backslash character ("/") is written as the first character of the food name when omitting the `MEALTYPE`, the app will reject the input!**
+> - **If a backslash character ("/") is written as the first character of the food name when omitting the `MEALTYPE`, the app will reject the input!**
 >
-> Eg. The input `add /rice noodles` will be rejected, whereas the input `add /bfast /rice noodles` will be accepted.
-* If there are any pre-set food that matches `FOOD_NAME`:
-  * You can do one of the following:
+>   Eg. The input `add /rice noodles` will be rejected, whereas the input `add /bfast /rice noodles` will be accepted.
+
+* If there are any pre-set food that matches `FOOD_NAME`, you can do one of the following:
     * Select which food you would like to add
     * Create your own custom food
-
-
-
+    
 Examples of usage: `add /bfast chocolate`
 
 Sample output:
@@ -110,7 +118,8 @@ Sample output:
 
 #### Adding meal plan entry: `add /mealplan`
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
-Click on [this link](#creating-meal-plan-by-adding-food-create-mealplan) to create a meal plan.  
+Click [here](#creating-meal-plan-by-adding-food-create-mealplan) 
+to find our how to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
@@ -124,9 +133,9 @@ If a MEALTYPE is not specified, FitNUS will automatically tag the meal based on 
 
 > **⚠️ Notes about `INDEX_OF_MEALPLAN`**
 >
-> INDEX_OF_MEALPLAN refers to the index of the meal plan(s) shown when command `list /mealplan` is used.
+> - INDEX_OF_MEALPLAN refers to the index of the meal plan(s) shown when command `list /mealplan` is used.
 >
-> INDEX_OF_MEALPLAN must be an integer value and within the range shown above.
+> - INDEX_OF_MEALPLAN must be an integer value and within the range shown above.
 
 
 Examples of usage: `add /mealplan /dinner 1`
@@ -134,6 +143,8 @@ Examples of usage: `add /mealplan /dinner 1`
 Sample output:
 
 ![img_11.png](img_11.png)
+
+<p>&nbsp;</p>
 
 #### Editing existing food entry: `edit`
 Edits an existing entry's food information. FitNUS will search for FOOD_NAME in the food database 
@@ -144,8 +155,7 @@ Format: `edit INDEX_OF_ENTRY FOOD_NAME`
 >
 > INDEX_OF_ENTRY refers to the index of the entry shown when command `list /entry` is used.
 
-* If there are any pre-set food that matches `FOOD_NAME`:
-  * You can do one of the following:
+* If there are any pre-set food that matches `FOOD_NAME`, you can do one of the following:
     * Select which food you would like to add
     * Create your own custom food
 
@@ -172,7 +182,7 @@ Example of usage:
 <p>&nbsp;</p>
 
 #### Listing food entries: `list /entry`
-Lists out all foods entered for a given timeframe.
+Lists out all food entries for a given timeframe.
 
 Format: `list /entry [/TIMEFRAME]`
 * The `TIMEFRAME` can be of the following 2 types:
@@ -205,13 +215,13 @@ Example of usage:
 
 ----
 
-
-
 ### Food Database
+
+<p>&nbsp;</p>
 
 #### Deleting food: `remove /food`
 
-Deletes a specified food from the FoodDatabase.
+Deletes a specified food from the Food Database.
 
 Format: `remove /food INDEX_OF_FOOD`
 
@@ -225,7 +235,7 @@ Sample output:
 
 #### Searching for foods with keyword: `find /food`
 
-Finds all matching food in the FoodDatabase based on the keyword you provided.
+Finds all matching foods in the Food Database based on the keyword you provided.
 
 Format: `find /food KEYWORD`
 
@@ -239,7 +249,7 @@ Sample output:
 
 #### Listing foods in food database: `list /food`
 
-Lists out all foods in the FoodDatabase.
+Lists out all foods in the Food Database.
 
 Format: `list /food`
 
@@ -255,6 +265,8 @@ Sample output:
 
 ### Meal Plan Database
 
+<p>&nbsp;</p>
+
 #### Creating meal plan by adding food: `create /mealplan`
 Creates a custom meal plan by adding existing food items inside the food database to the meal plan. A meal plan consists of a name, and a list of Food items. 
 In order to create a meal plan, you must add at least 1 food item to the plan. 
@@ -265,7 +277,8 @@ Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food
 
 > **⚠️ Notes about `NAME_OF_MEALPLAN`**
 >
-> `NAME_OF_MEALPLAN` must be at least 1 character in length. Pipe Characters will be automatically be removed if included.
+> `NAME_OF_MEALPLAN` must be at least 1 character in length. 
+> Pipe Characters ("|") will be automatically be removed if included.
 
 > **⚠️ Notes about adding food items to meal plan**
 >
@@ -324,7 +337,9 @@ Sample output:
 >
 > Duplicate meal plans are allowed as restricting either the name or the food added to a meal plan would not improve the usability of the app.
 
----- 
+<p>&nbsp;</p>
+
+
 #### Listing meal plan entries: `list /mealplan`
 Lists out all meal plans entered. Each individual meal plan along with its associated food items are listed as shown below.
 
@@ -378,7 +393,9 @@ Sample output:
 
 
 #### Listing weight records: `list /weight`
-Lists weight records within a certain timeframe (either all time or a particular month in 
+Lists weight records within a certain timeframe (either 
+all weight records from when the user started using the app
+or weight records in a particular month in 
 the current year). 
 
 Format:
@@ -394,20 +411,24 @@ Examples of usage:
    
     ![img_2.png](img_2.png)
 
-2. List weight progress in a certain month in the current year:`list /weight /month 3`
-   - Sample output:
-   
-   ![img_8.png](img_8.png)
+2. List weight progress in a certain month in the current year: `list /weight /month 3`
+   - Sample Output:
+
+    ![img_8.png](img_8.png)
+
+<p>&nbsp;</p>
 
 ---- 
 
 ### Personalisation
 
+<p>&nbsp;</p>
+
 ####  Setting gender: `gender /set`
 Sets your gender to either Male or Female.
 
 Format: `gender /set GENDER_SYMBOL`
-- The `GENDER_SYMBOL` can be of the following types:
+- The `GENDER_SYMBOL` can be of the following 2 types:
   - `M` or `m` - denotes Male 
   - `F` or `f` - denotes Female
 
@@ -453,10 +474,11 @@ Sets your calorie goal in kcal.
 Format: `calorie /set CALORIE_GOAL`
 
 > **⚠️ Notes about setting calorie goal**
-> - FitNUS calculates the minimum and maximum calorie goal according to your height,
-  weight, gender and age that is within the recommended healthy amount of weight loss or gain
+> - FitNUS calculates the minimum and maximum calorie goal
+    (according to your height,
+  weight, gender and age) that is within the recommended healthy amount of weight loss or gain
   per week. You cannot set a goal that is not within the healthy range of daily calorie
-  intake for their body type.
+  intake for your body type.
 
 Example of usage:`calorie /set 2000`
 
@@ -485,7 +507,7 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 > lost or gained per week in a safe and healthy manner. 
 > * If the weekly change entered is less than 0.01 kg, 
 > it will be treated as a negligible weekly change and instead generate 
-> a goal that allows you to maintain their current weight.
+> a goal that allows you to maintain your current weight.
 
 Example of usage:`calorie /generate /gain 0.5`
 
@@ -497,7 +519,7 @@ Sample output:
 
 #### View remaining calories for the day: `calorie /remain`
 Shows the remaining number of calories you can consume for the day to stay
-within their daily calorie goal.
+within your daily calorie goal.
 
 Format: `calorie /remain`
 
@@ -516,10 +538,13 @@ Sample output:
 
 ![img](diagrams-UG/list-user.png)
 
+<p>&nbsp;</p>
 
 -----
 
 ### Other
+
+<p>&nbsp;</p>
 
 #### Viewing Help: `help`
 Lists out available commands and additional information regarding each command.
@@ -552,7 +577,7 @@ Sample output:
 <p>&nbsp;</p>
 
 ##### Monthly report
-Monthly report gives you an overview of your diet over this month, which includes:
+Monthly report gives you an overview of your diet over the current month, which includes:
 - Average calorie intake
 - Most frequently eaten foods
 - Least frequently eaten foods
@@ -567,7 +592,7 @@ Sample output:
 
 #### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
-(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
+(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal.
 
 Format: `suggest /FOODTYPE [/sort]`
 
@@ -618,6 +643,8 @@ Sample output:
 
 ![img](diagrams-UG/exit.png)
 
+<p>&nbsp;</p>
+
 ----- 
 
 ## User Stories
@@ -633,7 +660,7 @@ Sample output:
 | User    | record my current weight                 | look back and keep track of my weight in the future                 |
 | User    | list out previous weight records         | look at my progress of weight loss/gain                             |
 | User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
-| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
+| User    | set my calorie goal                      | have a fixed objective for my calorie intake                              |
 | User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
 | User    | list my user details                     | see my current user details at a glance                             |
 | User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |

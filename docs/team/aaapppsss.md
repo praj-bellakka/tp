@@ -6,7 +6,6 @@ to help users achieve a healthy lifestyle.
 FitNUS is specially made for Computing Students living in University Town.
 
 ### Summary of Contributions
-Given below are my contributions to the project.
 
 - **Feature:** Added user profile initialisation 
   - What it does: Detects first time users (no user data) or if user data
