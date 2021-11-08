@@ -559,7 +559,7 @@ Sample Output:
 Provides food suggestions for you by filtering food items in the database based on food type 
 (meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
 
-Format: `suggest /FOODTYPE` `suggest /FOODTYPE /sort`
+Format: `suggest /FOODTYPE [/sort]`
 
 > **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
 
