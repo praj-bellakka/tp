@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Command is for adding entries based on a meal plan.
  */
 public class AddMealPlanEntryCommand extends Command {
-    private final MealPlan mealPlan;
+    private final MealPlan mealPlan; 
     private final MealType mealType;
 
     public AddMealPlanEntryCommand(MealPlan mealPlan, MealType mealType) {
