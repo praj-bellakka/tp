@@ -359,6 +359,19 @@ The `Storage` component consists of:
     Dinner | ramen | 500 | 2021-11-06 | MEAL
 
     ```
+* MealPlanDatabase (`mealplan.txt`): 
+
+    For every `MealPlan` with `n` number of `Food`:
+
+    * `n` lines of `Food`: `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
+    * Followed by 1 line containing the `MealPlan` name
+  
+    Example:
+    ```
+    lemon tea | 90 | BEVERAGE
+    bbq beef set | 504 | MEAL
+    -------- | lunch set a
+    ```
 * User (`user.txt`): `CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
     Example: 
     ```
@@ -370,7 +383,6 @@ The `Storage` component consists of:
     75.0 | 2021-11-05
     75.5 | 2021-11-06
     ```
-> **_NOTE:_** Example of `mealplan.txt` is omitted because its format is largely similar to `food.txt`
 
 #### Sequence of operations
 
