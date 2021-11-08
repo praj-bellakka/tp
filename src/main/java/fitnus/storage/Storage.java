@@ -114,11 +114,7 @@ public class Storage {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         boolean userDataIsValid = user.preloadUserData(reader);
         reader.close();
-        if (userDataIsValid) {
-            return true; //success
-        } else {
-            return false; //failure
-        }
+        return userDataIsValid;
     }
 
     /**
