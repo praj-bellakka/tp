@@ -21,15 +21,25 @@
    - [Edit Food Entry](#edit-food-entry-feature)
    - [List Food Entry](#list-food-entry-feature)
    - [Delete Food Entry](#delete-food-entry-feature)
-6. [Instructions for manual testing](#instructions-for-manual-testing)
-    - [Add Food Entry](#add-food-entry)
-7. [Non-functional Requirement](#nf-requirements)
+   - [Adding Meal Plan](#adding-meal-plan-feature)
+   - [Creating Meal Plan](#creating-meal-plan-feature)
+   - [View Food Suggestions](#view-food-suggestions-feature)
+   - [User Profile Setup and Editing](#user-profile-setup-and-editing-feature)
+   - [List User Data](#list-user-data-feature)
+   - [Record Weight](#record-weight-feature)
+   - [List Weight Tracker](#list-weight-tracker-feature)
+   - [Generate Calorie Goal](#generate-calorie-goal-feature)
+   - [View Remaining Calories](#view-remaining-calories-feature)
+6. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+7. [Appendix: Non-functional Requirement](#nf-requirements)
+8. [Appendix: User Stories](#user-stories)
+
 
 ## Product scope
 
 ### Target user profile
 
-NUS Computer Engineering students reside in UTown going on diet.
+NUS Computing students reside in UTown.
 
 ### Value proposition
 
@@ -49,27 +59,6 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
    - `exit`: Exits the app.  
 
 Refer to the User Guide (no link for now) for details of each command.
-
-## User Stories
-
-| As a... | I can...                                 | So that I can...                                                    |
-|---------|------------------------------------------|---------------------------------------------------------------------|
-| User    | input entries every time I eat something | incorporate it seamlessly into my daily life                        |
-| User    | edit my entries                          | make changes to my food entries at a later time                     |
-| User    | delete entries in case I mistype         | -                                                                   |
-| User    | list all my entries                      | look back at what I ate in the past                                 |
-| User    | search food by a keyword                 | easily look for the food that I ate                                 |
-| User    | create meal plans                        | add multiple food entries at once                                   |
-| User    | record my current weight                 | look back and keep track of my weight in the future                 |
-| User    | list out previous weight records         | look at my progress of weight loss/gain                             |
-| User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
-| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
-| User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
-| User    | list my user details                     | see my current user details at a glance                             |
-| User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
-| User    | ask for help                             | see all the available commands at a glance                          |
-| User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
-| User    | exit FitNUS                              | -                                                                   |
 
 
 ## Application Architecture
@@ -609,7 +598,7 @@ Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
 4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
 
-### User Profile Setup and Editing
+### User Profile Setup and Editing Feature
 
 This feature allows the user to set up and
 edit various attributes of their user profile such as their
@@ -675,7 +664,7 @@ for the example of setting height:
 
 ![setHeight Sequence Diagram](diagrams-DG/Command_SetHeightCommand_Seq.png)
 
-### List User Data
+### List User Data Feature
 This feature lists all the user's data (i.e. gender, age, height, weight 
 and daily calorie goal). Given below is an example usage scenario and
 how its mechanism behaves at each step.
@@ -688,7 +677,7 @@ The following sequence diagram shows how the list user data feature works:
 
 ![setHeight Sequence Diagram](diagrams-DG/Command_ListUserDataCommand_Seq.png)
 
-### Record Weight
+### Record Weight Feature
 
 This feature allows the user to record their weight for the day in the
 weight tracker and also update their weight in their user profile.
@@ -706,7 +695,7 @@ The following sequence diagram shows how the weight recording feature works:
 
 ![setWeight Sequence Diagram](diagrams-DG/Command_SetWeightCommand_Seq.png)
 
-### List Weight Tracker
+### List Weight Tracker Feature
 
 This feature allows the user to list the weight tracker data in a particular month
 or since the start of using the app.
@@ -727,7 +716,7 @@ The following sequence diagram shows how the list weight tracker feature works:
 ![listWeight Sequence Diagram](diagrams-DG/Command_ListWeightProgressCommand_Seq.png)
 
 
-### Generate Calorie Goal
+### Generate Calorie Goal Feature
 
 This feature allows the user to generate a daily calorie goal
 according to their body type and their desired weekly weight change
@@ -748,7 +737,7 @@ The following sequence diagram shows how the generate calorie goal feature works
 
 ![generateCalorieGoal Sequence Diagram](diagrams-DG/Command_GenerateCalorieGoalCommand_Seq.png)
 
-### View Remaining Calories
+### View Remaining Calories Feature
 
 This feature allows the user to view how many calories they have remaining
 for the day before they hit their daily calorie goal. 
@@ -1044,3 +1033,27 @@ Expected: Matching `Food` suggestions are shown.
 1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
 2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
 3. User's and food's data should be kept safely, and it is crashed, the program should be able to detect it.
+
+
+---
+
+## User Stories
+
+| As a... | I can...                                 | So that I can...                                                    |
+|---------|------------------------------------------|---------------------------------------------------------------------|
+| User    | input entries every time I eat something | incorporate it seamlessly into my daily life                        |
+| User    | edit my entries                          | make changes to my food entries at a later time                     |
+| User    | delete entries in case I mistype         | -                                                                   |
+| User    | list all my entries                      | look back at what I ate in the past                                 |
+| User    | search food by a keyword                 | easily look for the food that I ate                                 |
+| User    | create meal plans                        | add multiple food entries at once                                   |
+| User    | record my current weight                 | look back and keep track of my weight in the future                 |
+| User    | list out previous weight records         | look at my progress of weight loss/gain                             |
+| User    | set my gender/height/age                 | get a more accurate calorie goal when using FitNUS                  |
+| User    | set my calorie goal                      | have fixed objective of calorie intake                              |
+| User    | generate my calorie goal                 | find out the optimal calorie intake to lose/gain  my desired weight |
+| User    | list my user details                     | see my current user details at a glance                             |
+| User    | show a summary of my past food intake    | easily see how much I have eaten and what I have  eaten at a glance |
+| User    | ask for help                             | see all the available commands at a glance                          |
+| User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
+| User    | exit FitNUS                              | -                                                                   |
