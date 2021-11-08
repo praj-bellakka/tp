@@ -9,6 +9,7 @@ living in University Town. FitNUS is run on the Command Line Interface (CLI).
 Here is the list of sections we will be covering in this User Guide.
 
 - [Quick Start](#quick-start)
+- [Notes About FitNUS](#notes-about-fitnus)
 - [Features](#features)
   - [Entry Database](#entry-database)
     - [Adding food entry: `add`](#adding-food-entry-add)
@@ -61,6 +62,14 @@ If you have successfully run the programme, you should see output similar to the
 
 ----- 
 
+##Notes About FitNUS
+
+Before you begin using FitNUS, here are some things to note about the app.
+1. FitNUS features that allow the user to enter a custom name 
+  are unable to handle special characters such as certain symbols
+  as well as characters in other languages such as Chinese characters.
+
+----
 
 ## Features
 > **⚠️ Notes about command format**
@@ -594,7 +603,7 @@ Sample output:
 
 #### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
-(meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal.
+(meal, snack, beverage, others) that if consumed, will not exceed your daily calorie goal.
 
 Format: `suggest /FOODTYPE [/sort]`
 
