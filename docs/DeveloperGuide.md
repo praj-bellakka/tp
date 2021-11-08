@@ -20,6 +20,11 @@
    - [Edit Food Entry](#edit-food-entry-feature)
    - [List Food Entry](#list-food-entry-feature)
    - [Delete Food Entry](#delete-food-entry-feature)
+   - [Add Meal Plan](#add-meal-plan-feature)
+   - [Create Meal Plan](#create-meal-plan-feature)
+6. [Instructions for manual testing](#instructions-for-manual-testing)
+    - [Add Food Entry](#add-food-entry-instructions)
+7. [Non-functional Requirement](#nf-requirements)
    - [Adding Meal Plan](#adding-meal-plan-feature)
    - [Creating Meal Plan](#creating-meal-plan-feature)
    - [View Food Suggestions](#view-food-suggestions-feature)
@@ -33,6 +38,7 @@
 7. [Appendix: Non-functional Requirement](#nf-requirements)
 8. [Appendix: User Stories](#user-stories)
 
+----
 
 ## Product scope
 
@@ -43,6 +49,8 @@ NUS Computing students reside in UTown.
 ### Value proposition
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
+
+----
 
 ## Quick Start
 
@@ -59,6 +67,7 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 Refer to the User Guide (no link for now) for details of each command.
 
+----
 
 ## Application Architecture
 
@@ -163,7 +172,9 @@ The `FoodDatabase` component consists of:
 - `addFood()`: Adds a `Food` object to the database. 
 - `convertDatabaseToString()`: Returns a String representation of 
 all Food objects in the database. 
+
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
+
 - `deleteFood()`: Removes a `Food` object at the specified index from the database. 
 - `findFoods()`: Returns an ArrayList containing matching `Food` objects based on a keyword. 
 - `findSuggestions()`: Returns an ArrayList containing matching Food objects based on the specified FoodType 
@@ -186,7 +197,8 @@ public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean
 - `listFoods()`: Returns a formatted String of all Food objects to be printed. 
 - `loadFood()`: Loads `Food` objects into the `FoodDatabase`.
 - `preloadDatabase()`: Preloads the database using data from the text file.
-   <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
+
+   ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
@@ -221,7 +233,7 @@ The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitN
   
 ![](diagrams-DG/MealPlanDatabase_listMealPlan_Seq.png)
 
-#### Implementation
+#### How it works
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
 - Automatically detect the name of an individual meal plan.
@@ -276,7 +288,8 @@ The Summary class provides an overview of user's diet over the past week/month.
 
 #### Weekly summary report
 
-The following sequence diagram describes the operation of the `generateWeekSummary()`.  
+The following sequence diagram describes the operation of the `generateWeekSummary()`. 
+
 ![](diagrams-DG/weekly%20report.png)
 
 Here are the general steps taken to generate a weekly report:
@@ -292,6 +305,7 @@ and `getSquare()` method to draw a pictorial graph to illustrate the calorie int
 #### Monthly summary report
 
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
+
 ![](diagrams-DG/monthly%20report.png)
 
 Here are the general steps taken to generate a weekly report:
@@ -368,6 +382,7 @@ calls the `convertDatabaseToString()` method to obtain the String representation
 `FoodDatabase`. This String is then written to the text file.
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
+
 ![](diagrams-DG/Storage_sequence_save.png)
 
 ii. **Loading from text file**
@@ -379,6 +394,7 @@ passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` whi
 ArrayList in `FoodDatabase`.
 
 The following sequence diagram describes the operation of the `initialiseFoodDatabase()` operation.  
+
 ![](diagrams-DG/Storage_sequence_initialise.png)
 
 
@@ -458,6 +474,7 @@ This decision is done via a simple if-else check as shown in the code snippet be
 
 ![](diagrams-DG/Parser_promptUserCalories_Seq.png)
 
+----
 
 ## Implementation
 
@@ -528,6 +545,7 @@ to the user.
 The following Sequence Diagrams shows how the list food entry feature works:
 
 ![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+
 ![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
 #### Delete Food Entry Feature
@@ -544,7 +562,7 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
 
-#### Adding Meal Plan Feature
+#### Add Meal Plan Feature
 
 The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
 
@@ -564,7 +582,7 @@ The following Sequence Diagram shows how the adding of meal plan feature works:
 ![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
 
 
-#### Creating Meal Plan Feature
+#### Create Meal Plan Feature
 
 The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
 
@@ -586,6 +604,7 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
+
 ![](diagrams-DG/SuggestCommandSequence.png)
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
@@ -746,13 +765,14 @@ how its mechanism behaves at each step.
 1. The user executes the `calorie /remain` command to view their remaining calories
 for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#getCaloriesRemaining`.
 2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
-entries in the food tracker. This is subtracted from the user's daily calorie goal. 
+entries in the Entry Database. This is subtracted from the user's daily calorie goal. 
 The resulting calories remaining is then displayed to the user. 
 
 The following sequence diagram shows how the view remaining calories feature works:
 
 ![viewRemainingCalorie Sequence Diagram](diagrams-DG/Command_ViewRemainingCalorie_Seq.png)
 
+----
 
 ## Appendix: Instructions for manual testing
 
@@ -847,6 +867,47 @@ Find food inside the food database according to keywords.
    - `remove /food` (the keyword for searching is mandatory)
 
 -------------
+
+### Meal Plan Features
+
+#### Create meal plan
+
+Creates and adds a new meal plan into the meal plan database.
+1. Prerequisites: there must be at least 1 food inside the food database, and at least 1 food must be selected to create the meal plan.
+2. Test case: `create /mealplan breakfast`. Enter `1 2 3` when prompted to choose foods to add to the database (assuming there are at least 3 food items in the food database).
+
+    Expected: Creates a meal plan with the name "breakfast", with foods 1, 2 and 3 tagged to it.
+3. Other incorrect commands to try:
+   - `create /mealplan` (the meal plan name is compulsory)
+   - (**When prompted to select foods to add to meal plan**): `-1 blah asdfs` (the input must be an integer and be within the range of the food database)
+
+#### Add meal plan
+
+Adds a meal plan into the entry database.
+1. Prerequisites: there must be at least 1 meal plan inside the meal plan database.
+2. Test case: `add /mealplan 1`. 
+    
+   Expected: Adds the meal plan at index 1 to the entry database. The food entry is automatically added as either breakfast, lunch, dinner or snack depending on the time of the day.
+
+    Test case: `add /mealplan /bfast 1`.
+
+    Expected: Adds the meal plan at index 1 to the entry database. The food entry is tagged as breakfast.
+
+3. Other incorrect commands to try:
+    - `add /mealplan invalid` (the meal plan index must be valid; integer value and within range of meal plan database)
+
+#### List meal plan
+
+Lists all meal plans saved in the meal plan database.
+
+1. Prerequisites: there must be at least 1 meal plan inside the meal plan database.
+2. Test case: `list /mealplan`.
+
+    Expected: Lists all meal plans inside the database with its name, followed by all the food items tagged to the meal plan.
+
+
+-------------
+
 ### Weight Tracker Features
 
 #### Record weight
@@ -944,7 +1005,7 @@ Generating calorie goal according to desired weekly change
 #### View remaining calories
 
  Viewing remaining calories for the day
-1. Prerequisites: The total number of calories of all food tracker entries entered
+1. Prerequisites: The total number of calories of all food entries entered
    for the day has not exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
 
@@ -952,7 +1013,7 @@ Generating calorie goal according to desired weekly change
    to their daily calorie goal is displayed.
 
 Viewing remaining calories for the day when exceeded daily goal
-1. Prerequisites: The total number of calories of all food tracker entries entered
+1. Prerequisites: The total number of calories of all food entries entered
    for the day has exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
 

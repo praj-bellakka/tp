@@ -1,4 +1,6 @@
-# FitNus
+# FitNUS
+
+![logo](logo.png)
 
 FitNUS Tracker is a desktop app specially made for Computing Students
 living in University Town, to track daily food intake and keep a healthy lifestyle.

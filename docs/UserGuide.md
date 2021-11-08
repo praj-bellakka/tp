@@ -38,7 +38,7 @@ Here is the list of sections we will be covering in this User Guide.
   - [Other](#other)
     - [Viewing help: `help`](#viewing-help-help)
     - [Viewing statistics: `summary`](#view-statistics-summary)
-    - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
+    - [Getting food suggestions: `suggest`](#getting-food-suggestions-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
     - [Exiting FitNUS: `exit`](#quit-fitnus)
@@ -53,19 +53,9 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
-If you have successfully run the programme, you should see the following message as follows:
+If you have successfully run the programme, you should see messages similar to the following:
 
-```
-------------------
-Welcome to FitNUS Tracker!
-Preloaded 68 foods
-Preloaded 0 entries
-Preloaded 0 meal plans
-Preloaded user data successfully
-------------------
-
-[X] Please enter your gender (m/f):
-```
+![](diagrams-UG/launch.png)
 
 
 ## Features
@@ -120,7 +110,7 @@ Sample output:
 
 #### Adding meal plan entry: `add /mealplan`
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
-Click on [this link](#creating-meal-plan-by-adding-food-create) to create a meal plan.  
+Click on [this link](#creating-meal-plan-by-adding-food-create-mealplan) to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
@@ -376,7 +366,8 @@ Example of usage:
 `weight /set 55.6`
 
 Sample Output:
-![img.png](sampleOutputWeightSet)
+
+![img_2.png](sampleOutputWeightSet.png)
 
 <p>&nbsp;</p>
 
@@ -394,15 +385,16 @@ Format:
 Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
-   - Sample output:
+   - Sample Output:
    
-  ![img.png](sampleOutputListWeightAll.png)
+    ![img_2.png](img_2.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
-   - Sample output:
+   - Sample Output:
    
-   ![img.png](sampleOutputListWeightMonth.png)
+   ![img_8.png](img_8.png)
 
+---- 
 
 ### Personalisation
 
@@ -418,9 +410,9 @@ Example of usage: `gender /set m`
 
 Sample Output:
 
-![img_2.png](sampleOutputGenderSet.png)
+![img_9.png](img_9.png)
 
-
+<p>&nbsp;</p>
 
 ####  Setting height: `height /set`
 Sets your height in centimeters.
@@ -432,9 +424,9 @@ Example of usage:`height /set 180`
 
 Sample Output:
 
-![img_2.png](sampleOutputHeightSet.png)
+![img_10.png](img_10.png)
 
-
+<p>&nbsp;</p>
 
 ####  Setting age: `age /set`
 Sets your age in years.
@@ -508,6 +500,7 @@ Sample Output:
 
 ![](diagrams-UG/calorie_remain.png)
 
+<p>&nbsp;</p>
 
 #### View user data: `list /user`
 View your personal user data including gender, age, weight, height and calorie goal.
@@ -518,6 +511,9 @@ Sample Output:
 
 ![img](diagrams-UG/list-user.png)
 
+
+-----
+
 ### Other
 
 #### Viewing Help: `help`
@@ -526,6 +522,7 @@ Lists out available commands and additional information regarding each command.
 Format: `help`
 
 Sample Output:
+
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
 
@@ -533,7 +530,6 @@ Sample Output:
 
 #### View statistics: `summary`
 FitNUS supports two kinds of diet reports:
-
 
 ##### Weekly report
 Weekly report gives you an overview of your diet over the past 7 days, which includes:
@@ -547,6 +543,8 @@ Format: `summary /week`
 Sample Output:
 
 ![img](diagrams-UG/week-summary.png)
+
+<p>&nbsp;</p>
 
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes:
@@ -562,7 +560,7 @@ Sample Output:
 
 <p>&nbsp;</p>
 
-#### Suggest food based on food type and calorie goal: `suggest`
+#### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
 (meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
 
@@ -579,13 +577,17 @@ Example of usage: `suggest /meal` `suggest /snack /sort`
 Sample output:
 
 ![](diagrams-UG/suggest_meal.png)
+
 ![](diagrams-UG/suggest_snack_sort.png)
 
+<p>&nbsp;</p>
 
 #### Saving data
 
 Application data is saved whenever any data is added or modified. 
 This process is automatic, so no user input is needed for this.
+
+<p>&nbsp;</p>
 
 #### Loading data
 
@@ -600,6 +602,8 @@ Then, you will see messages similar to the following:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
+<p>&nbsp;</p>
+
 #### Quit FitNus
 Exits the FitNus program.
 
@@ -609,6 +613,7 @@ Sample Output:
 
 ![img](diagrams-UG/exit.png)
 
+----- 
 
 ## User Stories
 
@@ -631,6 +636,7 @@ Sample Output:
 | User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
 | User    | exit FitNUS                              | -                                                                   |
 
+----- 
 
 ## Command summary
 
