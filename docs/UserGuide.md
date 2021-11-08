@@ -53,19 +53,9 @@ Here is the list of sections we will be covering in this User Guide.
 3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
 4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
 5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) FitNUS will prompt you to fill in some initial details.
-If you have successfully run the programme, you should see the following message as follows:
+If you have successfully run the programme, you should see messages similar to the following:
 
-```
-------------------
-Welcome to FitNUS Tracker!
-Preloaded 68 foods
-Preloaded 0 entries
-Preloaded 0 meal plans
-Preloaded user data successfully
-------------------
-
-[X] Please enter your gender (m/f):
-```
+![](diagrams-UG/launch.png)
 
 
 ## Features
@@ -404,6 +394,7 @@ Examples of usage:
    
    ![img_8.png](img_8.png)
 
+---- 
 
 ### Personalisation
 
@@ -421,6 +412,7 @@ Sample Output:
 
 ![img_9.png](img_9.png)
 
+<p>&nbsp;</p>
 
 ####  Setting height: `height /set`
 Sets your height in centimeters.
@@ -433,6 +425,8 @@ Example of usage:`height /set 180`
 Sample Output:
 
 ![img_10.png](img_10.png)
+
+<p>&nbsp;</p>
 
 ####  Setting age: `age /set`
 Sets your age in years.
@@ -506,6 +500,7 @@ Sample Output:
 
 ![](diagrams-UG/calorie_remain.png)
 
+<p>&nbsp;</p>
 
 #### View user data: `list /user`
 View your personal user data including gender, age, weight, height and calorie goal.
@@ -515,6 +510,9 @@ Format: `list /user`
 Sample Output:
 
 ![img](diagrams-UG/list-user.png)
+
+
+-----
 
 ### Other
 
@@ -533,7 +531,6 @@ Sample Output:
 #### View statistics: `summary`
 FitNUS supports two kinds of diet reports:
 
-
 ##### Weekly report
 Weekly report gives you an overview of your diet over the past 7 days, which includes:
 - Graph of daily calorie intake
@@ -546,6 +543,8 @@ Format: `summary /week`
 Sample Output:
 
 ![img](diagrams-UG/week-summary.png)
+
+<p>&nbsp;</p>
 
 ##### Monthly report
 Monthly report gives you an overview of your diet over this month, which includes:
@@ -581,11 +580,14 @@ Sample output:
 
 ![](diagrams-UG/suggest_snack_sort.png)
 
+<p>&nbsp;</p>
 
 #### Saving data
 
 Application data is saved whenever any data is added or modified. 
 This process is automatic, so no user input is needed for this.
+
+<p>&nbsp;</p>
 
 #### Loading data
 
@@ -600,6 +602,8 @@ Then, you will see messages similar to the following:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
+<p>&nbsp;</p>
+
 #### Quit FitNus
 Exits the FitNus program.
 
@@ -609,6 +613,7 @@ Sample Output:
 
 ![img](diagrams-UG/exit.png)
 
+----- 
 
 ## User Stories
 
@@ -631,6 +636,7 @@ Sample Output:
 | User    | ask for food suggestions                 | get recommendations of food to eat based on my calorie intake       |
 | User    | exit FitNUS                              | -                                                                   |
 
+----- 
 
 ## Command summary
 
