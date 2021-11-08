@@ -976,7 +976,7 @@ public class Parser {
             throw new FitNusException("Please input a valid index!");
         }
 
-        String foodName = input.substring(input.indexOf(SPACE_CHARACTER)).strip();
+        String foodName = removePipeCharacterFoodName(input, MealType.BREAKFAST).strip();
 
         //step 2: search database if food exists
         System.out.println("Searching for \"" + foodName + "\"...");
