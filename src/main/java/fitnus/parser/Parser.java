@@ -688,12 +688,11 @@ public class Parser {
         }
 
         if (input.contains(DESCRIPTOR_ENTRY)) {
-            String timeFrame = input.substring(typeDescriptorIndex);
-
+            String timeFrame = input.substring(typeDescriptorIndex).strip();
             switch (timeFrame) {
-            case " /day":
+            case "/day":
                 return new ListFoodEntryCustomCommand(DAYS_IN_DAY);
-            case " /week":
+            case "/week":
                 return new ListFoodEntryCustomCommand(DAYS_IN_WEEK);
             default:
                 throw new FitNusException("Invalid timeframe! (/day, /week)");
