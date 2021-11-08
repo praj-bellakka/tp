@@ -133,7 +133,7 @@ Examples of usage: `add /mealplan /dinner 1`
 
 Sample output:
 
-![img.png](diagrams-UG/addMealPlan.png)
+![img_11.png](img_11.png)
 
 #### Editing existing food entry: `edit`
 Edits an existing entry's food information. FitNUS will search for FOOD_NAME in the food database 
@@ -284,8 +284,7 @@ Sample output:
 
 ![img.png](diagrams-UG/createMealPlan.png)
 
-![img_2.png](diagrams-UG/createMealPlanP3.png)
-
+![img_12.png](img_12.png)
 
 **Example 2 - Some input indexes are invalid**
 
@@ -302,8 +301,7 @@ Sample output:
 
 ![img_4.png](diagrams-UG/createMealPlanP4.png)
 
-![img_5.png](diagrams-UG/createMealPlanInvalidIndexes.png)
-
+![img_13.png](img_13.png)
 
 **Example 3 - All input indexes are invalid**
 
@@ -320,7 +318,7 @@ Sample output:
 
 ![img_4.png](diagrams-UG/createMealPlanP4.png)
 
-![img_6.png](diagrams-UG/createMealPlanInvalid.png)
+![img_14.png](img_14.png)
 
 > **⚠️ Notes about duplicate meal plans**
 >
@@ -339,7 +337,7 @@ Format: `list /mealplan`
 
 Sample output: 
 
-![img_7.png](diagrams-UG/listMealPlan.png)
+![img_15.png](img_15.png)
 
 <p>&nbsp;</p>
 
