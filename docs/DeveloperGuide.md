@@ -374,7 +374,7 @@ The `Storage` component consists of:
 
 i. **Saving to text file**
 
-`FoodDatabase`, `EntryDatabase`, and `User` classes each have a method to convert its data to String format. 
+`FoodDatabase`, `EntryDatabase`, `MealPlanDatabase`, and `User` classes each have a method to convert its data to String format. 
 This String is then saved to the text file. For instance, when saving the `FoodDatabase` data, `Storage` 
 calls the `convertDatabaseToString()` method to obtain the String representation of all the data within the 
 `FoodDatabase`. This String is then written to the text file.

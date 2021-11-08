@@ -44,7 +44,9 @@ Implemented the core functionalities of the following:
 ### Contributions to the UG:
 Added documentation for the following features:
 - Searching for foods with keyword.
-- Searching for entries with keyword.
+- Deleting food.
+- Listing foods in food database.
+- Searching for tracker entries with keyword.
 - Suggest food based on food type and calorie goal. 
 - Loading data.
 - Saving data.
