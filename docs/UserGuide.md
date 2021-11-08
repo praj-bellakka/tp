@@ -38,7 +38,7 @@ Here is the list of sections we will be covering in this User Guide.
   - [Other](#other)
     - [Viewing help: `help`](#viewing-help-help)
     - [Viewing statistics: `summary`](#view-statistics-summary)
-    - [Getting food recommendations: `suggest`](#suggest-food-based-on-food-type-and-calorie-goal-suggest)
+    - [Getting food suggestions: `suggest`](#getting-food-suggestions-suggest)
     - [Saving data](#saving-data)
     - [Loading data](#loading-data)
     - [Exiting FitNUS: `exit`](#quit-fitnus)
@@ -120,7 +120,7 @@ Sample output:
 
 #### Adding meal plan entry: `add /mealplan`
 Adds a meal plan consisting of existing food items. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
-Click on [this link](#creating-meal-plan-by-adding-food-create) to create a meal plan.  
+Click on [this link](#creating-meal-plan-by-adding-food-create-mealplan) to create a meal plan.  
 
 Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
 
@@ -376,6 +376,7 @@ Example of usage:
 `weight /set 55.6`
 
 Sample Output:
+
 ![img.png](sampleOutputWeightSet)
 
 <p>&nbsp;</p>
@@ -395,8 +396,8 @@ Examples of usage:
 
 1. List weight progress since the start of using FitNus: `list /weight /all`
    - Sample output:
-   
-  ![img.png](sampleOutputListWeightAll.png)
+
+   ![img.png](sampleOutputListWeightAll.png)
 
 2. List weight progress in a certain month in the current year:`list /weight /month 3`
    - Sample output:
@@ -526,6 +527,7 @@ Lists out available commands and additional information regarding each command.
 Format: `help`
 
 Sample Output:
+
 ![img.png](diagrams-UG/HelpCommandSampleOutput.PNG)
 
 
@@ -562,7 +564,7 @@ Sample Output:
 
 <p>&nbsp;</p>
 
-#### Suggest food based on food type and calorie goal: `suggest`
+#### Getting food suggestions: `suggest`
 Provides food suggestions for you by filtering food items in the database based on food type 
 (meal, snack, beverage, others) that if consumed, will not exceed the daily calorie goal set by you.
 
@@ -579,6 +581,7 @@ Example of usage: `suggest /meal` `suggest /snack /sort`
 Sample output:
 
 ![](diagrams-UG/suggest_meal.png)
+
 ![](diagrams-UG/suggest_snack_sort.png)
 
 
