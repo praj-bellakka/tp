@@ -15,8 +15,6 @@ import java.util.Scanner;
  * Handles interactions with the user.
  */
 public class Ui {
-    //private final Scanner sc = new Scanner(System.in);
-
     public static final String DIVIDER = "------------------\n";
     public static final String INIT_GENDER = "[X] Please enter your gender (m/f):";
     public static final String INIT_AGE = "[X] Please enter your age in years:";
