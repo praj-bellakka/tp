@@ -1045,57 +1045,42 @@ Listing all user data
 -------------
 ### Other Features
 
-#### View statistics
-Weekly report
 
-This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
+#### View Weekly report
 
 Prerequisite: Have at least one existing `Entry` in the past week.
 
-1. The user executes the `summary /week` command to generate a report of their diet in the past week.
-`ViewWeekSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastDaysEntryDatabase` is then called to retrieve all `Entry` objects from the past week.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateWeekSummaryReport` is then called which generates a report based on the food consumed 
-over the past seven days.
+Test case: `summary /week`
 
 Expected: A weekly report is generated.
 
 
-Monthly report
-
-This feature allows the user to generate a report that gives an overview of their diet over this past month.
+#### View Monthly report
 
 Prerequisite: Have at least one existing `Entry` in the past month.
 
-1. The user executes the `summary /month` command to generate a report of their diet in the past month.
-   `ViewMonthSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastMonthEntryDatabase` is then called to retrieve all `Entry` objects from the past month.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateMonthSummaryReport` is then called which generates a report based on the food consumed
-   over the past month.
+Test case: `summary /month`
 
 Expected: A monthly report is generated.
 
+
 #### View Food Suggestions
 
-This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
-
 Prerequisite: 
-- User data (gender, age, weight, height) is set correctly to ensure the calorie
-goal is generated correctly
+- Daily calorie goal is set correctly
 - `FoodDatabase` has at least one `Food`
 
-Given below is an example usage scenario and how its mechanism behaves at each step.
+View suggestions (unsorted) 
+* Test case: `suggest /meal`
 
-1. The user executes the `suggest /snack` command to find suggestions for a snack.
-`ViewSuggestionsCommand#execute` is called.
-2. `User#getCalorieGoal` and `EntryDatabase#getTotalDailyCalorie` are then called in order to compute
-the remaining calories for the day.
-3. `FoodDatabase#findSuggestions` is called next to retrieve matching `Food` objects.
-4. `Ui#printMatchingFoods` is then called to print all the retrieved `Food`.
+    Expected: Matching `Food` suggestions are shown but not fully sorted.
 
-Expected: Matching `Food` suggestions are shown.
+View suggestions (sorted)
+* Test case: `suggest /snack /sort`
+   
+    Expected: Matching `Food` suggestions are shown and is fully sorted.
+
+
 
 -------------
 
