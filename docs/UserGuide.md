@@ -68,6 +68,10 @@ Before you begin using FitNUS, here are some things to note about the app.
 1. FitNUS features that allow the user to enter a custom name 
   are unable to handle special characters such as certain symbols
   as well as characters in other languages such as Chinese characters.
+  When such characters are detected, FitNUS will omit them from the 
+  custom name. Do note that this may result in a blank name field if 
+  all characters in the custom name were unable to be handled by 
+  FitNUS.
 
 ----
 
