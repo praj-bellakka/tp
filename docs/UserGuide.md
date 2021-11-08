@@ -387,7 +387,7 @@ Example of usage:
 
 Sample output:
 
-![img_2.png](sampleOutputWeightSet.png)
+![img_2.png](diagrams-UG/sampleOutputWeightSet.png)
 
 <p>&nbsp;</p>
 
