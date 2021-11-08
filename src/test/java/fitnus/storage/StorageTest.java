@@ -67,7 +67,7 @@ class StorageTest {
     }
 
     @Test
-    void initialiseFoodDatabase_fileNotExists_throwsAssertionError() throws IOException {
+    void initialiseFoodDatabase_invalidFilePath_throwsAssertionError() throws IOException {
         Storage.createDirectoryAndFiles();
         initialiseFileTestContents();
         FoodDatabase database = new FoodDatabase();
