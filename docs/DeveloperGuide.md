@@ -4,25 +4,23 @@
 
 1. [Product Scope](#product-scope)
 2. [Quick Start](#quick-start)
-3. [User Stories](#user-stories)
-4. [Application Architecture](#application-architecture)
+3. [Application Architecture](#application-architecture)
    - [Overall Architecture](#overall-architecture)
    - [Entry](#entry)
    - [Entry Database](#entry-database)
    - [Food Database](#food-database)
-   - [Meal Plan DataBase](#meal-plan-database)
+   - [Meal Plan Database](#meal-plan-database)
    - [User](#user)
    - [Summary](#summary)
-   - [Suggest](#view-food-suggestions)
    - [Storage](#storage)
    - [Parser](#parser)
-5. [Implementation](#implementation)
+4. [Implementation](#implementation)
    - [Add Food Entry](#add-food-entry-feature)
    - [Edit Food Entry](#edit-food-entry-feature)
    - [List Food Entry](#list-food-entry-feature)
    - [Delete Food Entry](#delete-food-entry-feature)
-   - [Adding Meal Plan](#adding-meal-plan-feature)
-   - [Creating Meal Plan](#creating-meal-plan-feature)
+   - [Add Meal Plan](#add-meal-plan-feature)
+   - [Create Meal Plan](#create-meal-plan-feature)
    - [View Food Suggestions](#view-food-suggestions-feature)
    - [User Profile Setup and Editing](#user-profile-setup-and-editing-feature)
    - [List User Data](#list-user-data-feature)
@@ -30,10 +28,17 @@
    - [List Weight Tracker](#list-weight-tracker-feature)
    - [Generate Calorie Goal](#generate-calorie-goal-feature)
    - [View Remaining Calories](#view-remaining-calories-feature)
-6. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
-7. [Appendix: Non-functional Requirement](#nf-requirements)
-8. [Appendix: User Stories](#user-stories)
+5. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    - [Entry Features](#entry-features)
+    - [Food Features](#food-features)
+    - [Meal Plan Features](#meal-plan-features)
+    - [Weight Tracker Features](#weight-tracker-features)
+    - [User Personalisation Features](#user-personalisation-features)
+    - [Other Features](#other-features)
+6. [Appendix: Non-functional Requirement](#appendix-nf-requirements)
+7. [Appendix: User Stories](#appendix-user-stories)
 
+----
 
 ## Product scope
 
@@ -45,11 +50,13 @@ NUS Computing students reside in UTown.
 
 Help user to keep track of their daily calorie intake, and manage their diet wisely.
 
+----
+
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer. 
 2. Download the latest fitnus.jar from here (no link for now). 
-3. Copy the file to the folder you want to use as the home folder for your FitNus Tracker 
+3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker 
 4. Type the following command in your terminal to run this program: `java -jar fitnus.jar` (You should change directory to where the `fitnus.jar` file is located or provide the absolute path of `fitnus.jar`).
 5. The application will prompt first-time users (i.e. users with incomplete or missing user data) to set up their profile.
 6. Some example commands you can try: 
@@ -60,6 +67,7 @@ Help user to keep track of their daily calorie intake, and manage their diet wis
 
 Refer to the User Guide (no link for now) for details of each command.
 
+----
 
 ## Application Architecture
 
@@ -70,7 +78,7 @@ The Architecture Diagram given above explains the high-level design of the App.
 
 Given below is a quick overview of main components and how they interact with each other.
 
-The entry point of the app is the `FitNUS` class, where the application is run and all other components are initialised and used.
+The entry point of the app is the `FitNus` class, where the application is run and all other components are initialised and used.
 
 The primary components of the app are listed below:
 - `Storage`: For handling backend storage.
@@ -84,12 +92,12 @@ The primary components of the app are listed below:
 
 #### How the overall architecture works
 
-1. When the user enters a command, `FitNUS` uses the Parser class to parse the user command.
+1. When the user enters a command, `FitNus` uses the Parser class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses 
 e.g., `AddFoodEntryCommand`). 
 3. The `Command` object calls its `execute` method which performs the function required.
    - Since the `execute` method receives the `FoodDatabase`, `EntryDatabase` and 
-   `MealPlanDatabase` initialised in `FitNUS`, it is able to perform operations related 
+   `MealPlanDatabase` initialised in `FitNus`, it is able to perform operations related 
    to those components (e.g. to add an entry).
 
    > ⚠️ Notes about `execute` method:
@@ -164,7 +172,9 @@ The `FoodDatabase` component consists of:
 - `addFood()`: Adds a `Food` object to the database. 
 - `convertDatabaseToString()`: Returns a String representation of 
 all Food objects in the database. 
+
 ![](diagrams-DG/FoodDatabase_convertDatabaseToString_Seq.png)
+
 - `deleteFood()`: Removes a `Food` object at the specified index from the database. 
 - `findFoods()`: Returns an ArrayList containing matching `Food` objects based on a keyword. 
 - `findSuggestions()`: Returns an ArrayList containing matching Food objects based on the specified FoodType 
@@ -187,7 +197,8 @@ public ArrayList<Food> findSuggestions(Food.FoodType type, int calories, boolean
 - `listFoods()`: Returns a formatted String of all Food objects to be printed. 
 - `loadFood()`: Loads `Food` objects into the `FoodDatabase`.
 - `preloadDatabase()`: Preloads the database using data from the text file.
-   <br /> ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
+
+   ![](diagrams-DG/FoodDatabase_preloadDatabase_Seq.png)
 
 The class diagram below showcases the relationships between the `FoodDatabase` class and various components.
 
@@ -214,7 +225,7 @@ The `MealPlanDatabase` component consists of:
 
 - `preloadDatabase(BufferedReader)` Preloads the database using data from the text file containing meal plans.
   
-The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNus is first launched.
+The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitNUS is first launched.
 
 ![](diagrams-DG/MealPlanDatabase_preLoadDatabase_Seq.png)
 
@@ -222,7 +233,7 @@ The `preloadDatabase()` method is used to populate `databaseMealPlans` when FitN
   
 ![](diagrams-DG/MealPlanDatabase_listMealPlan_Seq.png)
 
-#### Implementation
+#### How it works
 `MealPlanDatabase` is first populated when the `preloadDatabase()` method is called from the `Storage` class. 
 It reads the lines inside the `mealplan.txt` using a `BufferedReader`. The class has the following features:
 - Automatically detect the name of an individual meal plan.
@@ -277,7 +288,8 @@ The Summary class provides an overview of user's diet over the past week/month.
 
 #### Weekly summary report
 
-The following sequence diagram describes the operation of the `generateWeekSummary()`.  
+The following sequence diagram describes the operation of the `generateWeekSummary()`. 
+
 ![](diagrams-DG/weekly%20report.png)
 
 Here are the general steps taken to generate a weekly report:
@@ -293,6 +305,7 @@ and `getWeekCalorieTrendGraph()` method to draw a pictorial graph to illustrate 
 #### Monthly summary report
 
 The following sequence diagram describes the operation of `generateMonthSummary()`.  
+
 ![](diagrams-DG/monthly%20report.png)
 
 Here are the general steps taken to generate a weekly report:
@@ -331,7 +344,7 @@ The `Storage` component consists of:
 
 #### Storage format (in the text files)
 
-**Every line in each text file represents one food / entry / record**
+> **_NOTE:_** Every line in each text file represents one `Food` / `Entry` / record
 
 * FoodDatabase (`food.txt`): `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
     Example: 
@@ -346,6 +359,19 @@ The `Storage` component consists of:
     Dinner | ramen | 500 | 2021-11-06 | MEAL
 
     ```
+* MealPlanDatabase (`mealplan.txt`): 
+
+    For every `MealPlan` with `n` number of `Food`:
+
+    * `n` lines of `Food`: `FOODNAME | CALORIE_VALUE | FOOD_TYPE`  
+    * Followed by 1 line containing the `MealPlan` name
+  
+    Example:
+    ```
+    lemon tea | 90 | BEVERAGE
+    bbq beef set | 504 | MEAL
+    -------- | lunch set a
+    ```
 * User (`user.txt`): `CALORIE_GOAL | GENDER | AGE | HEIGHT | WEIGHT`  
     Example: 
     ```
@@ -357,7 +383,6 @@ The `Storage` component consists of:
     75.0 | 2021-11-05
     75.5 | 2021-11-06
     ```
-> **_NOTE:_** Example of `mealplan.txt` is omitted because its format is largely similar to `food.txt`
 
 #### Sequence of operations
 
@@ -369,6 +394,7 @@ calls the `convertDatabaseToString()` method to obtain the String representation
 `FoodDatabase`. This String is then written to the text file.
 
 The following sequence diagram describes the operation of the `saveFoodDatabase()` operation.  
+
 ![](diagrams-DG/Storage_sequence_save.png)
 
 ii. **Loading from text file**
@@ -380,6 +406,7 @@ passes the file contents to the `preLoadDatabase()` method in `FoodDatabase` whi
 ArrayList in `FoodDatabase`.
 
 The following sequence diagram describes the operation of the `initialiseFoodDatabase()` operation.  
+
 ![](diagrams-DG/Storage_sequence_initialise.png)
 
 
@@ -459,10 +486,11 @@ This decision is done via a simple if-else check as shown in the code snippet be
 
 ![](diagrams-DG/Parser_promptUserCalories_Seq.png)
 
+----
 
 ## Implementation
 
-#### Add Food Entry Feature
+### Add Food Entry Feature
 
 The add food entry mechanism is facilitated by `AddFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -486,7 +514,7 @@ The following Sequence Diagram shows how the add food entry feature works:
 
 ![AddFoodEntrySeqDiagram](diagrams-DG/Command_AddFoodEntryCommand_Seq.png "AddFoodEntry Sequence Diagram")
 
-#### Edit Food Entry Feature
+### Edit Food Entry Feature
 
 The edit food entry mechanism is facilitated by `EditFoodEntryCommand`. It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -509,7 +537,7 @@ The following Sequence Diagram shows how the edit food entry feature works:
 
 ![EditFoodEntrySeqDiagram](diagrams-DG/Command_EditFoodEntryCommand_Seq.png "EditFoodEntry Sequence Diagram")
 
-#### List Food Entry Feature
+### List Food Entry Feature
 
 The list food entry mechanism is facilitated by `ListFoodEntryAllCommand`, `ListFoodEntryDayCommand`, `ListFoodEntryWeekCommand`. They extend `Command`.
 
@@ -529,9 +557,10 @@ to the user.
 The following Sequence Diagrams shows how the list food entry feature works:
 
 ![ListFoodEntryAllSeqDiagram](diagrams-DG/ListFoodEntryAll.png "ListFoodEntryAll Sequence Diagram")
+
 ![ListFoodEntryCustomSeqDiagram](diagrams-DG/ListFoodEntryCustom.png "ListFoodEntryCustom Sequence Diagram")
 
-#### Delete Food Entry Feature
+### Delete Food Entry Feature
 
 The delete food entry mechanism is facilitated by `DeleteEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase` and `FoodDatabase`.
 
@@ -545,7 +574,7 @@ Given below is an example usage scenario and how the delete food entry mechanism
    (Since the user wishes to delete the second entry).
 3. `EntryDatabase#deleteEntry(int)` simply deletes the respective entry from the Entry Database.
 
-#### Adding Meal Plan Feature
+### Add Meal Plan Feature
 
 The adding of meal plan mechanism is facilitated by `AddMealPlanEntryCommand` It extends `Command` and stores the data internally into `EntryDatabase`.
 
@@ -565,7 +594,7 @@ The following Sequence Diagram shows how the adding of meal plan feature works:
 ![](diagrams-DG/AddMealPlanEntryCommand_Seq.png)
 
 
-#### Creating Meal Plan Feature
+### Create Meal Plan Feature
 
 The creation of a meal plan mechanism is facilitated by `CreateMealPlanCommand` It extends `Command` and stores the data internally into `MealPlanDatabase`.
 
@@ -587,16 +616,19 @@ The following Sequence Diagram shows how the creation of meal plan feature works
 This feature allows users to find food suggestions based on food type and calorie goal.
 
 The sequence diagram below describes the execution of the `ViewSuggestionsCommand`.
+
 ![](diagrams-DG/SuggestCommandSequence.png)
 
 Here are the general steps taken when the `ViewSuggestionsCommand` is executed.
-1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `user` object
-   and current calorie consumption (`caloriesConsumed`) from the `entryDatabase` object.
+1. The `ViewSuggestionsCommand` obtains the user's calorie goal (`calorieGoal`) from the `User` object
+by calling `User#getCalorieGoal` and obtains current calorie consumption (`caloriesConsumed`) from the `EntryDatabase` 
+object by calling `EntryDatabase#getTotalDailyCalorie`.
 2. The remaining calories for the day is calculated by `calorieGoal - caloriesConsumed`.
-3. `findSuggestions()` method from `foodDatabase` is called to filter out all matching `Food` objects
+3. `FoodDatabase#findSuggestions` is called to filter out all matching `Food` objects
    based on the remaining calories and specified type. The user also has the option to have the result sorted
    in ascending order of calories. This is indicated by the boolean `isSort` variable.
-4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user.
+4. The returned ArrayList of matching `Food` objects is passed to `Ui` to be printed to the user
+by calling `Ui#printMatchingFoods`.
 
 ### User Profile Setup and Editing Feature
 
@@ -609,10 +641,10 @@ mechanism behaves at each step respectively.
 
 #### User Profile Setup
 
-1. The user launches the application, causing `FitNUS#initialiseFitNUS`
+1. The user launches the application, causing `FitNus#initialiseFitNus`
 to be called. Since this is the first time the user is using the app,
 the `user.txt` file containing the user data does not exist yet,
-prompting FitNUS to create an empty text file storing the user data
+prompting FitNus to create an empty text file storing the user data
 (user.txt). 
 
 2. Since the text file is empty, the check for whether
@@ -624,7 +656,7 @@ begin the user profile setup process.
     the user profile setup process is continued. 
 
 3. FitNUS begins the gender setting process by calling 
-`FitNUS#initialiseAttribute` for the gender. This prompts the user to 
+`FitNus#initialiseAttribute` for the gender. This prompts the user to 
 enter the character indicating their gender. 
 The entered character is appended to a string 
 "gender /set " (eg if the user entered "m", the string becomes
@@ -636,7 +668,7 @@ The `execute` method of the `SetGenderCommand` object is called, which
 sets the `gender` attribute of the `User` object. This terminates the 
 gender initialisation process.
 
-5. If any `FitNUSException` was thrown in steps 4 and 5 due to invalid user
+5. If any `FitNusException` was thrown in steps 4 and 5 due to invalid user
 input, steps 4 and 5 are repeated until no exception is thrown (i.e. valid
 user input was received).
 
@@ -747,15 +779,16 @@ how its mechanism behaves at each step.
 1. The user executes the `calorie /remain` command to view their remaining calories
 for the day. `ViewRemainingCalorieCommand#execute` is called, which calls `User#getCaloriesRemaining`.
 2. `EntryDatabase#getTotalDailyCalorie` is then called, which adds up the calories of all
-entries in the food tracker. This is subtracted from the user's daily calorie goal. 
+entries in the Entry Database. This is subtracted from the user's daily calorie goal. 
 The resulting calories remaining is then displayed to the user. 
 
 The following sequence diagram shows how the view remaining calories feature works:
 
 ![viewRemainingCalorie Sequence Diagram](diagrams-DG/Command_ViewRemainingCalorie_Seq.png)
 
+----
 
-## Instructions for manual testing
+## Appendix: Instructions for manual testing
 
 ### Entry Features
 
@@ -848,6 +881,47 @@ Find food inside the food database according to keywords.
    - `remove /food` (the keyword for searching is mandatory)
 
 -------------
+
+### Meal Plan Features
+
+#### Create meal plan
+
+Creates and adds a new meal plan into the meal plan database.
+1. Prerequisites: there must be at least 1 food inside the food database, and at least 1 food must be selected to create the meal plan.
+2. Test case: `create /mealplan breakfast`. Enter `1 2 3` when prompted to choose foods to add to the database (assuming there are at least 3 food items in the food database).
+
+    Expected: Creates a meal plan with the name "breakfast", with foods 1, 2 and 3 tagged to it.
+3. Other incorrect commands to try:
+   - `create /mealplan` (the meal plan name is compulsory)
+   - (**When prompted to select foods to add to meal plan**): `-1 blah asdfs` (the input must be an integer and be within the range of the food database)
+
+#### Add meal plan
+
+Adds a meal plan into the entry database.
+1. Prerequisites: there must be at least 1 meal plan inside the meal plan database.
+2. Test case: `add /mealplan 1`. 
+    
+   Expected: Adds the meal plan at index 1 to the entry database. The food entry is automatically added as either breakfast, lunch, dinner or snack depending on the time of the day.
+
+    Test case: `add /mealplan /bfast 1`.
+
+    Expected: Adds the meal plan at index 1 to the entry database. The food entry is tagged as breakfast.
+
+3. Other incorrect commands to try:
+    - `add /mealplan invalid` (the meal plan index must be valid; integer value and within range of meal plan database)
+
+#### List meal plan
+
+Lists all meal plans saved in the meal plan database.
+
+1. Prerequisites: there must be at least 1 meal plan inside the meal plan database.
+2. Test case: `list /mealplan`.
+
+    Expected: Lists all meal plans inside the database with its name, followed by all the food items tagged to the meal plan.
+
+
+-------------
+
 ### Weight Tracker Features
 
 #### Record weight
@@ -945,7 +1019,7 @@ Generating calorie goal according to desired weekly change
 #### View remaining calories
 
  Viewing remaining calories for the day
-1. Prerequisites: The total number of calories of all food tracker entries entered
+1. Prerequisites: The total number of calories of all food entries entered
    for the day has not exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
 
@@ -953,7 +1027,7 @@ Generating calorie goal according to desired weekly change
    to their daily calorie goal is displayed.
 
 Viewing remaining calories for the day when exceeded daily goal
-1. Prerequisites: The total number of calories of all food tracker entries entered
+1. Prerequisites: The total number of calories of all food entries entered
    for the day has exceeded the user's daily calorie goal.
 2. Test case: `calorie /remain`
 
@@ -973,62 +1047,47 @@ Listing all user data
 -------------
 ### Other Features
 
-#### View statistics
-Weekly report
 
-This feature allows the user to generate a report that provides an overview of their diet over the past 7 days.
+#### View Weekly Report
 
 Prerequisite: Have at least one existing `Entry` in the past week.
 
-1. The user executes the `summary /week` command to generate a report of their diet in the past week.
-`ViewWeekSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastDaysEntryDatabase` is then called to retrieve all `Entry` objects from the past week.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateWeekSummaryReport` is then called which generates a report based on the food consumed 
-over the past seven days.
+Test case: `summary /week`
 
 Expected: A weekly report is generated.
 
 
-Monthly report
-
-This feature allows the user to generate a report that gives an overview of their diet over this past month.
+#### View Monthly Report
 
 Prerequisite: Have at least one existing `Entry` in the past month.
 
-1. The user executes the `summary /month` command to generate a report of their diet in the past month.
-   `ViewMonthSummaryCommand#execute` is called.
-2. `EntryDatabase#getPastMonthEntryDatabase` is then called to retrieve all `Entry` objects from the past month.
-3. A `Summary` object is then created based on the retrieved `Entry` objects.
-4. `Summary#generateMonthSummaryReport` is then called which generates a report based on the food consumed
-   over the past month.
+Test case: `summary /month`
 
 Expected: A monthly report is generated.
 
+
 #### View Food Suggestions
 
-This feature allows the user to find `Food` suggestions based on calorie goal and specified `FoodType`. 
-
 Prerequisite: 
-- User data (gender, age, weight, height) is set correctly to ensure the calorie
-goal is generated correctly
+- Daily calorie goal is set correctly
 - `FoodDatabase` has at least one `Food`
 
-Given below is an example usage scenario and how its mechanism behaves at each step.
+View suggestions (unsorted) 
+* Test case: `suggest /meal`
 
-1. The user executes the `suggest /snack` command to find suggestions for a snack.
-`ViewSuggestionsCommand#execute` is called.
-2. `User#getCalorieGoal` and `EntryDatabase#getTotalDailyCalorie` are then called in order to compute
-the remaining calories for the day.
-3. `FoodDatabase#findSuggestions` is called next to retrieve matching `Food` objects.
-4. `Ui#printMatchingFoods` is then called to print all the retrieved `Food`.
+    Expected: Matching `Food` suggestions are shown but suggestions are not fully sorted.
 
-Expected: Matching `Food` suggestions are shown.
+View suggestions (sorted)
+* Test case: `suggest /snack /sort`
+   
+    Expected: Matching `Food` suggestions are shown and suggestions are fully sorted.
+
+
 
 -------------
 
 
-## NF Requirements
+## Appendix: NF Requirements
 
 1. The software should be compatible with mainstream operating systems (Windows, macOS, Linux).
 2. Data of users and foods should be stored and retrieved swiftly without delay, even for a long time user with very a big data set. 
@@ -1037,7 +1096,7 @@ Expected: Matching `Food` suggestions are shown.
 
 ---
 
-## User Stories
+## Appendix: User Stories
 
 | As a... | I can...                                 | So that I can...                                                    |
 |---------|------------------------------------------|---------------------------------------------------------------------|

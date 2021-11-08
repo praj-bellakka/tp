@@ -1,11 +1,9 @@
 # Bellakka Krishnamurthy Prajwal (praj-bellakka) - Project Portfolio Page
 
 ## Product Overview
-FitNUS Tracker is a desktop app for tracking daily food intake to help users keep a healthy lifestyle.
-FitNUS is specially made for Computing Students living in University Town, with features and
-functionalities taylor made for them. It is based on a Command Line Interface (CLI) and has
-rich functionality in order to cater to the needs of potential users.
-
+FitNUS Tracker is a desktop app for tracking daily food intake and
+to help users achieve a healthy lifestyle.
+FitNUS is specially made for Computing Students living in University Town.
 
 ## Summary of Contributions
 Backend Software Engineer: Responsible for implementing various backend features including
@@ -16,25 +14,17 @@ Backend Software Engineer: Responsible for implementing various backend features
 [This is the RepoSense report of the code contributed.](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-25&tabOpen=true&tabType=authorship&tabAuthor=praj-bellakka&tabRepo=AY2122S1-CS2113T-W12-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
 
-### Enhancements Implemented
+#### Enhancements Implemented: Implemented the core functionalities of the following features:
+- **Feature**: Parser
+  - What it does: Parses user inputs into its respective commands and calls the respective functions by returning the respective `Command` function.
+  - Justification: This feature is crucial in detecting what the user inputs and calling the respective functions.
+  - Highlights: This feature was challenging to implement as it required careful considerations in error handling when the user doesn't enter the stated format. Certain commands also required the parser to reprompt the user for additional inputs such as calories and meal type.
 
-**Implemented the core functionalities of the following features:**
-- **Parsing user inputs**: I implemented the main `Parser` functions that take in user input and return the respective `Command` function. 
-They include adding a new `Food` item and adding/creating a new `MealPlan`.
-
--  **Adding meal plans**: I implemented the `MealPlan` class which allows user to group multiple food items together.
-
-- **Saving meal plans to storage**: I implemented the features of the `MealPlanDatabase` class, used to handle
-  all functionalities relating to the MealPlan objects, including saving and reading MealPlan items from local storage.
-
-- **Entering meal plans through CLI**: I implemented the `AddMealPlanEntryCommand` class, which enables users
-  to find enter meal plans through the CLI.
-
-**Implemented the non-core functionalities of the following:**
-- **Reading user input for meal plan**: I implemented a single method in the `Ui` class, i.e. `readIndexesInput()`, which parses user input when adding meal plans. 
-The method has built in checks to only allow integer values within the range of the `MealPlanDatabase` to be added.
-- **Viewing meal plans**: I implemented `ListMealPlanDatabaseCommand` to allow users to view all currently saved meal plans in the database.
-
+- **Feature**: Meal plans
+  - What it does: I implemented the `MealPlan` class which allows user to group multiple food items together
+  - Justification: The feature improves the usability of FitNus as users can group multiple food items together and add them all at once.
+  - Highlights: This feature was challenging to implement has it involved the integration of different classes such as `Ui`, `MealPlanDatabase`, `Parser` and `Storage`. Custom methods in the storage also needed to be implemented in order to save the meal plans to local storage. 
+  - Credits: The storage functionality of the Meal plan was a modified method of the one created originally by of @brendanlsz.
 ### Contributions to the UG:
 - Feature: Creating new meal plan, Adding existing meal plan in database, Listing meal plans in database, Adding new food to database.
 - I also contributed to the `Command summary` section of the UG.

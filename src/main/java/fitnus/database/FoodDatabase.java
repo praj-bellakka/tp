@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
  */
 public class FoodDatabase {
     private final ArrayList<Food> databaseFoods = new ArrayList<>();
-    private static final String DELIMITER = " | ";
 
     private static final String UTOWN_FOOD_LIST = "finefood - bbq beef set | 504 | MEAL\n"
             + "finefood - bbq chicken set | 510 | MEAL\n"
@@ -252,11 +251,12 @@ public class FoodDatabase {
      * @throws FitNusException If the keyword provided is an empty String.
      */
     public ArrayList<Food> findFoods(String keyword) throws FitNusException {
-        if (keyword.equals("")) {
+        String keywordSearch = keyword.trim();
+        if (keywordSearch.equals("")) {
             throw new FitNusException("Please provide a valid keyword");
         }
         return (ArrayList<Food>) databaseFoods.stream()
-                .filter(t -> t.getName().contains(keyword))
+                .filter(t -> t.getName().contains(keywordSearch))
                 .collect(Collectors.toList());
     }
 

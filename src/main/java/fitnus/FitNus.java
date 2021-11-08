@@ -169,7 +169,6 @@ public class FitNus {
         // Init
         Ui.printWelcomeMessage();
         initialiseFitNus();
-        Ui.printPreloadedData(foodDatabase, entryDatabase, mealPlanDatabase, user);
     }
 
 
