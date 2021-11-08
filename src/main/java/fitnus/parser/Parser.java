@@ -73,7 +73,7 @@ public class Parser {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_EXIT = "exit";
     private static final String SORT = "/sort";
-    private static final String SPACE = " ";
+    private static final String SPACE = "\\s+";
 
     //specific descriptors of the main command types
     private static final String DESCRIPTOR_CUSTOM = "/cust";
