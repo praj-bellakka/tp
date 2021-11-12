@@ -2,14 +2,27 @@
 
 ## Introduction
 
-FitNUS Tracker is a desktop app for tracking daily food intake to maintain a healthy lifestyle. 
-FitNUS has features and functionalities tailor-made just for you if you are a Computing Student
-living in University Town. FitNUS is run on the Command Line Interface (CLI).
+FitNUS is a desktop app for you to track your daily food intake 
+in order to maintain a healthy lifestyle and achieve your dietary goals!
+FitNUS is tailor-made just for you if you are a computing student 
+living in University Town (UTown), as it runs on the Command Line Interface (CLI) 
+and comes with a comprehensive built-in database of UTown food for your adding convenience. 
+With rich additional functionality such as weight tracking, 
+meal plans and calorie goal generation, FitNUS can provide for all of your
+health tracking needs and more! 
 
-Here is the list of sections we will be covering in this User Guide.
+As a new FitNUS user, you can get started with using FitNUS using this user guide,
+which provides a list of all the features that FitNUS comes with and elaborates
+on how each feature works so that you can operate FitNUS with ease. A command summary
+is also available at the end of the guide for your quick reference if needed.
 
-- [Quick Start](#quick-start)
+Here is the list of sections we will be covering in this user guide. Simply click on 
+each heading or subheading in the table of contents to navigate to your desired
+section.
+
+- [Notes About the User Guide](#notes-about-the-user-guide)
 - [Notes About FitNUS](#notes-about-fitnus)
+- [Quick Start](#quick-start)
 - [Features](#features)
   - [Entry Database](#entry-database)
     - [Adding food entry: `add`](#adding-food-entry-add)
@@ -47,24 +60,16 @@ Here is the list of sections we will be covering in this User Guide.
 - [Command Summary](#command-summary)
 
 ---
-## Quick Start
+## Notes About the User Guide
 
-1. Ensure that you have Java 11 installed in your computer. 
-2. Download the latest version of `fitNus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.1).
-3. Copy the file to the folder you want to use as the home folder for your FitNUS Tracker.
-4. Type the following command in your terminal to run this program:`java -jar FitNus.jar`
-5. If this is your first time using FitNUS, (i.e. users with incomplete or missing user data) 
-FitNUS will prompt you to set up your user profile by filling in some details.
-If you have successfully run the programme, you should see output similar to the screenshot below:
-
-
-![](diagrams-UG/launch.png)
+- The alert symbol (⚠️) denotes things that you should take note of when using
+  FitNUS or reading this user guide.
 
 ----- 
 
 ## Notes About FitNUS
 
-Before you begin using FitNUS, here are some things to note about the app.
+Before you begin using FitNUS, here are some things to note about the app:
 1. FitNUS features that allow the user to enter a custom name 
   are unable to handle special characters such as certain symbols
   as well as characters in other languages such as Chinese characters.
@@ -72,6 +77,31 @@ Before you begin using FitNUS, here are some things to note about the app.
   custom name. Do note that this may result in a blank name field if 
   all characters in the custom name were unable to be handled by 
   FitNUS.
+
+---
+## Quick Start
+
+1. Ensure that you have Java 11 installed in your computer.
+2. Download the latest version of `fitnus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.1).
+3. Copy the file into the folder you want to use as the home folder for FitNUS.
+4. Open your terminal, type the following command and then press Enter to run the
+program: `java -jar fitnus.jar`
+5. If this is your first time using FitNUS (i.e. you have incomplete or missing user data),
+   FitNUS will prompt you to set up your user profile by filling in some details.
+   If you have successfully run the programme, you should see output similar to the screenshot below:
+
+    ![](diagrams-UG/launch.png)
+
+6. Type a command in the terminal and press Enter to execute it. 
+e.g. typing help and pressing Enter will show a list of all commands and command formats.
+
+    Some commands you can try to get started:
+     - `add chicken`: Lets you find foods with the word "chicken" in them in the
+   built-in UTown food database and select a food to add to your food tracker.
+     - `list /entry`: Lists all entries in your food tracker.
+     - `weight /set`: Records your weight for the day in the weight tracker and updates your weight.
+     - `exit`: Exits the app.
+7. Refer to the [Features](#features) below for details about each command.
 
 ----
 
