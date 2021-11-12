@@ -497,6 +497,8 @@ Examples of usage:
 
 ### Personalisation
 
+TODO @ADELINE
+
 <p>&nbsp;</p>
 
 ####  Setting gender: `gender /set`
@@ -618,6 +620,9 @@ Sample output:
 -----
 
 ### Other
+
+FitNUS also has a wide range of other useful miscellaneous functionalities. From getting a quick summary 
+of what you've been eating to even suggesting you what food to eat based on your past calorie intake!
 
 <p>&nbsp;</p>
 
