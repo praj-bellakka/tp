@@ -604,6 +604,8 @@ handy feature, you can set your calorie goal, view
 how many calories you should consume for the rest of the day and 
 even generate a calorie goal according to your desired weight change.
 
+<p>&nbsp;</p>
+
 ####  Setting calorie goal: `calorie /set`
 Sets your calorie goal in kcal.
 
