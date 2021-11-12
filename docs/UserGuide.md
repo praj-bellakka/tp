@@ -45,10 +45,11 @@ section.
     - [Setting gender: `gender /set`](#setting-gender-gender-set)
     - [Setting height: `height /set`](#setting-height-height-set)
     - [Setting age: `age /set`](#setting-age-age-set)
+    - [Viewing user data: `list /user`](#viewing-user-data-list-user)
+  - [Calorie Goal](#calorie-goal)
     - [Setting calorie goal: `calorie /set`](#setting-calorie-goal-calorie-set)
     - [Generating and setting calorie goal: `calorie /generate`](#generating-and-setting-calorie-goal-calorie-generate)
     - [Viewing remaining calories for the day: `calorie /remain`](#viewing-remaining-calories-for-the-day-calorie-remain)
-    - [Viewing user data: `list /user`](#viewing-user-data-list-user)
   - [Other](#other)
     - [Viewing help: `help`](#viewing-help-help)
     - [Viewing statistics: `summary`](#view-statistics-summary)
@@ -274,6 +275,10 @@ Example of usage:
 
 ### Food Database
 
+The food database is used to store food items and their calorie values. You can
+delete foods that you don't like, search for those you like, or 
+simply list them all out.
+
 <p>&nbsp;</p>
 
 #### Deleting food: `remove /food`
@@ -321,6 +326,10 @@ Sample output:
 ---- 
 
 ### Meal Plan Database
+
+The meal plan database is used to store your very own custom meal plans. 
+Not only can you craft and customise
+personalised meal plans, you can also view them all in one glance.
 
 <p>&nbsp;</p>
 
@@ -423,6 +432,10 @@ Sample output:
 ---- 
 
 ### Weight Tracker
+The weight tracker lets you update your daily weight
+and stores these daily weight records.
+Visualise the fruits of your labor as you
+head towards your goal weight! 
 
 #### Recording weight: `weight /set`
 Updates your current weight as well as 
@@ -481,6 +494,13 @@ Examples of usage:
 
 ### Personalisation
 
+The personalisation feature lets you edit your user profile any time you like!
+If you've made a mistake when
+entering your details during profile set up or
+would like to reflect any changes in your
+details, simply use the following commands
+to set your gender, height and age again. You can also
+view your user profile using this feature.
 
 <p>&nbsp;</p>
 
@@ -527,6 +547,25 @@ Sample output:
 ![img](diagrams-UG/set-age.png)
 
 <p>&nbsp;</p>
+
+#### Viewing user data: `list /user`
+View your personal user data including gender, age, weight, height and calorie goal.
+
+Format: `list /user`
+
+Sample output:
+
+![img](diagrams-UG/list-user.png)
+
+<p>&nbsp;</p>
+
+### Calorie Goal
+
+The calorie goal feature guides you in making your everyday food decisions
+for you to achieve your goal weight! With this
+handy feature, you can set your calorie goal, view
+how many calories you should consume for the rest of the day and 
+even generate a calorie goal according to your desired weight change.
 
 ####  Setting calorie goal: `calorie /set`
 Sets your calorie goal in kcal.
@@ -589,20 +628,12 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### Viewing user data: `list /user`
-View your personal user data including gender, age, weight, height and calorie goal.
-
-Format: `list /user`
-
-Sample output:
-
-![img](diagrams-UG/list-user.png)
-
-<p>&nbsp;</p>
-
 -----
 
 ### Other
+
+FitNUS also has a wide range of other useful miscellaneous functionalities. From getting a quick summary 
+of what you've been eating to even suggesting you what food to eat based on your past calorie intake!
 
 <p>&nbsp;</p>
 
