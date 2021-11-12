@@ -70,8 +70,8 @@ section.
 ## Notes About FitNUS
 
 Before you begin using FitNUS, here are some things to note about the app:
-1. FitNUS features that allow the user to enter a custom name 
-  are unable to handle special characters such as certain symbols
+1. Due to platform limitations, FitNUS features that allow the user to enter a 
+  custom name are unable to handle special characters such as certain symbols
   as well as characters in other languages such as Chinese characters.
   When such characters are detected, FitNUS will omit them from the 
   custom name. Do note that this may result in a blank name field if 
@@ -81,6 +81,7 @@ Before you begin using FitNUS, here are some things to note about the app:
 ---
 ## Quick Start
 
+Here are some steps you can take to quickly get started with using FitNUS.
 1. Ensure that you have Java 11 installed in your computer.
 2. Download the latest version of `fitnus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.1).
 3. Copy the file into the folder you want to use as the home folder for FitNUS.
@@ -106,12 +107,18 @@ e.g. typing help and pressing Enter will show a list of all commands and command
 ----
 
 ## Features
+
+This section details the features that FitNUS is equipped with
+and the corresponding commands for each feature. Simply refer to the section
+for each command to find out what it does, how to use it and some 
+simple usage examples.
+
 > **⚠️ Notes about command format**
 > 
-> - Words in **UPPER_CASE** are the parameters to be inputted by you!
+> - Words in **UPPER_CASE** are the parameters to be inputted by you,
 
 >  e.g. in `add /bfast FOOD_NAME`, FOOD_NAME is a parameter that can be substituted as `add /bfast burgers`.
-> - Items in **[Square brackets]** are optional!
+> - Items in **[Square brackets]** are optional, 
 
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
 
@@ -121,11 +128,14 @@ e.g. typing help and pressing Enter will show a list of all commands and command
 
 ### Entry Database
 
-<p>&nbsp;</p>
+The entry database is used to store all of your daily food entries. You can
+add, edit and delete entries, create custom meal plans for convenient entry adding
+and even search for entries using specific keywords. 
+
 
 #### Adding food entry: `add`
-Adds an entry to the Entry Database. You will also be prompted to fill in any additional information if the
-food you requested was not found in the food database. 
+Adds an entry to the entry database. You will also be prompted to fill in 
+any additional information if the food you requested was not found in the food database. 
 
 Format: `add [/MEALTYPE] FOOD_NAME`
 
@@ -159,7 +169,8 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Adding meal plan entry: `add /mealplan`
-Adds all food items under a meal plan to the entry database. To add a meal plan, there needs to be at least 1 meal plan inside the meal plan database. 
+Adds a meal plan (i.e. adds several food items) to the entry database.
+Make sure to create some meal plans first before using this command! 
 Click [here](#creating-meal-plan-by-adding-food-create-mealplan) 
 to find out how to create a meal plan.  
 
@@ -189,15 +200,19 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Editing existing food entry: `edit`
-Edits an existing entry's food information. FitNUS will search for FOOD_NAME in the food database 
-and update the specified entry's food details accordingly.
+Edits an existing entry's food information.
+This command is especially useful for when you have entered an entry
+with the wrong food by mistake!
+FitNUS will search for the requested food in the food database 
+and update the specified entry's food details accordingly. 
+
 
 Format: `edit INDEX_OF_ENTRY FOOD_NAME`
 > **⚠️ Notes about `INDEX_OF_ENTRY`**
 >
 > INDEX_OF_ENTRY refers to the index of the entry shown when command `list /entry` is used.
 
-* If there are any pre-set food that matches `FOOD_NAME`, you can do one of the following:
+* If any foods in the food database match `FOOD_NAME`, you can do one of the following:
     * Select which food you would like to add
     * Create your own custom food
 
@@ -211,7 +226,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Deleting food entry: `remove /entry`
-Deletes an entry from the Entry Database.
+Deletes an entry from the entry database.
 
 Format: `remove /entry INDEX_OF_ENTRY`
 
@@ -233,7 +248,7 @@ Format: `list /entry [/TIMEFRAME]`
 
 > **⚠️ Notes about omitting `TIMEFRAME`**
 >
-> Command will list out **ALL** available food entries.
+> When `TIMEFRAME` is omitted, **ALL** available food entries will be listed!
 
 Example of usage:
 `list /entry /week`
@@ -243,7 +258,7 @@ Example of usage:
 <p>&nbsp;</p>
 
 #### Searching for food entries with keyword: `find /entry`
-Finds all matching entries in the Entry Database based on the keyword you provided.
+Finds all matching entries in the entry database based on the keyword you provided.
 
 Format: `find /entry KEYWORD`
 
@@ -263,7 +278,7 @@ Example of usage:
 
 #### Deleting food: `remove /food`
 
-Deletes a specified food from the Food Database.
+Deletes a specified food from the food database.
 
 Format: `remove /food INDEX_OF_FOOD`
 
@@ -277,7 +292,7 @@ Sample output:
 
 #### Searching for foods with keyword: `find /food`
 
-Finds all matching foods in the Food Database based on the keyword you provided.
+Finds all matching foods in the food database based on the keyword you provided.
 
 Format: `find /food KEYWORD`
 
@@ -291,7 +306,7 @@ Sample output:
 
 #### Listing foods in food database: `list /food`
 
-Lists out all foods in the Food Database.
+Lists out all foods in the food database.
 
 Format: `list /food`
 
