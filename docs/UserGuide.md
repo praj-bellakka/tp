@@ -277,6 +277,9 @@ Example of usage:
 
 ### Food Database
 
+The food database is used to store your wide range of foods. You can
+delete foods that you don't like, search for those you like, or even just list them all out.
+
 <p>&nbsp;</p>
 
 #### Deleting food: `remove /food`
@@ -324,6 +327,9 @@ Sample output:
 ---- 
 
 ### Meal Plan Database
+
+The meal plan database is used to store your very own custom meal plans. Not only can you craft and customise
+personalised meal plans, you can also view them all in one glance if you want to.
 
 <p>&nbsp;</p>
 
@@ -430,6 +436,9 @@ Sample output:
 ---- 
 
 ### Weight Tracker
+
+The weight tracker is used to keep all records of your weight entries. Visualise the fruits of your labor as you
+head toward your weight goal! Update your daily weight now and look back in the future how far you've come. 
 
 #### Recording weight: `weight /set`
 Updates your current weight as well as 
