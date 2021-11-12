@@ -126,10 +126,10 @@ simple usage examples.
 > **⚠️ Notes about command format**
 > 
 > - Words in **UPPER_CASE** are the parameters to be inputted by you,
-
+>
 >  e.g. in `add /bfast FOOD_NAME`, FOOD_NAME is a parameter that can be substituted as `add /bfast burgers`.
 > - Items in **[Square brackets]** are optional, 
-
+>
 >  e.g. `add [/MEALTYPE] FOOD_NAME` can be used as `add /lunch sandwiches` or `add sandwiches`.
 
 <p>&nbsp;</p>
