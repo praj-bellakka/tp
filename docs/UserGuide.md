@@ -62,7 +62,7 @@ section.
 
 ---
 ## Notes About the User Guide
-This guide explains how you can use all the features available on FitNUS and maximises your user experience.
+This guide explains how you can use all the features available on FitNUS and maximise your user experience.
 
 FitNUS was developed with modern-day computing students in mind as our target audience. As a result, users are expected to have a basic level of experience using computers, and preferably, a CLI.
 
@@ -71,7 +71,7 @@ However, do not fret if you have not used a CLI application before, as we have p
 Throughout this user guide, we will be using the following styles and terminologies:
 - The alert symbol (⚠️) denotes things that you should take note of when using
   FitNUS or reading this user guide.
-- Text with a `highlight` indicates code that can be entered by you into the app.
+- Text with a `highlight` indicate code that can be entered by you into the app.
 - Text in **bold** indicate important information.
 
 Each command that can be entered by you is accompanied by an example. A screenshot has been provided for every command. The layout of the screenshots provided below is as such:
@@ -93,7 +93,7 @@ Due to platform limitations, FitNUS features that allow the user to enter a
 ## Quick Start
 
 Here are some steps you can take to quickly get started with using FitNUS.
-1. Ensure that you have Java 11 installed in your computer.
+1. Ensure that you have Java 11 installed on your computer.
 2. Download the latest version of `fitnus.jar` from [here](https://github.com/AY2122S1-CS2113T-W12-1/tp/releases/tag/V2.1).
 3. Copy the file into the folder you want to use as the home folder for FitNUS.
 4. Open your terminal, type the following command and then press Enter to run the
@@ -158,7 +158,7 @@ Format: `add [/MEALTYPE] FOOD_NAME`
 
 > **⚠️ Notes about omitting `MEALTYPE`**
 >
-> - The `MEALTYPE` will be automatically added based on the current time, if it is not explicitly specified based on the following criteria:
+> - The `MEALTYPE` will be automatically added based on the current time if it is not explicitly specified based on the following criteria:
 >   - Breakfast: 6am to 10am
 >   - Lunch: 11am to 2pm
 >   - Dinner: 6pm to 9pm
@@ -212,7 +212,7 @@ Sample output:
 
 #### Editing existing food entry: `edit`
 Edits an existing entry's food information.
-This command is especially useful for when you have entered an entry
+This command is especially useful when you have entered an entry
 with the wrong food by mistake!
 FitNUS will search for the requested food in the food database 
 and update the specified entry's food details accordingly. 
@@ -339,7 +339,7 @@ Sample output:
 
 The meal plan database is used to store your very own custom meal plans. 
 Not only can you craft and customise
-personalised meal plans, you can also view them all in one glance.
+personalised meal plans, but you can also view them all in one glance.
 
 <p>&nbsp;</p>
 
@@ -360,19 +360,6 @@ how this works.
 >
 > `NAME_OF_MEALPLAN` must be at least 1 character in length. 
 > Pipe characters ("|") will be automatically removed if included.
-=======
-You can create a custom meal plan by adding existing food items inside the food database to the meal plan. A meal plan consists of a name and a list of food items. 
-In order to create a meal plan, you must add at least 1 food item to the plan. Meal plans will allow you to quickly add multiple food items into the entry database.
-
-Format: `create /mealplan NAME_OF_MEALPLAN`
-
-Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food items inside the database. You will then be prompted to input the indexes of the foods you want to include inside the meal plan. A visual walkthrough has been shown below.
-
-> **⚠️ Notes about `NAME_OF_MEALPLAN`**
->
-> `NAME_OF_MEALPLAN` must be at least 1 character long. 
-> Pipe Characters ("|") will be automatically removed if included.
->>>>>>> master
 
 > **⚠️ Notes about adding food items to meal plan**
 >
@@ -586,7 +573,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Viewing user data: `list /user`
-View your personal user data including gender, age, weight, height and calorie goal.
+Shows your personal user data including gender, age, weight, height and calorie goal.
 
 Format: `list /user`
 
@@ -688,7 +675,7 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### View statistics: `summary`
+#### Viewing statistics: `summary`
 Shows you a summary of your diet within a certain timeframe.
 FitNUS supports two kinds of diet reports:
 
