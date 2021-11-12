@@ -11,7 +11,7 @@ With rich additional functionality such as weight tracking,
 meal plans and calorie goal generation, FitNUS can provide for all of your
 health tracking needs and more! 
 
-As a new FitNUS user, you can get started with using FitNUS using this user guide,
+As a new FitNUS user, you can get started with using FitNUS by using this user guide,
 which provides a list of all the features that FitNUS comes with and elaborates
 on how each feature works so that you can operate FitNUS with ease. A command summary
 is also available at the end of the guide for your quick reference if needed.
@@ -45,10 +45,11 @@ section.
     - [Setting gender: `gender /set`](#setting-gender-gender-set)
     - [Setting height: `height /set`](#setting-height-height-set)
     - [Setting age: `age /set`](#setting-age-age-set)
+    - [Viewing user data: `list /user`](#viewing-user-data-list-user)
+  - [Calorie Goal](#calorie-goal)
     - [Setting calorie goal: `calorie /set`](#setting-calorie-goal-calorie-set)
     - [Generating and setting calorie goal: `calorie /generate`](#generating-and-setting-calorie-goal-calorie-generate)
     - [Viewing remaining calories for the day: `calorie /remain`](#viewing-remaining-calories-for-the-day-calorie-remain)
-    - [Viewing user data: `list /user`](#viewing-user-data-list-user)
   - [Other](#other)
     - [Viewing help: `help`](#viewing-help-help)
     - [Viewing statistics: `summary`](#view-statistics-summary)
@@ -61,16 +62,26 @@ section.
 
 ---
 ## Notes About the User Guide
+This guide explains how you can use all the features available on FitNUS and maximises your user experience.
 
+FitNUS was developed with modern-day computing students in mind as our target audience. As a result, users are expected to have a basic level of experience using computers, and preferably, a CLI.
+
+However, do not fret if you have not used a CLI application before, as we have provided an extensive set of instructions to get you started with FitNUS in [this section](#quick-start) below!
+
+Throughout this user guide, we will be using the following styles and terminologies:
 - The alert symbol (⚠️) denotes things that you should take note of when using
   FitNUS or reading this user guide.
+- Text with a `highlight` indicates code that can be entered by you into the app.
+- Text in **bold** indicate important information.
 
+Each command that can be entered by you is accompanied by an example. A screenshot has been provided for every command. The layout of the screenshots provided below is as such:
+
+![img_2.png](img_2.png)
 ----- 
 
 ## Notes About FitNUS
 
-Before you begin using FitNUS, here are some things to note about the app:
-1. Due to platform limitations, FitNUS features that allow the user to enter a 
+Due to platform limitations, FitNUS features that allow the user to enter a 
   custom name are unable to handle special characters such as certain symbols
   as well as characters in other languages such as Chinese characters.
   When such characters are detected, FitNUS will omit them from the 
@@ -274,6 +285,10 @@ Example of usage:
 
 ### Food Database
 
+The food database is used to store food items and their calorie values. You can
+delete foods that you don't like, search for those you like, or 
+simply list them all out.
+
 <p>&nbsp;</p>
 
 #### Deleting food: `remove /food`
@@ -322,10 +337,13 @@ Sample output:
 
 ### Meal Plan Database
 
+The meal plan database is used to store your very own custom meal plans. 
+Not only can you craft and customise
+personalised meal plans, you can also view them all in one glance.
+
 <p>&nbsp;</p>
 
 #### Creating meal plan by adding food: `create /mealplan`
-<<<<<<< HEAD
 Creates a custom meal plan that consists of several food items.
 Do note that the food items you want to add to the meal plan 
 must already exist in the database! Meal plans must consist of at least 
@@ -449,6 +467,10 @@ Sample output:
 ---- 
 
 ### Weight Tracker
+The weight tracker lets you update your daily weight
+and stores these daily weight records.
+Visualise the fruits of your labor as you
+head towards your goal weight! 
 
 #### Recording weight: `weight /set`
 Updates your current weight as well as 
@@ -509,6 +531,14 @@ Examples of usage:
 
 ### Personalisation
 
+The personalisation feature lets you edit your user profile any time you like!
+If you've made a mistake when
+entering your details during profile set up or
+would like to reflect any changes in your
+details, simply use the following commands
+to set your gender, height and age again. You can also
+view your user profile using this feature.
+
 <p>&nbsp;</p>
 
 ####  Setting gender: `gender /set`
@@ -554,6 +584,25 @@ Sample output:
 ![img](diagrams-UG/set-age.png)
 
 <p>&nbsp;</p>
+
+#### Viewing user data: `list /user`
+View your personal user data including gender, age, weight, height and calorie goal.
+
+Format: `list /user`
+
+Sample output:
+
+![img](diagrams-UG/list-user.png)
+
+<p>&nbsp;</p>
+
+### Calorie Goal
+
+The calorie goal feature guides you in making your everyday food decisions
+for you to achieve your goal weight! With this
+handy feature, you can set your calorie goal, view
+how many calories you should consume for the rest of the day and 
+even generate a calorie goal according to your desired weight change.
 
 ####  Setting calorie goal: `calorie /set`
 Sets your calorie goal in kcal.
@@ -616,20 +665,12 @@ Sample output:
 
 <p>&nbsp;</p>
 
-#### Viewing user data: `list /user`
-Lists your user profile data (gender, age, weight, height and calorie goal).
-
-Format: `list /user`
-
-Sample output:
-
-![img](diagrams-UG/list-user.png)
-
-<p>&nbsp;</p>
-
 -----
 
 ### Other
+
+FitNUS also has a wide range of other useful miscellaneous functionalities. From getting a quick summary 
+of what you've been eating to even suggesting you what food to eat based on your past calorie intake!
 
 <p>&nbsp;</p>
 
