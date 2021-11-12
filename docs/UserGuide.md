@@ -145,24 +145,22 @@ Format: `add [/MEALTYPE] FOOD_NAME`
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
 
-  > **⚠️ Notes about omitting `MEALTYPE`**
-  >
-  > - The `MEALTYPE` will be automatically added based on the current time if not specified
-    in the command, based on the following criteria:
-  >  - Breakfast: 6am to 10am
-  >  - Lunch: 11am to 2pm
-  >  - Dinner: 6pm to 9pm
-  >  - Snack: Remaining time
-  > 
-  > - **If a slash character ("/") is written as the first character of the food name when omitting the `MEALTYPE`, the app will reject the input!**
-  >
-  >   Eg. The input `add /rice noodles` will be rejected, whereas the input `add /bfast /rice noodles` will be accepted.
+> **⚠️ Notes about omitting `MEALTYPE`**
+>
+> - The `MEALTYPE` will be automatically added based on the current time, if it is not explicitly specified based on the following criteria:
+>   - Breakfast: 6am to 10am
+>   - Lunch: 11am to 2pm
+>   - Dinner: 6pm to 9pm
+>   - Snack: Remaining time
+> 
+> - **If a forward-slash character ("/") is written as the first character of the FOOD_NAME and `MEALTYPE` has not been specified, the app will reject the input!**
+>  - Eg. The input `add /rice noodles` will be rejected, whereas the input `add /bfast /rice noodles` will be accepted.
 
-* If any foods in the food database match `FOOD_NAME`, you can do one of the following:
-    * Select which food you would like to add 
-    * Create your own custom food to add
+* If there are any pre-set food that matches `FOOD_NAME`, you can do one of the following:
+    * Select which food you would like to add
+    * Create your own custom food
     
-Examples of usage: `add /bfast chocolate`
+Examples of usage: `add /bfast chicken cutlet`
 
 Sample output:
 
@@ -184,8 +182,7 @@ Format: `add /mealplan [/MEALTYPE] INDEX_OF_MEALPLAN`
   * `dinner` - to denote dinner
   * `snack` - to denote snacks
 
-If a MEALTYPE is not specified, FitNUS will automatically tag the meal based on the 
-current time.
+If a `MEALTYPE` is not specified, FitNUS will automatically tag the meal based on the current time.
 
 > **⚠️ Notes about `INDEX_OF_MEALPLAN`**
 >
@@ -328,21 +325,17 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Creating meal plan by adding food: `create /mealplan`
-Creates a custom meal plan that consists of several food items.
-
-
-inside the food database to 
-the meal plan. A meal plan consists of a name, and a list of Food items. 
-In order to create a meal plan, you must add at least 1 food item to the plan. 
+You can create a custom meal plan by adding existing food items inside the food database to the meal plan. A meal plan consists of a name and a list of food items. 
+In order to create a meal plan, you must add at least 1 food item to the plan. Meal plans will allow you to quickly add multiple food items into the entry database.
 
 Format: `create /mealplan NAME_OF_MEALPLAN`
 
-Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside the database and will be prompted to input the indexes of the foods you want to include inside the meal plan. A visual walkthrough has been shown below.
+Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food items inside the database. You will then be prompted to input the indexes of the foods you want to include inside the meal plan. A visual walkthrough has been shown below.
 
 > **⚠️ Notes about `NAME_OF_MEALPLAN`**
 >
-> `NAME_OF_MEALPLAN` must be at least 1 character in length. 
-> Pipe Characters ("|") will be automatically be removed if included.
+> `NAME_OF_MEALPLAN` must be at least 1 character long. 
+> Pipe Characters ("|") will be automatically removed if included.
 
 > **⚠️ Notes about adding food items to meal plan**
 >
@@ -370,7 +363,7 @@ Input 1: `create /mealplan supper plan`
 
 Input 2: `1 89 abc` 
 
-- Input index `89` is not valid as it is outside the range of the food database.
+- Input `89` is not valid as it is outside the range of the food database.
 - Input `abc` is not valid as it is not an integer.
 
 
@@ -388,7 +381,7 @@ Input 1: `create /mealplan supper plan`
 Input 2: `blah -100`
 
 - Input `blah` is not valid as it is not an integer.
-- Input index `-100` is not valid as it is outside the range of the food database.
+- Input `-100` is not valid as it is outside the range of the food database.
 
 
 Sample output:
