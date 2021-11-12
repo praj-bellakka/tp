@@ -11,7 +11,7 @@ With rich additional functionality such as weight tracking,
 meal plans and calorie goal generation, FitNUS can provide for all of your
 health tracking needs and more! 
 
-As a new FitNUS user, you can get started with using FitNUS using this user guide,
+As a new FitNUS user, you can get started with using FitNUS by using this user guide,
 which provides a list of all the features that FitNUS comes with and elaborates
 on how each feature works so that you can operate FitNUS with ease. A command summary
 is also available at the end of the guide for your quick reference if needed.
@@ -61,16 +61,26 @@ section.
 
 ---
 ## Notes About the User Guide
+This guide explains how you can use all the features available on FitNUS and maximises your user experience.
 
+FitNUS was developed with modern-day computing students in mind as our target audience. As a result, users are expected to have a basic level of experience using computers, and preferably, a CLI.
+
+However, do not fret if you have not used a CLI application before, as we have provided an extensive set of instructions to get you started with FitNUS in [this section](#quick-start) below!
+
+Throughout this user guide, we will be using the following styles and terminologies:
 - The alert symbol (⚠️) denotes things that you should take note of when using
   FitNUS or reading this user guide.
+- Text with a `highlight` indicates code that can be entered by you into the app.
+- Text in **bold** indicate important information.
 
+Each command that can be entered by you is accompanied by an example. A screenshot has been provided for every command. The layout of the screenshots provided below is as such:
+
+![img_2.png](img_2.png)
 ----- 
 
 ## Notes About FitNUS
 
-Before you begin using FitNUS, here are some things to note about the app:
-1. FitNUS features that allow the user to enter a custom name 
+FitNUS features that allow the user to enter a custom name 
   are unable to handle special characters such as certain symbols
   as well as characters in other languages such as Chinese characters.
   When such characters are detected, FitNUS will omit them from the 
