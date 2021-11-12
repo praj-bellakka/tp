@@ -385,7 +385,7 @@ Input 2: `1 89 abc`
 
 Sample output:
 
-![img_4.png](diagrams-UG/createMealPlanP4.png)
+![img_4.png](diagrams-UG/img_16.png)
 
 ![img_13.png](diagrams-UG/img_13.png)
 
@@ -402,7 +402,7 @@ Input 2: `blah -100`
 
 Sample output:
 
-![img_4.png](diagrams-UG/createMealPlanP4.png)
+![img_4.png](diagrams-UG/img_16.png)
 
 ![img_14.png](diagrams-UG/img_14.png)
 
