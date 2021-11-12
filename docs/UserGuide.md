@@ -329,24 +329,27 @@ Sample output:
 
 #### Creating meal plan by adding food: `create /mealplan`
 Creates a custom meal plan that consists of several food items.
-
-
-inside the food database to 
-the meal plan. A meal plan consists of a name, and a list of Food items. 
-In order to create a meal plan, you must add at least 1 food item to the plan. 
+Do note that the food items you want to add to the meal plan 
+must already exist in the database! Meal plans must consist of at least 
+one food item.
 
 Format: `create /mealplan NAME_OF_MEALPLAN`
 
-Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside the database and will be prompted to input the indexes of the foods you want to include inside the meal plan. A visual walkthrough has been shown below.
+Once a valid `NAME_OF_MEALPLAN` has been added, you will be shown a list of food inside 
+the database and prompted to input the indexes of the foods you want to include inside 
+the meal plan. You can refer to the usage examples below for a simple walk-through of 
+how this works.
 
 > **⚠️ Notes about `NAME_OF_MEALPLAN`**
 >
 > `NAME_OF_MEALPLAN` must be at least 1 character in length. 
-> Pipe Characters ("|") will be automatically be removed if included.
+> Pipe characters ("|") will be automatically removed if included.
 
 > **⚠️ Notes about adding food items to meal plan**
 >
-> Only valid indexes entered will be parsed. The `index` MUST be an integer value and within the range of food items displayed. Invalid indexes will be ignored as shown below.
+> Only valid indexes entered will be processed! The `index` must be an integer value and 
+> refer to one of the food items listed in the database. 
+> Invalid indexes will be ignored (as shown below).
 
 **Examples of usage:**
 
@@ -399,13 +402,15 @@ Sample output:
 
 > **⚠️ Notes about duplicate meal plans**
 >
-> Duplicate meal plans are allowed as restricting either the name or the food added to a meal plan would not improve the usability of the app.
+> You can create duplicate meal plans! FitNUS does not restrict either the 
+> name or the food items added to a meal plan in order to avoid detracting
+> from the functionality of the app. 
 
 <p>&nbsp;</p>
 
 
 #### Listing meal plan entries: `list /mealplan`
-Lists out all meal plans entered. Each individual meal plan along with its associated food items are listed as shown below.
+Lists out all meal plans along with each meal plan's associated food items.
 
 Format: `list /mealplan`
 
@@ -423,7 +428,10 @@ Sample output:
 > **⚠️ Notes about meal plans**
 >
 > 1. Meal plans are still a work in progress! FitNUS will add the ability to delete meal plans in a future update. For now, meal plans are permanent once added and thus, cannot be deleted.
-> 2. Meal plans do not affect the actual food databases! Adding meal plans which contain a deleted food item will still add the food to the entry database. However, don't worry, the food will not be added to your food database!
+> 2. Meal plans are not affected by the food database! Adding meal plans which 
+     contain a food item that was deleted from the food database 
+     will still add the food to the entry database. Do note that doing so will not
+      add the food to the food database again!
 
 <p>&nbsp;</p>
 
@@ -441,11 +449,13 @@ Format: `weight /set WEIGHT`
 
 > **⚠️ Notes about recording weight**
 >- If you have already recorded your weight for the day, recording the weight again
-  will override the previous weight record for the day instead of creating a new record.
+  will override the previous weight record for the day instead of creating a new record!
+  This is because the tracker only tracks daily weight changes.
 >- If `WEIGHT` is entered as a number with more than 1 decimal place, the weight will be
-> rounded to 1 decimal place (note that if the next digit is 5, it rounds down instead of up).
+> rounded to 1 decimal place 
+   >   - Note: If the next digit is 5, it rounds _down_ instead of up!
 > - If `WEIGHT` is entered as a number that will be rounded down to 0.0 according to the rounding
-> system described above, it will not be accepted as a positive number.
+> system described above, it will **not** be accepted as a positive number!
 
 Example of usage:
 
@@ -460,7 +470,7 @@ Sample output:
 
 #### Listing weight records: `list /weight`
 Lists weight records within a certain timeframe (either 
-all weight records from when the user started using the app
+all weight records from when you started using the app
 or weight records in a particular month in 
 the current year). 
 
@@ -472,13 +482,13 @@ Format:
 
 Examples of usage:
 
-1. List weight progress since the start of using FitNUS `list /weight /all`
+1. Lists your weight progress since the start of using FitNUS `list /weight /all`
    - Sample output:
    
     ![img_2.png](diagrams-UG/img_2.png)
 
-2. List weight progress in a certain month in the current year: `list /weight /month 3`
-   - Sample Output:
+2. Lists your weight progress in a certain month in the current year: `list /weight /month 3`
+   - Sample output:
 
     ![img_8.png](diagrams-UG/img_8.png)
 
@@ -544,7 +554,7 @@ Format: `calorie /set CALORIE_GOAL`
     (according to your height,
   weight, gender and age) that is within the recommended healthy amount of weight loss or gain
   per week. You cannot set a goal that is not within the healthy range of daily calorie
-  intake for your body type.
+  intake for your body type!
 
 Example of usage:`calorie /set 2000`
 
@@ -556,8 +566,8 @@ Sample output:
 
 ####  Generating and setting calorie goal: `calorie /generate`
 Generates and sets a calorie goal based on your
-target weight loss/gain per week, age, height, 
-weight and gender using the Harris-Benedict equation.
+target weight loss or gain per week, age, height, 
+weight and gender.
 
 Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
@@ -568,8 +578,8 @@ Format: `calorie /generate /CHANGE_TYPE WEEKLY_CHANGE_IN_KG`
 
 > **⚠️ Notes about calorie goal generation**
 >
-> * The weekly change must be less than 1.0 kg 
-> according to the recommended amount of weight that can be 
+> * Your desired weekly change must be less than 1.0 kg to remain within
+> the recommended amount of weight that can be 
 > lost or gained per week in a safe and healthy manner. 
 > * If the weekly change entered is less than 0.01 kg, 
 > it will be treated as a negligible weekly change and instead generate 
@@ -596,7 +606,7 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Viewing user data: `list /user`
-View your personal user data including gender, age, weight, height and calorie goal.
+Lists your user profile data (gender, age, weight, height and calorie goal).
 
 Format: `list /user`
 
@@ -625,10 +635,11 @@ Sample output:
 <p>&nbsp;</p>
 
 #### View statistics: `summary`
+Shows you a summary of your diet within a certain timeframe.
 FitNUS supports two kinds of diet reports:
 
 ##### Weekly report
-Weekly report gives you an overview of your diet over the past 7 days, which includes:
+The weekly report gives you an overview of your diet over the past 7 days, which includes:
 - Graph of daily calorie intake
 - Average calorie intake
 - Most frequently eaten foods
@@ -643,7 +654,7 @@ Sample output:
 <p>&nbsp;</p>
 
 ##### Monthly report
-Monthly report gives you an overview of your diet over the current month, which includes:
+The monthly report gives you an overview of your diet over the current month, which includes:
 - Average calorie intake
 - Most frequently eaten foods
 - Least frequently eaten foods
@@ -657,44 +668,51 @@ Sample output:
 <p>&nbsp;</p>
 
 #### Getting food suggestions: `suggest`
-Provides food suggestions for you by filtering food items in the database based on food type 
+Provides you with food suggestions by filtering food items in the database based on food type 
 (meal, snack, beverage, others) that if consumed, will not exceed your daily calorie goal.
 
 Format: `suggest /FOODTYPE [/sort]`
+- The `FOODTYPE` can be of the following 4 types:
+  - `meal`
+  - `snack`
+  - `beverage`
+  - `others`
+- Appending `/sort` will sort the suggestions by calorie value in
+ ascending order
 
-> **_NOTE:_** FOODTYPE is one of: `meal` / `snack` / `beverage` / `others`
+Example of usage:
 
-> **_NOTE:_** Appending `/sort` will sort the suggestions by calorie value in
-> ascending order (optional)
+1. Suggests a meal: `suggest /meal`
+   - Sample output:
+
+      ![](diagrams-UG/suggest_meal.png)
 
 
-Example of usage: `suggest /meal` `suggest /snack /sort`
-
-Sample output:
-
-![](diagrams-UG/suggest_meal.png)
-
-![](diagrams-UG/suggest_snack_sort.png)
+2. Suggests a snack and sorts the suggestions by calorie vale in ascending order: `suggest /snack /sort`
+   - Sample output:
+   
+      ![](diagrams-UG/suggest_snack_sort.png)
 
 <p>&nbsp;</p>
 
 #### Saving data
 
 Application data is saved whenever any data is added or modified. 
-This process is automatic, so no user input is needed for this.
+You do not have to input any commands to do this as FitNUS does it automatically for 
+you!
 
 <p>&nbsp;</p>
 
 #### Loading data
 
-Application data is automatically loaded from text files within the data folder upon startup. 
+Application data is automatically loaded from the text files in the data folder upon startup. 
 
-If data is successfully loaded upon startup, you will see messages similar to the following:
+If data is successfully loaded upon startup, you should see output similar to the one shown below:
 
 ![](diagrams-UG/storage_load.png)
 
-However, if files are missing, FitNUS will create the necessary files for you.
-Then, you will see messages similar to the following:
+If files are missing, FitNUS will create the necessary files for you!
+When this happens, you should see output similar to the one shown below:
 
 ![](diagrams-UG/storage_load_no_files.png)
 
